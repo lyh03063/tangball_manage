@@ -16,3 +16,22 @@ Mock.mock('/api/articleList', function(){
     return {b:2}
 
 })
+
+Mock.mock('/textCategory', function(){
+  let textCategoryList =[
+    {P1:1,name:"唐球规则",explin:"关于唐球的各项规则说明",articleNumber:"3",
+    article:[{title:"文章分类唐球规则下的文章一",text:"这是一篇文章"},
+    {title:"文章分类唐球规则下的文章二",text:"这是一篇文章"},
+    {title:"文章分类唐球规则下的文章三",text:"这是一篇文章"},]},
+    {P1:2,name:"比赛说明",explin:"关于唐球比赛的各项规则说明",articleNumber:"3",
+    article:[{title:"文章分类比赛说明下的文章一",text:"这是一篇文章"},
+    {title:"文章分类比赛说明下的文章二",text:"这是一篇文章"},
+    {title:"文章分类比赛说明下的文章三",text:"这是一篇文章"},]},
+    {P1:3,name:"推广赞助",explin:"关于唐球的推广赞助的说明",articleNumber:"3",
+    article:[{title:"文章分类推广赞助下的文章一",text:"这是一篇文章"},
+    {title:"文章分类推广赞助下的文章二",text:"这是一篇文章"},
+    {title:"文章分类推广赞助下的文章三",text:"这是一篇文章"},]},
+  ]
+  return textCategoryList
+
+})
