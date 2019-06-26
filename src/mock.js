@@ -16,8 +16,8 @@ Mock.mock('/api/test', function(){
     return {b:2}
 
 })
-
-Mock.mock('/textCategory', function(){
+//文章分类接口
+Mock.mock('/listArticleCategory', function(){
   let textCategoryList =[
     {P1:1,name:"唐球规则",explin:"关于唐球的各项规则说明",articleNumber:"3",
     article:[{title:"文章分类唐球规则下的文章一",text:"这是一篇文章"},
