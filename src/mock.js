@@ -12,7 +12,7 @@ const userData = () => {
 Mock.mock('/api/users', userData)
 
 
-Mock.mock('/api/test', function(){
+Mock.mock('/api/articleList', function(){
     return {b:2}
 
 })
