@@ -12,9 +12,19 @@ const userData = () => {
 Mock.mock('/api/users', userData)
 
 
-Mock.mock('/api/articleList', function(){
-    return {b:2}
-
+Mock.mock('/articleList', function(){
+  let articleList = [
+    {
+      P1: 1, articleTitle: "关于唐球的各项规则说明", articleContent: "这是一篇文章", articleCategory: 3,
+    },
+    {
+      P1: 2, articleTitle: "关于唐球比赛的各项规则说明", articleContent: "这是一篇文章", articleCategory: 2,
+    },
+    {
+      P1: 3, articleTitle: "关于唐球的推广赞助的说明", articleContent: "这是一篇文章", articleCategory: 1,
+    },
+  ]
+  return articleList
 })
 
 Mock.mock('/textCategory', function(){
