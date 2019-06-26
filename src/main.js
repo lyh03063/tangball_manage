@@ -30,6 +30,17 @@ import list_wxd from "./page/list_wxd";
 import list_xql from "./page/list_xql";
 import list_zjw from "./page/list_zjw";
 import list_zsr from "./page/list_zsr";
+import list_venue from "./page/list_venue";
+import list_franchisee from "./page/list_franchisee";
+import list_match from "./page/list_match";
+import list_enroll from "./page/list_enroll";
+import list_achievement from "./page/list_achievement";
+import list_member from "./page/list_member";
+import list_sponsor from "./page/list_sponsor";
+import list_sponsorship from "./page/list_sponsorship";
+import list_article_category from "./page/list_article_category";
+import list_article from "./page/list_article";
+import list_admin from "./page/list_admin";
 import dynamic_form_demo from "./page/dynamic_form_demo";
 window.util=util;
 
@@ -43,6 +54,50 @@ const router = new VueRouter({
       component: manage,
       redirect: '/listHome', //跳转
       children: [//子路由
+        {
+          path: '/list_venue',
+          component: list_venue
+        },
+        {
+          path: '/list_franchisee',
+          component: list_franchisee 
+        },
+        {
+          path: '/list_match',
+          component: list_match
+        },
+        {
+          path: '/list_enroll',
+          component: list_enroll
+        },
+        {
+          path: '/list_achievement',
+          component: list_achievement
+        },
+        {
+          path: '/list_member',
+          component: list_member
+        },
+        {
+          path: '/list_sponsor',
+          component: list_sponsor
+        },
+        {
+          path: '/list_sponsorship',
+          component: list_sponsorship
+        },
+        {
+          path: '/list_article_category',
+          component: list_article_category
+        },
+        {
+          path: '/list_article',
+          component: list_article
+        },
+        {
+          path: '/list_admin',
+          component: list_admin
+        },
         {
           path: '/listHome',
           component: listHome
