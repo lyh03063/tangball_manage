@@ -36,7 +36,14 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 150
+            width: 150,
+            formatter: function(date) {
+              var dateee = new Date(date).toJSON();
+              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+                .toISOString()
+                .replace(/T/g, " ")
+                .replace(/\.[\d]{3}Z/, "");
+            }
           },
           {
             label: "比赛场馆",

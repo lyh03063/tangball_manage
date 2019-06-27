@@ -16,7 +16,12 @@ export default {
         threeTitle: "商品分类",
         flag: true,
         url: {
-          list: "/list_enroll" //列表接口
+          list: "http://120.76.160.41:3000/crossList?page=tangball_enroll", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=tangball_enroll", //新增接口
+          modify:
+            "http://120.76.160.41:3000/crossModify?page=tangball_enroll", //修改接口
+          delete:
+            "http://120.76.160.41:3000/crossDelete?page=tangball_enroll" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -60,8 +65,7 @@ export default {
           },
           {
             label: "报名会员id",
-            prop: "memberId ",
-            
+            prop: "memberId "
           }
         ],
         //-------详情字段数组-------

@@ -257,7 +257,7 @@ export default {
           {
             label: "图片",
             prop: "album",
-            type: "jsonEditor"
+            type: "upload"
           },
           {
             label: "其他数据",
