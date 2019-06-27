@@ -4,7 +4,6 @@
       <el-header class="MB10">
         <el-row>
           <div class="FL MT13 FS24 C_fff">管理后台</div>
-
           <div class="FR MT30 C_fff">
             <span class="MR10">当前登录用户 admin</span>
             <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
@@ -12,8 +11,10 @@
           </div>
         </el-row>
       </el-header>
-      <!-- <el-container>
+      <el-container>
         <el-aside width="202px" class="ML10">
+         
+          <div class="C_fff TAR PR10" style="background:rgb(84, 92, 100);border-bottom:1px solid #999" > &lt; &lt;</div>
           <el-menu
             :default-active="activeMenuIndex"
             class="el-menu-vertical-demo"
@@ -21,6 +22,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             :router="true"
+            :collapse="true"
           >
             <el-menu-item index="listHome" route="/listHome">
               <i class="el-icon-house"></i>
@@ -73,9 +75,12 @@
             <router-view></router-view>
           </keep-alive>
         </el-main>
-      </el-container>-->
+      </el-container>
     </el-container>
-    <NavMenu :cf="NavMenuList"></NavMenu>
+    <!-- <NavMenu :cf="NavMenuList"></NavMenu> -->
+
+
+   
   </div>
 </template>
 
