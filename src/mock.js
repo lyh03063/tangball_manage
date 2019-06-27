@@ -104,3 +104,39 @@ Mock.mock('/list_enroll', function () {
   return list_enroll
 
 })
+//场馆接口
+Mock.mock('/list_venue',function(){
+  let list_venue={
+    "code": 0,
+    "message": "操作成功",
+    "page": {
+      "pageIndex": 1,
+      "pageSize": 5,
+      "allCount": 1,
+      "pageCount": 1
+    },
+    "list":[
+      {
+        "P1":1,
+        "name":"一号场馆",
+        "area":"A区",
+        "countMatch":"5",
+        // "album"
+        "time":"2016-6-10",
+        "phoneNumber":"18218024345"
+
+      },
+      {
+        "P1":2,
+        "name":"二号场馆",
+        "area":"B区",
+        "countMatch":"5",
+        // "album"
+        "time":"2016-6-11",
+        "phoneNumber":"13213125535"
+      },
+      
+    ]
+  }
+  return list_venue
+})
