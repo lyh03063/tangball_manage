@@ -69,7 +69,7 @@ export default {
         columns: [
           {
             label: "数据id",
-            prop: "p1",
+            prop: "P1",
             width: 110
           },
           {
@@ -85,7 +85,7 @@ export default {
           {
             label: "比赛场馆",
             prop: "venue",
-            width: 100
+            width: 150
           },
           {
             label: "已报名人数",
@@ -112,21 +112,6 @@ export default {
             prop: "matchType",
             width: 100
           },
-          {
-            label: "赛事介绍",
-            prop: "matchIntroduce",
-            width: 300
-          },
-          {
-            label: "赛事手册",
-            prop: "matchManual",
-            width: 100
-          },
-          {
-            label: "路线地图",
-            prop: "routeMap",
-            width: 100
-          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
