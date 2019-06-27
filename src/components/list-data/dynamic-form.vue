@@ -144,8 +144,7 @@ export default {
   },
   data() {
     return {
-      formData_handle: {},
-      formData_Json: {},
+  
       editorOption: {
         //编辑器的配置
         modules: {
@@ -175,27 +174,15 @@ export default {
         this.$emit(eventName);
       }
     },
-
+    //初始化表单函数
     initForm() {
-      //初始化表单函数
       console.log("initForm");
       //处理json编辑框的数据转换
-      this.formData_Json = {}; //json类型存储对象清空
       for (let key in this.formData) {
         //如果{ajax获取到的初始化数据}存在
         if (this.docGet) {
           this.formData[key] = this.docGet[key];
         }
-
-        // //遍历：{文档字段}
-        // let valCurr = this.formData[key];
-
-        // if (util.type(valCurr) == "object" || util.type(valCurr) == "array") {
-        //   //如果是json类型
-        //   var t_json = JSON.stringify(valCurr); //json转字符串
-        //   console.log("t_json", t_json);
-        //   this.formData_Json[key] = t_json;
-        // }
       }
     }
   },
