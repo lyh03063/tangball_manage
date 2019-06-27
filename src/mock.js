@@ -75,7 +75,7 @@ Mock.mock('/list_enroll', function () {
         "auditStatus ": 3
       },
       {
-        "P1": "1",
+        "P1": "2",
         "memberId ": "13",
         "matchId": "21",
         "idCard": "441521200003331152 ",
@@ -84,7 +84,7 @@ Mock.mock('/list_enroll', function () {
         "auditStatus ": 2
       },
       {
-        "P1": "1",
+        "P1": "3",
         "memberId ": "14",
         "matchId": "22",
         "idCard": "441521200003331153",
