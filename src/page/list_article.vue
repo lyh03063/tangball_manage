@@ -11,67 +11,103 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        listIndex: "list_article", //vuex对应的字段
+        twoTitle: "其他数据",
+        threeTitle: "文章管理",
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          list: "http://120.76.160.41:3000/crossList?page=tangball_article", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=tangball_article", //新增接口
+          modify: "http://120.76.160.41:3000/crossModify?page=tangball_article", //修改接口
+          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_article" //删除接口
         },
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
-            prop: "P1",
+            label: "文章分类",
+            prop: "articleCategory",
             width: 100
           },
           {
-            label: "分类名称",
-            prop: "name",
+            label: "文章标题",
+            prop: "articleTitle",
             width: 200
           },
-          {
-            label: "注释",
-            prop: "description",
-            width: 200
+           {
+            label: "创建时间",
+            prop: "CreateTime",
+            width: 200,
+            formatter: function(date) {
+              var dateee = new Date(date).toJSON();
+              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+                .toISOString()
+                .replace(/T/g, " ")
+                .replace(/\.[\d]{3}Z/, "");
+            }
+          },
+           {
+            label: "最后修改时间",
+            prop: "UpdateTime",
+            width: 200,
+            formatter: function(date) {
+              var dateee = new Date(date).toJSON();
+              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+                .toISOString()
+                .replace(/T/g, " ")
+                .replace(/\.[\d]{3}Z/, "");
+            }
           }
+         
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
-            prop: "P1",
-            type: "input"
-          }
+            label: "文章分类",
+            prop: "articleCategory",
+            type: "select",
+            options: [
+              { label: "唐球规则", value: "1" },
+              { label: "比赛说明", value: "2" },
+              { label: "推广赞助", value: "3" },
+                      
+            ]
+          },
+          // {
+          //   label: "文章标题",
+          //   prop: "articleTitle",
+          //   type: "input"
+          // },
+         
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
-            prop: "P1"
+            label: "文章详情",
+            prop: "articleContent"
           },
-          {
-            label: "分类名称",
-            prop: "name"
-          },
-          {
-            label: "注释",
-            prop: "description"
-          }
+          
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
-            prop: "name",
-            type: "input"
+            label: "文章分类",
+            prop: "articleCategory",
+            type: "select",
+            options: [
+              { label: "唐球规则", value: "1" },
+              { label: "比赛说明", value: "2" },
+              { label: "推广赞助", value: "3" },
+                      
+            ]
           },
           {
-            label: "注释",
-            prop: "description",
+            label: "文章标题",
+            prop: "articleTitle",
+            width: 200
+          },
+          {
+            label: "文章详情",
+            prop: "articleContent",
             type: "textarea"
           }
         ]
