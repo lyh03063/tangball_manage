@@ -26,12 +26,12 @@ export default {
           {
             label: "文章分类",
             prop: "articleCategory",
-            width: 100
+            width: 90
           },
           {
             label: "文章标题",
             prop: "articleTitle",
-            width: 200
+            width: 220
           },
            {
             label: "创建时间",
@@ -43,7 +43,7 @@ export default {
                 .toISOString()
                 .replace(/T/g, " ")
                 .replace(/\.[\d]{3}Z/, "");
-            }
+            },
           },
            {
             label: "最后修改时间",
@@ -56,7 +56,15 @@ export default {
                 .replace(/T/g, " ")
                 .replace(/\.[\d]{3}Z/, "");
             }
-          }
+          },
+          {
+            label: "其他",
+            prop: "extend",
+            width: 200,
+            formatter: function(extend) {           
+              return JSON.stringify(extend.extend)                
+            }
+          },
          
         ],
         //-------筛选表单字段数组-------
@@ -81,6 +89,14 @@ export default {
         ],
         //-------详情字段数组-------
         detailItems: [
+          {
+            label: "其他",
+            prop: "extend",
+            width: 200,
+            formatter: function(extend) {           
+              return JSON.stringify(extend.extend)                
+            }
+          },
           {
             label: "文章详情",
             prop: "articleContent"
@@ -109,7 +125,15 @@ export default {
             label: "文章详情",
             prop: "articleContent",
             type: "textarea"
-          }
+          },
+          {
+            label: "其他",
+            prop: "extend",
+            width: 200,
+            formatter: function(extend) {           
+              return JSON.stringify(extend.extend)                
+            }
+          },
         ]
       }
     };

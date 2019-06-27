@@ -11,76 +11,16 @@
           </div>
         </el-row>
       </el-header>
-      <el-container>
-        <el-aside width="202px" class="ML10">
-         
-          <div class="C_fff TAR PR10" style="background:rgb(84, 92, 100);border-bottom:1px solid #999" > &lt; &lt;</div>
-          <el-menu
-            :default-active="activeMenuIndex"
-            class="el-menu-vertical-demo"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            :router="true"
-            :collapse="true"
-          >
-            <el-menu-item index="listHome" route="/listHome">
-              <i class="el-icon-house"></i>
-              <span slot="title">首页</span>
-            </el-menu-item>
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>赛事</span>
-              </template>
-              <el-menu-item index="list_venue" route="/list_venue">场馆</el-menu-item>
-              <el-menu-item index="list_franchisee" route="/list_franchisee">加盟商</el-menu-item>
-              <el-menu-item index="list_match" route="/list_match">赛事</el-menu-item>
-              <el-menu-item index="list_enroll" route="/list_enroll">报名(订单)</el-menu-item>
-              <el-menu-item index="list_achievement" route="/list_achievement">比赛成绩</el-menu-item>
-              <el-menu-item index="list_member" route="/list_member">会员</el-menu-item>
-              <el-menu-item index="list_sponsor" route="/list_sponsor">赞助商</el-menu-item>
-              <el-menu-item index="list_sponsorship" route="/list_sponsorship">赛事赞助</el-menu-item>
-            </el-submenu>
-            <el-submenu index="4">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>其他数据</span>
-              </template>
-              <el-menu-item index="list_article_category" route="/list_article_category">文章分类</el-menu-item>
-              <el-menu-item index="list_article" route="/list_article">文章管理</el-menu-item>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>系统管理</span>
-              </template>
-              <el-menu-item index="list_admin" route="/list_admin">管理员</el-menu-item>
-
-              <el-menu-item index="aaaa" route="/aaaa">0000</el-menu-item>
-            </el-submenu>
-
-            <el-submenu index="3">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>商品（无用）</span>
-              </template>
-              <el-menu-item index="listCommodity" route="/listCommodity">商品列表</el-menu-item>
-              <el-menu-item index="listCategory" route="/listCategory">商品分类</el-menu-item>
-            </el-submenu>
-          </el-menu>
-        </el-aside>
-        <el-main>
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
-        </el-main>
-      </el-container>
     </el-container>
-    <!-- <NavMenu :cf="NavMenuList"></NavMenu> -->
+    <el-container>
+      <NavMenu :cf="navMenuList"></NavMenu>
 
-
-   
+      <el-main>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -109,7 +49,7 @@ export default {
     return {
       // 导航菜单列表
 
-      NavMenuList: [
+      navMenuList: [
         {
           //菜单
           index: "listHome",
