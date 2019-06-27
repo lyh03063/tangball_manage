@@ -10,7 +10,13 @@ const userData = () => {
   return { a: 1 }
 }
 Mock.mock('/api/users', userData)
-
+Mock.mock('/login', function () {
+let loginList=[
+  {P1:1,userName:"admin",passWord:"aa"},
+  {P1:2,userName:"admin",passWord:"aa"},
+]
+return loginList
+})
 
 Mock.mock('/articleList', function () {
   let articleList = [
