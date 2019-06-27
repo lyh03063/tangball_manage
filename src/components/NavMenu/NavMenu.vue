@@ -3,9 +3,9 @@
     <el-aside class="ML10" :style="[isCollapse?open:close]">
       <div
         class="C_fff TAR PR10"
-        style="background:rgb(84, 92, 100);border-bottom:1px solid #999;width:100% "
+        style="background:rgb(84, 92, 100);border-bottom:1px solid #999"
         @click="isCollapseFun"
-        
+        :style="[isCollapse?open1:close]"
       >
         <span v-if="isCollapse">&gt; &gt;</span>
         <span v-else>&lt; &lt;</span>
@@ -76,6 +76,9 @@ export default {
       },
       close: {
         width: "210px"
+      },
+      open1: {
+        width: "64px"
       },
       isCollapse: true
     };
