@@ -17,9 +17,9 @@ export default {
         flag:true,
         url: {
           list: '/list_sponsor', //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          add: '/list_sponsor/add', //新增接口
+          modify: '/list_sponsor/modify', //修改接口
+          delete: "/list_sponsor/delete" //删除接口
         },
         //-------列配置数组-------
         columns: [
