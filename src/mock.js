@@ -28,7 +28,17 @@ Mock.mock('/articleList', function(){
 })
 //文章分类接口
 Mock.mock('/listArticleCategory', function(){
-  let textCategoryList =[
+
+  let textCategoryList ={
+      code:0,
+      message:"操作成功",
+      page:{
+      pageIndex: 1,
+      pageSize: 3,
+      allCount: 1,
+      pageCount: 1
+      },
+    list:[
     {P1:1,name:"唐球规则",explin:"关于唐球的各项规则说明",articleNumber:"3",
     article:[{title:"文章分类唐球规则下的文章一",text:"这是一篇文章"},
     {title:"文章分类唐球规则下的文章二",text:"这是一篇文章"},
@@ -42,6 +52,8 @@ Mock.mock('/listArticleCategory', function(){
     {title:"文章分类推广赞助下的文章二",text:"这是一篇文章"},
     {title:"文章分类推广赞助下的文章三",text:"这是一篇文章"},]},
   ]
+  }
+  
   return textCategoryList
 
 })
