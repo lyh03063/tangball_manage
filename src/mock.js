@@ -11,11 +11,11 @@ const userData = () => {
 }
 Mock.mock('/api/users', userData)
 Mock.mock('/login', function () {
-let loginList=[
-  {P1:1,userName:"admin",passWord:"aa"},
-  {P1:2,userName:"admin",passWord:"aa"},
-]
-return loginList
+  let loginList = [
+    { P1: 1, userName: "admin", passWord: "aa" },
+    { P1: 2, userName: "admin", passWord: "aa" },
+  ]
+  return loginList
 })
 
 Mock.mock('/articleList', function () {
@@ -33,32 +33,17 @@ Mock.mock('/articleList', function () {
   return articleList
 })
 
-<<<<<<< HEAD
-  let textCategoryList ={
-      code:0,
-      message:"操作成功",
-      page:{
-      pageIndex: 1,
-      pageSize: 3,
-      allCount: 1,
-      pageCount: 1
-      },
-    list:[
-    {P1:1,name:"唐球规则",explin:"关于唐球的各项规则说明",articleNumber:"3",
-    article:[{title:"文章分类唐球规则下的文章一",text:"这是一篇文章"},
-    {title:"文章分类唐球规则下的文章二",text:"这是一篇文章"}, 
-    {title:"文章分类唐球规则下的文章三",text:"这是一篇文章"},]},
-    {P1:2,name:"比赛说明",explin:"关于唐球比赛的各项规则说明",articleNumber:"3",
-    article:[{title:"文章分类比赛说明下的文章一",text:"这是一篇文章"},
-    {title:"文章分类比赛说明下的文章二",text:"这是一篇文章"},
-    {title:"文章分类比赛说明下的文章三",text:"这是一篇文章"},]},
-    {P1:3,name:"推广赞助",explin:"关于唐球的推广赞助的说明",articleNumber:"3",
-    article:[{title:"文章分类推广赞助下的文章一",text:"这是一篇文章"},
-    {title:"文章分类推广赞助下的文章二",text:"这是一篇文章"},
-    {title:"文章分类推广赞助下的文章三",text:"这是一篇文章"},]},
-=======
-Mock.mock('/textCategory', function () {
-  let textCategoryList = [
+
+let textCategoryList = {
+  code: 0,
+  message: "操作成功",
+  page: {
+    pageIndex: 1,
+    pageSize: 3,
+    allCount: 1,
+    pageCount: 1
+  },
+  list: [
     {
       P1: 1, name: "唐球规则", explin: "关于唐球的各项规则说明", articleNumber: "3",
       article: [{ title: "文章分类唐球规则下的文章一", text: "这是一篇文章" },
@@ -77,55 +62,76 @@ Mock.mock('/textCategory', function () {
       { title: "文章分类推广赞助下的文章二", text: "这是一篇文章" },
       { title: "文章分类推广赞助下的文章三", text: "这是一篇文章" },]
     },
->>>>>>> 1ef915e14e9925bcb25ccba4c0e4e17510198c39
-  ]
-  return textCategoryList
 
-})
+    Mock.mock('/textCategory', function () {
+      let textCategoryList = [
+        {
+          P1: 1, name: "唐球规则", explin: "关于唐球的各项规则说明", articleNumber: "3",
+          article: [{ title: "文章分类唐球规则下的文章一", text: "这是一篇文章" },
+          { title: "文章分类唐球规则下的文章二", text: "这是一篇文章" },
+          { title: "文章分类唐球规则下的文章三", text: "这是一篇文章" },]
+        },
+        {
+          P1: 2, name: "比赛说明", explin: "关于唐球比赛的各项规则说明", articleNumber: "3",
+          article: [{ title: "文章分类比赛说明下的文章一", text: "这是一篇文章" },
+          { title: "文章分类比赛说明下的文章二", text: "这是一篇文章" },
+          { title: "文章分类比赛说明下的文章三", text: "这是一篇文章" },]
+        },
+        {
+          P1: 3, name: "推广赞助", explin: "关于唐球的推广赞助的说明", articleNumber: "3",
+          article: [{ title: "文章分类推广赞助下的文章一", text: "这是一篇文章" },
+          { title: "文章分类推广赞助下的文章二", text: "这是一篇文章" },
+          { title: "文章分类推广赞助下的文章三", text: "这是一篇文章" },]
+        },
+
+      ]
+      return textCategoryList
+
+    })
 
 // 报名（订单）接口
 Mock.mock('/list_enroll', function () {
-  let list_enroll =
-  {
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list": [
+      let list_enroll =
       {
-        "P1": "1",
-        "memberId ": "12",
-        "matchId": "22",
-        "idCard": "441521200003331151",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 3
-      },
-      {
-        "P1": "2",
-        "memberId ": "13",
-        "matchId": "21",
-        "idCard": "441521200003331152 ",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 2
-      },
-      {
-        "P1": "1",
-        "memberId ": "14",
-        "matchId": "22",
-        "idCard": "441521200003331153",
-        "time": "2019-06-26",
-        "payStatus": 2,
-        "auditStatus ": 1
+        "code": 0,
+        "message": "操作成功",
+        "page": {
+          "pageIndex": 1,
+          "pageSize": 5,
+          "allCount": 1,
+          "pageCount": 1
+        },
+        "list": [
+          {
+            "P1": "1",
+            "memberId ": "12",
+            "matchId": "22",
+            "idCard": "441521200003331151",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 3
+          },
+          {
+            "P1": "2",
+            "memberId ": "13",
+            "matchId": "21",
+            "idCard": "441521200003331152 ",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 2
+          },
+          {
+            "P1": "1",
+            "memberId ": "14",
+            "matchId": "22",
+            "idCard": "441521200003331153",
+            "time": "2019-06-26",
+            "payStatus": 2,
+            "auditStatus ": 1
+          }
+        ]
       }
-    ]
-  }
 
-  return list_enroll
+      return list_enroll
 
-})
+    })
