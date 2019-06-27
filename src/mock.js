@@ -11,11 +11,11 @@ const userData = () => {
 }
 Mock.mock('/api/users', userData)
 Mock.mock('/login', function () {
-let loginList=[
-  {P1:1,userName:"admin",passWord:"aa"},
-  {P1:2,userName:"admin",passWord:"aa"},
-]
-return loginList
+  let loginList = [
+    { P1: 1, userName: "admin", passWord: "aa" },
+    { P1: 2, userName: "admin", passWord: "aa" },
+  ]
+  return loginList
 })
 
 Mock.mock('/articleList', function () {
@@ -57,50 +57,69 @@ Mock.mock('/textCategory', function () {
   return textCategoryList
 
 })
+Mock.mock('/list_sponsor',function(){
+  let sponsor={
+    code:0,
+      message:"操作成功",
+      page:{
+      pageIndex: -1,
+      pageSize: 5,
+      allCount: 1,
+      pageCount: 1
+      },
+    list:[
+    {P1:1,name:"蔡徐坤",money:"一亿粉丝",intro:"大家好，我是练习时长两年半的偶像练习生，蔡徐坤，擅长唱跳rap和篮球，来音乐起！鸡你太美！！！"},
+    {P1:2,name:"面筋哥",money:"一份烤面筋",intro:"烤面筋，烤面筋~~我的烤面筋！让你吃得每天都开心~烤面筋，烤面筋~~"},
+    {P1:3,name:"局座",money:"一艘舰艇",intro:"判断一个舰艇好坏，很重要的一点是，你一眼看过去，好看不好看，要是你看的不顺眼，那丑，八成没多大战斗力。"},
+    {P1:4,name:"王境泽",money:"一碗炒饭",intro:"我王境泽就是饿死，死外边，从这跳下去，也不会吃你们一点儿东西。香，真香"},
+    {P1:5,name:"金坷垃三人组",money:"一袋金坷垃",intro:"肥料掺了金坷垃，一袋能顶两袋撒！肥料掺了金坷垃，小麦亩产一千八！美国·圣地亚戈 American Santiago（阿妹你看，上帝压狗）"},
+  ]}
+  return sponsor
+})
 
 // 报名（订单）接口
 Mock.mock('/list_enroll', function () {
-  let list_enroll =
-  {
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list": [
+      let list_enroll =
       {
-        "P1": "1",
-        "memberId ": "12",
-        "matchId": "22",
-        "idCard": "441521200003331151",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 3
-      },
-      {
-        "P1": "2",
-        "memberId ": "13",
-        "matchId": "21",
-        "idCard": "441521200003331152 ",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 2
-      },
-      {
-        "P1": "1",
-        "memberId ": "14",
-        "matchId": "22",
-        "idCard": "441521200003331153",
-        "time": "2019-06-26",
-        "payStatus": 2,
-        "auditStatus ": 1
+        "code": 0,
+        "message": "操作成功",
+        "page": {
+          "pageIndex": 1,
+          "pageSize": 5,
+          "allCount": 1,
+          "pageCount": 1
+        },
+        "list": [
+          {
+            "P1": "1",
+            "memberId ": "12",
+            "matchId": "22",
+            "idCard": "441521200003331151",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 3
+          },
+          {
+            "P1": "2",
+            "memberId ": "13",
+            "matchId": "21",
+            "idCard": "441521200003331152 ",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 2
+          },
+          {
+            "P1": "1",
+            "memberId ": "14",
+            "matchId": "22",
+            "idCard": "441521200003331153",
+            "time": "2019-06-26",
+            "payStatus": 2,
+            "auditStatus ": 1
+          }
+        ]
       }
-    ]
-  }
 
-  return list_enroll
+      return list_enroll
 
 })

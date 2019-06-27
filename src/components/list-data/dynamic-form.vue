@@ -2,7 +2,7 @@
   <el-form
     ref="form"
     :model="formData"
-    :label-width="cf.labelWidth||'80px'"
+    :label-width="cf.labelWidth||'100px'"
     size="small"
     :inline="cf.inline"
   >

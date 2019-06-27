@@ -26,9 +26,9 @@
           >
             <el-menu-item index="listHome" route="/listHome">
               <i class="el-icon-house"></i>
-              <span slot="title">首页 </span>
+              <span slot="title">首页</span>
             </el-menu-item>
-             <el-submenu index="1">
+            <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>赛事</span>
@@ -42,26 +42,24 @@
               <el-menu-item index="list_sponsor" route="/list_sponsor">赞助商</el-menu-item>
               <el-menu-item index="list_sponsorship" route="/list_sponsorship">赛事赞助</el-menu-item>
             </el-submenu>
-             <el-submenu index="4">
+            <el-submenu index="4">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>其他数据</span>
               </template>
-               <el-menu-item index="list_article_category" route="/list_article_category">文章分类</el-menu-item>
+              <el-menu-item index="list_article_category" route="/list_article_category">文章分类</el-menu-item>
               <el-menu-item index="list_article" route="/list_article">文章管理</el-menu-item>
-             
             </el-submenu>
-             <el-submenu index="3">
+            <el-submenu index="3">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>系统管理</span>
               </template>
-               <el-menu-item index="list_admin" route="/list_admin">管理员</el-menu-item>
-              
-               <el-menu-item index="aaaa" route="/aaaa">0000</el-menu-item>
-         
+              <el-menu-item index="list_admin" route="/list_admin">管理员</el-menu-item>
+
+              <el-menu-item index="aaaa" route="/aaaa">0000</el-menu-item>
             </el-submenu>
-           
+
             <el-submenu index="3">
               <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -69,9 +67,7 @@
               </template>
               <el-menu-item index="listCommodity" route="/listCommodity">商品列表</el-menu-item>
               <el-menu-item index="listCategory" route="/listCategory">商品分类</el-menu-item>
-         
             </el-submenu>
-            
           </el-menu>
         </el-aside>
         <el-main>
@@ -81,15 +77,15 @@
         </el-main>
       </el-container>
     </el-container>
+    <!-- <NavMenu></NavMenu> -->
   </div>
-  
 </template>
 
 <script>
 import Vue from "vue";
-
+// import NavMenu from "./components/NavMenu/NavMenu";
 export default {
-  components: { }, //注册组件
+  components: {}, //注册组件
   methods: {
     logout() {
       //退出登录函数
@@ -105,12 +101,9 @@ export default {
       //当前激活的菜单index
       return this.$store.state.activeMenuIndex; //从vuex的store里面读取值
     }
-    
   },
   data() {
-    return {
-   
-    };
+    return {};
   },
   mounted() {}
 };
