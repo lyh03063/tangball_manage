@@ -11,11 +11,11 @@ const userData = () => {
 }
 Mock.mock('/api/users', userData)
 Mock.mock('/login', function () {
-let loginList=[
-  {P1:1,userName:"admin",passWord:"aa"},
-  {P1:2,userName:"admin",passWord:"aa"},
-]
-return loginList
+  let loginList = [
+    { P1: 1, userName: "admin", passWord: "aa" },
+    { P1: 2, userName: "admin", passWord: "aa" },
+  ]
+  return loginList
 })
 
 Mock.mock('/articleList', function (obj) {
@@ -93,47 +93,47 @@ Mock.mock('/list_sponsor',function(){
 
 // 报名（订单）接口
 Mock.mock('/list_enroll', function () {
-  let list_enroll =
-  {
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list": [
+      let list_enroll =
       {
-        "P1": "1",
-        "memberId ": "12",
-        "matchId": "22",
-        "idCard": "441521200003331151",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 3
-      },
-      {
-        "P1": "2",
-        "memberId ": "13",
-        "matchId": "21",
-        "idCard": "441521200003331152 ",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 2
-      },
-      {
-        "P1": "1",
-        "memberId ": "14",
-        "matchId": "22",
-        "idCard": "441521200003331153",
-        "time": "2019-06-26",
-        "payStatus": 2,
-        "auditStatus ": 1
+        "code": 0,
+        "message": "操作成功",
+        "page": {
+          "pageIndex": 1,
+          "pageSize": 5,
+          "allCount": 1,
+          "pageCount": 1
+        },
+        "list": [
+          {
+            "P1": "1",
+            "memberId ": "12",
+            "matchId": "22",
+            "idCard": "441521200003331151",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 3
+          },
+          {
+            "P1": "2",
+            "memberId ": "13",
+            "matchId": "21",
+            "idCard": "441521200003331152 ",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 2
+          },
+          {
+            "P1": "1",
+            "memberId ": "14",
+            "matchId": "22",
+            "idCard": "441521200003331153",
+            "time": "2019-06-26",
+            "payStatus": 2,
+            "auditStatus ": 1
+          }
+        ]
       }
-    ]
-  }
 
-  return list_enroll
+      return list_enroll
 
 })
