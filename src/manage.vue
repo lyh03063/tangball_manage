@@ -12,7 +12,7 @@
           </div>
         </el-row>
       </el-header>
-      <el-container>
+      <!-- <el-container>
         <el-aside width="202px" class="ML10">
           <el-menu
             :default-active="activeMenuIndex"
@@ -21,8 +21,6 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             :router="true"
-            
-
           >
             <el-menu-item index="listHome" route="/listHome">
               <i class="el-icon-house"></i>
@@ -75,17 +73,17 @@
             <router-view></router-view>
           </keep-alive>
         </el-main>
-      </el-container>
+      </el-container>-->
     </el-container>
-    <!-- <NavMenu></NavMenu> -->
+    <NavMenu :cf="NavMenuList"></NavMenu>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-// import NavMenu from "./components/NavMenu/NavMenu";
+import NavMenu from "./components/NavMenu/NavMenu";
 export default {
-  components: {}, //注册组件
+  components: { NavMenu }, //注册组件
   methods: {
     logout() {
       //退出登录函数
@@ -103,7 +101,79 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      // 导航菜单列表
+
+      NavMenuList: [
+        {
+          //菜单
+          index: "listHome",
+          route: "/listHome",
+          icon: "el-icon-house",
+          title: "首页"
+        },
+        {
+          index: "1",
+          icon: "el-icon-menu",
+          title: "赛事",
+          menuItem: [
+            { index: "list_venue", route: "/list_venue", title: "场馆" },
+            {
+              index: "list_franchisee",
+              route: "/list_franchisee",
+              title: "加盟商"
+            },
+            { index: "list_match", route: "/list_match", title: "赛事" },
+            {
+              index: "list_enroll",
+              route: "/list_enroll",
+              title: "报名(订单)"
+            },
+            {
+              index: "list_achievement",
+              route: "/list_achievement",
+              title: "比赛成绩"
+            },
+            { index: "list_member", route: "/list_member", title: "会员" },
+            {
+              index: "list_sponsor",
+              route: "/list_sponsor",
+              title: "赞助商"
+            },
+            {
+              index: "list_sponsorship",
+              route: "/list_sponsorship",
+              title: "赛事赞助"
+            }
+          ]
+        },
+        {
+          index: "2",
+          icon: "el-icon-document",
+          title: "其他数据",
+          menuItem: [
+            {
+              index: "list_article_category",
+              route: "/list_article_category",
+              title: "文章分类"
+            },
+            {
+              index: "list_article",
+              route: "/list_article",
+              title: "文章管理"
+            }
+          ]
+        },
+        {
+          index: "3",
+          icon: "el-icon-setting",
+          title: "系统管理",
+          menuItem: [
+            { index: "list_admin", route: "/list_admin", title: "管理员" }
+          ]
+        }
+      ]
+    };
   },
   mounted() {}
 };
