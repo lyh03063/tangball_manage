@@ -39,10 +39,6 @@
               <el-menu-item index="list_member" route="/list_member">会员</el-menu-item>
               <el-menu-item index="list_sponsor" route="/list_sponsor">赞助商</el-menu-item>
               <el-menu-item index="list_sponsorship" route="/list_sponsorship">赛事赞助</el-menu-item>
-              
-             
-         
-         
             </el-submenu>
              <el-submenu index="4">
               <template slot="title">
