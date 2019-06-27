@@ -24,25 +24,25 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
-            prop: "P1",
-            width: 100
-          },
-          {
-            label: "分类名称",
-            prop: "name",
+            label: "用户名",
+            prop: "userName",
             width: 200
           },
           {
-            label: "注释",
-            prop: "description",
+            label: "密码",
+            prop: "passWord",
+            width: 200
+          },
+          {
+            label: "数据id",
+            prop: "P1",
             width: 200
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
+            label: "数据id",
             prop: "P1",
             type: "input"
           }
@@ -50,29 +50,29 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
+            label: "用户名",
+            prop: "userName"
+          },
+          {
+            label: "密码",
+            prop: "passWord"
+          },
+          {
+            label: "数据id",
             prop: "P1"
-          },
-          {
-            label: "分类名称",
-            prop: "name"
-          },
-          {
-            label: "注释",
-            prop: "description"
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
-            prop: "name",
+            label: "用户名",
+            prop: "userName",
             type: "input"
           },
           {
-            label: "注释",
-            prop: "description",
-            type: "textarea"
+            label: "密码",
+            prop: "passWord",
+            type: "input"
           }
         ]
       }
