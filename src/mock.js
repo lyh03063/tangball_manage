@@ -104,4 +104,3 @@ Mock.mock('/list_enroll', function () {
   return list_enroll
 
 })
-//场馆接口
