@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_enroll", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
         flag: true,
