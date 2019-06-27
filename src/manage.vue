@@ -21,6 +21,8 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             :router="true"
+            
+
           >
             <el-menu-item index="listHome" route="/listHome">
               <i class="el-icon-house"></i>
