@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-
+ 
 const Random = Mock.Random
 
 
@@ -18,19 +18,33 @@ Mock.mock('/login', function () {
   return loginList
 })
 
-Mock.mock('/articleList', function () {
-  let articleList = [
-    {
-      P1: 1, articleTitle: "关于唐球的各项规则说明", articleContent: "这是一篇文章", articleCategory: 3,
+Mock.mock('/articleList', function (obj) {
+
+  let list_article =
+  {
+    "code": 0,
+    "message": "操作成功",
+    "page": {
+      "pageIndex": 1,
+      "pageSize": 5,
+      "allCount": 1,
+      "pageCount": 1
     },
-    {
-      P1: 2, articleTitle: "关于唐球比赛的各项规则说明", articleContent: "这是一篇文章", articleCategory: 2,
-    },
-    {
-      P1: 3, articleTitle: "关于唐球的推广赞助的说明", articleContent: "这是一篇文章", articleCategory: 1,
-    },
-  ]
-  return articleList
+    "list": [
+      {
+        P1: 1, articleTitle: "关于唐球的各项规则说明", articleContent: "这是一篇文章", articleCategory: 3,
+      },
+      {
+        P1: 2, articleTitle: "关于唐球比赛的各项规则说明", articleContent: "这是一篇文章", articleCategory: 2,
+      },
+      {
+        P1: 3, articleTitle: "关于唐球的推广赞助的说明", articleContent: "这是一篇文章", articleCategory: 1,
+      },
+    ]
+  }
+  return list_article
+
+
 })
 
 Mock.mock('/textCategory', function () {
@@ -111,47 +125,47 @@ Mock.mock('/list_sponsor/delete', function (obj) {
 
 // 报名（订单）接口
 Mock.mock('/list_enroll', function () {
-  let list_enroll =
-  {
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list": [
+      let list_enroll =
       {
-        "P1": "1",
-        "memberId ": "12",
-        "matchId": "22",
-        "idCard": "441521200003331151",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 3
-      },
-      {
-        "P1": "2",
-        "memberId ": "13",
-        "matchId": "21",
-        "idCard": "441521200003331152 ",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 2
-      },
-      {
-        "P1": "1",
-        "memberId ": "14",
-        "matchId": "22",
-        "idCard": "441521200003331153",
-        "time": "2019-06-26",
-        "payStatus": 2,
-        "auditStatus ": 1
+        "code": 0,
+        "message": "操作成功",
+        "page": {
+          "pageIndex": 1,
+          "pageSize": 5,
+          "allCount": 1,
+          "pageCount": 1
+        },
+        "list": [
+          {
+            "P1": "1",
+            "memberId ": "12",
+            "matchId": "22",
+            "idCard": "441521200003331151",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 3
+          },
+          {
+            "P1": "2",
+            "memberId ": "13",
+            "matchId": "21",
+            "idCard": "441521200003331152 ",
+            "time": "2019-06-26",
+            "payStatus": 1,
+            "auditStatus ": 2
+          },
+          {
+            "P1": "1",
+            "memberId ": "14",
+            "matchId": "22",
+            "idCard": "441521200003331153",
+            "time": "2019-06-26",
+            "payStatus": 2,
+            "auditStatus ": 1
+          }
+        ]
       }
-    ]
-  }
 
-  return list_enroll
+      return list_enroll
 
 })
