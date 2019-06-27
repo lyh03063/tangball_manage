@@ -57,7 +57,6 @@ Mock.mock('/listArticleCategory', function(){
   return textCategoryList
 
 })
-<<<<<<< HEAD
 Mock.mock('/list_sponsor',function(){
   let sponsor=[
     {P1:1,name:"蔡徐坤",money:"一个亿",intro:"大家好，我是练习时长两年半的偶像练习生，蔡徐坤，擅长唱跳rap和篮球，来音乐起！鸡你太美！！！"},
@@ -67,7 +66,6 @@ Mock.mock('/list_sponsor',function(){
     {P1:5,name:"金坷垃三人组",money:"一袋金坷垃",intro:"肥料掺了金坷垃，一袋能顶两袋撒！肥料掺了金坷垃，小麦亩产一千八！美国·圣地亚戈 American Santiago（阿妹你看，上帝压狗）"},
   ]
   return sponsor
-=======
 
 // 报名（订单）接口
 Mock.mock('/list_enroll', function () {
@@ -114,5 +112,4 @@ Mock.mock('/list_enroll', function () {
 
   return list_enroll
 
->>>>>>> 5a019213d856817a05648c15956af55a182803d4
 })
