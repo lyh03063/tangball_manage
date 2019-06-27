@@ -12,19 +12,33 @@ const userData = () => {
 Mock.mock('/api/users', userData)
 
 
-Mock.mock('/articleList', function () {
-  let articleList = [
-    {
-      P1: 1, articleTitle: "关于唐球的各项规则说明", articleContent: "这是一篇文章", articleCategory: 3,
+Mock.mock('/articleList', function (obj) {
+
+  let list_article =
+  {
+    "code": 0,
+    "message": "操作成功",
+    "page": {
+      "pageIndex": 1,
+      "pageSize": 5,
+      "allCount": 1,
+      "pageCount": 1
     },
-    {
-      P1: 2, articleTitle: "关于唐球比赛的各项规则说明", articleContent: "这是一篇文章", articleCategory: 2,
-    },
-    {
-      P1: 3, articleTitle: "关于唐球的推广赞助的说明", articleContent: "这是一篇文章", articleCategory: 1,
-    },
-  ]
-  return articleList
+    "list": [
+      {
+        P1: 1, articleTitle: "关于唐球的各项规则说明", articleContent: "这是一篇文章", articleCategory: 3,
+      },
+      {
+        P1: 2, articleTitle: "关于唐球比赛的各项规则说明", articleContent: "这是一篇文章", articleCategory: 2,
+      },
+      {
+        P1: 3, articleTitle: "关于唐球的推广赞助的说明", articleContent: "这是一篇文章", articleCategory: 1,
+      },
+    ]
+  }
+  return list_article
+
+
 })
 
 Mock.mock('/textCategory', function () {
