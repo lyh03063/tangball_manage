@@ -61,6 +61,7 @@
         <!--date日期选择-->
         <el-date-picker
           v-model="formData[item.prop]"
+           value-format="yyyy-MM-dd"
           align="right"
           type="date"
           placeholder="选择日期"
