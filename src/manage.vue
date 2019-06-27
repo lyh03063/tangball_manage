@@ -13,8 +13,8 @@
       </el-header>
     </el-container>
     <el-container>
-      
-      <NavMenu :cf="NavMenuList"></NavMenu>
+
+      <navMenu :cf="navMenuList"></navMenu>
 
       <el-main>
         <keep-alive>
@@ -27,9 +27,9 @@
 
 <script>
 import Vue from "vue";
-import NavMenu from "./components/NavMenu/NavMenu";
+import navMenu from "./components/navMenu/navMenu";
 export default {
-  components: { NavMenu }, //注册组件
+  components: { navMenu }, //注册组件
   methods: {
     logout() {
       //退出登录函数
@@ -50,7 +50,7 @@ export default {
     return {
       // 导航菜单列表
 
-      NavMenuList: [
+      navMenuList: [
         {
           //菜单
           index: "listHome",
