@@ -16,7 +16,7 @@ export default {
         threeTitle: "商品分类",
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
+          list: "/listArticleCategory", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
           delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
@@ -34,7 +34,7 @@ export default {
             width: 200
           },
           {
-            label: "注释",
+            label: "注释34",
             prop: "description",
             width: 200
           }
@@ -58,7 +58,7 @@ export default {
             prop: "name"
           },
           {
-            label: "注释",
+            label: "注释23",
             prop: "description"
           }
         ],
@@ -70,7 +70,7 @@ export default {
             type: "input"
           },
           {
-            label: "注释",
+            label: "注释3",
             prop: "description",
             type: "textarea"
           }

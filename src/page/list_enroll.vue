@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_enroll", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
         flag: true,
@@ -21,14 +21,14 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "报名会员数据id",
+            label: "报名会员id",
             prop: "memberId ",
-            width: 200
+            width: 110
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
-            width: 200
+            width: 100
           },
           {
             label: "身份证号",
@@ -38,17 +38,17 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            width: 150
+            width: 100
           },
           {
             label: "支付状态",
             prop: "payStatus",
-            width: 150
+            width: 100
           },
           {
             label: "审核状态",
             prop: "auditStatus ",
-            width: 150
+            width: 100
           }
         ],
         //-------筛选表单字段数组-------
@@ -59,22 +59,22 @@ export default {
             type: "input"
           },
           {
-            label: "报名会员数据id",
+            label: "报名会员id",
             prop: "memberId ",
-            width: 150
+            
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "报名会员数据id",
+            label: "报名会员id",
             prop: "memberId ",
-            width: 200
+            width: 110
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
-            width: 200
+            width: 100
           },
           {
             label: "身份证号",
@@ -84,30 +84,30 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            width: 150
+            width: 100
           },
           {
             label: "支付状态",
             prop: "payStatus",
-            width: 150
+            width: 100
           },
           {
             label: "审核状态",
             prop: "auditStatus ",
-            width: 150
+            width: 100
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "报名会员数据id",
+            label: "报名会员id",
             prop: "memberId ",
-            width: 200
+            width: 110
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
-            width: 200
+            width: 100
           },
           {
             label: "身份证号",
@@ -117,24 +117,24 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            width: 150
+            width: 100
           },
           {
             label: "支付状态",
             prop: "payStatus",
-            width: 150
+            width: 100
           },
           {
             label: "审核状态",
             prop: "auditStatus ",
-            width: 150
+            width: 100
           }
         ]
       }
     };
   },
   beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
+    this.$store.commit("changeActiveMenu", "list_enroll"); //菜单聚焦
   }
 };
 </script>

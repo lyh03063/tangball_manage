@@ -7,6 +7,10 @@
 //导入自定义复选框组件，注意路径改为自己的
 import checkbox_diy from "../components/form_item/checkbox_diy.vue";
 
+
+
+
+
 export default {
   components: { checkbox_diy },
   data() {
