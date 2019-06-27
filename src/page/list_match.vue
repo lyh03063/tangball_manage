@@ -20,29 +20,31 @@ Mock.mock("/list_match", function() {
     list: [
       {
         P1: 1,
-        matchName: "aaa",
+        matchName: "比杆赛",
         matchTime: "2019-6.26",
-        name: "aaa",
-        registrationPersons: "aaa",
-        registrationFee: "aaa",
-        matchStatus: "1",
-        publicationStatus: "1",
-        matchType: "aaa",
-        matchIntroduce: "aaa",
+        venue: "衡南县云集轩与公园南路交汇鸿鹏豪园二楼",
+        registrationPersons: 100,
+        registrationFee: 100,
+        matchStatus: 1,
+        publicationStatus: 1,
+        matchType: "个人赛",
+        matchIntroduce:
+          "比杆赛为比赛者在打完规定之回合数时，一般职业比赛均为 4 天 4 回合 72 洞(但也有例外)，其总杆数最少者，即为冠军。一般非职业球友，如在所参加之球队月例赛打一天 18 洞，其杆数即为该月份之总杆成绩，成绩最佳者为总杆冠军。",
         matchManual: "aaa",
         routeMap: "aaa"
       },
       {
         P1: 2,
-        matchName: "aaa",
-        matchTime: "2019-6.26",
-        name: "aaa",
-        registrationPersons: "aaa",
-        registrationFee: "aaa",
-        matchStatus: "1",
-        publicationStatus: "1",
-        matchType: "aaa",
-        matchIntroduce: "aaa",
+        matchName: "比洞赛",
+        matchTime: "2019-6.27",
+        venue: "衡南县云集轩与公园南路交汇鸿鹏豪园二楼",
+        registrationPersons: 100,
+        registrationFee: 100,
+        matchStatus: 1,
+        publicationStatus: 1,
+        matchType: "个人赛",
+        matchIntroduce:
+          "比洞赛为每一个洞为一单元来决定输或赢之比赛，每一洞杆数最少之一方，即为该洞之获胜者，在比赛规定之洞数，一般均为 18 洞，但也有 2 回会 36 洞之比洞赛，如果一方领先之洞数超过未打之洞数，胜负已分故可终止比赛，领先之一方即为优胜者。",
         matchManual: "aaa",
         routeMap: "aaa"
       }
@@ -67,7 +69,7 @@ export default {
         columns: [
           {
             label: "数据id",
-            prop: "p1",
+            prop: "P1",
             width: 110
           },
           {
@@ -82,8 +84,8 @@ export default {
           },
           {
             label: "比赛场馆",
-            prop: "name",
-            width: 100
+            prop: "venue",
+            width: 150
           },
           {
             label: "已报名人数",
@@ -110,21 +112,6 @@ export default {
             prop: "matchType",
             width: 100
           },
-          {
-            label: "赛事介绍",
-            prop: "matchIntroduce",
-            width: 100
-          },
-          {
-            label: "赛事手册",
-            prop: "matchManual",
-            width: 100
-          },
-          {
-            label: "路线地图",
-            prop: "routeMap",
-            width: 100
-          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -157,7 +144,7 @@ export default {
           },
           {
             label: "比赛场馆",
-            prop: "name",
+            prop: "venue",
             width: 100
           },
           {
@@ -188,7 +175,7 @@ export default {
           {
             label: "赛事介绍",
             prop: "matchIntroduce",
-            width: 100
+            width: 300
           },
           {
             label: "赛事手册",
@@ -220,7 +207,7 @@ export default {
           },
           {
             label: "比赛场馆",
-            prop: "name",
+            prop: "venue",
             width: 100
           },
           {
@@ -251,7 +238,7 @@ export default {
           {
             label: "赛事介绍",
             prop: "matchIntroduce",
-            width: 100
+            width: 300
           },
           {
             label: "赛事手册",
