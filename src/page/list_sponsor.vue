@@ -16,7 +16,7 @@ export default {
         threeTitle: "商品分类",
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
+          list: '/list_sponsor', //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
           delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
@@ -24,54 +24,74 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
+            label: "赞助商编号",
             prop: "P1",
-            width: 100
+            width: 120
           },
           {
-            label: "分类名称",
+            label: "赞助商名称",
             prop: "name",
-            width: 200
+            width: 150
           },
           {
-            label: "注释",
-            prop: "description",
-            width: 200
+            label: "赞助内容",
+            prop: "money",
+            width: 150
+          },
+          {
+            label: "赞助商简介",
+            prop: "intro",
+            width: 400
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
+            label: "赞助商编号",
             prop: "P1",
             type: "input"
-          }
+          },
+          {
+            label: "赞助商名称",
+            prop: "name",
+            type: "input"
+          },
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
-            prop: "P1"
+            label: "赞助商编号",
+            prop: "P1",
+            
           },
           {
-            label: "分类名称",
+            label: "赞助商名称",
             prop: "name"
           },
           {
-            label: "注释",
-            prop: "description"
+            label: "赞助内容",
+            prop: "money",
+          },
+          {
+            label: "赞助商简介",
+            prop: "intro"
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
+            label: "赞助商名称",
             prop: "name",
-            type: "input"
+            type: "input",
+            width: 200
           },
           {
-            label: "注释",
-            prop: "description",
+            label: "赞助内容",
+            prop: "money",
+          },
+          {
+            label: "赞助商简介",
+            prop: "intro",
             type: "textarea"
           }
         ]

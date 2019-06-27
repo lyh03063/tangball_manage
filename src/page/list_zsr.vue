@@ -5,6 +5,48 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
+import Mock from "mockjs";
+// 比赛成绩接口
+Mock.mock("/list_achievement", function() {
+  let list_achievement = {
+    code: 0,
+    message: "操作成功",
+    page: {
+      pageIndex: 1,
+      pageSize: 5,
+      allCount: 1,
+      pageCount: 1
+    },
+    list: [
+      {
+        P1: "1",
+        participantsId: "11",
+        participantsName: "张三",
+        matchId: "22",
+        matchName: "唐球友谊赛",
+        ranking: "第1名"
+      },
+      {
+        P1: "2",
+        participantsId: "12",
+        participantsName: "李四",
+        matchId: "22",
+        matchName: "唐球友谊赛",
+        ranking: "第2名"
+      },
+      {
+        P1: "3",
+        participantsId: "13",
+        participantsName: "王五",
+        matchId: "22",
+        matchName: "唐球友谊赛",
+        ranking: "第3名"
+      }
+    ]
+  };
+
+  return list_achievement;
+});
 
 export default {
   components: { listData },
@@ -14,65 +56,105 @@ export default {
         listIndex: "listCategory", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
-        flag:true,
+        flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          list: "/list_achievement" //列表接口
         },
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
-            prop: "P1",
+            label: "参赛人Id",
+            prop: "participantsId",
             width: 100
           },
           {
-            label: "分类名称",
-            prop: "name",
+            label: "参赛人姓名",
+            prop: "participantsName",
             width: 200
           },
           {
-            label: "注释",
-            prop: "description",
+            label: "赛事ID",
+            prop: "matchId",
+            width: 200
+          },
+          {
+            label: "赛事名称",
+            prop: "matchName",
+            width: 200
+          },
+          {
+            label: "名次",
+            prop: "ranking",
             width: 200
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
-            prop: "P1",
-            type: "input"
+            label: "参赛人Id",
+            prop: "participantsId",
+            width: 100
+          },
+          {
+            label: "赛事ID",
+            prop: "matchId",
+            width: 200
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
-            prop: "P1"
+            label: "参赛人Id",
+            prop: "participantsId",
+            width: 100
           },
           {
-            label: "分类名称",
-            prop: "name"
+            label: "参赛人姓名",
+            prop: "participantsName",
+            width: 200
           },
           {
-            label: "注释",
-            prop: "description"
+            label: "赛事ID",
+            prop: "matchId",
+            width: 200
+          },
+          {
+            label: "赛事名称",
+            prop: "matchName",
+            width: 200
+          },
+          {
+            label: "名次",
+            prop: "ranking",
+            width: 200
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
-            prop: "name",
-            type: "input"
+            label: "参赛人Id",
+            prop: "participantsId",
+            width: 100
           },
           {
-            label: "注释",
-            prop: "description",
-            type: "textarea"
+            label: "参赛人姓名",
+            prop: "participantsName",
+            width: 200
+          },
+          {
+            label: "赛事ID",
+            prop: "matchId",
+            width: 200
+          },
+          {
+            label: "赛事名称",
+            prop: "matchName",
+            width: 200
+          },
+          {
+            label: "名次",
+            prop: "ranking",
+            width: 200
           }
         ]
       }
