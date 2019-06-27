@@ -23,7 +23,7 @@ export default {
           {
             label: "报名会员数据id",
             prop: "memberId ",
-            width: 200
+            width: 100
           },
           {
             label: "赛事数据id",
