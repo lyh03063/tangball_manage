@@ -5,13 +5,51 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
+import Mock from "mockjs"
 
+
+
+Mock.mock('/list_venue',function(){
+  let list_venue={
+    "code": 0,
+    "message": "操作成功",
+    "page": {
+      "pageIndex": 1,
+      "pageSize": 5,
+      "allCount": 1,
+      "pageCount": 1
+    },
+    "list":[
+      {
+        "P1":1,
+        "name":"一号场馆",
+        "area":"A区",
+        "countMatch":"5",
+        // "album"
+        "time":"2016-6-10",
+        "phoneNumber":"18218024345"
+
+      },
+      {
+        "P1":2,
+        "name":"二号场馆",
+        "area":"B区",
+        "countMatch":"5",
+        // "album"
+        "time":"2016-6-11",
+        "phoneNumber":"13213125535"
+      },
+      
+    ]
+  }
+  return list_venue
+})
 export default {
   components: { listData },
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_venue", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
         flag:true,
