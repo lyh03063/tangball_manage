@@ -1,12 +1,15 @@
 <template>
   <div>
-    <!-- <el-radio-group v-model="isCollapse" style="margin:0 0 20px 10px;" size="mini">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group>-->
-
-    <el-aside class="ML10" style="width%">
-      <span>>></span>
+    <el-aside class="ML10" :style="[isCollapse?open:close]">
+      <div
+        class="C_fff TAR PR10"
+        style="background:rgb(84, 92, 100);border-bottom:1px solid #999;width:100% "
+        @click="isCollapseFun"
+        
+      >
+        <span v-if="isCollapse">&gt; &gt;</span>
+        <span v-else>&lt; &lt;</span>
+      </div>
       <el-menu
         :default-active="activeMenuIndex"
         class="el-menu-vertical-demo"
@@ -15,7 +18,6 @@
         active-text-color="#ffd04b"
         :router="true"
         :collapse="isCollapse"
-        :style="[isCollapse?open:close]"
       >
         <template v-for="(menuEach,index) in cf">
           <el-menu-item
@@ -52,6 +54,11 @@ import Vue from "vue";
 
 export default {
   props: ["cf"],
+  methods: {
+    isCollapseFun() {
+      this.isCollapse = !this.isCollapse;
+    }
+  },
   computed: {
     //计算属性
 
@@ -76,6 +83,10 @@ export default {
 };
 </script scoped>
 <style>
+ul {
+  margin: 0;
+  padding: 0;
+}
 </style>
 
 
