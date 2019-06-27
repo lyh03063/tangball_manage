@@ -14,72 +14,127 @@ export default {
         listIndex: "listCategory", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
-        flag:true,
+        flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          list: "/list_enroll" //列表接口
         },
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
-            prop: "P1",
+            label: "报名会员id",
+            prop: "memberId ",
+            width: 110
+          },
+          {
+            label: "赛事id",
+            prop: "matchId",
             width: 100
           },
           {
-            label: "分类名称",
-            prop: "name",
+            label: "身份证号",
+            prop: "idCard",
             width: 200
           },
           {
-            label: "注释",
-            prop: "description",
-            width: 200
+            label: "报名时间",
+            prop: "time",
+            width: 100
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus ",
+            width: 100
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
-            prop: "P1",
+            label: "身份证号",
+            prop: "idCard",
             type: "input"
+          },
+          {
+            label: "报名会员id",
+            prop: "memberId ",
+            
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
-            prop: "P1"
+            label: "报名会员id",
+            prop: "memberId ",
+            width: 110
           },
           {
-            label: "分类名称",
-            prop: "name"
+            label: "赛事id",
+            prop: "matchId",
+            width: 100
           },
           {
-            label: "注释",
-            prop: "description"
+            label: "身份证号",
+            prop: "idCard",
+            width: 200
+          },
+          {
+            label: "报名时间",
+            prop: "time",
+            width: 100
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus ",
+            width: 100
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
-            prop: "name",
-            type: "input"
+            label: "报名会员id",
+            prop: "memberId ",
+            width: 110
           },
           {
-            label: "注释",
-            prop: "description",
-            type: "textarea"
+            label: "赛事id",
+            prop: "matchId",
+            width: 100
+          },
+          {
+            label: "身份证号",
+            prop: "idCard",
+            width: 200
+          },
+          {
+            label: "报名时间",
+            prop: "time",
+            width: 100
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus ",
+            width: 100
           }
         ]
       }
     };
   },
   beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
+    this.$store.commit("changeActiveMenu", "list_enroll"); //菜单聚焦
   }
 };
 </script>
