@@ -75,15 +75,15 @@
         </el-main>
       </el-container>
     </el-container>
-    <NavMenu></NavMenu>
+    <!-- <NavMenu></NavMenu> -->
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import NavMenu from "./components/NavMenu/NavMenu";
+// import NavMenu from "./components/NavMenu/NavMenu";
 export default {
-  components: {NavMenu}, //注册组件
+  components: {}, //注册组件
   methods: {
     logout() {
       //退出登录函数
