@@ -13,8 +13,7 @@
       </el-header>
     </el-container>
     <el-container>
-      
-      <NavMenu :cf="NavMenuList"></NavMenu>
+      <NavMenu :cf="navMenuList"></NavMenu>
 
       <el-main>
         <keep-alive>
@@ -50,7 +49,7 @@ export default {
     return {
       // 导航菜单列表
 
-      NavMenuList: [
+      navMenuList: [
         {
           //菜单
           index: "listHome",
