@@ -74,8 +74,15 @@
           </keep-alive>
         </el-main>
       </el-container>-->
+      <el-container>
+      <NavMenu :cf="NavMenuList"></NavMenu>
+      <el-main>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </el-main>
+      </el-container>
     </el-container>
-    <NavMenu :cf="NavMenuList"></NavMenu>
   </div>
 </template>
 
