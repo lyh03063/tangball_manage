@@ -5,69 +5,6 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import Mock from "mockjs";
-// 比赛成绩接口
-Mock.mock("/list_achievement", function() {
-  let list_achievement = {
-    code: 0,
-    message: "操作成功",
-    page: {
-      pageIndex: 1,
-      pageSize: 5,
-      allCount: 1,
-      pageCount: 1
-    },
-    list: [
-      {
-        P1: "1",
-        participantsId: "11",
-        participantsName: "张三",
-        matchId: "22",
-        matchName: "唐球友谊赛",
-        matchScore: "80",
-        ranking: "第1名"
-      },
-      {
-        P1: "2",
-        participantsId: "12",
-        participantsName: "李四",
-        matchId: "22",
-        matchName: "唐球友谊赛",
-        matchScore: "75",
-        ranking: "第2名"
-      },
-      {
-        P1: "3",
-        participantsId: "13",
-        participantsName: "王五",
-        matchId: "22",
-        matchName: "唐球友谊赛",
-        matchScore: "71",
-        ranking: "第3名"
-      },
-      {
-        P1: "4",
-        participantsId: "14",
-        participantsName: "赵六",
-        matchId: "33",
-        matchName: "唐球小组赛",
-        matchScore: "85",
-        ranking: "第1名"
-      },
-      {
-        P1: "5",
-        participantsId: "15",
-        participantsName: "孙七",
-        matchId: "33",
-        matchName: "唐球小组赛",
-        matchScore: "80",
-        ranking: "第2名"
-      }
-    ]
-  };
-
-  return list_achievement;
-});
 
 export default {
   components: { listData },
@@ -79,13 +16,10 @@ export default {
         threeTitle: "商品分类",
         flag: true,
         url: {
-          // list: "/list_achievement" //列表接口
-          list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
-          modify:
-            "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
-          delete:
-            "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
+          list:"http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
+          add:"http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
+          modify:"http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
+          delete:"http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
         },
         //-------列配置数组-------
         columns: [
