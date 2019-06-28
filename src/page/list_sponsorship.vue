@@ -1,7 +1,7 @@
 <template>
   <div class>
     <listData :cf="cfList">
-     
+  
     </listData>
   </div>
 </template>
@@ -99,7 +99,11 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-       
+        {
+            label: "id",
+            prop: "P1",
+            type:"input"
+          },
           {
             label: "赞助商id",
             prop: "sponsorId",
@@ -118,7 +122,8 @@ export default {
           {
             label: "赞助时间",
             prop: "time",
-           type:"date"
+           type:"date",
+         
           },
           {
             label: "地点",
