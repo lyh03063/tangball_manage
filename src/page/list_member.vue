@@ -88,7 +88,7 @@ export default {
           {
             label: "会员名称",
             prop: "name",
-            type: "input"
+            type: "input_find_vague"
           },
           {
             label: "身份证号",
