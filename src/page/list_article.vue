@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "list_article", //vuex对应的字段
+        listIndex: "list_article", //vuex对应的字段~
         twoTitle: "其他数据",
         threeTitle: "文章管理",
         flag:true,
@@ -80,16 +80,12 @@ export default {
                       
             ]
           },
-          // {
-          //   label: "文章标题",
-          //   prop: "articleTitle",
-          //   type: "input",
-          //   ajax: {
-          //     url: "http://120.76.160.41:3000/crossList?page=tangball_article",
-          //     keyLabel: "articleTitle",
-          //     keyValue: "P1"
-          //   },
-          // },
+          {
+            label: "文章标题",
+            prop: "articleTitle",
+            type: "input_find_vague",
+           
+          },
           // {
           //   label: "文章标题",
           //   prop: "articleTitle",
