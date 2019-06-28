@@ -129,6 +129,16 @@ export default {
           menuItem: [
             { index: "list_admin", route: "/list_admin", title: "管理员" }
           ]
+        },
+        {
+          index: "4",
+          icon: "el-icon-setting",
+          title: "demo页面",
+          menuItem: [
+            { index: "dynamic_form_demo", route: "/dynamic_form_demo", title: "动态表单" },
+            { index: "listCategory", route: "/listCategory", title: "商品分类" },
+            { index: "listCommodity", route: "/listCommodity", title: "商品列表" }
+          ]
         }
       ]
     };

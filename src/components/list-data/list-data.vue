@@ -5,20 +5,23 @@
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <space height="8"></space>
-    <el-row>
+    <space height="12"></space>
+    <div class="search-form-box"  >
+<dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson" ></dynamicForm>
+
+    </div>
+
+     <space height="10"></space>
+<el-row size="mini">
       <el-button
         v-if="cf.flag"
+        size="mini"
         type="primary"
-        size="small"
         @click="$store.commit('openDialogAdd',cf.listIndex)"
       >新增</el-button>
       <space v-else height="32"></space>
     </el-row>
     <space height="10"></space>
-
-    <dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson"></dynamicForm>
-
     <!--主列表-->
     <el-table
       :data="tableData"
@@ -178,6 +181,8 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
+        labelWidth:"auto",
+        size:"mini",
         inline: true,
         formItems: this.cf.searchFormItems,
         btns: [{ text: "查询", event: "submit1", type: "primary" }]
@@ -225,5 +230,10 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.search-form-box{
+  border: 1px #EBEEF5 solid;
+border-radius: 5px;
+padding: 15px 5px 0 12px;
+}
 </style>

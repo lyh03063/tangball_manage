@@ -78,7 +78,7 @@ export default {
       open1: {
         width: "64px"
       },
-      isCollapse: true
+      isCollapse: false
     };
   }
 };
