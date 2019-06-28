@@ -5,7 +5,7 @@
         <el-row>
           <div class="FL MT13 FS24 C_fff">管理后台</div>
           <div class="FR MT30 C_fff">
-            <span class="MR10">当前登录用户 admin</span>
+            <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
             <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
             <a target="_blank" href="javascript:;">官网首页</a>
           </div>
@@ -133,7 +133,11 @@ export default {
       ]
     };
   },
-  mounted() {}
+ created() {
+   //*引用当前用户名
+   this. currentUserName=localStorage.loginUserName
+ 
+ }
 };
 </script>
 
