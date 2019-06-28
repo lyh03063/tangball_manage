@@ -37,12 +37,9 @@ export default {
             label: "创建时间",
             prop: "CreateTime",
             width: 200,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
+            formatter: function(date) {  
+               var dateee = new Date(date).toJSON();  
+              return moment(new Date(+new Date(dateee) + 8 * 3600 * 1000)).format('YYYY年 MM月 DD日');
             },
           },
            {
