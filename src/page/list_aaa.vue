@@ -12,8 +12,6 @@ export default {
     return {
       cfList: {
         listIndex: "listCategory", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
         flag:true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
