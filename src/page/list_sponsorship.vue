@@ -1,38 +1,12 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+     
+    </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-// import Mock from 'mockjs'
-// //赛事赞助接口
-// Mock.mock('/list_sponsorship',function(){
-//   let eventSponsors ={
-//       code:0,
-//       message:"操作成功",
-//       page:{
-//       pageIndex: 1,
-//       pageSize: 3,
-//       allCount: 1,
-//       pageCount: 1
-//       },
-//     list:[
-//       {P1: 1, sponsorId : "xxx",matchId :1,amount:10000, time:"2019-6-26",place:"广东深圳",},
-//       {P1: 2, sponsorId : "xxx",matchId :2,amount:10000, time:"2019-6-26",place :"广东深圳",}, 
-//       {P1: 3, sponsorId : "xxx",matchId :3,amount:10000, time:"2019-6-26",place :"广东深圳",}, 
-//       {P1: 4, sponsorId : "xxx",matchId :4,amount:10000, time:"2019-6-26",place :"广东深圳",}, 
-//   ]
-// }
-//   return eventSponsors
-
-// })
-// Mock.mock('/list_sponsorship_add',function(){
-      
-  
-
-
-// })
 
 export default {
   components: { listData },
@@ -57,12 +31,12 @@ export default {
             width:60
           },
           {
-            label: "赞助商数据id",
+            label: "赞助商id",
             prop: "sponsorId",
             width: 120
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
             width: 120
           },
@@ -98,12 +72,12 @@ export default {
             
           },
           {
-            label: "赞助商数据id",
+            label: "赞助商id",
             prop: "sponsorId",
             
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
             
           },
@@ -127,12 +101,12 @@ export default {
         formItems: [
        
           {
-            label: "赞助商数据id",
+            label: "赞助商id",
             prop: "sponsorId",
             type:"input"
           },
           {
-            label: "赛事数据id",
+            label: "赛事id",
             prop: "matchId",
             type:"input"
           },
@@ -144,7 +118,7 @@ export default {
           {
             label: "赞助时间",
             prop: "time",
-           type:"input"
+           type:"date"
           },
           {
             label: "地点",
