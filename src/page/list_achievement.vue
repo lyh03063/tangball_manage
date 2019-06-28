@@ -87,35 +87,40 @@ export default {
         },
         //-------列配置数组-------
         columns: [
+           {
+            label: "id",
+            prop: "P1",
+            width: 60
+          },
           {
             label: "参赛人Id",
             prop: "participantsId",
-            width: 100
+            width: 90
           },
           {
             label: "参赛人姓名",
             prop: "participantsName",
-            width: 120
+            width: 110
           },
           {
             label: "赛事ID",
             prop: "matchId",
-            width: 100
+            width: 80
           },
           {
             label: "赛事名称",
             prop: "matchName",
-            width: 150
+            width: 120
           },
           {
             label: "比赛得分",
             prop: "matchScore",
-            width: 100
+            width: 90
           },
           {
             label: "名次",
             prop: "ranking",
-            width: 100
+            width: 70
           }
         ],
         //-------筛选表单字段数组-------
@@ -133,6 +138,11 @@ export default {
         ],
         //-------详情字段数组-------
         detailItems: [
+          {
+            label: "id",
+            prop: "P1",
+            width: 60
+          },
           {
             label: "参赛人Id",
             prop: "participantsId",
