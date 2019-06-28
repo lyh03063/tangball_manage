@@ -82,12 +82,13 @@ export default {
           // list: "/list_achievement" //列表接口
           list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
+          modify:
+            "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
+          delete:
+            "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
         },
         //-------列配置数组-------
         columns: [
-         
           {
             label: "参赛人Id",
             prop: "participantsId",
@@ -134,7 +135,6 @@ export default {
         ],
         //-------详情字段数组-------
         detailItems: [
-         
           {
             label: "参赛人Id",
             prop: "participantsId",
