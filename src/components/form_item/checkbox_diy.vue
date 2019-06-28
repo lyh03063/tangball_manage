@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      valueNeed: []
+      valueNeed: this.value
     };
   },
   methods: {
