@@ -1,5 +1,18 @@
 <template>
   <div class>
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="70%"
+      title="显示大图"
+      :close-on-press-escape="false"
+      v-bind:visible.sync="showDialogBigImg"
+      v-if="showDialogBigImg"
+    >
+      <div class="TAC">
+        <img :src="urlBigImg" alt>
+      </div>
+    </el-dialog>
+
     <listData :formData="formData" :cf="cfList">
       <template v-slot:slot_area="{formData}">
         <el-form>
@@ -38,6 +51,7 @@ export default {
   },
   data() {
     return {
+       showDialogBigImg: false,
       formData:[],
       options: option,
       cfList: {
@@ -93,6 +107,11 @@ export default {
             label: "分类编号",
             prop: "P1",
             type: "input"
+          },
+            {
+            label: "加盟时间",
+            prop: "time",
+            type:"time_period"
           }
         ],
         //-------详情字段数组-------
