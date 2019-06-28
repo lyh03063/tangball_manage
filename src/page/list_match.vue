@@ -37,7 +37,7 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 150,
+            width: 200,
             formatter: function(date) {
               var dateee = new Date(date).toJSON();
               return new Date(+new Date(dateee) + 8 * 3600 * 1000)
@@ -84,21 +84,22 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "赛事名称",
-            prop: "matchName",
+            label: "赛事状态",
+            prop: "matchStatus",
             type: "input"
           },
           {
-            label: "报名费用",
-            prop: "registrationFee"
+            label: "发布状态",
+            prop: "publicationStatus",
+            type: "input"
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
             label: "数据id",
-            prop: "p1",
-            width: 110
+            prop: "P1",
+            width: 100
           },
           {
             label: "赛事名称",
@@ -108,7 +109,14 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 100
+            width: 100,
+            formatter: function(date) {
+              var dateee = new Date(date).toJSON();
+              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+                .toISOString()
+                .replace(/T/g, " ")
+                .replace(/\.[\d]{3}Z/, "");
+            }
           },
           {
             label: "比赛场馆",
@@ -160,8 +168,8 @@ export default {
         formItems: [
           {
             label: "数据id",
-            prop: "p1",
-            width: 110
+            prop: "P1",
+            width: 100
           },
           {
             label: "赛事名称",
@@ -171,7 +179,14 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 100
+            width: 100,
+            formatter: function(date) {
+              var dateee = new Date(date).toJSON();
+              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
+                .toISOString()
+                .replace(/T/g, " ")
+                .replace(/\.[\d]{3}Z/, "");
+            }
           },
           {
             label: "比赛场馆",
