@@ -87,11 +87,7 @@ export default {
         },
         //-------列配置数组-------
         columns: [
-           {
-            label: "id",
-            prop: "P1",
-            width: 60
-          },
+         
           {
             label: "参赛人Id",
             prop: "participantsId",
@@ -138,11 +134,7 @@ export default {
         ],
         //-------详情字段数组-------
         detailItems: [
-          {
-            label: "id",
-            prop: "P1",
-            width: 60
-          },
+         
           {
             label: "参赛人Id",
             prop: "participantsId",
