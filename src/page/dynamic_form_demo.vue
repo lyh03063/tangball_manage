@@ -1,6 +1,6 @@
 <template>
   <div class>
-       <checkbox_diy v-model="arr1" :options="options" ></checkbox_diy>
+    
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
     <dynamicForm :cf="cfForm" :formData="formData">
       <!--弹窗表单的description字段插槽组件-->
@@ -10,7 +10,7 @@
 
 
     </dynamicForm>
- 
+    <checkbox_diy v-model="arr1" :options="options" ></checkbox_diy>
   </div>
 </template>
 <script>
@@ -96,6 +96,11 @@ export default {
             label: "日期选择器(date)",
             prop: "prop_date",
             type: "date"
+          },
+          {
+            label: "图片上传",
+            prop: "prop_upload",
+            type: "upload"
           },
           {
             label: "json编辑器(jsonEditor)",
