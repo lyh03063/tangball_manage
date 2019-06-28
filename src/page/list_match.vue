@@ -19,6 +19,7 @@ export default {
           list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
+          detail: "http://120.76.160.41:3000/crossDetail?page=mabang_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
@@ -209,6 +210,16 @@ export default {
             ]
           },
           {
+            label: "比赛场馆",
+            prop: "venue",
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_venue",
+              keyLabel: "name",
+              keyValue: "name"
+            }
+          },
+          {
             label: "赛事时间",
             prop: "matchTime",
             type: "date"
@@ -221,10 +232,7 @@ export default {
             label: "赛事名称",
             prop: "matchName"
           },
-          {
-            label: "比赛场馆",
-            prop: "venue"
-          },
+
           {
             label: "报名人数",
             prop: "registeredPersons"
