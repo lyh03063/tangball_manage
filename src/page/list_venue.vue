@@ -8,6 +8,19 @@
           </el-form-item>
         </el-form>
       </template>
+
+      <template v-slot:slot_detail_item_album="{row}">
+        <div class v-if="row.album && row.album.length">
+          <img
+            @click="showBigImg(item.url)"
+            :src="item.url"
+            alt
+            v-for="item in row.album"
+            :key="item.url"
+            class="W100 H100"
+          >
+        </div>
+      </template>
     </listData>
   </div>
 </template>
@@ -16,9 +29,16 @@ import listData from "../components/list-data/list-data.vue";
 
 export default {
   components: { listData },
+  methods:{
+     showBigImg(url) {
+      this.showDialogBigImg = true;
+      this.urlBigImg = url;
+    },
+
+  },
   data() {
     return {
-      formData: {},
+      formData:[],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -56,18 +76,16 @@ export default {
           {
             label: "加盟时间",
             prop: "time",
-            width: 150
+            width: 130,
+            formatter: function(row) {
+              return moment(row.time).format("YYYY-MM-DD");
+            }
           },
           {
             label: "联系方式",
             prop: "phoneNumber",
             width: 140
           },
-          {
-            label: "相册",
-            prop: "album",
-            width: 100
-          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -105,7 +123,8 @@ export default {
           },
           {
             label: "相册",
-            prop: "album"
+            prop: "album",
+            slot: "slot_detail_item_album"
           }
         ],
         //-------新增、修改表单字段数组-------
@@ -138,7 +157,8 @@ export default {
           },
           {
             label: "相册",
-            prop: "album"
+            prop: "album",
+            type: "upload"
           }
         ]
       }
