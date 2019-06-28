@@ -82,8 +82,8 @@ export default {
     };
   }
 };
-</script scoped>
-<style>
+</script >
+<style scoped>
 ul {
   margin: 0;
   padding: 0;
