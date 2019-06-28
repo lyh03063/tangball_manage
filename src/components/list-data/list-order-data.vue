@@ -10,7 +10,7 @@
       @submit1="getOrderList"
       @submit2="resetField()"
       :cf="cfSearchForm"
-      :formData="Objparma.findJson"
+      v-model="Objparma.findJson"
     ></dynamicForm>
     <!------------------------主列表------------------->
     <el-table
