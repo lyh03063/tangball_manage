@@ -16,10 +16,10 @@ export default {
         threeTitle: "商品分类",
         flag:true,
         url: {
-          list: '/list_sponsor', //列表接口
-          add: '/list_sponsor/add', //新增接口
-          modify: '/list_sponsor/modify', //修改接口
-          delete: "/list_sponsor/delete" //删除接口
+          list: 'http://120.76.160.41:3000/crossList?page=tangball_sponsor', //列表接口
+          add: 'http://120.76.160.41:3000/crossAdd?page=tangball_sponsor', //新增接口
+          modify: 'http://120.76.160.41:3000/crossModify?page=tangball_sponsor', //修改接口
+          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_sponsor" //删除接口
         },
         //-------列配置数组-------
         columns: [
