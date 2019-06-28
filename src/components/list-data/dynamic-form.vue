@@ -3,7 +3,7 @@
     ref="form"
     :model="formData"
     :label-width="cf.labelWidth||'100px'"
-    size="small"
+    :size="cf.size||'small'"
     :inline="cf.inline"
   >
     <template v-for="item in cf.formItems">
@@ -67,6 +67,8 @@
           placeholder="选择日期"
           v-else-if="item.type=='date'"
         ></el-date-picker>
+        <!--如果是aaaa-->
+        <time_period v-model="formData[item.prop]" v-else-if="item.type=='time_period'"></time_period>
         <!--如果是vue-json编辑器-->
         <vue-json-editor
           v-model="formData[item.prop]"
@@ -122,6 +124,7 @@ import select_ajax from "../form_item/select_ajax.vue";
 import input_find_vague from "../form_item/input_find_vague.vue";
 import json_editor from "../form_item/json_editor.vue";
 import upload_img from "../form_item/upload_img.vue";
+import time_period from "../form_item/time_period.vue";
 export default {
   components: {
     //注册组件
@@ -129,7 +132,7 @@ export default {
     vueJsonEditor,
     select_ajax,
     input_find_vague,
-    json_editor,upload_img
+    json_editor,upload_img,time_period
   },
 
   props: {

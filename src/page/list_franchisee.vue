@@ -81,11 +81,11 @@ export default {
             label: "加盟时间",
             prop: "joinTime",
             width: 100,
-            formatter:function(row){
+            // formatter:function(row){
               
-             return moment(row.joinTime).format("YYYY/MM/DD")
+            //  return moment(row.joinTime).format("YYYY-MM-DD")
 
-            }
+            // }
           },
           {
             label: "备注",
@@ -99,6 +99,10 @@ export default {
             label: "Id",
             prop: "P1",
             type: "input"
+          },{
+            label: "加盟时间",
+            prop: "joinTime",
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------

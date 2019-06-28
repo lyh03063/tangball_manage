@@ -1,8 +1,8 @@
 <template>
-  <div class>
-    123
+
+
     <textarea class="WP100 H100 PL10 PR10 PT5 PB5" v-model="valueNeed" @change="change"></textarea>
-  </div>
+  
 </template>
 
 <script>
