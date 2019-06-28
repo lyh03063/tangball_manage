@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <space height="12"></space>
     <div class="search-form-box">
-      <dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson"></dynamicForm>
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
 
     <space height="10"></space>
@@ -107,7 +107,21 @@ export default {
     }
   },
   methods: {
-    showDetail(row) {
+    async showDetail(row) {
+      //判断详情接口是否存在，如果存在，进行ajax请求
+      if (this.cf.url.detail) {
+        //如果{000}000
+        let { data } = await axios({
+          //请求接口
+          method: "post",
+          url: this.cf.url.detail,
+          data: {
+            id: row.P1
+          } //传递参数
+        });
+        row = data.doc;
+      }
+
       this.$store.commit("openDialogDetail", {
         listIndex: this.cf.listIndex,
         row: row
