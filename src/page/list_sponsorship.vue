@@ -52,9 +52,9 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
+            label: "id",
             prop: "P1",
-            width: 100
+            width:60
           },
           {
             label: "赞助商数据id",
@@ -74,12 +74,12 @@ export default {
           {
             label: "赞助时间",
             prop: "time",
-            width: 200
+            width: 220
           },
           {
             label: "地点",
             prop: "place",
-            width: 200
+            width: 110
           }
         ],
         //-------筛选表单字段数组-------
@@ -93,7 +93,7 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
+            label:"id",
             prop: "P1",
             
           },
@@ -125,12 +125,7 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-         {
-            label: "分类编号",
-            prop: "P1",
-            type:"input"
-            
-          },
+       
           {
             label: "赞助商数据id",
             prop: "sponsorId",
