@@ -28,10 +28,10 @@ export default {
         threeTitle: "文章分类",
         flag:true,
         url: {
-          list: '/listArticleCategory', //列表接口
-          add: '/listArticleCategory/add', //新增接口
-          modify: "/listArticleCategory/modify", //修改接口
-          delete: '/listArticleCategory/delete' //删除接口
+          list: 'http://120.76.160.41:3000/crossList?page=tangball_article_category', //列表接口
+          add: 'http://120.76.160.41:3000/crossAdd?page=tangball_article_category', //新增接口
+          modify: 'http://120.76.160.41:3000/crossModify?page=tangball_article_category', //修改接口
+          delete: 'http://120.76.160.41:3000/crossDelete?page=tangball_article_category' //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -47,7 +47,7 @@ export default {
           },
           {
             label: "分类说明",
-            prop: "explin",
+            prop: "remark",
             width: 200
           }
         ],
@@ -76,7 +76,7 @@ export default {
           },
           {
             label: "分类说明",
-            prop: "explin"
+            prop: "remark"
           },
           {
             label: "该分类下的文章总量",
@@ -97,7 +97,7 @@ export default {
           },
           {
             label: "分类说明",
-            prop: "explin",
+            prop: "remark",
             type: "textarea"
           }
         ]
@@ -115,15 +115,15 @@ export default {
       pageCount: 1
       },
     list:[
-    {P1:1,name:"唐球规则",explin:"关于唐球的各项规则说明",articleNumber:"3",
+    {P1:1,name:"唐球规则",remark:"关于唐球的各项规则说明",articleNumber:"3",
     article:[{title:"文章分类唐球规则下的文章一",text:"这是一篇文章"},
     {title:"文章分类唐球规则下的文章二",text:"这是一篇文章"},
     {title:"文章分类唐球规则下的文章三",text:"这是一篇文章"},]},
-    {P1:2,name:"比赛说明",explin:"关于唐球比赛的各项规则说明",articleNumber:"3",
+    {P1:2,name:"比赛说明",remark:"关于唐球比赛的各项规则说明",articleNumber:"3",
     article:[{title:"文章分类比赛说明下的文章一",text:"这是一篇文章"},
     {title:"文章分类比赛说明下的文章二",text:"这是一篇文章"},
     {title:"文章分类比赛说明下的文章三",text:"这是一篇文章"},]},
-    {P1:3,name:"推广赞助",explin:"关于唐球的推广赞助的说明",articleNumber:"3",
+    {P1:3,name:"推广赞助",remark:"关于唐球的推广赞助的说明",articleNumber:"3",
     article:[{title:"文章分类推广赞助下的文章一",text:"这是一篇文章"},
     {title:"文章分类推广赞助下的文章二",text:"这是一篇文章"},
     {title:"文章分类推广赞助下的文章三",text:"这是一篇文章"},]},
@@ -138,7 +138,7 @@ Mock.mock('/listArticleCategory/add', function(obj){
   var newElement = {
     P1:textCategoryList.list[index].P1+1,
     name:element.name,
-    explin:element.explin,
+    remark:element.remark,
     articleNumber:0,
     article:[]
   }

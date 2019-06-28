@@ -1,61 +1,31 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+      <dynamicForm :cf="cfList">
+     
+    </dynamicForm>
+    </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import Mock from "mockjs"
+import dynamicForm from "../components/list-data/dynamic-form";
 
 
-
-Mock.mock('/list_venue',function(){
-  let list_venue={
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list":[
-      {
-        "P1":1,
-        "name":"一号场馆",
-        "area":"A区",
-        "countMatch":"5",
-        // "album"
-        "time":"2016-6-10",
-        "phoneNumber":"18218024345"
-
-      },
-      {
-        "P1":2,
-        "name":"二号场馆",
-        "area":"B区",
-        "countMatch":"5",
-        // "album"
-        "time":"2016-6-11",
-        "phoneNumber":"13213125535"
-      },
-      
-    ]
-  }
-  return list_venue
-})
 export default {
-  components: { listData },
+  components: { listData,dynamicForm },
   data() {
     return {
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
         twoTitle: "商品中心",
         threeTitle: "商品分类",
-        flag:true,
+        flag: true,
         url: {
-          list: "/list_venue", //列表接口
-      
+          list: "http://120.76.160.41:3000/crossList?page=tangball_venue", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=tangball_venue", //新增接口
+          modify: "http://120.76.160.41:3000/crossModify?page=tangball_venue", //修改接口
+          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_venue" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -79,15 +49,22 @@ export default {
             prop: "countMatch",
             width: 100
           },
-             {
+          {
+           
             label: "加盟时间",
             prop: "time",
-            width: 200
+            width: 200,
+            format:"yyyy-MM-dd"
           },
-           {
+          {
             label: "联系方式",
             prop: "phoneNumber",
             width: 200
+          },
+          {
+            label: "相册",
+            prop: "album",
+            width: 100
           },
         ],
         //-------筛选表单字段数组-------
@@ -120,20 +97,25 @@ export default {
             prop: "countMatch",
             width: 200
           },
-           {
+          {
             label: "加盟时间",
             prop: "time",
             width: 200
           },
-           {
+          {
             label: "联系方式",
             prop: "phoneNumber",
             width: 200
           },
+          {
+            label: "相册",
+            prop: "album",
+            width: 100
+          },
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-           {
+          {
             label: "分类编号",
             prop: "P1",
             width: 100
@@ -153,15 +135,22 @@ export default {
             prop: "countMatch",
             width: 200
           },
-             {
+          {
+             type:"date",
             label: "加盟时间",
             prop: "time",
-            width: 200
+            width: 200,
+           format:"yyyy-MM-dd"
           },
-           {
+          {
             label: "联系方式",
             prop: "phoneNumber",
             width: 200
+          },
+           {
+            label: "相册",
+            prop: "album",
+            width: 100
           },
         ]
       }
