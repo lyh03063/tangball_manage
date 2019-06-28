@@ -5,7 +5,7 @@
         <el-row>
           <div class="FL MT13 FS24 C_fff">管理后台</div>
           <div class="FR MT30 C_fff">
-            <span class="MR10">当前登录用户 admin</span>
+            <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
             <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
             <a target="_blank" href="javascript:;">官网首页</a>
           </div>
@@ -80,16 +80,7 @@ export default {
               title: "比赛成绩"
             },
             { index: "list_member", route: "/list_member", title: "会员" },
-            {
-              index: "list_sponsor",
-              route: "/list_sponsor",
-              title: "赞助商"
-            },
-            {
-              index: "list_sponsorship",
-              route: "/list_sponsorship",
-              title: "赛事赞助"
-            }
+            
           ]
         },
         {
@@ -97,6 +88,11 @@ export default {
           icon: "el-icon-document",
           title: "其他数据",
           menuItem: [
+             {
+              index: "list_area",
+              route: "/list_area",
+              title: "地区管理"
+            },
             {
               index: "list_article_category",
               route: "/list_article_category",
@@ -112,6 +108,23 @@ export default {
         {
           index: "3",
           icon: "el-icon-setting",
+          title: "赛事赞助",
+          menuItem: [
+           {
+              index: "list_sponsor",
+              route: "/list_sponsor",
+              title: "赞助商"
+            },
+            {
+              index: "list_sponsorship",
+              route: "/list_sponsorship",
+              title: "赛事赞助"
+            }
+          ]
+        },
+        {
+          index: "4",
+          icon: "el-icon-setting",
           title: "系统管理",
           menuItem: [
             { index: "list_admin", route: "/list_admin", title: "管理员" }
@@ -120,7 +133,11 @@ export default {
       ]
     };
   },
-  mounted() {}
+ created() {
+   //*引用当前用户名
+   this. currentUserName=localStorage.loginUserName
+ 
+ }
 };
 </script>
 

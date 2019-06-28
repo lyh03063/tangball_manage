@@ -10,13 +10,13 @@ const userData = () => {
   return { a: 1 }
 }
 Mock.mock('/api/users', userData)
-Mock.mock('/login', function () {
-  let loginList = [
-    { P1: 1, userName: "admin", passWord: "aa" },
-    { P1: 2, userName: "admin", passWord: "aa" },
-  ]
-  return loginList
-})
+// Mock.mock('/login', function () {
+//   let loginList = [
+//     { P1: 1, userName: "admin", passWord: "aa" },
+//     { P1: 2, userName: "admin", passWord: "aa" },
+//   ]
+//   return loginList
+// })
 
 Mock.mock('/articleList', function (obj) {
 
@@ -71,24 +71,56 @@ Mock.mock('/textCategory', function () {
   return textCategoryList
 
 })
-Mock.mock('/list_sponsor',function(){
-  let sponsor={
-    code:0,
-      message:"操作成功",
-      page:{
-      pageIndex: -1,
-      pageSize: 5,
-      allCount: 1,
-      pageCount: 1
-      },
-    list:[
-    {P1:1,name:"蔡徐坤",money:"一亿粉丝",intro:"大家好，我是练习时长两年半的偶像练习生，蔡徐坤，擅长唱跳rap和篮球，来音乐起！鸡你太美！！！"},
-    {P1:2,name:"面筋哥",money:"一份烤面筋",intro:"烤面筋，烤面筋~~我的烤面筋！让你吃得每天都开心~烤面筋，烤面筋~~"},
-    {P1:3,name:"局座",money:"一艘舰艇",intro:"判断一个舰艇好坏，很重要的一点是，你一眼看过去，好看不好看，要是你看的不顺眼，那丑，八成没多大战斗力。"},
-    {P1:4,name:"王境泽",money:"一碗炒饭",intro:"我王境泽就是饿死，死外边，从这跳下去，也不会吃你们一点儿东西。香，真香"},
-    {P1:5,name:"金坷垃三人组",money:"一袋金坷垃",intro:"肥料掺了金坷垃，一袋能顶两袋撒！肥料掺了金坷垃，小麦亩产一千八！美国·圣地亚戈 American Santiago（阿妹你看，上帝压狗）"},
-  ]}
+let sponsor = {
+  code: 0,
+  message: "操作成功",
+  page: {
+    pageIndex: -1,
+    pageSize: 6,
+    allCount: 1,
+    pageCount: 1
+  },
+  list: [
+    { P1: 1, name: "蔡徐坤", money: "一亿粉丝", intro: "大家好，我是练习时长两年半的偶像练习生，蔡徐坤，擅长唱跳rap和篮球，来音乐起！鸡你太美！！！" },
+    { P1: 2, name: "面筋哥", money: "一份烤面筋", intro: "烤面筋，烤面筋~~我的烤面筋！让你吃得每天都开心~烤面筋，烤面筋~~" },
+    { P1: 3, name: "局座", money: "一艘舰艇", intro: "判断一个舰艇好坏，很重要的一点是，你一眼看过去，好看不好看，要是你看的不顺眼，那丑，八成没多大战斗力。" },
+    { P1: 4, name: "王境泽", money: "一碗炒饭", intro: "我王境泽就是饿死，死外边，从这跳下去，也不会吃你们一点儿东西。香，真香" },
+    { P1: 5, name: "金坷垃三人组", money: "一袋金坷垃", intro: "肥料掺了金坷垃，一袋能顶两袋撒！肥料掺了金坷垃，小麦亩产一千八！美国·圣地亚戈 American Santiago（阿妹你看，上帝压狗）" },
+  ]
+}
+Mock.mock('/list_sponsor', function () {
+
   return sponsor
+})
+Mock.mock('/list_sponsor/add', function (obj) {
+  let element = JSON.parse(obj.body).data;
+  let index = sponsor.list.length - 1
+  var newSponsor = {
+    P1: sponsor.list[index].P1 + 1,
+    name: element.name,
+    money: element.money,
+    intro: element.intro
+  }
+  sponsor.list.push(newSponsor);
+  console.log(newSponsor);
+})
+Mock.mock('/list_sponsor/modify', function (obj) {
+  let element = JSON.parse(obj.body).modifyJson;
+  for (let i = 0; i < sponsor.list.length; i++) {
+    console.log(element.P1);
+    if (sponsor.list[i].P1 == element.P1) {
+      sponsor.list[i] = element;
+    }
+  }
+})
+Mock.mock('/list_sponsor/delete', function (obj) {
+  let id = JSON.parse(obj.body).findJson.P1;
+  for (let i = 0; i < sponsor.list.length; i++) {
+    console.log(id.P1);
+    if (sponsor.list[i].P1 == id) {
+      sponsor.list.splice(i, 1)
+    }
+  }
 })
 
 // 报名（订单）接口

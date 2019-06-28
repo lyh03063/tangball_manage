@@ -33,6 +33,7 @@
         :prop="column.prop"
         :label="column.label"
         :width="column.width"
+        :show-overflow-tooltip="true"
         v-for="column in cf.columns"
         :key="column.prop"
         :formatter="column.formatter"

@@ -42,6 +42,7 @@ import list_sponsorship from "./page/list_sponsorship";
 import list_article_category from "./page/list_article_category";
 import list_article from "./page/list_article";
 import list_admin from "./page/list_admin";
+import list_area from "./page/list_area";
 import dynamic_form_demo from "./page/dynamic_form_demo";
 window.util=util;
 
@@ -96,6 +97,10 @@ const router = new VueRouter({
           component: list_article
         },
         {
+          path: '/list_area',
+          component: list_area
+        },
+        {
           path: '/list_admin',
           component: list_admin
         },
@@ -119,6 +124,7 @@ const router = new VueRouter({
           path: '/listMember',
           component: listMember
         },
+        
         {
           path: '/list_lyh',
           component: list_lyh
@@ -189,6 +195,9 @@ const router = new VueRouter({
 
 import axios from "axios";
 window.axios = axios;
+
+import moment from "moment";
+window.moment = moment;
 
 import Vuex from 'vuex'//导入vuex模块
 Vue.use(Vuex)//应用组件

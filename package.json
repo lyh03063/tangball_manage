@@ -5,12 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build2": "vue-cli-service build --target wc --name my-element src/components/form_item/checkbox_diy.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.8.2",
+    "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-json-editor": "^1.3.1",
     "vue-quill-editor": "^3.0.6",
