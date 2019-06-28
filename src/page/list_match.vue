@@ -26,35 +26,27 @@ export default {
           {
             label: "id",
             prop: "P1",
-            width: 60
+            width: 50
           },
           {
             label: "赛事名称",
             prop: "matchName",
-            width: 150,
-           
+            width: 100
           },
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 200,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            }
+            width: 100
           },
           {
             label: "比赛场馆",
             prop: "venue",
-            width: 150
+            width: 90
           },
           {
             label: "报名人数",
             prop: "registeredPersons",
-            width: 100
+            width: 90
           },
           {
             label: "报名费",
@@ -62,23 +54,34 @@ export default {
             width: 75
           },
           {
-            label: "赛事状态",
-            prop: "matchStatus",
-            width: 100
-          },
-          {
             label: "发布",
             prop: "publicationStatus",
-            width: 70,
-             formatter: function(rowData) {
-               return rowData.publicationStatus=="1"?"未发布":"发布"//三元表达式
-             
+            width: 75,
+            formatter: function(rowData) {
+              return rowData.publicationStatus == "1" ? "发布" : "未发布"; //三元表达式
+            }
+          },
+          {
+            label: "状态",
+            prop: "matchStatus",
+            width: 75,
+            formatter: function(rowData) {
+              if (rowData.matchStatus == "1") {
+                return "未开始";
+              } else if (rowData.matchStatus == "2") {
+                return "进行中";
+              } else {
+                return "已结束";
+              }
             }
           },
           {
             label: "类型",
             prop: "matchType",
-            width: 70
+            width: 75,
+            formatter: function(rowData) {
+              return rowData.matchType == "1" ? "比杆赛" : "比洞赛"; //三元表达式
+            }
           }
         ],
         //-------筛选表单字段数组-------
@@ -86,12 +89,27 @@ export default {
           {
             label: "赛事状态",
             prop: "matchStatus",
-            type: "input"
+            type: "select",
+            options: [
+              { label: "未开始", value: "1" },
+              { label: "进行中", value: "2" },
+              { label: "已结束", value: "3" }
+            ]
+          },
+          {
+            label: "赛事类型",
+            prop: "matchType",
+            type: "select",
+            options: [
+              { label: "比杆赛", value: "1" },
+              { label: "比洞赛", value: "2" }
+            ]
           },
           {
             label: "发布状态",
             prop: "publicationStatus",
-            type: "input"
+            type: "select",
+            options: [{ label: "是", value: "1" }, { label: "否", value: "2" }]
           }
         ],
         //-------详情字段数组-------
@@ -109,14 +127,7 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            width: 100,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            }
+            width: 100
           },
           {
             label: "比赛场馆",
@@ -124,7 +135,7 @@ export default {
             width: 100
           },
           {
-            label: "已报名人数",
+            label: "报名人数",
             prop: "registeredPersons",
             width: 150
           },
@@ -151,7 +162,7 @@ export default {
           {
             label: "赛事介绍",
             prop: "matchIntroduce",
-            width: 300
+            width: 100
           },
           {
             label: "赛事手册",
@@ -167,71 +178,69 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "数据id",
-            prop: "P1",
-            width: 100
-          },
-          {
-            label: "赛事名称",
-            prop: "matchName",
-            width: 100
-          },
-          {
-            label: "赛事时间",
-            prop: "matchTime",
-            width: 100,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            }
-          },
-          {
-            label: "比赛场馆",
-            prop: "venue",
-            width: 100
-          },
-          {
-            label: "已报名人数",
-            prop: "registeredPersons",
-            width: 150
-          },
-          {
-            label: "报名费用",
-            prop: "registrationFee",
-            width: 100
-          },
-          {
             label: "赛事状态",
             prop: "matchStatus",
-            width: 100
+            type: "select",
+            options: [
+              { label: "未开始", value: "1" },
+              { label: "进行中", value: "2" },
+              { label: "已结束", value: "3" }
+            ]
           },
           {
             label: "发布状态",
             prop: "publicationStatus",
-            width: 100
+            type: "select",
+            options: [{ label: "是", value: "1" }, { label: "否", value: "2" }]
           },
           {
             label: "赛事类型",
             prop: "matchType",
-            width: 100
+
+            type: "select",
+            options: [
+              { label: "比杆赛", value: "1" },
+              { label: "比洞赛", value: "2" }
+            ]
           },
           {
+            label: "赛事时间",
+            prop: "matchTime",
+            type: "date"
+          },
+          {
+            label: "数据的id",
+            prop: "P1"
+          },
+          {
+            label: "赛事名称",
+            prop: "matchName"
+          },
+          {
+            label: "比赛场馆",
+            prop: "venue"
+          },
+          {
+            label: "报名人数",
+            prop: "registeredPersons"
+          },
+          {
+            label: "报名费用",
+            prop: "registrationFee"
+          },
+
+          {
             label: "赛事介绍",
-            prop: "matchIntroduce",
-            width: 300
+            prop: "matchIntroduce"
           },
           {
             label: "赛事手册",
             prop: "matchManual",
-            width: 100
+            type: "textarea"
           },
           {
             label: "路线地图",
-            prop: "routeMap",
-            width: 100
+            prop: "routeMap"
           }
         ]
       }
