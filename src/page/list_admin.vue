@@ -5,6 +5,14 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
+// import Mock from 'mockjs'
+// Mock.mock('/login', function () {
+// let loginList=[
+//   {P1:1,userName:"admin",passWord:"aa"},
+//   {P1:2,userName:"admin",passWord:"aa"},
+// ]
+// return loginList
+// })
 
 export default {
   components: { listData },
@@ -12,14 +20,15 @@ export default {
     return {
       cfList: {
         listIndex: "listCategory", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "系统管理",
+        threeTitle: "管理员",
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          // list:"/list_login",
+          list: "http://120.76.160.41:3000/crossList?page=tangball_admin", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=tangball_admin", //新增接口
+          modify: "http://120.76.160.41:3000/crossModify?page=tangball_admin", //修改接口
+          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_admin" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -31,6 +40,11 @@ export default {
           {
             label: "密码",
             prop: "passWord",
+            width: 200
+          },
+           {
+            label: "昵称",
+            prop: "nickName",
             width: 200
           },
           {
@@ -73,7 +87,12 @@ export default {
             label: "密码",
             prop: "passWord",
             type: "input"
-          }
+          },
+          {
+            label: "昵称",
+            prop: "nickName",
+            type: "input"
+          },
         ]
       }
     };

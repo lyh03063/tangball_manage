@@ -30,28 +30,39 @@ export default {
       dialogVisible: false
     };
   },
+  watch: {
+    valueNeed: {
+      handler(newVal, oldVal) {//变动后的回调
+        console.log("newVal", newVal);
+        console.log("oldVal", oldVal);
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
+      },
+      immediate: true,//组件初始化时立即执行一次变动
+      deep: true//深度监听
+    }
+  },
   methods: {
     //处理图片上传后的同步
     uploaded(response) {
       console.log("response", response);
       let url = response.url.replace("./", "");
-      url = `http://www.dmagic.cn/${url}`;
-      this.valueNeed.push({ url });
-      this.$emit("input", this.valueNeed); //触发双向绑定
+      url = `http://www.dmagic.cn/${url}`; //图片的绝对路径
+      this.valueNeed.push({ url }); //s
+      // this.$emit("input", this.valueNeed); //同步valueNeed值到value
     },
 
     //处理图片删除后的同步
     handleRemove(file, fileList) {
       console.log(file, fileList);
       this.valueNeed = fileList;
-      this.$emit("input", this.valueNeed); //触发双向绑定
+      // this.$emit("input", this.valueNeed); //触发双向绑定
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     }
   },
-  async created() {
+  created() {
     //如果{value}不存在
     if (!this.value) {
       this.valueNeed = [];

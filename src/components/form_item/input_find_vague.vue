@@ -8,11 +8,11 @@
 <script>
 export default {//用于列表模糊查询的组件
   props: {
-    value: [String, Number]
+    value: [Object]
   },
   data() {
     return {
-      valueNeed: "",
+      valueNeed: this.value,
    
     };
   },
@@ -25,8 +25,9 @@ export default {//用于列表模糊查询的组件
     }
   },
   created() {
+    //如果{value}存在
     if (this.value) {
-      //如果{000}000
+      
       this.valueNeed = this.value.$regex;
     }
   }
