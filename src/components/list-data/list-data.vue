@@ -6,13 +6,12 @@
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
     <space height="12"></space>
-    <div class="search-form-box"  >
-<dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson" ></dynamicForm>
-
+    <div class="search-form-box">
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson"></dynamicForm>
     </div>
 
-     <space height="10"></space>
-<el-row size="mini">
+    <space height="10"></space>
+    <el-row size="mini">
       <el-button
         v-if="cf.flag"
         size="mini"
@@ -181,8 +180,8 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
-        labelWidth:"auto",
-        size:"mini",
+        labelWidth: "auto",
+        size: "mini",
         inline: true,
         formItems: this.cf.searchFormItems,
         btns: [{ text: "查询", event: "submit1", type: "primary" }]
@@ -230,10 +229,10 @@ export default {
 </script>
 
 
-<style scoped>
-.search-form-box{
-  border: 1px #EBEEF5 solid;
-border-radius: 5px;
-padding: 15px 5px 0 12px;
+<style >
+.search-form-box {
+  border: 1px #ebeef5 solid;
+  border-radius: 5px;
+  padding: 15px 5px 0 12px;
 }
 </style>
