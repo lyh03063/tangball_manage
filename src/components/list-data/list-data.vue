@@ -41,7 +41,7 @@
         :formatter="column.formatter"
       ></el-table-column>
 
-      <el-table-column label="操作" width>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
             title="详情"
@@ -107,7 +107,21 @@ export default {
     }
   },
   methods: {
-    showDetail(row) {
+    async showDetail(row) {
+      //判断详情接口是否存在，如果存在，进行ajax请求
+      if (this.cf.url.detail) {
+        //如果{000}000
+        let { data } = await axios({
+          //请求接口
+          method: "post",
+          url: this.cf.url.detail,
+          data: {
+            id: row.P1
+          } //传递参数
+        });
+        row = data.doc;
+      }
+
       this.$store.commit("openDialogDetail", {
         listIndex: this.cf.listIndex,
         row: row

@@ -27,7 +27,7 @@ export default {
         columns: [
           {
             label: "报名会员id",
-            prop: "memberId ",
+            prop: "memberId",
             width: 110
           },
           {
@@ -52,7 +52,7 @@ export default {
           },
           {
             label: "审核状态",
-            prop: "auditStatus ",
+            prop: "auditStatus",
             width: 100
           }
         ],
@@ -65,14 +65,14 @@ export default {
           },
           {
             label: "报名会员id",
-            prop: "memberId "
+            prop: "memberId"
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
             label: "报名会员id",
-            prop: "memberId ",
+            prop: "memberId",
             width: 110
           },
           {
@@ -97,7 +97,7 @@ export default {
           },
           {
             label: "审核状态",
-            prop: "auditStatus ",
+            prop: "auditStatus",
             width: 100
           }
         ],
@@ -105,7 +105,7 @@ export default {
         formItems: [
           {
             label: "报名会员id",
-            prop: "memberId ",
+            prop: "memberId",
             width: 110
           },
           {
@@ -130,7 +130,7 @@ export default {
           },
           {
             label: "审核状态",
-            prop: "auditStatus ",
+            prop: "auditStatus",
             width: 100
           }
         ]

@@ -1,23 +1,63 @@
 <template>
   <div class>
-    <listData :cf="cfList">
-     
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="70%"
+      title="显示大图"
+      :close-on-press-escape="false"
+      v-bind:visible.sync="showDialogBigImg"
+      v-if="showDialogBigImg"
+    >
+      <div class="TAC">
+        <img :src="urlBigImg" alt>
+      </div>
+    </el-dialog>
+
+    <listData :formData="formData" :cf="cfList">
+      <template v-slot:slot_area="{formData}">
+        <el-form>
+          <el-form-item prop="area">
+            <el-cascader :options="options" v-model="formData.area"></el-cascader>
+          </el-form-item>
+        </el-form>
+      </template>
+
+      <template v-slot:slot_detail_item_album="{row}">
+        <div class v-if="row.album && row.album.length">
+          <img
+            @click="showBigImg(item.url)"
+            :src="item.url"
+            alt
+            v-for="item in row.album"
+            :key="item.url"
+            class="W100 H100"
+          >
+        </div>
+      </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import dynamicForm from "../components/list-data/dynamic-form";
-
 
 export default {
-  components: { listData,dynamicForm },
+  components: { listData },
+  methods:{
+     showBigImg(url) {
+      this.showDialogBigImg = true;
+      this.urlBigImg = url;
+    },
+
+  },
   data() {
     return {
+       showDialogBigImg: false,
+      formData:[],
+      options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "赛事",
+        threeTitle: "场馆",
         flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_venue", //列表接口
@@ -28,9 +68,9 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
+            label: "编号",
             prop: "P1",
-            width: 100
+            width: 70
           },
           {
             label: "场馆名称",
@@ -48,21 +88,17 @@ export default {
             width: 100
           },
           {
-           
             label: "加盟时间",
             prop: "time",
-            width: 200,
-            format:"yyyy-MM-dd"
+            width: 130,
+            formatter: function(row) {
+              return moment(row.time).format("YYYY-MM-DD");
+            }
           },
           {
             label: "联系方式",
             prop: "phoneNumber",
-            width: 200
-          },
-          {
-            label: "相册",
-            prop: "album",
-            width: 100
+            width: 140
           },
         ],
         //-------筛选表单字段数组-------
@@ -71,85 +107,78 @@ export default {
             label: "分类编号",
             prop: "P1",
             type: "input"
+          },
+            {
+            label: "加盟时间",
+            prop: "time",
+            type:"time_period"
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
             label: "分类编号",
-            prop: "P1",
-            width: 100
+            prop: "P1"
           },
           {
             label: "场馆名称",
-            prop: "name",
-            width: 200
+            prop: "name"
           },
           {
             label: "所属地区",
-            prop: "area",
-            width: 200
+            prop: "area"
           },
           {
             label: "赛事数量",
-            prop: "countMatch",
-            width: 200
+            prop: "countMatch"
           },
           {
             label: "加盟时间",
-            prop: "time",
-            width: 200
+            prop: "time"
           },
           {
             label: "联系方式",
-            prop: "phoneNumber",
-            width: 200
+            prop: "phoneNumber"
           },
           {
             label: "相册",
             prop: "album",
-            width: 100
-          },
+            slot: "slot_detail_item_album"
+          }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
             label: "分类编号",
-            prop: "P1",
-            width: 100
+            prop: "P1"
           },
           {
             label: "场馆名称",
-            prop: "name",
-            width: 200
+            prop: "name"
           },
           {
             label: "所属地区",
             prop: "area",
-            width: 100
+            slot: "slot_area"
           },
           {
             label: "赛事数量",
-            prop: "countMatch",
-            width: 200
+            prop: "countMatch"
           },
           {
-             type:"date",
+            type: "date",
             label: "加盟时间",
-            prop: "time",
-            width: 200,
-           format:"yyyy-MM-dd"
+            prop: "time"
           },
           {
             label: "联系方式",
-            prop: "phoneNumber",
-            width: 200
+            prop: "phoneNumber"
           },
-           {
+          {
             label: "相册",
             prop: "album",
-            width: 100
-          },
+            type: "upload"
+          }
         ]
       }
     };
