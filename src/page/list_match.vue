@@ -24,14 +24,15 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "数据id",
+            label: "id",
             prop: "P1",
-            width: 100
+            width: 60
           },
           {
             label: "赛事名称",
             prop: "matchName",
-            width: 200
+            width: 150,
+           
           },
           {
             label: "赛事时间",
@@ -51,9 +52,14 @@ export default {
             width: 150
           },
           {
-            label: "报名费用",
-            prop: "registrationFee",
+            label: "报名人数",
+            prop: "registeredPersons",
             width: 100
+          },
+          {
+            label: "报名费",
+            prop: "registrationFee",
+            width: 75
           },
           {
             label: "赛事状态",
@@ -61,14 +67,18 @@ export default {
             width: 100
           },
           {
-            label: "发布状态",
+            label: "发布",
             prop: "publicationStatus",
-            width: 100
+            width: 70,
+             formatter: function(rowData) {
+               return rowData.publicationStatus=="1"?"未发布":"发布"//三元表达式
+             
+            }
           },
           {
-            label: "赛事类型",
+            label: "类型",
             prop: "matchType",
-            width: 100
+            width: 70
           }
         ],
         //-------筛选表单字段数组-------

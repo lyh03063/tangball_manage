@@ -12,7 +12,7 @@ export default {//用于列表模糊查询的组件
   },
   data() {
     return {
-      valueNeed: "",
+      valueNeed: this.value,
    
     };
   },
