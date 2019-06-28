@@ -12,8 +12,8 @@ export default {
     return {
       cfList: {
         listIndex: "list_achievement", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "赛事",
+        threeTitle: "比赛成绩",
         flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
@@ -60,20 +60,20 @@ export default {
         searchFormItems: [
           {
             label: "参赛人Id",
-            prop: "participantsId",
+            prop: "participantsId"
           },
           {
             label: "参赛人姓名",
-            prop: "participantsName",
+            prop: "participantsName"
           },
           {
             label: "赛事ID",
-            prop: "matchId",
+            prop: "matchId"
           },
           {
             label: "赛事名称",
-            prop: "matchName",
-          },
+            prop: "matchName"
+          }
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -118,8 +118,9 @@ export default {
             label: "赛事ID",
             prop: "matchId",
             type: "select",
-             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_achievement",
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchType",
               keyValue: "P1"
             }
@@ -129,7 +130,8 @@ export default {
             prop: "matchName",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_achievement",
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             }
