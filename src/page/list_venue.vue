@@ -1,9 +1,7 @@
 <template>
   <div class>
     <listData :cf="cfList">
-      <dynamicForm :cf="cfList">
      
-    </dynamicForm>
     </listData>
   </div>
 </template>

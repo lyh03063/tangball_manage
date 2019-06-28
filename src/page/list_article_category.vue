@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_article_category", //vuex对应的字段
         twoTitle: "赛事",
         threeTitle: "文章分类",
         flag:true,
