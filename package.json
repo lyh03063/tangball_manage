@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build2": "vue-cli-service build --target wc --name my-element src/components/form_item/checkbox_diy.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
