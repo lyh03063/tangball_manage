@@ -5,6 +5,11 @@
      
     </dynamicForm>
     </listData>
+    <el-form>
+     <el-form-item label="地区" prop="area">
+        <el-cascader :options="options" v-model="cityArray"></el-cascader>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 <script>
@@ -16,6 +21,8 @@ export default {
   components: { listData,dynamicForm },
   data() {
     return {
+         cityArray: [],
+          options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
         twoTitle: "商品中心",
