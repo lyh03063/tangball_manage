@@ -80,16 +80,7 @@ export default {
               title: "比赛成绩"
             },
             { index: "list_member", route: "/list_member", title: "会员" },
-            {
-              index: "list_sponsor",
-              route: "/list_sponsor",
-              title: "赞助商"
-            },
-            {
-              index: "list_sponsorship",
-              route: "/list_sponsorship",
-              title: "赛事赞助"
-            }
+            
           ]
         },
         {
@@ -97,6 +88,11 @@ export default {
           icon: "el-icon-document",
           title: "其他数据",
           menuItem: [
+             {
+              index: "list_area",
+              route: "/list_area",
+              title: "地区管理"
+            },
             {
               index: "list_article_category",
               route: "/list_article_category",
@@ -111,6 +107,23 @@ export default {
         },
         {
           index: "3",
+          icon: "el-icon-setting",
+          title: "赛事赞助",
+          menuItem: [
+           {
+              index: "list_sponsor",
+              route: "/list_sponsor",
+              title: "赞助商"
+            },
+            {
+              index: "list_sponsorship",
+              route: "/list_sponsorship",
+              title: "赛事赞助"
+            }
+          ]
+        },
+        {
+          index: "4",
           icon: "el-icon-setting",
           title: "系统管理",
           menuItem: [
