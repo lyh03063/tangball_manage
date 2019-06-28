@@ -95,11 +95,14 @@ export default {
         localStorage.isLogin = 1;
       } else {
         alert("请检查用户名或者密码");
-        this.ruleForm={}
+        this.ruleForm = {};
       }
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs.ruleForm;
+      this.$refs["ruleForm"];
+
+      this.$refs.ruleForm.validate(valid => {
         //表单组件执行validate校验方法
         if (valid) {
           //如果validate为真执行以下放方法
@@ -108,6 +111,7 @@ export default {
       });
     }
   },
+
   created() {
     //------------如果已经登录------------
     if (localStorage.isLogin == 1) {
@@ -118,7 +122,7 @@ export default {
         duration: 1200
       });
       setTimeout(() => {
-        this.$router.push({ path: "/home" });
+        this.$router.push({ path: "/listHome" });
       }, 1500);
       //跳转到后台首页
     }
@@ -150,17 +154,19 @@ export default {
 }
 
 .login-father-box {
+   /*弹窗绝对居中*/
   width: 500px;
   height: 400px;
   border: 1px solid #000;
   background: #ffffff;
+    margin-left: -250px;
   margin-top: -200px;
-  margin-left: -250px;
   position: fixed;
   top: 50%;
   left: 50%;
 }
 @media screen and (max-width: 768px) {
+ 
   .login-father-box {
     border: none;
     top: 0;

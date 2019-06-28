@@ -1,5 +1,6 @@
 <template>
   <div class>
+    checkbox_diy123
     <div
       :class="{checkbox:true,checked:valueNeed.includes(optionEach.value)}"
       v-for="optionEach in options"
