@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "list_article", //vuex对应的字段
+        listIndex: "list_article", //vuex对应的字段~
         twoTitle: "其他数据",
         threeTitle: "文章管理",
         flag:true,
@@ -37,12 +37,9 @@ export default {
             label: "创建时间",
             prop: "CreateTime",
             width: 200,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
+            formatter: function(date) {  
+               var dateee = new Date(date).toJSON();  
+              return moment(new Date(+new Date(dateee) + 8 * 3600 * 1000)).format('YYYY年 MM月 DD日');
             },
           },
            {
@@ -79,6 +76,12 @@ export default {
               { label: "推广赞助", value: "3" },
                       
             ]
+          },
+          {
+            label: "文章标题",
+            prop: "articleTitle",
+            type: "input_find_vague",
+           
           },
           // {
           //   label: "文章标题",

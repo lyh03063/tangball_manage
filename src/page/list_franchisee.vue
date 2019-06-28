@@ -50,9 +50,9 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        listIndex: "list_franchisee", //vuex对应的字段
+        twoTitle: "赛事",
+        threeTitle: "加盟商",
         flag:true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_franchisee", //列表接口
@@ -63,54 +63,79 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
+            label: "Id",
             prop: "P1",
-            width: 100
+            width: 60
           },
           {
-            label: "分类名称",
+            label: "企业名称",
             prop: "name",
             width: 200
           },
           {
-            label: "注释",
-            prop: "description",
-            width: 200
+            label: "场馆数",
+            prop: "countVenue",
+            width: 75
+          },
+           {
+            label: "加盟时间",
+            prop: "joinTime",
+            width: 100,
+            // formatter:function(row){
+              
+            //  return moment(row.joinTime).format("YYYY-MM-DD")
+
+            // }
+          },
+          {
+            label: "备注",
+            prop: "remark",
+            width: 100
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
+            label: "Id",
             prop: "P1",
             type: "input"
+          },{
+            label: "加盟时间",
+            prop: "joinTime",
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
+            label: "Id",
             prop: "P1"
           },
           {
-            label: "分类名称",
+            label: "企业名称",
             prop: "name"
           },
           {
-            label: "注释",
-            prop: "description"
+            label: "备注",
+            prop: "remark"
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
+            label: "企业名称",
             prop: "name",
             type: "input"
           },
+    
           {
-            label: "注释",
-            prop: "description",
+            label: "加盟时间",
+            prop: "joinTime",
+            type: "date"
+          },
+          {
+            label: "备注",
+            prop: "remark",
             type: "textarea"
           }
         ]
