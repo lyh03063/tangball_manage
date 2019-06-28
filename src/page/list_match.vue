@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
         threeTitle: "赛事数据",
         flag: true,
@@ -87,6 +87,15 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
+            label: "赛事类型",
+            prop: "matchType",
+            type: "select",
+            options: [
+              { label: "比杆赛", value: "1" },
+              { label: "比洞赛", value: "2" }
+            ]
+          },
+          {
             label: "赛事状态",
             prop: "matchStatus",
             type: "select",
@@ -97,19 +106,15 @@ export default {
             ]
           },
           {
-            label: "赛事类型",
-            prop: "matchType",
-            type: "select",
-            options: [
-              { label: "比杆赛", value: "1" },
-              { label: "比洞赛", value: "2" }
-            ]
-          },
-          {
             label: "发布状态",
             prop: "publicationStatus",
             type: "select",
             options: [{ label: "是", value: "1" }, { label: "否", value: "2" }]
+          },
+          {
+            label: "赛事时间",
+            prop: "matchTime",
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
