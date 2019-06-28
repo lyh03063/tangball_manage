@@ -50,8 +50,6 @@
 </template>
 
 <script>
-
-
 export default {
   props: ["cf"],
   methods: {
