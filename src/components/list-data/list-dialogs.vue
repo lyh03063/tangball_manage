@@ -40,7 +40,7 @@
        :append-to-body="true"
     >
       <dynamicForm
-        :formData="formAdd"
+        v-model="formAdd"
         :cf="cfFormAdd"
         @submit="addProduct"
         @cancel="closeDialogAddFun"
@@ -62,7 +62,7 @@
        :append-to-body="true"
     >
       <dynamicForm
-        :formData="formModify"
+        v-model="formModify"
         :cf="cfFormModify"
         @submit="modifyProduct"
         @cancel="isShowDialogModify = false"

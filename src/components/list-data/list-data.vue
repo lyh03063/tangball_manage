@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <space height="12"></space>
     <div class="search-form-box">
-      <dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson"></dynamicForm>
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
 
     <space height="10"></space>
