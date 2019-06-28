@@ -61,6 +61,7 @@
         <!--date日期选择-->
         <el-date-picker
           v-model="formData[item.prop]"
+           value-format="yyyy-MM-dd"
           align="right"
           type="date"
           placeholder="选择日期"
@@ -74,6 +75,8 @@
         ></vue-json-editor>
         <!--如果是普通json编辑器-->
         <json_editor v-model="formData[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
+         <!--如果是图片上传控件-->
+        <upload_img v-model="formData[item.prop]" v-else-if="item.type=='upload'"></upload_img>
         <!--富文本编辑器-->
         <quillEditor
           v-model="formData[item.prop]"
@@ -118,6 +121,7 @@ import vueJsonEditor from "vue-json-editor";
 import select_ajax from "../form_item/select_ajax.vue";
 import input_find_vague from "../form_item/input_find_vague.vue";
 import json_editor from "../form_item/json_editor.vue";
+import upload_img from "../form_item/upload_img.vue";
 export default {
   components: {
     //注册组件
@@ -125,7 +129,7 @@ export default {
     vueJsonEditor,
     select_ajax,
     input_find_vague,
-    json_editor
+    json_editor,upload_img
   },
 
   props: {
