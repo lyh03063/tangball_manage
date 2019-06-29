@@ -5,9 +5,9 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import select_ajax from "../components/form_item/select_ajax.vue";
 export default {
-  components: { listData },
+  components: { listData, select_ajax },
   data() {
     return {
       cfList: {
@@ -43,7 +43,7 @@ export default {
           {
             label: "赛事名称",
             prop: "matchName",
-            width: 120
+            width: 230
           },
           {
             label: "比赛得分",
@@ -107,21 +107,30 @@ export default {
           {
             label: "参赛人Id",
             prop: "participantsId",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "参赛人姓名",
             prop: "participantsName",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "name"
+            }
           },
           {
             label: "赛事ID",
             prop: "matchId",
             type: "select",
             ajax: {
-              url:
-                "http://120.76.160.41:3000/crossList?page=tangball_match",
-              keyLabel: "matchType",
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
               keyValue: "P1"
             }
           },
@@ -130,10 +139,9 @@ export default {
             prop: "matchName",
             type: "select",
             ajax: {
-              url:
-                "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchName",
-              keyValue: "P1"
+              keyValue: "matchName"
             }
           },
           {
