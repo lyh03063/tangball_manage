@@ -40,7 +40,7 @@ export default {
           },
           {
             label: "密码",
-            prop: "password",
+            prop: "passwo rd",
             width: 65,
             formatter: function(row) {
               return "******";
