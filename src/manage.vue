@@ -138,7 +138,12 @@ export default {
             {
               index: "dynamic_form_demo",
               route: "/dynamic_form_demo",
-              title: "动态表单"
+              title: "动态表单demo"
+            },
+            {
+              index: "demo_common",
+              route: "/demo_common",
+              title: "普通组件demo"
             },
             {
               index: "listCategory",
