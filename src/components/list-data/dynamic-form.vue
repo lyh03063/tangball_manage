@@ -20,7 +20,7 @@
         <div class v-else-if="item.type=='select'">
           <select_ajax
             class
-            v-model="value.category"
+            v-model="value[item.prop]"
             :keyLabel="item.ajax.keyLabel"
             :keyValue="item.ajax.keyValue"
             :ajaxUrl="item.ajax.url"
