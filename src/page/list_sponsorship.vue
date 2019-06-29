@@ -12,8 +12,8 @@ export default {
     return {
       cfList: {
         listIndex: "list_sponsorship", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "赛事赞助",
+        threeTitle: "赛事赞助",
         flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_sponsorship", //列表接口
@@ -33,12 +33,12 @@ export default {
           {
             label: "赞助商id",
             prop: "sponsorId",
-            width: 120
+            width: 90
           },
           {
             label: "赛事id",
             prop: "matchId",
-            width: 120
+            width: 80
           },
           {
             label: "赞助金额",
@@ -48,9 +48,9 @@ export default {
           {
             label: "赞助时间",
             prop: "time",
-            width: 220,
+            width: 110,
              formatter: function(row) {
-              return moment(row.time).format("YYYY-MM-DD HH:mm");
+              return moment(row.time).format("YYYY-MM-DD ");
             }
           },
           {
@@ -61,11 +61,22 @@ export default {
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
+        
+           {
+            label: "赞助商id",
+            prop: "sponsorId",
+             type: "input"
+          },
           {
-            label: "分类编号",
-            prop: "P1",
-            type: "input"
-          }
+            label: "赛事id",
+            prop: "matchId",
+             type: "input"
+          },
+           {
+            label: "赞助时间",
+            prop: "time",
+             type: "time_period"
+          },
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -96,11 +107,7 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-          {
-            label: "id",
-            prop: "P1",
-            type: "input"
-          },
+         
           {
             label: "赞助商id",
             prop: "sponsorId",
