@@ -11,14 +11,15 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "list_article", //vuex对应的字段
+        listIndex: "list_article", //vuex对应的字段~
         twoTitle: "其他数据",
         threeTitle: "文章管理",
-        flag:true,
+        flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_article", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_article", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_article", //修改接口
+          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_article",
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_article" //删除接口
         },
         //-------列配置数组-------
@@ -31,41 +32,38 @@ export default {
           {
             label: "文章标题",
             prop: "articleTitle",
-            width: 220
+            width: 200
           },
-           {
+          {
             label: "创建时间",
             prop: "CreateTime",
-            width: 200,
+            width: 145,
             formatter: function(date) {
               var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            },
+              return moment(
+                new Date(+new Date(dateee) + 8 * 3600 * 1000)
+              ).format("YYYY年 MM月 DD日");
+            }
           },
-           {
+          {
             label: "最后修改时间",
             prop: "UpdateTime",
-            width: 200,
+            width: 145,
             formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
+             var dateee = new Date(date).toJSON();
+              return moment(
+                new Date(+new Date(dateee) + 8 * 3600 * 1000)
+              ).format("YYYY年 MM月 DD日");
             }
           },
           {
             label: "其他",
             prop: "extend",
-            width: 200,
-            formatter: function(extend) {           
-              return JSON.stringify(extend.extend)                
+            width: 135,
+            formatter: function(extend) {
+              return JSON.stringify(extend.extend);
             }
-          },
-         
+          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -76,16 +74,19 @@ export default {
             options: [
               { label: "唐球规则", value: "1" },
               { label: "比赛说明", value: "2" },
-              { label: "推广赞助", value: "3" },
-                      
+              { label: "推广赞助", value: "3" }
             ]
           },
+          {
+            label: "文章标题",
+            prop: "articleTitle",
+            type: "input_find_vague"
+          }
           // {
           //   label: "文章标题",
           //   prop: "articleTitle",
           //   type: "input"
           // },
-         
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -93,15 +94,19 @@ export default {
             label: "其他",
             prop: "extend",
             width: 200,
-            formatter: function(extend) {           
-              return JSON.stringify(extend.extend)                
+            formatter: function(extend) {
+              return JSON.stringify(extend.extend);
             }
           },
           {
             label: "文章详情",
-            prop: "articleContent"
-          },
-          
+            prop: "articleContent",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossDetail?page=tangball_article",
+              keyLabel: "articleContent",
+              keyValue: "P1"
+            },
+          }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
@@ -112,8 +117,7 @@ export default {
             options: [
               { label: "唐球规则", value: "1" },
               { label: "比赛说明", value: "2" },
-              { label: "推广赞助", value: "3" },
-                      
+              { label: "推广赞助", value: "3" }
             ]
           },
           {
@@ -130,10 +134,10 @@ export default {
             label: "其他",
             prop: "extend",
             width: 200,
-            formatter: function(extend) {           
-              return JSON.stringify(extend.extend)                
+            formatter: function(extend) {
+              return JSON.stringify(extend.extend);
             }
-          },
+          }
         ]
       }
     };

@@ -58,6 +58,7 @@ export default {
           list: "http://120.76.160.41:3000/crossList?page=tangball_franchisee", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_franchisee", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_franchisee", //修改接口
+         detail: "http://120.76.160.41:3000/crossDetail?page=tangball_franchisee", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_franchisee" //删除接口
         },
         //-------列配置数组-------
@@ -81,11 +82,11 @@ export default {
             label: "加盟时间",
             prop: "joinTime",
             width: 100,
-            formatter:function(row){
+            // formatter:function(row){
               
-             return moment(row.joinTime).format("YYYY/MM/DD")
+            //  return moment(row.joinTime).format("YYYY-MM-DD")
 
-            }
+            // }
           },
           {
             label: "备注",
@@ -99,6 +100,10 @@ export default {
             label: "Id",
             prop: "P1",
             type: "input"
+          },{
+            label: "加盟时间",
+            prop: "joinTime",
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
@@ -130,9 +135,9 @@ export default {
             type: "date"
           },
           {
-            label: "备注",
+            label: "备注2",
             prop: "remark",
-            type: "textarea"
+            type: "input"
           }
         ]
       }

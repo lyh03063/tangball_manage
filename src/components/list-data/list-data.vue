@@ -5,20 +5,22 @@
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <space height="8"></space>
-    <el-row>
+    <space height="12"></space>
+    <div class="search-form-box">
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
+    </div>
+
+    <space height="10"></space>
+    <el-row size="mini">
       <el-button
         v-if="cf.flag"
+        size="mini"
         type="primary"
-        size="small"
         @click="$store.commit('openDialogAdd',cf.listIndex)"
       >新增</el-button>
       <space v-else height="32"></space>
     </el-row>
     <space height="10"></space>
-
-    <dynamicForm @submit1="searchList" :cf="cfSearchForm" :formData="Objparma.findJson"></dynamicForm>
-
     <!--主列表-->
     <el-table
       :data="tableData"
@@ -39,7 +41,7 @@
         :formatter="column.formatter"
       ></el-table-column>
 
-      <el-table-column label="操作" width>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
             title="详情"
@@ -105,7 +107,21 @@ export default {
     }
   },
   methods: {
-    showDetail(row) {
+    async showDetail(row) {
+      //判断详情接口是否存在，如果存在，进行ajax请求
+      if (this.cf.url.detail) {
+        //如果{000}000
+        let { data } = await axios({
+          //请求接口
+          method: "post",
+          url: this.cf.url.detail,
+          data: {
+            id: row.P1
+          } //传递参数
+        });
+        row = data.doc;
+      }
+
       this.$store.commit("openDialogDetail", {
         listIndex: this.cf.listIndex,
         row: row
@@ -178,6 +194,8 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
+        labelWidth: "auto",
+        size: "mini",
         inline: true,
         formItems: this.cf.searchFormItems,
         btns: [{ text: "查询", event: "submit1", type: "primary" }]
@@ -225,5 +243,10 @@ export default {
 </script>
 
 
-<style>
+<style >
+.search-form-box {
+  border: 1px #ebeef5 solid;
+  border-radius: 5px;
+  padding: 15px 5px 0 12px;
+}
 </style>

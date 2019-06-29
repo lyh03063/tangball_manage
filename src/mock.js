@@ -169,3 +169,47 @@ Mock.mock('/list_enroll', function () {
       return list_enroll
 
 })
+
+// 会员接口
+Mock.mock('/list_member', function () {
+  let list_enroll =
+  {
+    "code": 0,
+    "message": "操作成功",
+    "page": {
+      "pageIndex": 1,
+      "pageSize": 5,
+      "allCount": 1,
+      "pageCount": 1
+    },
+    "list": [
+      {
+        "P1": "1",
+        "unionld  ": "12",
+        "name ": "张三",
+        "idCard": "441521200003331151",
+        "entries": 1,
+        "integral  ": 3
+      },
+      {
+        "P1": "2",
+        "unionld ": "13",
+        "name": "李四",
+        "idCard": "441521200003331152 ",
+        "entries": 1,
+        "integral ": 2
+      },
+      {
+        "P1": "1",
+        "unionld ": "14",
+        "name": "王五",
+        "idCard": "441521200003331153",
+        "entries": 2,
+        "integral ": 1
+      }
+    ]
+  }
+
+  return list_enroll
+
+})

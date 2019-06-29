@@ -16,7 +16,7 @@ export default {
         threeTitle: "会员中心",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-member", //列表接口
+          list: "/list_member", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=mabang-member", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=mabang-member", //修改接口
           delete: "http://120.76.160.41:3000/crossDelete?page=mabang-member" //删除接口
@@ -40,7 +40,7 @@ export default {
           },
           {
             label: "密码",
-            prop: "password",
+            prop: "passwo rd",
             width: 65,
             formatter: function(row) {
               return "******";
