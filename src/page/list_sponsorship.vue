@@ -1,7 +1,7 @@
 <template>
   <div class>
     <listData :cf="cfList"></listData>
-    
+  
   </div>
 </template>
 <script>
@@ -112,12 +112,22 @@ export default {
           {
             label: "赞助商id",
             prop: "sponsorId",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_sponsor",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
-            label: "赛事id",
+            label: "赛事ID",
             prop: "matchId",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            }
           },
           {
             label: "赞助金额",
