@@ -151,7 +151,7 @@ export default {
         data: {
           findJson: {
             //用于定位要修改的数据
-            P1: this.formModify.P1
+            P1: this.dataIdModify
           },
           modifyJson: this.formModify
         } //传递参数
@@ -198,6 +198,7 @@ export default {
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
+      this.dataIdModify=rowNew.P1;
     }
   },
   mounted() {}
