@@ -118,37 +118,37 @@ export default {
             label: "赛事ID",
             prop: "matchId",
             type: "select",
-            options: [
-              { label: 1, value: 1 },
-              { label: 2, value: 2 },
-              { label: 3, value: 3 },
-              { label: 4, value: 4 },
-              { label: 5, value: 5 },
-            ]
-            // ajax: {
-            //   url:
-            //     "http://120.76.160.41:3000/crossList?page=tangball_match",
-            //   keyLabel: "matchType",
-            //   keyValue: "P1"
-            // }
+            // options: [
+            //   { label: 1, value: 1 },
+            //   { label: 2, value: 2 },
+            //   { label: 3, value: 3 },
+            //   { label: 4, value: 4 },
+            //   { label: 5, value: 5 },
+            // ]
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchType",
+              keyValue: "P1"
+            }
           },
           {
             label: "赛事名称",
             prop: "matchName",
             type: "select",
-             options: [
-              { label: "锦标赛", value: '锦标赛' },
-              { label: "小组赛", value: '小组赛' },
-              { label: "决赛", value: '决赛' },
-              { label: "总决赛", value: '总决赛' },
-              { label: "友谊赛", value: '友谊赛'},
-            ]
-            // ajax: {
-            //   url:
-            //     "http://120.76.160.41:3000/crossList?page=tangball_match",
-            //   keyLabel: "matchName",
-            //   keyValue: "P1"
-            // }
+            //  options: [
+            //   { label: "锦标赛", value: '锦标赛' },
+            //   { label: "小组赛", value: '小组赛' },
+            //   { label: "决赛", value: '决赛' },
+            //   { label: "总决赛", value: '总决赛' },
+            //   { label: "友谊赛", value: '友谊赛'},
+            // ]
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            }
           },
           {
             label: "比赛得分",
