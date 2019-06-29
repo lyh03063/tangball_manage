@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_member", //vuex对应的字段
         twoTitle: "会员中心",
         threeTitle: "会员列表",
         flag:true,
@@ -53,7 +53,6 @@ export default {
             prop: "integral",
             width: 100
           },       
-          
           {
             label: "备注",
             prop: "remark",
@@ -69,7 +68,7 @@ export default {
           },
           {
             label: "身份证号",
-            prop: "unionld",
+            prop: "idCard",
             type: "input"
           }
         ],

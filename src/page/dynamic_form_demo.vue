@@ -74,8 +74,10 @@ export default {
             label: "下拉框(select+ajax)",
             prop: "prop4",
             type: "select",
+             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }],
             ajax: {
               url: "http://120.76.160.41:3000/crossList?page=mabang-member",
+              param:{a:1},
               keyLabel: "nickName",
               keyValue: "userName"
             }

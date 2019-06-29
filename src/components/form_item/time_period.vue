@@ -76,9 +76,7 @@ export default {
     };
   },
   methods: {
-    change() {
-      this.$emit("input", this.valueNeed); //触发双向绑定
-    }
+    
   },
   created() {}
 };
