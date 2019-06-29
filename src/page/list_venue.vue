@@ -14,9 +14,10 @@
     </el-dialog>
 
     <listData :formData="formData" :cf="cfList">
+
       <template v-slot:slot_area="{formData}">
         <el-form>
-          <el-form-item prop="area">
+          <el-form-item prop="area">{{formData.area}}
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
         </el-form>
@@ -42,17 +43,16 @@ import listData from "../components/list-data/list-data.vue";
 
 export default {
   components: { listData },
-  methods:{
-     showBigImg(url) {
+  methods: {
+    showBigImg(url) {
       this.showDialogBigImg = true;
       this.urlBigImg = url;
-    },
-
+    }
   },
   data() {
     return {
-       showDialogBigImg: false,
-      formData:[],
+      showDialogBigImg: false,
+      formData: [],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -99,7 +99,7 @@ export default {
             label: "联系方式",
             prop: "phoneNumber",
             width: 140
-          },
+          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -108,10 +108,10 @@ export default {
             prop: "P1",
             type: "input"
           },
-            {
+          {
             label: "加盟时间",
             prop: "time",
-            type:"time_period"
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
