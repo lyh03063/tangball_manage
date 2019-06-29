@@ -1,19 +1,21 @@
 <template>
   <div class>
-    <upload_img v-model="arr1"></upload_img>
+    <ajax_populate :value="id" populateKey="name"></ajax_populate>
+
+    <ajax_populate :value="id" >
+      <template v-slot:default="{doc}">{{doc}}</template>
+    </ajax_populate>
   </div>
 </template>
 <script>
 //导入自定义复选框组件，注意路径改为自己的
-import upload_img from "../components/form_item/upload_img.vue";
-
+import ajax_populate from "../components/common/ajax_populate.vue";
 
 export default {
-  components: { upload_img },
+  components: { ajax_populate },
   data() {
     return {
-      arr1: [{url:"1.jpg"}],
-      options: [{ label: "选项1111", value: 1 }, { label: "选项2222", value: 2 }]
+      id: 1
     };
   }
 };

@@ -32,21 +32,29 @@
       <template v-slot:slot_detail_item_description="{row}">
         <div class="FWB C_f30" @click="print(row.description)">{{row.description}}</div>
       </template>
+      <!--详情弹窗的category字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_category="{row}">
+        <ajax_populate :id="row.category" populateKey="name" page="mabang-category">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1"><b>{{doc.name}}</b>(分类id:{{doc.P1}})</div>
+          </template>
+        </ajax_populate>
+      </template>
 
       <!--弹窗表单的description字段插槽组件-->
       <template v-slot:slot_form_item_description="{formData}">
         <form_item_test class v-model="formData.description"></form_item_test>
       </template>
-     
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
 import form_item_test from "../components/form_item_test.vue";
+import ajax_populate from "../components/common/ajax_populate.vue";
 
 export default {
-  components: { listData, form_item_test},
+  components: { listData, form_item_test, ajax_populate },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -120,8 +128,7 @@ export default {
           {
             label: "商品名称1",
             prop: "name",
-            type: "input_find_vague",
-          
+            type: "input_find_vague"
           },
           {
             label: "商品分类",
@@ -131,8 +138,8 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=mabang-category",
               keyLabel: "name",
               keyValue: "P1"
-            },
-          },
+            }
+          }
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -173,9 +180,10 @@ export default {
             width: 100
           },
           {
-            label: "分类编号",
+            label: "商品分类",
             prop: "category",
-            width: 100
+            width: 100,
+            slot: "slot_detail_item_category"
           },
           {
             label: "属性",
@@ -209,9 +217,7 @@ export default {
             label: "商品名称",
             prop: "name",
             type: "input",
-             rules: [
-              { required: true, message: "不能为空" },
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "商品分类",
@@ -221,7 +227,7 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=mabang-category",
               keyLabel: "name",
               keyValue: "P1"
-            },
+            }
           },
           {
             label: "商品简介",
@@ -233,11 +239,11 @@ export default {
             label: "商品详情",
             prop: "detail",
             type: "select",
-             ajax: {
+            ajax: {
               url: "http://120.76.160.41:3000/crossList?page=mabang-member",
               keyLabel: "nickName",
               keyValue: "userName"
-            },
+            }
           },
           {
             label: "价格",
