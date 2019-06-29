@@ -13,11 +13,12 @@
       </div>
     </el-dialog>
 
-    <listData :formData="formData" :cf="cfList">
+    <listData :formData="cityArray" :cf="cfList">
+
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            <el-cascader :options="options" v-model="formData.area"></el-cascader>
+            <el-cascader :options="options" v-model="formData.area"  @change="handleChange"></el-cascader>
           </el-form-item>
         </el-form>
       </template>
@@ -41,6 +42,7 @@
 import listData from "../components/list-data/list-data.vue";
 
 export default {
+  
   components: { listData },
   methods:{
      showBigImg(url) {
@@ -51,8 +53,9 @@ export default {
   },
   data() {
     return {
+      
        showDialogBigImg: false,
-      formData:[],
+      cityArray:[],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -159,7 +162,7 @@ export default {
           {
             label: "所属地区",
             prop: "area",
-            slot: "slot_area"
+            slot: "slot_area",
           },
           {
             label: "赛事数量",
@@ -183,6 +186,12 @@ export default {
       }
     };
   },
+  methods: {
+      handleChange(value) {
+        console.log("abcc",value);
+      }
+    },
+ 
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
