@@ -14,63 +14,75 @@ export default {
         listIndex: "list_area", //vuex对应的字段
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_area", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_area", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_area", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_area" //删除接口
+          list: "http://120.76.160.41:3000/crossList?page=dmagic_area", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=dmagic_area", //新增接口
+          modify: "http://120.76.160.41:3000/crossModify?page=dmagic_area", //修改接口
+          delete: "http://120.76.160.41:3000/crossDelete?page=dmagic_area" //删除接口
         },
         //-------列配置数组-------
         columns: [
           {
-            label: "分类编号",
-            prop: "P1",
-            width: 100
-          },
-          {
-            label: "分类名称",
-            prop: "name",
+            label: "地区名称",
+            prop: "P2",
             width: 200
           },
           {
-            label: "注释",
-            prop: "description",
+            label: "地区编号",
+            prop: "P7",
+            width: 200
+          },
+          {
+            label: "父地区编号",
+            prop: "P8",
             width: 200
           }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
+            label: "地区名称",
+            prop: "P2",
+            type: "input_find_vague"
+          },{
             label: "分类编号",
-            prop: "P1",
+            prop: "P7",
+            type: "input"
+          },{
+            label: "父地区编号",
+            prop: "P8",
             type: "input"
           }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "分类编号",
-            prop: "P1"
+            label: "地区名称",
+            prop: "P2",
           },
           {
-            label: "分类名称",
-            prop: "name"
+            label: "地区编号",
+            prop: "P7",
           },
           {
-            label: "注释",
-            prop: "description"
+            label: "父地区编号",
+            prop: "P8",
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "分类名称",
-            prop: "name",
+             label: "地区名称",
+            prop: "P2",
             type: "input"
           },
           {
-            label: "注释",
-            prop: "description",
-            type: "textarea"
+           label: "地区编号",
+            prop: "P7",
+            type: "input"
+          },{
+            label: "父地区编号",
+            prop: "P8",
+            type: "input"
           }
         ]
       }
