@@ -1,13 +1,42 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+      <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_participantsId="{row}">
+        <ajax_populate
+          :id="row.participantsId"
+          populateKey="participantsName"
+          page="tangball_member"
+        >
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <b>{{doc.P1}}</b>
+              (参赛人名称:
+              <b>{{doc.name}}</b>)
+            </div>
+          </template>
+        </ajax_populate>
+      </template>
+      <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_matchId="{row}">
+        <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <b>{{doc.P1}}</b>
+              (赛事名称:
+              <b>{{doc.matchName}}</b>)
+            </div>
+          </template>
+        </ajax_populate>
+      </template>
+    </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import select_ajax from "../components/form_item/select_ajax.vue";
+import ajax_populate from "../components/common/ajax_populate.vue";
 export default {
-  components: { listData, select_ajax },
+  components: { listData, ajax_populate },
   data() {
     return {
       cfList: {
@@ -30,21 +59,21 @@ export default {
             prop: "participantsId",
             width: 90
           },
-          {
-            label: "参赛人姓名",
-            prop: "participantsName",
-            width: 110
-          },
+          // {
+          //   label: "参赛人姓名",
+          //   prop: "participantsName",
+          //   width: 110
+          // },
           {
             label: "赛事ID",
             prop: "matchId",
             width: 80
           },
-          {
-            label: "赛事名称",
-            prop: "matchName",
-            width: 230
-          },
+          // {
+          //   label: "赛事名称",
+          //   prop: "matchName",
+          //   width: 150
+          // },
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -62,37 +91,32 @@ export default {
             label: "参赛人Id",
             prop: "participantsId"
           },
-          {
-            label: "参赛人姓名",
-            prop: "participantsName"
-          },
+          // {
+          //   label: "参赛人姓名",
+          //   prop: "participantsName"
+          // },
           {
             label: "赛事ID",
             prop: "matchId"
-          },
-          {
-            label: "赛事名称",
-            prop: "matchName"
           }
+          // {
+          //   label: "赛事名称",
+          //   prop: "matchName"
+          // }
         ],
         //-------详情字段数组-------
         detailItems: [
           {
             label: "参赛人Id",
-            prop: "participantsId"
-          },
-          {
-            label: "参赛人姓名",
-            prop: "participantsName"
+            prop: "participantsId",
+            slot: "slot_detail_item_participantsId"
           },
           {
             label: "赛事ID",
-            prop: "matchId"
+            prop: "matchId",
+            slot: "slot_detail_item_matchId"
           },
-          {
-            label: "赛事名称",
-            prop: "matchName"
-          },
+
           {
             label: "比赛得分",
             prop: "matchScore"
@@ -114,16 +138,16 @@ export default {
               keyValue: "P1"
             }
           },
-          {
-            label: "参赛人姓名",
-            prop: "participantsName",
-            type: "select",
-            ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "name"
-            }
-          },
+          // {
+          //   label: "参赛人姓名",
+          //   prop: "participantsName",
+          //   type: "select",
+          //   ajax: {
+          //     url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+          //     keyLabel: "name",
+          //     keyValue: "name"
+          //   }
+          // },
           {
             label: "赛事ID",
             prop: "matchId",
@@ -134,16 +158,16 @@ export default {
               keyValue: "P1"
             }
           },
-          {
-            label: "赛事名称",
-            prop: "matchName",
-            type: "select",
-            ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "matchName"
-            }
-          },
+          // {
+          //   label: "赛事名称",
+          //   prop: "matchName",
+          //   type: "select",
+          //   ajax: {
+          //     url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+          //     keyLabel: "matchName",
+          //     keyValue: "matchName"
+          //   }
+          // },
           {
             label: "比赛得分",
             prop: "matchScore",
