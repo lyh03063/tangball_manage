@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
         threeTitle: "赛事数据",
         flag: true,
@@ -19,6 +19,7 @@ export default {
           list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
+          detail: "http://120.76.160.41:3000/crossDetail?page=mabang_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
@@ -87,6 +88,15 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
+            label: "赛事类型",
+            prop: "matchType",
+            type: "select",
+            options: [
+              { label: "比杆赛", value: "1" },
+              { label: "比洞赛", value: "2" }
+            ]
+          },
+          {
             label: "赛事状态",
             prop: "matchStatus",
             type: "select",
@@ -97,19 +107,15 @@ export default {
             ]
           },
           {
-            label: "赛事类型",
-            prop: "matchType",
-            type: "select",
-            options: [
-              { label: "比杆赛", value: "1" },
-              { label: "比洞赛", value: "2" }
-            ]
-          },
-          {
             label: "发布状态",
             prop: "publicationStatus",
             type: "select",
             options: [{ label: "是", value: "1" }, { label: "否", value: "2" }]
+          },
+          {
+            label: "赛事时间",
+            prop: "matchTime",
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
@@ -204,6 +210,16 @@ export default {
             ]
           },
           {
+            label: "比赛场馆",
+            prop: "venue",
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_venue",
+              keyLabel: "name",
+              keyValue: "name"
+            }
+          },
+          {
             label: "赛事时间",
             prop: "matchTime",
             type: "date"
@@ -216,10 +232,7 @@ export default {
             label: "赛事名称",
             prop: "matchName"
           },
-          {
-            label: "比赛场馆",
-            prop: "venue"
-          },
+
           {
             label: "报名人数",
             prop: "registeredPersons"

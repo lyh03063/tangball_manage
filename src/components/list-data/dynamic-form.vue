@@ -1,7 +1,7 @@
 <template>
   <el-form
     ref="form"
-    :model="formData"
+    :model="value"
     :label-width="cf.labelWidth||'100px'"
     :size="cf.size||'small'"
     :inline="cf.inline"
@@ -15,18 +15,18 @@
         :key="item.prop"
       >
         <!--slot自定义组件-->
-        <slot :name="item.slot" :formData="formData" v-if="item.slot"></slot>
+        <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
         <!--下拉框-->
         <div class v-else-if="item.type=='select'">
           <select_ajax
             class
-            v-model="formData.category"
+            v-model="value[item.prop]"
             :keyLabel="item.ajax.keyLabel"
             :keyValue="item.ajax.keyValue"
             :ajaxUrl="item.ajax.url"
             v-if="item.ajax"
           ></select_ajax>
-          <el-select v-model="formData[item.prop]" v-else>
+          <el-select v-model="value[item.prop]" v-else>
             <el-option label="请选择" value></el-option>
             <el-option
               :label="option.label"
@@ -38,7 +38,7 @@
         </div>
 
         <!--单选框-->
-        <el-radio-group v-model="formData[item.prop]" v-else-if="item.type=='radio'">
+        <el-radio-group v-model="value[item.prop]" v-else-if="item.type=='radio'">
           <el-radio
             :label="option.label"
             :value="option.value"
@@ -47,7 +47,7 @@
           ></el-radio>
         </el-radio-group>
         <!--复选框-->
-        <el-checkbox-group v-model="formData[item.prop]" v-else-if="item.type=='checkbox'">
+        <el-checkbox-group v-model="value[item.prop]" v-else-if="item.type=='checkbox'">
           <el-checkbox
             :label="option.label"
             :value="option.value"
@@ -56,48 +56,48 @@
           ></el-checkbox>
         </el-checkbox-group>
         <!--文本域-->
-        <el-input type="textarea" v-model="formData[item.prop]" v-else-if="item.type=='textarea'"></el-input>
+        <el-input type="textarea" v-model="value[item.prop]" v-else-if="item.type=='textarea'"></el-input>
 
         <!--date日期选择-->
         <el-date-picker
-          v-model="formData[item.prop]"
-           value-format="yyyy-MM-dd"
+          v-model="value[item.prop]"
+          value-format="yyyy-MM-dd"
           align="right"
           type="date"
           placeholder="选择日期"
           v-else-if="item.type=='date'"
         ></el-date-picker>
         <!--如果是aaaa-->
-        <time_period v-model="formData[item.prop]" v-else-if="item.type=='time_period'"></time_period>
+        <time_period v-model="value[item.prop]" v-else-if="item.type=='time_period'"></time_period>
         <!--如果是vue-json编辑器-->
         <vue-json-editor
-          v-model="formData[item.prop]"
+          v-model="value[item.prop]"
           v-else-if="item.type=='vueJsonEditor'"
           lang="zh"
         ></vue-json-editor>
         <!--如果是普通json编辑器-->
-        <json_editor v-model="formData[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
-         <!--如果是图片上传控件-->
-        <upload_img v-model="formData[item.prop]" v-else-if="item.type=='upload'"></upload_img>
+        <json_editor v-model="value[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
+        <!--如果是图片上传控件-->
+        <upload_img v-model="value[item.prop]" v-else-if="item.type=='upload'"></upload_img>
         <!--富文本编辑器-->
         <quillEditor
-          v-model="formData[item.prop]"
+          v-model="value[item.prop]"
           :options="editorOption"
           v-else-if="item.type=='editor'"
         ></quillEditor>
         <!--模糊查询文本框-->
-        <input_find_vague v-model="formData[item.prop]" v-else-if="item.type=='input_find_vague'"></input_find_vague>
+        <input_find_vague v-model="value[item.prop]" v-else-if="item.type=='input_find_vague'"></input_find_vague>
 
         <!--密码框-->
 
         <el-input
           placeholder="请输入密码"
-          v-model="formData[item.prop]"
+          v-model="value[item.prop]"
           v-else-if="item.type=='password'"
           show-password
         ></el-input>
         <!--普通文本框-->
-        <el-input v-model="formData[item.prop]" v-else></el-input>
+        <el-input v-model="value[item.prop]" v-else></el-input>
       </el-form-item>
     </template>
 
@@ -132,7 +132,9 @@ export default {
     vueJsonEditor,
     select_ajax,
     input_find_vague,
-    json_editor,upload_img,time_period
+    json_editor,
+    upload_img,
+    time_period
   },
 
   props: {
@@ -147,11 +149,12 @@ export default {
         };
       }
     },
-    formData: Object
+    value: Object
+    // formData: Object
   },
   data() {
     return {
-  
+      formDataNeed: this.value,
       editorOption: {
         //编辑器的配置
         modules: {
@@ -162,6 +165,14 @@ export default {
         }
       }
     };
+  },
+  watch: {
+    formDataNeed: {
+      handler(newName, oldName) {
+        console.log("formDataNeed changed");
+        this.$emit("input", this.formDataNeed);
+      }
+    }
   },
   methods: {
     btnClick(eventName, validate) {
@@ -185,11 +196,28 @@ export default {
     initForm() {
       console.log("initForm");
       //处理json编辑框的数据转换
-      for (let key in this.formData) {
-        //如果{ajax获取到的初始化数据}存在
-        if (this.docGet) {
-          this.formData[key] = this.docGet[key];
-        }
+      // for (let key in this.value) {
+      //   //如果{ajax获取到的初始化数据}存在
+      //   if (this.docGet) {
+      //     this.value[key] = this.docGet[key];
+      //   }
+      // }
+
+      if (this.docGet) {
+        //ajax获取到的表单数据存在
+        let jsonData = {};
+        this.cf.formItems.forEach(itemEach => {
+          //循环：{表单字段配置数组}
+          jsonData[itemEach.prop] = this.docGet[itemEach.prop];
+          //遍历：{文档字段}
+          let valCurr = jsonData[itemEach.prop];
+          if (util.type(valCurr) == "object" || util.type(valCurr) == "array") {
+            //如果是json类型
+            var t_json = JSON.stringify(valCurr); //json转字符串
+            console.log("t_json", t_json);
+          }
+        });
+        this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
     }
   },
@@ -201,7 +229,7 @@ export default {
         method: "post",
         url: this.cf.urlInit,
         data: {
-          id: this.formData.P1
+          id: this.value.P1
         } //传递参数
       });
       // console.log("doc", doc);
