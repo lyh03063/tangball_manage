@@ -44,6 +44,9 @@ import list_article from "./page/list_article";
 import list_admin from "./page/list_admin";
 import list_area from "./page/list_area";
 import dynamic_form_demo from "./page/dynamic_form_demo";
+import demo_common from "./demo/common.vue";
+
+
 window.util=util;
 
 // 3. 创建 router 实例，然后传 `routes` 配置
@@ -176,6 +179,10 @@ const router = new VueRouter({
         {
           path: '/dynamic_form_demo',
           component: dynamic_form_demo
+        },
+        {
+          path: '/demo_common',
+          component: demo_common
         },
         {
           path: '/listOrder',

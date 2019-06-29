@@ -3,7 +3,7 @@
     <el-container>
       <el-header class="MB10">
         <el-row>
-          <div class="FL MT13 FS24 C_fff">管理后台</div>
+          <div class="FL MT13 FS24 C_fff">唐球赛事管理后台</div>
           <div class="FR MT30 C_fff">
             <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
             <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
@@ -33,6 +33,7 @@ export default {
     logout() {
       //退出登录函数
       localStorage.isLogin = "0";
+      localStorage.loginUserName = null;
       this.$router.push({ path: "/login" }); //跳转到manage
     }
   },
@@ -137,7 +138,12 @@ export default {
             {
               index: "dynamic_form_demo",
               route: "/dynamic_form_demo",
-              title: "动态表单"
+              title: "动态表单demo"
+            },
+            {
+              index: "demo_common",
+              route: "/demo_common",
+              title: "普通组件demo"
             },
             {
               index: "listCategory",
