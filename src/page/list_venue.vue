@@ -13,12 +13,11 @@
       </div>
     </el-dialog>
 
-    <listData :formData="formData" :cf="cfList">
-
+    <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
         <el-form>
-          <el-form-item prop="area">{{formData.area}}
-            <el-cascader :options="options" v-model="formData.area"></el-cascader>
+          <el-form-item prop="area">
+            <el-cascader :options="options" v-model="cityArray"></el-cascader>
           </el-form-item>
         </el-form>
       </template>
@@ -49,9 +48,16 @@ export default {
       this.urlBigImg = url;
     }
   },
+  mounted() {
+    if (typeof this.formData.area == "string") {
+      this.cityArray = this.formData.area.split("");
+    }
+  },
+
   data() {
     return {
       showDialogBigImg: false,
+      cityArray: [],
       formData: [],
       options: option,
       cfList: {
@@ -183,6 +189,7 @@ export default {
       }
     };
   },
+
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
