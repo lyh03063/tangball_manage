@@ -118,22 +118,30 @@ export default {
     }
   },
   created() {
+    console.log("创建后未挂载$el也是未定义的",this.$el)
+
     //------------如果已经登录------------
     if (localStorage.isLogin == 1) {
       this.ak47 = false;
-      this.$message({
-        message: "您已登录,请勿重新登录",
-        type: "warning",
-        duration: 1200
-      });
+      // this.$message({
+      //   message: "您已登录,请勿重新登录",
+      //   type: "warning",
+      //   duration: 1200
+      // });
       setTimeout(() => {
         this.$router.push({ path: "/listHome" });
-      }, 1500);
+      }, 10);
       //跳转到后台首页
     }
     // } else {
     //   this.$router.push({ path: "/home" });
     // }
+  },beforeMount(){
+    
+    console.log("挂载前$el是未定义的",this.$el)
+  },mounted(){
+        console.log("$el是temlate，渲染出整个div",this.$el)
+    
   }
 };
 </script>
