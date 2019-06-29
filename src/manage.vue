@@ -33,6 +33,7 @@ export default {
     logout() {
       //退出登录函数
       localStorage.isLogin = "0";
+      localStorage.loginUserName = null;
       this.$router.push({ path: "/login" }); //跳转到manage
     }
   },
