@@ -68,7 +68,7 @@ export default {
           },
           {
             label: "身份证号",
-            prop: "unionld",
+            prop: "idCard",
             type: "input"
           }
         ],
