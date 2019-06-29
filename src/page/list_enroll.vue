@@ -96,6 +96,18 @@ export default {
           {
             label: "报名会员id",
             prop: "memberId"
+          },
+          {
+            label: "赛事id",
+            prop: "matchId"
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus"
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus"
           }
         ],
         //-------详情字段数组-------
@@ -124,7 +136,6 @@ export default {
               return moment(row.time).format("YYYY-MM-DD");
             }
           },
-
           {
             label: "支付状态",
             prop: "payStatus",
