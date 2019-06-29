@@ -2,7 +2,7 @@
   <div>
     <el-aside class="ML10" :style="[isCollapse?open:close]">
       <div
-        class="C_fff TAR PR10"
+        class="C_fff TAR PR10 bar"
         style="background:rgb(84, 92, 100);border-bottom:1px solid #999"
         @click="isCollapseFun"
         :style="[isCollapse?open1:close]"
@@ -70,13 +70,16 @@ export default {
   data() {
     return {
       open: {
-        width: "80px"
+        width: "80px",
+
       },
       close: {
-        width: "210px"
+        width: "202px",
+   
       },
       open1: {
-        width: "64px"
+        width: "64px",
+      
       },
       isCollapse: false
     };
@@ -87,6 +90,11 @@ export default {
 ul {
   margin: 0;
   padding: 0;
+}
+.bar{
+  cursor: pointer;
+  
+
 }
 </style>
 
