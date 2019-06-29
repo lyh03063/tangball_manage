@@ -78,12 +78,12 @@ export default {
       open1: {
         width: "64px"
       },
-      isCollapse: true
+      isCollapse: false
     };
   }
 };
-</script scoped>
-<style>
+</script >
+<style scoped>
 ul {
   margin: 0;
   padding: 0;

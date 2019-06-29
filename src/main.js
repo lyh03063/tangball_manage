@@ -196,6 +196,9 @@ const router = new VueRouter({
 import axios from "axios";
 window.axios = axios;
 
+import moment from "moment";
+window.moment = moment;
+
 import Vuex from 'vuex'//导入vuex模块
 Vue.use(Vuex)//应用组件
 

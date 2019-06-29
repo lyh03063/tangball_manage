@@ -1,26 +1,26 @@
 <template>
   <div class>
-       <checkbox_diy v-model="arr1" :options="options" ></checkbox_diy>
+    <time_period v-model="timePeriod" ></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
-    <dynamicForm :cf="cfForm" :formData="formData">
+    <dynamicForm :cf="cfForm" v-model="formData">
       <!--弹窗表单的description字段插槽组件-->
       <template v-slot:slot_form_item_description="{formData}">
         <form_item_test class v-model="formData.description"></form_item_test>
       </template>
-
-
     </dynamicForm>
- 
+    <checkbox_diy v-model="arr1" :options="options" ></checkbox_diy>
   </div>
 </template>
 <script>
 import dynamicForm from "../components/list-data/dynamic-form";
 import form_item_test from "../components/form_item_test.vue";
 import checkbox_diy from "../components/form_item/checkbox_diy.vue";
+import time_period from "../components/form_item/time_period.vue";
 export default {
-  components: { dynamicForm, form_item_test,checkbox_diy },
+  components: { dynamicForm, form_item_test,checkbox_diy,time_period },
   data() {
     return {
+      timePeriod:null,
       arr1:[1],
         options:[{"label":"label1","value":"1"},{"label":"label2","value":"2"}],
       formData: {
@@ -96,6 +96,11 @@ export default {
             label: "日期选择器(date)",
             prop: "prop_date",
             type: "date"
+          },
+          {
+            label: "图片上传",
+            prop: "prop_upload",
+            type: "upload"
           },
           {
             label: "json编辑器(jsonEditor)",
