@@ -13,12 +13,11 @@
       </div>
     </el-dialog>
 
-    <listData :formData="cityArray" :cf="cfList">
-
+    <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            <el-cascader :options="options" v-model="formData.area"  @change="handleChange"></el-cascader>
+            <el-cascader :options="options" v-model="cityArray"></el-cascader>
           </el-form-item>
         </el-form>
       </template>
@@ -42,20 +41,24 @@
 import listData from "../components/list-data/list-data.vue";
 
 export default {
-  
   components: { listData },
-  methods:{
-     showBigImg(url) {
+  methods: {
+    showBigImg(url) {
       this.showDialogBigImg = true;
       this.urlBigImg = url;
-    },
-
+    }
   },
+  mounted() {
+    if (typeof this.formData.area == "string") {
+      this.cityArray = this.formData.area.split("");
+    }
+  },
+
   data() {
     return {
-      
-       showDialogBigImg: false,
-      cityArray:[],
+      showDialogBigImg: false,
+      cityArray: [],
+      formData: [],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -102,7 +105,7 @@ export default {
             label: "联系方式",
             prop: "phoneNumber",
             width: 140
-          },
+          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -111,10 +114,10 @@ export default {
             prop: "P1",
             type: "input"
           },
-            {
+          {
             label: "加盟时间",
             prop: "time",
-            type:"time_period"
+            type: "time_period"
           }
         ],
         //-------详情字段数组-------
@@ -162,7 +165,7 @@ export default {
           {
             label: "所属地区",
             prop: "area",
-            slot: "slot_area",
+            slot: "slot_area"
           },
           {
             label: "赛事数量",
@@ -186,12 +189,7 @@ export default {
       }
     };
   },
-  methods: {
-      handleChange(value) {
-        console.log("abcc",value);
-      }
-    },
- 
+
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
