@@ -20,14 +20,15 @@
         <div class v-else-if="item.type=='select'">
           <select_ajax
             class
-            v-model="value.category"
+            v-model="formDataNeed[item.prop]"
             :keyLabel="item.ajax.keyLabel"
             :keyValue="item.ajax.keyValue"
             :ajaxUrl="item.ajax.url"
-            v-if="item.ajax"
+            :param="item.ajax.param"
+            v-if="item.ajax&&isReadyFormData"
           ></select_ajax>
-          <el-select v-model="value[item.prop]" v-else>
-            <el-option label="请选择" value></el-option>
+          <el-select v-model="formDataNeed[item.prop]" v-else clearable>
+           
             <el-option
               :label="option.label"
               :value="option.value"
@@ -38,7 +39,7 @@
         </div>
 
         <!--单选框-->
-        <el-radio-group v-model="value[item.prop]" v-else-if="item.type=='radio'">
+        <el-radio-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='radio'">
           <el-radio
             :label="option.label"
             :value="option.value"
@@ -47,7 +48,7 @@
           ></el-radio>
         </el-radio-group>
         <!--复选框-->
-        <el-checkbox-group v-model="value[item.prop]" v-else-if="item.type=='checkbox'">
+        <el-checkbox-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='checkbox'">
           <el-checkbox
             :label="option.label"
             :value="option.value"
@@ -56,48 +57,48 @@
           ></el-checkbox>
         </el-checkbox-group>
         <!--文本域-->
-        <el-input type="textarea" v-model="value[item.prop]" v-else-if="item.type=='textarea'"></el-input>
+        <el-input type="textarea" v-model="formDataNeed[item.prop]" v-else-if="item.type=='textarea'"></el-input>
 
         <!--date日期选择-->
         <el-date-picker
-          v-model="value[item.prop]"
+          v-model="formDataNeed[item.prop]"
           value-format="yyyy-MM-dd"
           align="right"
           type="date"
           placeholder="选择日期"
           v-else-if="item.type=='date'"
         ></el-date-picker>
-        <!--如果是aaaa-->
-        <time_period v-model="value[item.prop]" v-else-if="item.type=='time_period'"></time_period>
+        <!--如果是时间段-->
+        <time_period v-model="formDataNeed[item.prop]" v-else-if="item.type=='time_period'"></time_period>
         <!--如果是vue-json编辑器-->
         <vue-json-editor
-          v-model="value[item.prop]"
+          v-model="formDataNeed[item.prop]"
           v-else-if="item.type=='vueJsonEditor'"
           lang="zh"
         ></vue-json-editor>
         <!--如果是普通json编辑器-->
-        <json_editor v-model="value[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
+        <json_editor v-model="formDataNeed[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
         <!--如果是图片上传控件-->
-        <upload_img v-model="value[item.prop]" v-else-if="item.type=='upload'"></upload_img>
+        <upload_img v-model="formDataNeed[item.prop]" v-else-if="item.type=='upload'"></upload_img>
         <!--富文本编辑器-->
         <quillEditor
-          v-model="value[item.prop]"
+          v-model="formDataNeed[item.prop]"
           :options="editorOption"
           v-else-if="item.type=='editor'"
         ></quillEditor>
         <!--模糊查询文本框-->
-        <input_find_vague v-model="value[item.prop]" v-else-if="item.type=='input_find_vague'"></input_find_vague>
+        <input_find_vague v-model="formDataNeed[item.prop]" v-else-if="item.type=='input_find_vague'"></input_find_vague>
 
         <!--密码框-->
 
         <el-input
           placeholder="请输入密码"
-          v-model="value[item.prop]"
+          v-model="formDataNeed[item.prop]"
           v-else-if="item.type=='password'"
           show-password
         ></el-input>
         <!--普通文本框-->
-        <el-input v-model="value[item.prop]" v-else></el-input>
+        <el-input v-model="formDataNeed[item.prop]" v-else></el-input>
       </el-form-item>
     </template>
 
@@ -154,6 +155,7 @@ export default {
   },
   data() {
     return {
+       isReadyFormData:false,//表单初始化数据是否已备好的逻辑标记
       formDataNeed: this.value,
       editorOption: {
         //编辑器的配置
@@ -219,6 +221,7 @@ export default {
         });
         this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
+       this.isReadyFormData=true;//***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
   },
   async mounted() {

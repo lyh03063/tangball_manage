@@ -3,7 +3,7 @@
     <el-container>
       <el-header class="MB10">
         <el-row>
-          <div class="FL MT13 FS24 C_fff">管理后台</div>
+          <div class="FL MT13 FS24 C_fff">唐球赛事管理后台</div>
           <div class="FR MT30 C_fff">
             <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
             <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
