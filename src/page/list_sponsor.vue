@@ -31,12 +31,17 @@ export default {
           {
             label: "赞助商名称",
             prop: "name",
-            width: 150
+            width: 120
           },
           {
-            label: "赞助内容",
+            label: "赞助次数",
+            prop: "count",
+            width: 120
+          },
+          {
+            label: "赞助金额（单位：万元）",
             prop: "money",
-            width: 150
+            width: 200
           },
           {
             label: "赞助商简介",
@@ -49,11 +54,17 @@ export default {
           {
             label: "赞助商编号",
             prop: "P1",
-            type: "input"
+            type: "input_find_vague"
+
           },
           {
             label: "赞助商名称",
             prop: "name",
+            type: "input_find_vague"
+          },
+          {
+            label: "赞助次数",
+            prop: "count",
             type: "input"
           },
         ],
@@ -68,8 +79,12 @@ export default {
             label: "赞助商名称",
             prop: "name"
           },
+           {
+            label: "赞助次数",
+            prop: "count",
+          },
           {
-            label: "赞助内容",
+            label: "赞助金额（单位：万元）",
             prop: "money",
           },
           {
@@ -85,10 +100,15 @@ export default {
             type: "input",
             width: 200
           },
+           {
+            label: "赞助次数",
+            prop: "count",
+          },
           {
-            label: "赞助内容",
+            label: "赞助金额（单位：万元）",
             prop: "money",
           },
+          
           {
             label: "赞助商简介",
             prop: "intro",
