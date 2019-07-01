@@ -39,7 +39,22 @@
         v-for="column in cf.columns"
         :key="column.prop"
         :formatter="column.formatter"
-      ></el-table-column>
+      >
+       
+        <template slot-scope="scope" >
+          <!--Q1:有插槽-->
+          <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
+          <!--Q2:有formatter-->
+          <span class="" v-else-if="column.formatter" >
+            {{column.formatter(scope.row)}}
+          </span>
+          <!--Q3:其他-->
+          <span class="" v-else >
+            {{scope.row[column.prop]}}
+          </span>
+        </template>
+      
+      </el-table-column>
 
       <el-table-column label="操作">
         <template slot-scope="scope">
