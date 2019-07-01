@@ -1,13 +1,32 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+    <!--详情弹窗的category字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_sponsorId="{row}">
+        <ajax_populate :id="row.sponsorId" populateKey="name" page="tangball_sponsor">
+          <template v-slot:default="{doc}" >
+            <div class v-if="doc && doc.P1"><b>{{doc.P1}}</b>(赞助商名称:{{doc.name}})</div>
+          </template>
+        </ajax_populate>
+      </template>
+
+         <!--详情弹窗的category字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_matchId="{row}">
+        <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+          <template v-slot:default="{doc}" >
+            <div class v-if="doc && doc.P1"><b>{{doc.P1}}</b>(赛事名称:{{doc.matchName}})</div>
+          </template>
+        </ajax_populate>
+      </template>
+
+      </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import ajax_populate from "../components/common/ajax_populate.vue";
 export default {
-  components: { listData },
+  components: { listData,ajax_populate },
   data() {
     return {
       cfList: {
@@ -40,6 +59,11 @@ export default {
             prop: "matchId",
             width: 80
           },
+          //  {
+          //   label: "赛事名称",
+          //   prop: "matchName",
+          //   width: 80
+          // },
           {
             label: "赞助金额",
             prop: "amount",
@@ -86,11 +110,13 @@ export default {
           },
           {
             label: "赞助商id",
-            prop: "sponsorId"
+            prop: "sponsorId",
+            slot:"slot_detail_item_sponsorId"
           },
           {
             label: "赛事id",
-            prop: "matchId"
+            prop: "matchId",
+             slot:"slot_detail_item_matchId"
           },
           {
             label: "赞助金额",
@@ -111,13 +137,28 @@ export default {
           {
             label: "赞助商id",
             prop: "sponsorId",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_sponsor",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
-            label: "赛事id",
+            label: "赛事ID",
             prop: "matchId",
-            type: "input"
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            }
           },
+          //   {
+          //   label: "赛事名称",
+          //   prop: "matchName",
+          //   width: 80
+          // },
           {
             label: "赞助金额",
             prop: "amount",

@@ -25,14 +25,43 @@
           />
         </div>
       </template>
+      <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_memberId="{row}">
+        <ajax_populate
+          :id="row.memberId"
+          populateKey="name"
+          page="tangball_member"
+        >
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <b>{{doc.P1}}</b>
+              (报名会员名称:
+              <b>{{doc.name}}</b>)
+            </div>
+          </template>
+        </ajax_populate>
+      </template>
+
+      <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_matchId="{row}">
+        <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <b>{{doc.P1}}</b>
+              (赛事名称:
+              <b>{{doc.matchName}}</b>)
+            </div>
+          </template>
+        </ajax_populate>
+      </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import ajax_populate from "../components/common/ajax_populate.vue";
 export default {
-  components: { listData },
+  components: { listData,ajax_populate },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -44,8 +73,8 @@ export default {
       showDialogBigImg: false,
       cfList: {
         listIndex: "list_enroll", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "赛事",
+        threeTitle: "报名(订单)",
         flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_enroll", //列表接口
@@ -115,36 +144,32 @@ export default {
           {
             label: "报名会员id",
             prop: "memberId",
-            width: 110
+            slot: "slot_detail_item_memberId"
           },
           {
             label: "赛事id",
             prop: "matchId",
-            width: 100
+            slot: "slot_detail_item_matchId"
           },
           {
             label: "身份证号",
-            prop: "idCard",
-            width: 200
+            prop: "idCard"
           },
 
           {
             label: "报名时间",
             prop: "time",
-            width: 100,
             formatter: function(row) {
               return moment(row.time).format("YYYY-MM-DD");
             }
           },
           {
             label: "支付状态",
-            prop: "payStatus",
-            width: 100
+            prop: "payStatus"
           },
           {
             label: "审核状态",
-            prop: "auditStatus",
-            width: 100
+            prop: "auditStatus"
           }
         ],
         //-------新增、修改表单字段数组-------
@@ -152,34 +177,43 @@ export default {
           {
             label: "报名会员id",
             prop: "memberId",
-            width: 110
+
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "赛事id",
             prop: "matchId",
-            width: 100
+
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            }
           },
           {
             label: "身份证号",
-            prop: "idCard",
-            width: 200
+            prop: "idCard"
           },
           {
             label: "报名时间",
             prop: "time",
-            width: 100,
+
             type: "date"
           },
 
           {
             label: "支付状态",
-            prop: "payStatus",
-            width: 100
+            prop: "payStatus"
           },
           {
             label: "审核状态",
-            prop: "auditStatus",
-            width: 100
+            prop: "auditStatus"
           }
           // {
           //   label: "相册",

@@ -13,12 +13,15 @@
       </div>
     </el-dialog>
 
-    <listData :formData="formData" :cf="cfList">
+    <listData :cf="cfList">
+
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            {{formData.area}}
-            <el-cascader :options="options" v-model="formData.area"></el-cascader>
+            <el-cascader
+              :options="options"
+              v-model="formData.area"
+            ></el-cascader>
           </el-form-item>
         </el-form>
       </template>
