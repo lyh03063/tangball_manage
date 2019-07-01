@@ -41,20 +41,18 @@
         <!--单选框-->
         <el-radio-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='radio'">
           <el-radio
-            :label="option.label"
-            :value="option.value"
+            :label="option.value"
             v-for="option in item.options"
             :key="option.value"
-          ></el-radio>
+          >{{option.label}}</el-radio>
         </el-radio-group>
         <!--复选框-->
         <el-checkbox-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='checkbox'">
           <el-checkbox
-            :label="option.label"
-            :value="option.value"
+            :label="option.value"
             v-for="option in item.options"
             :key="option.value"
-          ></el-checkbox>
+          >{{option.label}}</el-checkbox>
         </el-checkbox-group>
         <!--文本域-->
         <el-input type="textarea" v-model="formDataNeed[item.prop]" v-else-if="item.type=='textarea'"></el-input>
