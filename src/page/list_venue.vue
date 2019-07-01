@@ -20,7 +20,7 @@
           <el-form-item prop="area">
             <el-cascader
               :options="options"
-              v-model="cityArray"
+              v-model="formData.area"
             ></el-cascader>
           </el-form-item>
         </el-form>
