@@ -1,8 +1,8 @@
 <template>
   <div class>
-    <ajax_populate :value="id" populateKey="name"></ajax_populate>
+    <ajax_populate :id="id" populateKey="name"></ajax_populate>
 
-    <ajax_populate :value="id" >
+    <ajax_populate :id="id" >
       <template v-slot:default="{doc}">{{doc}}</template>
     </ajax_populate>
   </div>
