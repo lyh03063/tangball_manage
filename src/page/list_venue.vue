@@ -20,7 +20,7 @@
           <el-form-item prop="area">
             <el-cascader
               :options="options"
-              v-model="formData.area"
+              v-model="cityArray"
             ></el-cascader>
           </el-form-item>
         </el-form>
@@ -193,6 +193,13 @@ export default {
       }
     };
   },
+  // created(){
+  //   if (localStorage.area) {
+  //     let arr1 = JSON.parse(localStorage.area); //对象转换成字符串
+  //     this.area = arr1;
+  //     console.log("beforeCreate===", this.confirmOrder);
+  //   }
+  // },
 
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
