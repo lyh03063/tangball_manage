@@ -39,7 +39,22 @@
         v-for="column in cf.columns"
         :key="column.prop"
         :formatter="column.formatter"
-      ></el-table-column>
+      >
+       
+        <template slot-scope="scope" >
+          <!--Q1:有插槽-->
+          <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
+          <!--Q2:有formatter-->
+          <span class="" v-else-if="column.formatter" >
+            {{column.formatter(scope.row)}}
+          </span>
+          <!--Q3:其他-->
+          <span class="" v-else >
+            {{scope.row[column.prop]}}
+          </span>
+        </template>
+      
+      </el-table-column>
 
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -95,6 +110,7 @@
 import Vue from "vue";
 import listDialogs from "./list-dialogs";
 import dynamicForm from "./dynamic-form";
+import { log } from 'util';
 export default {
   components: { listDialogs, dynamicForm }, //注册组件
   props: {
@@ -120,6 +136,7 @@ export default {
           } //传递参数
         });
         row = data.doc;
+     
       }
 
       this.$store.commit("openDialogDetail", {
@@ -183,6 +200,7 @@ export default {
           this.tableData = list;
           this.page = page;
           this.allCount = page.allCount; //更改总数据量
+           console.log("数据",response)
         })
         .catch(function(error) {
           alert("异常:" + error);
