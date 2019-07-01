@@ -14,10 +14,14 @@
     </el-dialog>
 
     <listData :cf="cfList">
+
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            <el-cascader :options="options" v-model="cityArray"></el-cascader>
+            <el-cascader
+              :options="options"
+              v-model="cityArray"
+            ></el-cascader>
           </el-form-item>
         </el-form>
       </template>
