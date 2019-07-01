@@ -46,8 +46,10 @@
         <form_item_test class v-model="formData.description"></form_item_test>
       </template>
 
-      <template v-slot:slot_list_column_name="{row}">
-        <div class="FWB C_f30" @click="print('牛逼！！！')" >我的牛逼的插槽:{{row.name}}</div>
+<!--列表的category字段插槽组件-->
+      <template v-slot:slot_list_column_category="{row}">
+        <ajax_populate :id="row.category" populateKey="name" page="mabang-category"></ajax_populate>
+     
       </template>
     </listData>
   </div>
@@ -98,7 +100,7 @@ export default {
             label: "商品名称",
             prop: "name",
             width: 200,
-            slot:"slot_list_column_name"
+           
           },
           {
             label: "价格",
@@ -118,7 +120,8 @@ export default {
           {
             label: "分类编号",
             prop: "category",
-            width: 70
+            width: 70,
+             slot:"slot_list_column_category"
           },
           {
             label: "属性",
