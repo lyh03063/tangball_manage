@@ -28,7 +28,6 @@
             v-if="item.ajax&&isReadyFormData"
           ></select_ajax>
           <el-select v-model="formDataNeed[item.prop]" v-else clearable>
-           
             <el-option
               :label="option.label"
               :value="option.value"
@@ -55,7 +54,11 @@
           >{{option.label}}</el-checkbox>
         </el-checkbox-group>
         <!--文本域-->
-        <el-input type="textarea" v-model="formDataNeed[item.prop]" v-else-if="item.type=='textarea'"></el-input>
+        <el-input
+          type="textarea"
+          v-model="formDataNeed[item.prop]"
+          v-else-if="item.type=='textarea'"
+        ></el-input>
 
         <!--date日期选择-->
         <el-date-picker
@@ -85,7 +88,10 @@
           v-else-if="item.type=='editor'"
         ></quillEditor>
         <!--模糊查询文本框-->
-        <input_find_vague v-model="formDataNeed[item.prop]" v-else-if="item.type=='input_find_vague'"></input_find_vague>
+        <input_find_vague
+          v-model="formDataNeed[item.prop]"
+          v-else-if="item.type=='input_find_vague'"
+        ></input_find_vague>
 
         <!--密码框-->
 
@@ -153,7 +159,7 @@ export default {
   },
   data() {
     return {
-       isReadyFormData:false,//表单初始化数据是否已备好的逻辑标记
+      isReadyFormData: false, //表单初始化数据是否已备好的逻辑标记
       formDataNeed: this.value,
       editorOption: {
         //编辑器的配置
@@ -195,14 +201,6 @@ export default {
     //初始化表单函数
     initForm() {
       console.log("initForm");
-      //处理json编辑框的数据转换
-      // for (let key in this.value) {
-      //   //如果{ajax获取到的初始化数据}存在
-      //   if (this.docGet) {
-      //     this.value[key] = this.docGet[key];
-      //   }
-      // }
-
       if (this.docGet) {
         //ajax获取到的表单数据存在
         let jsonData = {};
@@ -219,12 +217,18 @@ export default {
         });
         this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
-       this.isReadyFormData=true;//***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
+      this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
   },
-  async mounted() {
+  async created() {
+    this.docGet = {};
+    this.cf.formItems.forEach(itemEach => {
+      //循环：{表单字段配置数组}
+      this.docGet[itemEach.prop] = itemEach.default;
+    });
+
+    //如果初始化的ajax地址存在
     if (this.cf.urlInit) {
-      //如果{000}000
       let { data } = await axios({
         //请求接口
         method: "post",
@@ -237,7 +241,7 @@ export default {
       this.docGet = data.doc;
     }
 
-    console.log("this.docGet", this.docGet);
+    console.log("this.docGet######", this.docGet);
     this.initForm(); //调用：{初始化表单函数}
   }
 };
