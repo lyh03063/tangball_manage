@@ -52,16 +52,22 @@ export default {
       console.count("getChildren");
       arr.forEach(docEach => {
         //使用filter过滤出当前地区的子地区数组
-        docEach.children = arrDataBase.filter(
+        let arrChildren = arrDataBase.filter(
           docBase => docBase.P8 == docEach.P7
         );
-        if (docEach.children && docEach.children.length) {
+
+        //如果子地区数组存在
+        if (arrChildren.length) {
+          docEach.children = arrChildren;
+        }
+
+        if (docEach.children) {
           //如果子地区数组存在
           getChildren(docEach.children); //递归调用：{获取子数据函数}
         }
       });
     }
-    
+
     getChildren(this.arrProvice); //首次调用：{获取子数据函数}
   }
 };
