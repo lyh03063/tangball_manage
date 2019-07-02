@@ -110,6 +110,7 @@
 import Vue from "vue";
 import listDialogs from "./list-dialogs";
 import dynamicForm from "./dynamic-form";
+import { log } from 'util';
 export default {
   components: { listDialogs, dynamicForm }, //注册组件
   props: {
@@ -135,6 +136,7 @@ export default {
           } //传递参数
         });
         row = data.doc;
+     
       }
 
       this.$store.commit("openDialogDetail", {
@@ -198,6 +200,7 @@ export default {
           this.tableData = list;
           this.page = page;
           this.allCount = page.allCount; //更改总数据量
+           console.log("数据",response)
         })
         .catch(function(error) {
           alert("异常:" + error);
