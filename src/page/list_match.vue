@@ -3,17 +3,7 @@
     <listData :cf="cfList">
       <!-- 全国性赛事 -->
       <template v-slot:slot_modify_item_nationalMatch="{row}">
-        <div>城市赛阶段的城市场馆列表（已选{{nationalMatch.length}}个）</div>
-        <div class="nationalMatch">
-          <i class="el-icon-plus" @click="nationalMatchAdd"></i>
-          <span v-for="(item,index) in nationalMatch" :key="index">
-            {{item.cityName}}--{{item.venueName}}
-            <i
-              class="el-icon-remove-outline"
-              @click="nationalMatchDelete(index)"
-            ></i>
-          </span>
-        </div>
+        <city_venue_list v-model="arr1"></city_venue_list>
       </template>
       <!-- 赛程联动下拉框 -->
       <template v-slot:slot_modify_item_selectMatch="{row}">
@@ -39,9 +29,9 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import city_venue_list from "../components/form_item/city_venue_list.vue";
 export default {
-  components: { listData },
+  components: { listData, city_venue_list },
   data() {
     return {
       bigmatchProcess: "",
@@ -50,53 +40,60 @@ export default {
       matchProcess: [
         {
           code: 1,
-          name: "大赛程",
+          name: "城市赛",
           childrens: [
             {
               code: "01",
-              name: "城市赛"
+              name: "选拔赛"
             },
             {
               code: "02",
-              name: "城际赛"
+              name: "晋级赛"
+            },
+            {
+              code: "03",
+              name: "决赛"
             }
           ]
         },
         {
           code: 2,
-          name: "小赛程",
+          name: "城际赛",
           childrens: [
             {
-              code: "03",
-              name: "选拔赛"
-            },
-            {
               code: "04",
-              name: "晋级赛"
-            },
-            {
-              code: "05",
-              name: "决赛"
-            },
-            {
-              code: "06",
               name: "淘汰赛/循环赛"
             },
             {
-              code: "07",
+              code: "05",
               name: "1/4决赛"
             },
             {
-              code: "08",
+              code: "06",
               name: "决赛"
             }
           ]
         }
       ],
-      nationalMatch: [
-        { city: "001", cityName: "深圳1", venueName: "深圳唐球馆1" },
-        { city: "001", cityName: "深圳2", venueName: "深圳唐球馆2" },
-        { city: "001", cityName: "深圳3", venueName: "深圳唐球馆3" }
+      arr1: [
+        {
+          cityId: "001",
+          cityName: "深圳A",
+          venueId: "15",
+          venueName: "深圳唐球馆1"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆2"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆3"
+        }
       ],
 
       cfList: {
@@ -371,18 +368,6 @@ export default {
       this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
       this.smallmatchProcess = this.newsmallmatchProcess[0].name;
       console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
-    },
-    //删除
-    nationalMatchDelete(key) {
-      this.nationalMatch.splice(key, 1);
-    },
-    //增加
-    nationalMatchAdd() {
-      this.nationalMatch.unshift({
-        city: " 001",
-        cityName: "深圳",
-        venueName: "深圳唐球馆"
-      });
     }
   }
 };
@@ -390,41 +375,4 @@ export default {
 
 
 <style scoped>
-.nationalMatch span {
-  display: block;
-  background-color: #fff;
-  padding: 3px 0;
-  margin: 10px 15px;
-  margin-right: 100px;
-  position: relative;
-}
-
-.nationalMatch {
-  text-align: center;
-  border: 1px solid black;
-  background-color: #e8e8e8;
-  padding: 20px;
-  width: 80%;
-}
-i.el-icon-remove-outline {
-  position: absolute;
-  top: 10px;
-  right: -50px;
-  font-size: 20px;
-  color: #969696;
-  font-weight: bold;
-  border-color: red;
-}
-i.el-icon-plus {
-  position: absolute;
-  top: 5px;
-  right: 20%;
-  display: block;
-  background-color: #a3a3a3;
-  padding: 5px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  border-radius: 5px;
-}
 </style>

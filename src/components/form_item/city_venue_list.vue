@@ -46,7 +46,7 @@ export default {
   watch: {
     valueNeed: {
       handler(newVal, oldVal) {
-        this.$emit("input",  this.valueNeed); //同步valueNeed值到value
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       // immediate: true,//组件初始化时立即执行一次变动
       deep: true //深度监听
@@ -159,5 +159,7 @@ i.el-icon-plus {
   font-size: 10px;
   font-weight: bold;
   border-radius: 5px;
+  float: right;
+  margin: 10px 20% 0 0;
 }
 </style>
