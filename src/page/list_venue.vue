@@ -9,19 +9,16 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt>
+        <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
-
+      
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            <el-cascader
-              :options="options"
-              v-model="cityArray"
-            ></el-cascader>
+            <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
         </el-form>
       </template>
@@ -35,7 +32,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          >
+          />
         </div>
       </template>
     </listData>
@@ -61,8 +58,11 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-      cityArray: [],
-      formData: [],
+      cityArray: { 
+        },
+      formData: {
+        area:{}
+      },
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
