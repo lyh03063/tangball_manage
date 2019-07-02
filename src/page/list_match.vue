@@ -1,6 +1,12 @@
 <template>
   <div class>
     <listData :cf="cfList"></listData>
+    <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
+      <el-option v-for="item in matchProcess" :key="item.code" :label="item.name" :value="item.code"></el-option>
+    </el-select>
+    <el-select v-model="smallmatchProcess" placeholder="请选择">
+      <el-option v-for="item in newsmallmatchProcess" :key="item.code" :label="item.name" :value="item.code"></el-option>
+    </el-select>
   </div>
 </template>
 <script>
@@ -10,6 +16,56 @@ export default {
   components: { listData },
   data() {
     return {
+      bigmatchProcess: "",
+      smallmatchProcess: "",
+      newsmallmatchProcess: [],
+      matchProcess: [
+        {
+          code: 1,
+          name: "大赛程",
+          childrens: [
+            {
+              code: "01",
+              name: "城市赛"
+            },
+            {
+              code: "02",
+              name: "城际赛"
+            }
+          ]
+        },
+        {
+          code: 2,
+          name: "小赛程",
+          childrens: [
+            {
+              code: "03",
+              name: "选拔赛"
+            },
+            {
+              code: "04",
+              name: "晋级赛"
+            },
+            {
+              code: "05",
+              name: "决赛"
+            },
+            {
+              code: "06",
+              name: "淘汰赛/循环赛"
+            },
+            {
+              code: "07",
+              name: "1/4决赛"
+            },
+            {
+              code: "08",
+              name: "决赛"
+            }
+          ]
+        }
+      ],
+
       cfList: {
         listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
@@ -80,7 +136,7 @@ export default {
             prop: "matchType",
             width: 75,
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           }
         ],
@@ -91,8 +147,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -167,7 +223,7 @@ export default {
             label: "赛事类型",
             prop: "matchType",
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
           {
@@ -206,8 +262,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -262,6 +318,14 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
+  },
+  methods: {
+    selectChange(value) {
+      console.log(value);
+      this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
+      this.smallmatchProcess = this.newsmallmatchProcess[0].name;
+      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
+    }
   }
 };
 </script>
