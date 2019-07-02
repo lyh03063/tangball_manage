@@ -1,12 +1,28 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
-    <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
-      <el-option v-for="item in matchProcess" :key="item.code" :label="item.name" :value="item.code"></el-option>
-    </el-select>
-    <el-select v-model="smallmatchProcess" placeholder="请选择">
-      <el-option v-for="item in newsmallmatchProcess" :key="item.code" :label="item.name" :value="item.code"></el-option>
-    </el-select>
+    <listData :cf="cfList">
+      <!-- 全国性赛事 -->
+      <template v-slot:slot_detail_item_nationalMatch="{row}"></template>
+      <!-- 赛程联动下拉框 -->
+      <template v-slot:slot_detail_item_selectMatch="{row}">
+        <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
+          <el-option
+            v-for="item in matchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+        <el-select v-model="smallmatchProcess" placeholder="请选择">
+          <el-option
+            v-for="item in newsmallmatchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+      </template>
+    </listData>
   </div>
 </template>
 <script>
@@ -251,6 +267,7 @@ export default {
               { label: "已结束", value: 3 }
             ]
           },
+
           {
             label: "发布状态",
             prop: "publicationStatus",
@@ -280,6 +297,19 @@ export default {
             label: "赛事时间",
             prop: "matchTime",
             type: "date"
+          },
+          {
+            label: "全国性赛事",
+            // prop: "matchProcess",
+            type: "select",
+            slot: "slot_detail_item_nationalMatch"
+          },
+
+          {
+            label: "赛事进程",
+            prop: "matchProcess",
+            type: "select",
+            slot: "slot_detail_item_selectMatch"
           },
           {
             label: "数据的id",
