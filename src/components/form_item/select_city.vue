@@ -69,7 +69,7 @@ export default {
   },
 
   methods: {
-    changeArea(arr) {
+    changeArea(arr) {//函数：{城市地区变动函数}
       console.log("arr####", arr);
 
       //这里如何获取到cityName
@@ -80,7 +80,7 @@ export default {
       console.log("docCity", docCity);
       let cityName = docCity.P2;
       console.log("cityName##########", cityName);
-      this.$emit("change-city-name", cityName); //同步valueNeed值到value
+      this.$emit("change-city-name", cityName); //同步外部的城市名称
 
     },
     async ajaxGetOp(pid) {

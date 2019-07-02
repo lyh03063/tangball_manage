@@ -389,7 +389,7 @@ export default {
 </script>
 
 
-<style scope>
+<style scoped>
 .nationalMatch span {
   display: block;
   background-color: #fff;
