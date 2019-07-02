@@ -14,7 +14,6 @@
     </el-dialog>
 
     <listData :cf="cfList">
-      
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
@@ -60,15 +59,7 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-<<<<<<< HEAD
-      cityArray: { 
-        },
-      formData: {
-        area:{}
-      },
-=======
       formData: [],
->>>>>>> df976f9bd3062d768b65ae19bb60f839d2457227
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -87,6 +78,11 @@ export default {
             label: "编号",
             prop: "P1",
             width: 70
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId",
+            width: 100
           },
           {
             label: "场馆名称",
@@ -135,6 +131,10 @@ export default {
           {
             label: "分类编号",
             prop: "P1"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId"
           },
           {
             label: "场馆名称",
@@ -199,17 +199,6 @@ export default {
       }
     };
   },
-<<<<<<< HEAD
-  // created(){
-  //   if (localStorage.area) {
-  //     let arr1 = JSON.parse(localStorage.area); //对象转换成字符串
-  //     this.area = arr1;
-  //     console.log("beforeCreate===", this.confirmOrder);
-  //   }
-  // },
-
-=======
->>>>>>> df976f9bd3062d768b65ae19bb60f839d2457227
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
