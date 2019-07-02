@@ -14,14 +14,10 @@
     </el-dialog>
 
     <listData :cf="cfList">
-
       <template v-slot:slot_area="{formData}">
         <el-form>
           <el-form-item prop="area">
-            <el-cascader
-              :options="options"
-              v-model="formData.area"
-            ></el-cascader>
+            <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
         </el-form>
       </template>
@@ -84,6 +80,11 @@ export default {
             width: 70
           },
           {
+            label: "加盟商",
+            prop: "franchiseeId",
+            width: 100
+          },
+          {
             label: "场馆名称",
             prop: "name",
             width: 200
@@ -130,6 +131,10 @@ export default {
           {
             label: "分类编号",
             prop: "P1"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId"
           },
           {
             label: "场馆名称",

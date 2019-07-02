@@ -1,6 +1,40 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+      <!-- 全国性赛事 -->
+      <template v-slot:slot_modify_item_nationalMatch="{row}">
+        <div>城市赛阶段的城市场馆列表（已选{{nationalMatch.length}}个）</div>
+        <div class="nationalMatch">
+          <i class="el-icon-plus" @click="nationalMatchAdd"></i>
+          <span v-for="(item,index) in nationalMatch" :key="index">
+            {{item.cityName}}--{{item.venueName}}
+            <i
+              class="el-icon-remove-outline"
+              @click="nationalMatchDelete(index)"
+            ></i>
+          </span>
+        </div>
+      </template>
+      <!-- 赛程联动下拉框 -->
+      <template v-slot:slot_modify_item_selectMatch="{row}">
+        <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
+          <el-option
+            v-for="item in matchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+        <el-select v-model="smallmatchProcess" placeholder="请选择">
+          <el-option
+            v-for="item in newsmallmatchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+      </template>
+    </listData>
   </div>
 </template>
 <script>
@@ -10,6 +44,61 @@ export default {
   components: { listData },
   data() {
     return {
+      bigmatchProcess: "",
+      smallmatchProcess: "",
+      newsmallmatchProcess: [],
+      matchProcess: [
+        {
+          code: 1,
+          name: "大赛程",
+          childrens: [
+            {
+              code: "01",
+              name: "城市赛"
+            },
+            {
+              code: "02",
+              name: "城际赛"
+            }
+          ]
+        },
+        {
+          code: 2,
+          name: "小赛程",
+          childrens: [
+            {
+              code: "03",
+              name: "选拔赛"
+            },
+            {
+              code: "04",
+              name: "晋级赛"
+            },
+            {
+              code: "05",
+              name: "决赛"
+            },
+            {
+              code: "06",
+              name: "淘汰赛/循环赛"
+            },
+            {
+              code: "07",
+              name: "1/4决赛"
+            },
+            {
+              code: "08",
+              name: "决赛"
+            }
+          ]
+        }
+      ],
+      nationalMatch: [
+        { city: "001", cityName: "深圳1", venueName: "深圳唐球馆1" },
+        { city: "001", cityName: "深圳2", venueName: "深圳唐球馆2" },
+        { city: "001", cityName: "深圳3", venueName: "深圳唐球馆3" }
+      ],
+
       cfList: {
         listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
@@ -80,7 +169,7 @@ export default {
             prop: "matchType",
             width: 75,
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           }
         ],
@@ -91,8 +180,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -167,7 +256,7 @@ export default {
             label: "赛事类型",
             prop: "matchType",
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
           {
@@ -195,6 +284,7 @@ export default {
               { label: "已结束", value: 3 }
             ]
           },
+
           {
             label: "发布状态",
             prop: "publicationStatus",
@@ -206,8 +296,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -224,6 +314,18 @@ export default {
             label: "赛事时间",
             prop: "matchTime",
             type: "date"
+          },
+          {
+            label: "全国性赛事",
+            prop: "nationalMatch",
+            type: "select",
+            slot: "slot_modify_item_nationalMatch"
+          },
+          {
+            label: "赛事进程",
+            prop: "matchProcess",
+            type: "select",
+            slot: "slot_modify_item_selectMatch"
           },
           {
             label: "数据的id",
@@ -262,10 +364,67 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
+  },
+  methods: {
+    selectChange(value) {
+      console.log(value);
+      this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
+      this.smallmatchProcess = this.newsmallmatchProcess[0].name;
+      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
+    },
+    //删除
+    nationalMatchDelete(key) {
+      this.nationalMatch.splice(key, 1);
+    },
+    //增加
+    nationalMatchAdd() {
+      this.nationalMatch.unshift({
+        city: " 001",
+        cityName: "深圳",
+        venueName: "深圳唐球馆"
+      });
+    }
   }
 };
 </script>
 
 
-<style>
+<style scoped>
+.nationalMatch span {
+  display: block;
+  background-color: #fff;
+  padding: 3px 0;
+  margin: 10px 15px;
+  margin-right: 100px;
+  position: relative;
+}
+
+.nationalMatch {
+  text-align: center;
+  border: 1px solid black;
+  background-color: #e8e8e8;
+  padding: 20px;
+  width: 80%;
+}
+i.el-icon-remove-outline {
+  position: absolute;
+  top: 10px;
+  right: -50px;
+  font-size: 20px;
+  color: #969696;
+  font-weight: bold;
+  border-color: red;
+}
+i.el-icon-plus {
+  position: absolute;
+  top: 5px;
+  right: 20%;
+  display: block;
+  background-color: #a3a3a3;
+  padding: 5px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
 </style>
