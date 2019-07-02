@@ -37,6 +37,10 @@ export default {
   data() {
     return {
       nationalMatch: [
+        { name: "大", value: 1, option: [] },
+        { name: "小", value: 2, option: [] }
+      ],
+      nationalMatch: [
         { city: "001", cityName: "深圳1", venueName: "北堂1" },
         { city: "001", cityName: "深圳2", venueName: "北堂2" },
         { city: "001", cityName: "深圳3", venueName: "北堂3" }
@@ -223,12 +227,13 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
+
   }
 };
 </script>
 
 
-<style>
+<style scoped>
 .nationalMatch span {
   display: block;
   background-color: #fff;
