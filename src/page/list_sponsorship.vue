@@ -52,12 +52,15 @@ export default {
           {
             label: "赞助商id",
             prop: "sponsorId",
-            width: 90
+            width: 90,
+             slot: "slot_detail_item_sponsorId",
           },
           {
             label: "赛事id",
             prop: "matchId",
-            width: 80
+            width: 80,
+             slot: "slot_detail_item_matchId",
+
           },
           //  {
           //   label: "赛事名称",
