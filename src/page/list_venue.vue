@@ -49,20 +49,26 @@ export default {
       this.urlBigImg = url;
     }
   },
-  mounted() {
-    if (typeof this.formData.area == "string") {
-      this.cityArray = this.formData.area.split("");
+  watch: {
+    formData: {
+      handler: function() {
+        console.log("formData", this.formData);
+      },
+      deep: true //深度监听
     }
   },
-
   data() {
     return {
       showDialogBigImg: false,
+<<<<<<< HEAD
       cityArray: { 
         },
       formData: {
         area:{}
       },
+=======
+      formData: [],
+>>>>>>> df976f9bd3062d768b65ae19bb60f839d2457227
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -193,6 +199,7 @@ export default {
       }
     };
   },
+<<<<<<< HEAD
   // created(){
   //   if (localStorage.area) {
   //     let arr1 = JSON.parse(localStorage.area); //对象转换成字符串
@@ -201,6 +208,8 @@ export default {
   //   }
   // },
 
+=======
+>>>>>>> df976f9bd3062d768b65ae19bb60f839d2457227
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
