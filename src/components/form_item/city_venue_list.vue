@@ -11,7 +11,7 @@
       v-bind:visible.sync="isShowDialogAddCityVanue"
       v-if="isShowDialogAddCityVanue"
     >
-      绑定数据 {{objCityVanue}}
+      <!-- 绑定数据 {{objCityVanue}} -->
       <select_city_venue v-model="objCityVanue"></select_city_venue>
       <space height="20"></space>
       <div class="TAC">
