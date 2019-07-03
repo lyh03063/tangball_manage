@@ -61,18 +61,18 @@ export default {
       }
     };
   },
-  watch: {
-    valueNeed: {
-      handler(newName, oldName) {
-        //Q1:{值类型}不是城市ID
-        if (this.valueType != "cityId") {
-          this.$emit("input", this.valueNeed); //同步valueNeed值到value
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
+  // watch: {
+  //   valueNeed: {
+  //     handler(newName, oldName) {
+  //       //Q1:{值类型}不是城市ID
+  //       if (this.valueType != "cityId") {
+  //         this.$emit("input", this.valueNeed); //同步valueNeed值到value
+  //       }
+  //     },
+  //     immediate: true,
+  //     deep: true
+  //   }
+  // },
 
   methods: {
     changeArea(arr) {
@@ -89,6 +89,8 @@ export default {
       //Q1:{值类型}是城市ID
       if (this.valueType == "cityId") {
         this.$emit("input", cityId); //同步valueNeed值到value
+      } else {
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
       }
     },
     async ajaxGetOp(pid) {
@@ -115,12 +117,14 @@ export default {
       });
     },
     async handleItemChange(val, p2) {
-      console.log("active item:", val);
-      console.log("p2", p2);
-
       let provinceId = val[0];
+      if(!provinceId)return;
       let objOption = this.options.find(opEach => opEach.value == provinceId);
-      objOption.cities = await this.ajaxGetOp(provinceId);
+      //如果能找到
+      if (objOption) {
+        
+        objOption.cities = await this.ajaxGetOp(provinceId);
+      }
     }
   },
   async created() {
@@ -139,7 +143,10 @@ export default {
       }
 
       let objOption = this.options.find(opEach => opEach.value == provinceId);
-      objOption.cities = await this.ajaxGetOp(provinceId);
+      if (objOption) {
+        //如果{000}000
+        objOption.cities = await this.ajaxGetOp(provinceId);
+      }
     }
   }
 };

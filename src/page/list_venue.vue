@@ -14,12 +14,14 @@
     </el-dialog>
 
     <listData :cf="cfList">
+
       <template v-slot:slot_area="{formData}">
-        <el-form>
+        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
-        </el-form>
+        </el-form> -->
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -39,9 +41,9 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData },
+  components: { listData,select_city },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;

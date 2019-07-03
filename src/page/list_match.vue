@@ -2,9 +2,10 @@
   <div class>
     <listData :cf="cfList">
       <!-- 全国性赛事 -->
-      <template v-slot:slot_modify_item_nationalMatch="{row}">
-        <city_venue_list v-model="arr1"></city_venue_list>
+      <template v-slot:slot_form_item_nationalMatch="{formData}">
+        <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
       </template>
+      
       <!-- 赛程联动下拉框 -->
       <template v-slot:slot_modify_item_selectMatch="{row}">
         <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
@@ -105,6 +106,8 @@ export default {
           list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
+          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
+
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
@@ -314,9 +317,9 @@ export default {
           },
           {
             label: "全国性赛事",
-            prop: "nationalMatch",
+            prop: "cityVenueList",
             type: "select",
-            slot: "slot_modify_item_nationalMatch"
+            slot: "slot_form_item_nationalMatch"
           },
           {
             label: "赛事进程",
