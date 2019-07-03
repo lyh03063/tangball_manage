@@ -31,7 +31,12 @@
       </template>
       <!-- 赛程联动下拉框 -->
       <template v-slot:slot_modify_item_selectMatch="{row}">
-        <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
+        <el-select
+          class="bigmatchProcess"
+          v-model="bigmatchProcess"
+          placeholder="请选择"
+          @change="selectChange"
+        >
           <el-option
             v-for="item in matchProcess"
             :key="item.code"
@@ -48,17 +53,22 @@
           ></el-option>
         </el-select>
       </template>
+      <!-- 全国性赛事 -->
+      <template v-slot:slot_form_item_nationalMatch="{formData}">
+        <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
+      </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
+import city_venue_list from "../components/form_item/city_venue_list.vue";
 export default {
-  components: { listData, ajax_populate },
+  components: { listData, ajax_populate, city_venue_list },
   data() {
     return {
-       bigmatchProcess: "",
+      bigmatchProcess: "",
       smallmatchProcess: "",
       newsmallmatchProcess: [],
       matchProcess: [
@@ -127,13 +137,13 @@ export default {
             prop: "participantsId",
             width: 90
           },
-         
+
           {
             label: "赛事ID",
             prop: "matchId",
             width: 80
           },
-        
+
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -151,12 +161,11 @@ export default {
             label: "参赛人Id",
             prop: "participantsId"
           },
-        
+
           {
             label: "赛事ID",
             prop: "matchId"
           }
-        
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -192,7 +201,7 @@ export default {
               keyValue: "P1"
             }
           },
-         
+
           {
             label: "赛事ID",
             prop: "matchId",
@@ -204,10 +213,16 @@ export default {
             }
           },
           {
-            label: "赛事进程",
+            label: "赛程",
             prop: "matchProcess",
             type: "select",
-           slot: "slot_modify_item_selectMatch"
+            slot: "slot_modify_item_selectMatch"
+          },
+          {
+            label: "全国性赛事",
+            prop: "cityVenueList",
+            type: "select",
+            slot: "slot_form_item_nationalMatch"
           },
           {
             label: "比赛得分",
@@ -226,18 +241,20 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   },
-   methods: {
+  methods: {
     selectChange(value) {
       console.log(value);
       this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
       this.smallmatchProcess = this.newsmallmatchProcess[0].name;
       console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
-    },
-    
+    }
   }
 };
 </script>
 
 
-<style>
+<style scoped>
+.el-select.el-select--small {
+  margin-right: 10px;
+}
 </style>
