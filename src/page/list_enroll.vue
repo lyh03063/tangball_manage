@@ -27,15 +27,11 @@
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_memberId="{row}">
-        <ajax_populate
-          :id="row.memberId"
-          populateKey="name"
-          page="tangball_member"
-        >
+        <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               <b>{{doc.P1}}</b>
-              (报名会员名称:
+              (
               <b>{{doc.name}}</b>)
             </div>
           </template>
@@ -48,7 +44,7 @@
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               <b>{{doc.P1}}</b>
-              (赛事名称:
+              (
               <b>{{doc.matchName}}</b>)
             </div>
           </template>
@@ -61,7 +57,7 @@
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
 export default {
-  components: { listData,ajax_populate },
+  components: { listData, ajax_populate },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -87,17 +83,65 @@ export default {
           {
             label: "报名会员id",
             prop: "memberId",
-            width: 110
+            slot: "slot_detail_item_memberId",
+            width: 102
           },
           {
             label: "赛事id",
             prop: "matchId",
+            slot: "slot_detail_item_matchId",
+            width: 150
+          },
+          {
+            label: "手机号",
+            prop: "phone",
             width: 100
           },
           {
+            label: "性别",
+            prop: "sex",
+            width: 50,
+            formatter: function(rowData) {
+              if (rowData.sex == 1) {
+                return "男";
+              } else {
+                return "女";
+              }
+            }
+          },
+          {
+            label: "年龄",
+            prop: "age",
+            width: 50
+          },
+          {
+            label: "职业",
+            prop: "career",
+            width: 50
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.ballAge == 1) {
+                return "一年以下";
+              } else if (rowData.ballAge == 2) {
+                return "一到三年";
+              } else if (rowData.ballAge == 3) {
+                return "三到五年";
+              } else if (rowData.ballAge == 4) {
+                return "五到十年";
+              } else {
+                return "十年以上";
+              }
+            }
+          },
+
+          {
             label: "身份证号",
             prop: "idCard",
-            width: 200
+            width: 130
           },
           {
             label: "报名时间",
@@ -107,12 +151,28 @@ export default {
           {
             label: "支付状态",
             prop: "payStatus",
-            width: 100
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.payStatus == 1) {
+                return "已支付";
+              } else {
+                return "未支付";
+              }
+            }
           },
           {
             label: "审核状态",
             prop: "auditStatus",
-            width: 100
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.auditStatus == 1) {
+                return "未审核";
+              } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+              } else {
+                return "审核通过";
+              }
+            }
           }
         ],
         //-------筛选表单字段数组-------
@@ -132,11 +192,22 @@ export default {
           },
           {
             label: "支付状态",
-            prop: "payStatus"
+            prop: "payStatus",
+            type: "select",
+            options: [
+              { label: "已支付", value: 1 },
+              { label: "未支付", value: 2 }
+            ]
           },
           {
             label: "审核状态",
-            prop: "auditStatus"
+            prop: "auditStatus",
+            type: "select",
+            options: [
+              { label: "未审核", value: 1 },
+              { label: "审核不通过", value: 2 },
+              { label: "审核通过", value: 3 }
+            ]
           }
         ],
         //-------详情字段数组-------
@@ -152,6 +223,51 @@ export default {
             slot: "slot_detail_item_matchId"
           },
           {
+            label: "手机号",
+            prop: "phone",
+            width: 100
+          },
+          {
+            label: "性别",
+            prop: "sex",
+            width: 50,
+            formatter: function(rowData) {
+              if (rowData.sex == 1) {
+                return "男";
+              } else {
+                return "女";
+              }
+            }
+          },
+          {
+            label: "年龄",
+            prop: "age",
+            width: 50
+          },
+          {
+            label: "职业",
+            prop: "career",
+            width: 50
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.ballAge == 1) {
+                return "一年以下";
+              } else if (rowData.ballAge == 2) {
+                return "一到三年";
+              } else if (rowData.ballAge == 3) {
+                return "三到五年";
+              } else if (rowData.ballAge == 4) {
+                return "五到十年";
+              } else {
+                return "十年以上";
+              }
+            }
+          },
+          {
             label: "身份证号",
             prop: "idCard"
           },
@@ -159,18 +275,35 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-
             formatter: function(row) {
               return moment(row.time).format("YYYY-MM-DD");
             }
           },
           {
             label: "支付状态",
-            prop: "payStatus"
+            prop: "payStatus",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.payStatus == 1) {
+                return "已支付";
+              } else {
+                return "未支付";
+              }
+            }
           },
           {
             label: "审核状态",
-            prop: "auditStatus"
+            prop: "auditStatus",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.auditStatus == 1) {
+                return "未审核";
+              } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+              } else {
+                return "审核通过";
+              }
+            }
           }
         ],
         //-------新增、修改表单字段数组-------
@@ -198,6 +331,39 @@ export default {
             }
           },
           {
+            label: "手机号",
+            prop: "phone",
+            type: "input"
+          },
+          {
+            label: "性别",
+            prop: "sex",
+            type: "select",
+            options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]
+          },
+          {
+            label: "年龄",
+            prop: "age",
+            type: "input"
+          },
+          {
+            label: "职业",
+            prop: "career",
+            type: "input"
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            type: "select",
+            options: [
+              { label: "一年以下", value: 1 },
+              { label: "一到三年", value: 2 },
+              { label: "三到五年", value: 3 },
+              { label: "五到十年", value: 4 },
+              { label: "十年以上", value: 5 }
+            ]
+          },
+          {
             label: "身份证号",
             prop: "idCard"
           },
@@ -210,11 +376,22 @@ export default {
 
           {
             label: "支付状态",
-            prop: "payStatus"
+            prop: "payStatus",
+            type: "select",
+            options: [
+              { label: "已支付", value: 1 },
+              { label: "未支付", value: 2 }
+            ]
           },
           {
             label: "审核状态",
-            prop: "auditStatus"
+            prop: "auditStatus",
+            type: "select",
+            options: [
+              { label: "未审核", value: 1 },
+              { label: "审核不通过", value: 2 },
+              { label: "审核通过", value: 3 }
+            ]
           }
           // {
           //   label: "相册",

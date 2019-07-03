@@ -45,6 +45,12 @@
       <template v-slot:slot_form_item_description="{formData}">
         <form_item_test class v-model="formData.description"></form_item_test>
       </template>
+
+<!--列表的category字段插槽组件-->
+      <template v-slot:slot_list_column_category="{row}">
+        <ajax_populate :id="row.category" populateKey="name" page="mabang-category"></ajax_populate>
+     
+      </template>
     </listData>
   </div>
 </template>
@@ -85,12 +91,16 @@ export default {
           {
             label: "商品id",
             prop: "P1",
-            width: 80
+            width: 80,
+            formatter:function(){
+              return "aaaa"
+            }
           },
           {
             label: "商品名称",
             prop: "name",
-            width: 200
+            width: 200,
+           
           },
           {
             label: "价格",
@@ -110,7 +120,8 @@ export default {
           {
             label: "分类编号",
             prop: "category",
-            width: 70
+            width: 70,
+             slot:"slot_list_column_category"
           },
           {
             label: "属性",

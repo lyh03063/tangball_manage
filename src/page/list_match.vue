@@ -1,15 +1,102 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+      <!-- 全国性赛事 -->
+      <template v-slot:slot_form_item_nationalMatch="{formData}">
+        <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
+      </template>
+      
+      <!-- 赛程联动下拉框 -->
+      <template v-slot:slot_modify_item_selectMatch="{row}">
+        <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
+          <el-option
+            v-for="item in matchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+        <el-select v-model="smallmatchProcess" placeholder="请选择">
+          <el-option
+            v-for="item in newsmallmatchProcess"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          ></el-option>
+        </el-select>
+      </template>
+    </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import city_venue_list from "../components/form_item/city_venue_list.vue";
 export default {
-  components: { listData },
+  components: { listData, city_venue_list },
   data() {
     return {
+      bigmatchProcess: "",
+      smallmatchProcess: "",
+      newsmallmatchProcess: [],
+      matchProcess: [
+        {
+          code: 1,
+          name: "城市赛",
+          childrens: [
+            {
+              code: "01",
+              name: "选拔赛"
+            },
+            {
+              code: "02",
+              name: "晋级赛"
+            },
+            {
+              code: "03",
+              name: "决赛"
+            }
+          ]
+        },
+        {
+          code: 2,
+          name: "城际赛",
+          childrens: [
+            {
+              code: "04",
+              name: "淘汰赛/循环赛"
+            },
+            {
+              code: "05",
+              name: "1/4决赛"
+            },
+            {
+              code: "06",
+              name: "决赛"
+            }
+          ]
+        }
+      ],
+      arr1: [
+        {
+          cityId: "001",
+          cityName: "深圳A",
+          venueId: "15",
+          venueName: "深圳唐球馆1"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆2"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆3"
+        }
+      ],
+
       cfList: {
         listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
@@ -19,6 +106,8 @@ export default {
           list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
+          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
+
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
@@ -80,7 +169,7 @@ export default {
             prop: "matchType",
             width: 75,
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           }
         ],
@@ -91,8 +180,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -167,7 +256,7 @@ export default {
             label: "赛事类型",
             prop: "matchType",
             formatter: function(rowData) {
-              return rowData.matchType == 1 ? "比杆赛" : "比洞赛"; //三元表达式
+              return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
           {
@@ -195,6 +284,7 @@ export default {
               { label: "已结束", value: 3 }
             ]
           },
+
           {
             label: "发布状态",
             prop: "publicationStatus",
@@ -206,8 +296,8 @@ export default {
             prop: "matchType",
             type: "select",
             options: [
-              { label: "比杆赛", value: 1 },
-              { label: "比洞赛", value: 2 }
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
             ]
           },
           {
@@ -224,6 +314,18 @@ export default {
             label: "赛事时间",
             prop: "matchTime",
             type: "date"
+          },
+          {
+            label: "全国性赛事",
+            prop: "cityVenueList",
+            type: "select",
+            slot: "slot_form_item_nationalMatch"
+          },
+          {
+            label: "赛事进程",
+            prop: "matchProcess",
+            type: "select",
+            slot: "slot_modify_item_selectMatch"
           },
           {
             label: "数据的id",
@@ -262,10 +364,18 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
+  },
+  methods: {
+    selectChange(value) {
+      console.log(value);
+      this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
+      this.smallmatchProcess = this.newsmallmatchProcess[0].name;
+      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
+    }
   }
 };
 </script>
 
 
-<style>
+<style scoped>
 </style>

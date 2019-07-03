@@ -1,5 +1,8 @@
 <template>
   <div class>
+
+
+    
     <div class="group">
       <div class="title-bar">ajax_populate组件</div>
       <div class="PT8 PB8">

@@ -35,6 +35,7 @@ export default {
             label: "普通文本框(input)",
             prop: "prop1",
             type: "input",
+            default:"默认文本",
             rules: [
               { required: true, message: "不能为空" },
               // {
@@ -68,6 +69,7 @@ export default {
             label: "下拉框(select)",
             prop: "prop3",
             type: "select",
+            default:2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {
@@ -86,12 +88,14 @@ export default {
             label: "单选框(radio)",
             prop: "prop_radio",
             type: "radio",
+            default:2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {
             label: "复选框(checkbox)",
             prop: "prop_checkbox",
             type: "checkbox",
+            default:[2],
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {

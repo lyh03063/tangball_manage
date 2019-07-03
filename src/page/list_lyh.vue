@@ -1,24 +1,42 @@
 <template>
   <div class>
-    <ajax_populate :id="id" populateKey="name"></ajax_populate>
+    <select_city v-model="cityId" valueType="cityId"></select_city>
 
-    <ajax_populate :id="id" >
-      <template v-slot:default="{doc}">{{doc}}</template>
-    </ajax_populate>
+    <city_venue_list v-model="arr1"></city_venue_list>
   </div>
 </template>
 <script>
-//导入自定义复选框组件，注意路径改为自己的
-import ajax_populate from "../components/common/ajax_populate.vue";
-
+import city_venue_list from "../components/form_item/city_venue_list.vue";
+import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { ajax_populate },
+  components: { city_venue_list,select_city },
   data() {
     return {
-      id: 1
+      cityId:"4402",
+      arr1: [
+        {
+          cityId: "001",
+          cityName: "深圳A",
+          venueId: "15",
+          venueName: "深圳唐球馆1"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆2"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆3"
+        }
+      ]
     };
-  }
+  },
+
+  methods: {}
 };
 </script>
-
 

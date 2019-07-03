@@ -9,21 +9,19 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt>
+        <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
 
       <template v-slot:slot_area="{formData}">
-        <el-form>
+        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <!-- <el-form>
           <el-form-item prop="area">
-            <el-cascader
-              :options="options"
-              v-model="formData.area"
-            ></el-cascader>
+            <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
-        </el-form>
+        </el-form> -->
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -35,7 +33,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          >
+          />
         </div>
       </template>
     </listData>
@@ -43,25 +41,26 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData },
+  components: { listData,select_city },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
       this.urlBigImg = url;
     }
   },
-  mounted() {
-    if (typeof this.formData.area == "string") {
-      this.cityArray = this.formData.area.split("");
+  watch: {
+    formData: {
+      handler: function() {
+        console.log("formData", this.formData);
+      },
+      deep: true //深度监听
     }
   },
-
   data() {
     return {
       showDialogBigImg: false,
-      cityArray: [],
       formData: [],
       options: option,
       cfList: {
@@ -81,6 +80,11 @@ export default {
             label: "编号",
             prop: "P1",
             width: 70
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId",
+            width: 100
           },
           {
             label: "场馆名称",
@@ -129,6 +133,10 @@ export default {
           {
             label: "分类编号",
             prop: "P1"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId"
           },
           {
             label: "场馆名称",
@@ -193,7 +201,6 @@ export default {
       }
     };
   },
-
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
