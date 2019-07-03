@@ -214,13 +214,11 @@ export default {
         return flagIn;
       };
 
-      //Q1:{000}
+      //如果存在term条件
       if (item.term) {
         flag = checkTerm(item.term);
-      }else{
-        
       }
-      console.log("flag######" + item.prop, flag);
+
 
       return flag;
     },

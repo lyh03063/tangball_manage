@@ -328,7 +328,8 @@ export default {
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
-            slot: "slot_form_item_cityVenueList"
+            slot: "slot_form_item_cityVenueList",
+            term:{matchType:2}
           },
           {
             label: "赛事进程",

@@ -62,7 +62,7 @@ export default {
           },
           {
             label: "文本域(textarea)",
-            prop: "prop2",
+            prop: "prop_textarea",
             type: "textarea"
           },
           {
@@ -71,6 +71,13 @@ export default {
             type: "select",
             default:2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+           {
+            label: "sex【联动】",
+            prop: "sex_relative",
+            type: "input",
+            //显示条件
+            term:{"$or":[{sex:2},{prop_textarea:2}]}
           },
           {
             label: "下拉框(select+ajax)",
@@ -84,13 +91,7 @@ export default {
             }
           },
 
-           {
-            label: "sex联动",
-            prop: "sex_relative",
-            type: "input",
-            //显示条件
-            term:{sex:2,prop2:2,"$or":[{prop_password:1},{prop1:1}]}
-          },
+          
           {
             label: "单选框(radio)",
             prop: "prop_radio",
