@@ -12,7 +12,7 @@
       场馆选项:
       
       <el-radio
-        v-model="venueIdRadio"
+        v-model="valueNeed"
         :label="doc.venueId"
         border
         v-for="(doc,index) in matchInfo.cityVenueList"
@@ -36,7 +36,6 @@ export default {
   },
   data() {
     return {
-      venueIdRadio: null,
       matchInfo: null, //赛事信息
       url: {
         detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match"
