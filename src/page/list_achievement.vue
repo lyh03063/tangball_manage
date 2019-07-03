@@ -54,7 +54,7 @@
         </el-select>
       </template>
       <!-- 全国性赛事 -->
-      <template v-slot:slot_form_item_nationalMatch="{formData}">
+      <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
       </template>
     </listData>
@@ -222,7 +222,7 @@ export default {
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
-            slot: "slot_form_item_nationalMatch"
+            slot: "slot_form_item_cityVenueList"
           },
           {
             label: "比赛得分",
