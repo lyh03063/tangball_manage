@@ -42,7 +42,7 @@
       <dynamicForm
         v-model="formAdd"
         :cf="cfFormAdd"
-        @submit="addProduct"
+        @submit="addData"
         @cancel="closeDialogAddFun"
        
       >
@@ -64,7 +64,7 @@
       <dynamicForm
         v-model="formModify"
         :cf="cfFormModify"
-        @submit="modifyProduct"
+        @submit="modifyData"
         @cancel="isShowDialogModify = false"
       >
         <template v-slot:[item.slot]="{formData}" v-for="item in cf.formItems">
@@ -142,8 +142,8 @@ export default {
       this.$store.commit("closeDialogAdd", this.cf.listIndex); //执行store的closeDialogAdd事件
     },
 
-    //-------------修改产品的函数--------------
-    modifyProduct() {
+    //-------------修改数据的函数--------------
+    modifyData() {
       axios({
         //请求接口
         method: "post",
@@ -170,7 +170,7 @@ export default {
         });
     },
     //-------------新增产品的函数--------------
-    addProduct() {
+    addData() {
       axios({
         //请求接口
         method: "post",

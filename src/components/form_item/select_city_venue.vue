@@ -51,7 +51,7 @@ export default {
       url: {
         list: "http://120.76.160.41:3000/crossList?page=tangball_venue" //场馆列表接口
       },
-      arrArea: ["44", this.value.cityId]
+      arrArea: [this.value.cityId.substr(0, 2), this.value.cityId]
     };
   },
   watch: {
@@ -66,8 +66,10 @@ export default {
     arrArea: {
       //监听地区数组
       async handler(newName, oldName) {
+        console.log("this.arrArea##########", this.arrArea);
         console.log("arrArea变动");
         this.cityIdTemp = this.arrArea[1];
+        if (!this.cityIdTemp)return 
         this.venueOp = await this.ajaxGetVenue(this.cityIdTemp);
       },
       immediate: true,

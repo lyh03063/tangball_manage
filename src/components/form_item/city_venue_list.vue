@@ -11,7 +11,7 @@
       v-bind:visible.sync="isShowDialogAddCityVanue"
       v-if="isShowDialogAddCityVanue"
     >
-      绑定数据 {{objCityVanue}}
+      <!-- 绑定数据 {{objCityVanue}} -->
       <select_city_venue v-model="objCityVanue"></select_city_venue>
       <space height="20"></space>
       <div class="TAC">
@@ -46,7 +46,7 @@ export default {
   watch: {
     valueNeed: {
       handler(newVal, oldVal) {
-        this.$emit("input",  this.valueNeed); //同步valueNeed值到value
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       // immediate: true,//组件初始化时立即执行一次变动
       deep: true //深度监听
@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      valueNeed: this.value,
+      valueNeed: this.value||[],
       isShowDialogAddCityVanue: false, //是否显示添加城市场馆的弹窗
       objCityVanue: {
         cityId: "4401",
@@ -63,53 +63,7 @@ export default {
         venueName: "场馆名称"
       },
       newsmallmatchProcess: [],
-      matchProcess: [
-        {
-          code: 1,
-          name: "大赛程",
-          childrens: [
-            {
-              code: "01",
-              name: "城市赛"
-            },
-            {
-              code: "02",
-              name: "城际赛"
-            }
-          ]
-        },
-        {
-          code: 2,
-          name: "小赛程",
-          childrens: [
-            {
-              code: "03",
-              name: "选拔赛"
-            },
-            {
-              code: "04",
-              name: "晋级赛"
-            },
-            {
-              code: "05",
-              name: "决赛"
-            },
-            {
-              code: "06",
-              name: "淘汰赛/循环赛"
-            },
-            {
-              code: "07",
-              name: "1/4决赛"
-            },
-            {
-              code: "08",
-              name: "决赛"
-            }
-          ]
-        }
-      ],
-      valueNeed: this.value
+  
     };
   },
   methods: {
@@ -159,5 +113,7 @@ i.el-icon-plus {
   font-size: 10px;
   font-weight: bold;
   border-radius: 5px;
+  float: right;
+  margin: 10px 20% 0 0;
 }
 </style>
