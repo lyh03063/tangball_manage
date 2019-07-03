@@ -169,6 +169,11 @@ export default {
             prop: "P1"
           },
           {
+            label: "加盟商",
+            prop: "franchiseeId",
+             type: "select",
+          },
+          {
             label: "场馆名称",
             prop: "name"
           },
