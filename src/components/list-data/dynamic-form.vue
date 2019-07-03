@@ -14,8 +14,8 @@
         v-if="!item.forbidAdd"
         :key="item.prop"
       >
-        <!--slot自定义组件-->
-        <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
+        <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
+        <slot :name="item.slot" :formData="value" v-if="item.slot&&isReadyFormData"></slot>
         <!--下拉框-->
         <div class v-else-if="item.type=='select'">
           <select_ajax
@@ -221,10 +221,10 @@ export default {
     }
   },
   async created() {
-    this.docGet = {};
+    this.docGet = this.value||{};//**** */
     this.cf.formItems.forEach(itemEach => {
-      //循环：{表单字段配置数组}
-      this.docGet[itemEach.prop] = itemEach.default;
+      //循环：{表单字段配置数组}c处理默认值
+      this.docGet[itemEach.prop] =this.value[itemEach.prop]|| itemEach.default;
     });
 
     //如果初始化的ajax地址存在

@@ -11,21 +11,24 @@
 </template>
 
 <script>
-
 /** 这个组件比较坑的地方在于其默认绑定的value数据格式是编号数组形式
  * 获取城市名称很不方便
- * 
-*/
+ *
+ */
 export default {
   props: {
     value: {
-      type: Array,
-      default: function() {
-        return ["44", "4401"];
-      }
+      // type: [Array,String],
+      // default: function() {
+      //   return ["44", "4401"];
+      // }
     },
     cityName: {
-      type: String,
+      type: String
+    },
+    valueType: {
+      //值类型
+      type: String
     }
   },
   data() {
@@ -33,7 +36,7 @@ export default {
       url: {
         list: "http://120.76.160.41:3000/crossList?page=dmagic_area" //列表接口
       },
-      valueNeed: this.value,
+      valueNeed: [],
       options: [
         {
           value: "44",
@@ -41,7 +44,7 @@ export default {
           cities: [
             {
               value: "4401",
-              label: "aaas"
+              label: "广州"
             }
           ]
         },
@@ -58,20 +61,22 @@ export default {
       }
     };
   },
-  watch: {
-    valueNeed: {
-      handler(newName, oldName) {
-        this.$emit("input", this.valueNeed); //同步valueNeed值到value
-      },
-      immediate: true,
-      deep: true
-    }
-  },
+  // watch: {
+  //   valueNeed: {
+  //     handler(newName, oldName) {
+  //       //Q1:{值类型}不是城市ID
+  //       if (this.valueType != "cityId") {
+  //         this.$emit("input", this.valueNeed); //同步valueNeed值到value
+  //       }
+  //     },
+  //     immediate: true,
+  //     deep: true
+  //   }
+  // },
 
   methods: {
-    changeArea(arr) {//函数：{城市地区变动函数}
-      console.log("arr####", arr);
-
+    changeArea(arr) {
+      //函数：{城市地区变动函数}
       //这里如何获取到cityName
       let cityId = arr[1];
       console.log("cityId", cityId);
@@ -81,7 +86,12 @@ export default {
       let cityName = docCity.P2;
       console.log("cityName##########", cityName);
       this.$emit("change-city-name", cityName); //同步外部的城市名称
-
+      //Q1:{值类型}是城市ID
+      if (this.valueType == "cityId") {
+        this.$emit("input", cityId); //同步valueNeed值到value
+      } else {
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
+      }
     },
     async ajaxGetOp(pid) {
       //请求接口
@@ -107,21 +117,36 @@ export default {
       });
     },
     async handleItemChange(val, p2) {
-      console.log("active item:", val);
-      console.log("p2", p2);
-
       let provinceId = val[0];
+      if(!provinceId)return;
       let objOption = this.options.find(opEach => opEach.value == provinceId);
-      objOption.cities = await this.ajaxGetOp(provinceId);
+      //如果能找到
+      if (objOption) {
+        
+        objOption.cities = await this.ajaxGetOp(provinceId);
+      }
     }
   },
   async created() {
     this.options = await this.ajaxGetOp("0001");
 
-    if (this.valueNeed && this.valueNeed[0]) {
-      let provinceId = this.valueNeed[0];
+    if (this.value && this.value[0]) {
+      let provinceId = this.value[0];
+      //Q1:{值类型}是城市ID
+      if (this.valueType == "cityId") {
+        provinceId = this.value.substr(0, 2); //字符串截取前2位
+
+        this.valueNeed = [provinceId, this.value];
+        //Q1:{值类型}是地区数组
+      } else {
+        this.valueNeed = this.value;
+      }
+
       let objOption = this.options.find(opEach => opEach.value == provinceId);
-      objOption.cities = await this.ajaxGetOp(provinceId);
+      if (objOption) {
+        //如果{000}000
+        objOption.cities = await this.ajaxGetOp(provinceId);
+      }
     }
   }
 };
