@@ -19,14 +19,19 @@
         </ajax_populate>
       </template>
 
+       <template v-slot:slot_place="{formData}">
+        <select_city v-model="formData.place" valueType="cityId"></select_city>
+      </template>
+
       </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
+import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData,ajax_populate },
+  components: { listData,ajax_populate,select_city},
   data() {
     return {
       cfList: {
@@ -165,7 +170,8 @@ export default {
           {
             label: "赞助金额",
             prop: "amount",
-            type: "input"
+            type: "input",
+           
           },
           {
             label: "赞助时间",
@@ -176,7 +182,7 @@ export default {
           {
             label: "地点",
             prop: "place",
-            type: "input"
+             slot: "slot_place"
           }
         ]
       }
