@@ -9,10 +9,19 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt />
+        <img :src="urlBigImg" alt>
       </div>
     </el-dialog>
     <listData :cf="cfList">
+      <!-- 选择赛事和场馆 -->
+      <template v-slot:slot_form_item_matchInfo="{formData}">
+        <match_venue
+          v-model="formData.cityVenueId"
+          :matchId="formData.matchId"
+        
+        ></match_venue>
+      </template>
+
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
@@ -22,7 +31,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          />
+          >
         </div>
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
@@ -32,7 +41,7 @@
             <div class v-if="doc && doc.P1">
               {{doc.P1}}
               (
-            {{doc.name}})
+              {{doc.name}})
             </div>
           </template>
         </ajax_populate>
@@ -43,7 +52,7 @@
         <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
-            {{doc.P1}}
+              {{doc.P1}}
               (
               {{doc.matchName}})
             </div>
@@ -56,8 +65,9 @@
 <script>
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
+import match_venue from "../components/form_item/match_venue.vue";
 export default {
-  components: { listData, ajax_populate },
+  components: { listData, ajax_populate, match_venue },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -84,23 +94,23 @@ export default {
             label: "报名会员id",
             prop: "memberId",
             slot: "slot_detail_item_memberId",
-            width:90
+            width: 90
           },
           {
-            label: "赛事id",
+            label: "赛事",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width:80
+            width: 80
           },
           {
             label: "手机号",
             prop: "phone",
-            width:80
+            width: 80
           },
           {
             label: "性别",
             prop: "sex",
-            width:40,
+            width: 40,
             formatter: function(rowData) {
               if (rowData.sex == 1) {
                 return "男";
@@ -122,7 +132,7 @@ export default {
           {
             label: "球龄",
             prop: "ballAge",
-            width:80,
+            width: 80,
             formatter: function(rowData) {
               if (rowData.ballAge == 1) {
                 return "一年以下";
@@ -141,17 +151,17 @@ export default {
           {
             label: "身份证号",
             prop: "idCard",
-            width:90
+            width: 90
           },
           {
             label: "报名时间",
             prop: "time",
-            width:75
+            width: 75
           },
           {
             label: "支付状态",
             prop: "payStatus",
-            width:70,
+            width: 70,
             formatter: function(rowData) {
               if (rowData.payStatus == 1) {
                 return "已支付";
@@ -330,6 +340,12 @@ export default {
               keyValue: "P1"
             }
           },
+          {
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot: "slot_form_item_matchInfo"
+          },
+
           {
             label: "手机号",
             prop: "phone",
