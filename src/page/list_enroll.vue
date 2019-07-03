@@ -30,9 +30,9 @@
         <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
-              <b>{{doc.P1}}</b>
+              {{doc.P1}}
               (
-              <b>{{doc.name}}</b>)
+            {{doc.name}})
             </div>
           </template>
         </ajax_populate>
@@ -43,9 +43,9 @@
         <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
-              <b>{{doc.P1}}</b>
+            {{doc.P1}}
               (
-              <b>{{doc.matchName}}</b>)
+              {{doc.matchName}})
             </div>
           </template>
         </ajax_populate>
@@ -84,7 +84,7 @@ export default {
             label: "报名会员id",
             prop: "memberId",
             slot: "slot_detail_item_memberId",
-            width:80
+            width:90
           },
           {
             label: "赛事id",
@@ -95,12 +95,12 @@ export default {
           {
             label: "手机号",
             prop: "phone",
-            width: 75
+            width:80
           },
           {
             label: "性别",
             prop: "sex",
-            width: 45,
+            width:40,
             formatter: function(rowData) {
               if (rowData.sex == 1) {
                 return "男";
@@ -112,12 +112,12 @@ export default {
           {
             label: "年龄",
             prop: "age",
-            width: 45
+            width: 40
           },
           {
             label: "职业",
             prop: "career",
-            width: 45
+            width: 40
           },
           {
             label: "球龄",
