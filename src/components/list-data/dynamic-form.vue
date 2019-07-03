@@ -282,7 +282,6 @@ export default {
       // console.log("doc", doc);
       this.docGet = data.doc;
     }
-
     console.log("this.docGet######", this.docGet);
     this.initForm(); //调用：{初始化表单函数}
   }
