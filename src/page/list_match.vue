@@ -2,10 +2,13 @@
   <div class>
     <listData :cf="cfList">
       <!-- 全国性赛事 -->
-      <template v-slot:slot_form_item_nationalMatch="{formData}">
+      <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
       </template>
-      
+
+      <template v-slot:slot_detail_item_cityVenueList="{row}">
+        <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
+      </template>
       <!-- 赛程联动下拉框 -->
       <template v-slot:slot_modify_item_selectMatch="{row}">
         <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
@@ -221,6 +224,12 @@ export default {
             prop: "matchTime"
           },
           {
+            label: "全国性赛事",
+            prop: "cityVenueList",
+            type: "select",
+            slot: "slot_detail_item_cityVenueList"
+          },
+          {
             label: "比赛场馆",
             prop: "venue"
           },
@@ -319,7 +328,7 @@ export default {
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
-            slot: "slot_form_item_nationalMatch"
+            slot: "slot_form_item_cityVenueList"
           },
           {
             label: "赛事进程",
@@ -378,4 +387,7 @@ export default {
 
 
 <style scoped>
+.el-select.el-select--small {
+  margin-right: 20px;
+}
 </style>
