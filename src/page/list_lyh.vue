@@ -1,76 +1,42 @@
 <template>
-  <div class>{{arrProvice}}</div>
+  <div class>
+    <select_city v-model="cityId" valueType="cityId"></select_city>
+
+    <city_venue_list v-model="arr1"></city_venue_list>
+  </div>
 </template>
 <script>
-//导入自定义复选框组件，注意路径改为自己的
-import ajax_populate from "../components/common/ajax_populate.vue";
-
+import city_venue_list from "../components/form_item/city_venue_list.vue";
+import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { ajax_populate },
+  components: { city_venue_list,select_city },
   data() {
     return {
-      arrProvice: null
+      cityId:"4402",
+      arr1: [
+        {
+          cityId: "001",
+          cityName: "深圳A",
+          venueId: "15",
+          venueName: "深圳唐球馆1"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆2"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆3"
+        }
+      ]
     };
   },
-  created() {
-    let arrDataBase = [
-      {
-        P2: "广西",
-        P7: "45",
-        P8: "0001"
-      },
-      {
-        P2: "广东",
-        P7: "44",
-        P8: "0001"
-      },
-      {
-        P2: "深圳",
-        P7: "4403",
-        P8: "44"
-      },
-      {
-        P2: "韶关",
-        P7: "4402",
-        P8: "44"
-      },
-      {
-        P2: "南山区",
-        P7: "440305",
-        P8: "4403"
-      },
-      {
-        P2: "福田区",
-        P7: "440304",
-        P8: "4403"
-      }
-    ];
-    //变量：{省份地区数组}----使用filter过滤
-    this.arrProvice = arrDataBase.filter(docBase => docBase.P8 == "0001");
-    //函数定义：{获取子数据函数}
-    function getChildren(arr) {
-      console.count("getChildren");
-      arr.forEach(docEach => {
-        //使用filter过滤出当前地区的子地区数组
-        let arrChildren = arrDataBase.filter(
-          docBase => docBase.P8 == docEach.P7
-        );
 
-        //如果子地区数组存在
-        if (arrChildren.length) {
-          docEach.children = arrChildren;
-        }
-
-        if (docEach.children) {
-          //如果子地区数组存在
-          getChildren(docEach.children); //递归调用：{获取子数据函数}
-        }
-      });
-    }
-
-    getChildren(this.arrProvice); //首次调用：{获取子数据函数}
-  }
+  methods: {}
 };
 </script>
-
 
