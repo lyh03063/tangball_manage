@@ -1,18 +1,22 @@
 <template>
   <div class>
-    <select_city v-model="cityId" valueType="cityId"></select_city>
+    <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
 
-    <city_venue_list v-model="arr1"></city_venue_list>
+    <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
   </div>
 </template>
 <script>
-import city_venue_list from "../components/form_item/city_venue_list.vue";
-import select_city from "../components/form_item/select_city.vue";
+import select_match_progress from "../components/form_item/select_match_progress.vue";
+
 export default {
-  components: { city_venue_list,select_city },
+  components: { select_match_progress },
   data() {
     return {
-      cityId:"4402",
+      formData: {
+        matchType: 2,
+        matchProgress111: { bigProgress: null, smallProgress: null }
+      },
+      cityId: "4402",
       arr1: [
         {
           cityId: "001",
