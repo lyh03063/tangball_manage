@@ -214,9 +214,22 @@ const store = new Vuex.Store({//定义Vuex的存储对象
     activeMenuIndex: "",//当前激活的菜单index
     listState: {//存放列表的共享状态，
 
+    }, 
+    defultFindJson: {//存放列表的默认查询参数，
+      // list_article:{articleCategory:3  }
+
     },   
   },
+ 
   mutations: {//变更事件
+
+    setListFindJson(state, param) {//设置列表的初始筛选参数值
+      console.log("param", param);
+      state.defultFindJson[param.listIndex] = param.findJson;
+      //对listState进行整个对象的变更（深拷贝），因为listState是有注册的，可以触发响应
+      let str = JSON.stringify(state.defultFindJson)//对象转换成字符串
+      state.defultFindJson = JSON.parse(str)//字符串转换成对象
+    },
 
     initListState(state, param) {//改变列表的初始状态值
       console.log("param", param);

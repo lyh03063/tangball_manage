@@ -88,11 +88,11 @@ export default {
             label: "文章分类",
             prop: "articleCategory",
             type: "select",
-            options: [
-              { label: "唐球规则", value: "1" },
-              { label: "比赛说明", value: "2" },
-              { label: "推广赞助", value: "3" }
-            ]
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_article_category",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "文章标题",
