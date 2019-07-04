@@ -40,20 +40,14 @@
         :key="column.prop"
         :formatter="column.formatter"
       >
-       
-        <template slot-scope="scope" >
+        <template slot-scope="scope">
           <!--Q1:有插槽-->
           <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
           <!--Q2:有formatter-->
-          <span class="" v-else-if="column.formatter" >
-            {{column.formatter(scope.row)}}
-          </span>
+          <span class v-else-if="column.formatter">{{column.formatter(scope.row)}}</span>
           <!--Q3:其他-->
-          <span class="" v-else >
-            {{scope.row[column.prop]}}
-          </span>
+          <span class v-else>{{scope.row[column.prop]}}</span>
         </template>
-      
       </el-table-column>
 
       <el-table-column label="操作" min-width="150">
@@ -110,7 +104,7 @@
 import Vue from "vue";
 import listDialogs from "./list-dialogs";
 import dynamicForm from "./dynamic-form";
-import { log } from 'util';
+import { log } from "util";
 export default {
   components: { listDialogs, dynamicForm }, //注册组件
   props: {
@@ -136,7 +130,6 @@ export default {
           } //传递参数
         });
         row = data.doc;
-     
       }
 
       this.$store.commit("openDialogDetail", {
@@ -144,9 +137,9 @@ export default {
         row: row
       });
     },
-    //-------------确认删除产品的函数--------------
-    async confirmDelete(proId) {
-      let clickStatus = await this.$confirm("确认删除该产品？", "提示", {
+    //-------------确认删除数据的函数--------------
+    async confirmDelete(dataId) {
+      let clickStatus = await this.$confirm("确认删除该数据？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -161,7 +154,7 @@ export default {
           data: {
             findJson: {
               //用于定位要修改的数据
-              P1: proId
+              P1: dataId
             }
           } //传递参数
         }).catch(function(error) {
@@ -169,25 +162,25 @@ export default {
         });
 
         this.$message({
-          message: "删除产品成功",
+          message: "删除成功",
           duration: 1500,
           type: "success"
         });
-        this.getProList(); //更新产品列表
+        this.getDataList(); //更新数据列表
       }
     },
     //-------------查询列表的函数--------------
     searchList() {
-      this.getProList(); //第一次加载此函数，页面才不会空
+      this.getDataList(); //第一次加载此函数，页面才不会空
     },
 
     //-------------处理分页变动函数--------------
     handleCurrentChange(pageIndex) {
       this.Objparma.pageIndex = pageIndex; //改变ajax传参的第几页
-      this.getProList(); //第一次加载此函数，页面才不会空
+      this.getDataList(); //第一次加载此函数，页面才不会空
     },
-    //-------------ajax获取产品列表函数--------------
-    getProList() {
+    //-------------ajax获取数据列表函数--------------
+    getDataList() {
       console.log("this.Objparma####", this.Objparma);
       axios({
         //请求接口
@@ -200,7 +193,7 @@ export default {
           this.tableData = list;
           this.page = page;
           this.allCount = page.allCount; //更改总数据量
-           console.log("数据",response)
+          console.log("数据", response);
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -223,7 +216,7 @@ export default {
       allCount: 20,
       //------------------ajax请求数据列表的传参对象--------------
       Objparma: {
-        findJson:  this.$store.state.defultFindJson[this.cf.listIndex]||{},
+        findJson: {},
         pageIndex: 1, //第1页
         pageSize: 10 //每页10条
       },
@@ -232,8 +225,19 @@ export default {
     };
   },
   created() {
-
-
+    let defultFindJson = this.$store.state.defultFindJson[this.cf.listIndex];
+    console.log("defultFindJson###", defultFindJson);
+    if (defultFindJson) {
+      console.log("defultFindJson存在");
+      //如果{默认的查询参数}存在，清空默认查询参数，避免下次切换时还保留
+      this.Objparma.findJson = defultFindJson;
+      // this.$store.commit("setListFindJson", {
+      //   //改变列表的初始状态值
+      //   listIndex: this.cf.listIndex,
+      //   findJson: {} 
+      // });
+      console.log("this.Objparma2222", this.Objparma);
+    }
 
     let objState = {
       //列表的vuex初始状态对象
@@ -258,7 +262,7 @@ export default {
 
   mounted() {
     //等待模板加载后，
-    this.getProList(); //第一次加载此函数，页面才不会空
+    this.getDataList(); //第一次加载此函数，页面才不会空
   }
 };
 </script>
