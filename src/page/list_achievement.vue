@@ -3,11 +3,7 @@
     <listData :cf="cfList">
       <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_participantsId="{row}">
-        <ajax_populate
-          :id="row.participantsId"
-          populateKey="name"
-          page="tangball_member"
-        >
+        <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               {{doc.P1}}
@@ -78,9 +74,13 @@ export default {
             label: "赛事ID",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width: 80
+            width: 100
           },
-
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+            width:150
+          },
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -116,7 +116,10 @@ export default {
             prop: "matchId",
             slot: "slot_detail_item_matchId"
           },
-
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+          },
           {
             label: "比赛得分",
             prop: "matchScore"
