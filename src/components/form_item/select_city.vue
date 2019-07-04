@@ -79,12 +79,8 @@ export default {
       //函数：{城市地区变动函数}
       //这里如何获取到cityName
       let cityId = arr[1];
-      console.log("cityId", cityId);
-      console.log("this.cityList", this.cityList);
       let docCity = this.cityList.find(doc => doc.P7 == cityId);
-      console.log("docCity", docCity);
       let cityName = docCity.P2;
-      console.log("cityName##########", cityName);
       this.$emit("change-city-name", cityName); //同步外部的城市名称
       //Q1:{值类型}是城市ID
       if (this.valueType == "cityId") {

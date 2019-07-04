@@ -29,14 +29,24 @@
           </template>
         </ajax_populate>
       </template>
+
+      <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
+      <template v-slot:slot_modify_item_matchProgress="{formData}">
+        <select_match_progress
+          v-model="formData.matchProgress"
+          :matchType="formData.matchType"
+          :matchId="formData.matchId"
+        ></select_match_progress>
+      </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
+import select_match_progress from "../components/form_item/select_match_progress.vue";
 export default {
-  components: { listData, ajax_populate },
+  components: { listData, ajax_populate, select_match_progress },
   data() {
     return {
       cfList: {
@@ -49,6 +59,9 @@ export default {
           add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
           modify:
             "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
+          detail:
+            "http://120.76.160.41:3000/crossDetail?page=tangball_achievement", //查看单条数据详情接口，在修改表单或详情弹窗用到
+
           delete:
             "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
         },
@@ -59,21 +72,13 @@ export default {
             prop: "participantsId",
             width: 90
           },
-          // {
-          //   label: "参赛人姓名",
-          //   prop: "participantsName",
-          //   width: 110
-          // },
+
           {
             label: "赛事ID",
             prop: "matchId",
             width: 80
           },
-          // {
-          //   label: "赛事名称",
-          //   prop: "matchName",
-          //   width: 150
-          // },
+
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -91,18 +96,11 @@ export default {
             label: "参赛人Id",
             prop: "participantsId"
           },
-          // {
-          //   label: "参赛人姓名",
-          //   prop: "participantsName"
-          // },
+
           {
             label: "赛事ID",
             prop: "matchId"
           }
-          // {
-          //   label: "赛事名称",
-          //   prop: "matchName"
-          // }
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -138,16 +136,7 @@ export default {
               keyValue: "P1"
             }
           },
-          // {
-          //   label: "参赛人姓名",
-          //   prop: "participantsName",
-          //   type: "select",
-          //   ajax: {
-          //     url: "http://120.76.160.41:3000/crossList?page=tangball_member",
-          //     keyLabel: "name",
-          //     keyValue: "name"
-          //   }
-          // },
+
           {
             label: "赛事ID",
             prop: "matchId",
@@ -158,16 +147,12 @@ export default {
               keyValue: "P1"
             }
           },
-          // {
-          //   label: "赛事名称",
-          //   prop: "matchName",
-          //   type: "select",
-          //   ajax: {
-          //     url: "http://120.76.160.41:3000/crossList?page=tangball_match",
-          //     keyLabel: "matchName",
-          //     keyValue: "matchName"
-          //   }
-          // },
+          {
+            label: "赛事进程",
+            prop: "matchProgress",
+            type: "select",
+            slot: "slot_modify_item_matchProgress"
+          },
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -184,7 +169,8 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  }
+  },
+  methods: {}
 };
 </script>
 

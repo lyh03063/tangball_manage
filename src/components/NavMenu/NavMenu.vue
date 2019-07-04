@@ -93,9 +93,11 @@ ul {
 }
 .bar{
   cursor: pointer;
-  
-
 }
+.el-aside{
+overflow: hidden;
+}
+
 </style>
 
 

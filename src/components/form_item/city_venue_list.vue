@@ -9,7 +9,7 @@
       :close-on-click-modal="false"
       :append-to-body="true"
       v-bind:visible.sync="isShowDialogAddCityVanue"
-      v-if="isShowDialogAddCityVanue"
+      v-if="isShowDialogAddCityVanue" 
     >
       <!-- 绑定数据 {{objCityVanue}} -->
       <select_city_venue v-model="objCityVanue"></select_city_venue>
@@ -23,6 +23,7 @@
       <i
         class="el-icon-plus"
         @click="isShowDialogAddCityVanue=true"
+        v-if="isEdit"
       ></i>
     </div>
     <div class="valueNeed">
@@ -31,6 +32,7 @@
         <i
           class="el-icon-remove-outline"
           @click="nationalMatchDelete(index)"
+          v-if="isEdit"
         ></i>
       </span>
     </div>
@@ -41,7 +43,10 @@ import select_city_venue from "./select_city_venue.vue";
 export default {
   components: { select_city_venue },
   props: {
-    value: [Array]
+    value: [Array],
+    isEdit: {
+      default: true
+    }
   },
   watch: {
     valueNeed: {
@@ -54,7 +59,7 @@ export default {
   },
   data() {
     return {
-      valueNeed: this.value||[],
+      valueNeed: this.value || [],
       isShowDialogAddCityVanue: false, //是否显示添加城市场馆的弹窗
       objCityVanue: {
         cityId: "4401",
@@ -62,8 +67,7 @@ export default {
         venueId: 15,
         venueName: "场馆名称"
       },
-      newsmallmatchProcess: [],
-  
+      newsmallmatchProcess: []
     };
   },
   methods: {
@@ -83,7 +87,7 @@ export default {
 <style scoped>
 .valueNeed span {
   display: block;
-  background-color: #fff;
+  background-color: #fafafa;
   padding: 3px 0;
   margin: 10px 15px;
   margin-right: 100px;
@@ -92,8 +96,8 @@ export default {
 
 .valueNeed {
   text-align: center;
-  border: 1px solid black;
-  background-color: #e8e8e8;
+  border: 1px solid #dcdfe6;
+  border-radius: 5px;
   padding: 20px;
   width: 80%;
 }
@@ -102,18 +106,18 @@ i.el-icon-remove-outline {
   top: 10px;
   right: -50px;
   font-size: 20px;
-  color: #969696;
+  color: #dcdfe6;
   font-weight: bold;
-  border-color: red;
+
+  cursor: pointer;
 }
 i.el-icon-plus {
-  padding: 5px;
+  padding: 4px;
   color: #fff;
-  background-color: #999;
-  font-size: 10px;
+  background-color: #dcdfe6;
+  font-size: 14px;
   font-weight: bold;
   border-radius: 5px;
-  float: right;
-  margin: 10px 20% 0 0;
+  cursor: pointer;
 }
 </style>

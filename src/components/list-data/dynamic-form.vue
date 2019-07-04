@@ -11,7 +11,7 @@
         :label="item.label"
         :prop="item.prop"
         :rules="item.rules||[]"
-        v-if="!item.forbidAdd"
+        v-if="satisfyTerm(item)"
         :key="item.prop"
       >
         <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
@@ -181,6 +181,47 @@ export default {
     }
   },
   methods: {
+    satisfyTerm(item) {
+      //函数：{返回是否满足显示条件的函数}
+      let flag = true;
+      //函数定义：{递归检查条件函数}
+      let checkTerm = objTerm => {
+        let flagIn = true;
+        for (var key in objTerm) {
+          //遍历term对象
+          //QK1:或查询
+          if (key == "$or") {
+            //或条件
+            let arrOr = objTerm[key];//变量：{或条件数组}
+            let arrFlagOr = []; //变量：{或条件结果数组}
+            //循环：{或条件数组}
+            arrOr.forEach(orEach => {
+              let flagTemp = checkTerm(orEach); //递归获取***
+              arrFlagOr.push(flagTemp);//数组添加元素：{或条件结果数组}
+            });
+            if (!arrFlagOr.includes(true)) {//如果{或条件结果数组}连一个true都没有
+              return false;
+            }
+          }
+          //QK2:{普通查询}
+          else {
+            let valueTerm = objTerm[key];
+            if (valueTerm != this.formDataNeed[key]) {
+              return false;
+            }
+          }
+        }
+        return flagIn;
+      };
+
+      //如果存在term条件
+      if (item.term) {
+        flag = checkTerm(item.term);
+      }
+
+
+      return flag;
+    },
     btnClick(eventName, validate) {
       //Q1：需要校验
       if (validate) {
@@ -221,10 +262,11 @@ export default {
     }
   },
   async created() {
-    this.docGet = this.value||{};//**** */
+    this.docGet = this.value || {}; //**** */
     this.cf.formItems.forEach(itemEach => {
       //循环：{表单字段配置数组}c处理默认值
-      this.docGet[itemEach.prop] =this.value[itemEach.prop]|| itemEach.default;
+      this.docGet[itemEach.prop] =
+        this.value[itemEach.prop] || itemEach.default;
     });
 
     //如果初始化的ajax地址存在
@@ -240,7 +282,6 @@ export default {
       // console.log("doc", doc);
       this.docGet = data.doc;
     }
-
     console.log("this.docGet######", this.docGet);
     this.initForm(); //调用：{初始化表单函数}
   }

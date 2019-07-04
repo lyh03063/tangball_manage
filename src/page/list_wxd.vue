@@ -2,45 +2,40 @@
   <div class>
     <listData :cf="cfList">
       <template v-slot:slot_detail_item_nationalMatch="{row}">
-        <div>城市赛阶段的城市场馆列表（已选{{nationalMatch.length}}个）</div>
-        <div class="nationalMatch">
-          <i class="el-icon-plus" @click="nationalMatchAdd"></i>
-          <span v-for="(item,index) in nationalMatch" :key="index">
-            {{item.cityName}}--{{item.venueName}}
-            <i
-              class="el-icon-remove-outline"
-              @click="nationalMatchDelete(index)"
-            ></i>
-          </span>
-        </div>
+        <city_venue_list v-model="arr1"></city_venue_list>
       </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import city_venue_list from "../components/form_item/city_venue_list.vue";
 export default {
-  components: { listData },
-  methods: {
-    nationalMatchDelete(key) {
-      this.nationalMatch.splice(key, 1);
-    },
-    nationalMatchAdd() {
-      this.nationalMatch.unshift({
-        city: " 001",
-        cityName: "深圳",
-        venueName: "北堂"
-      });
-    }
-  },
+  components: { listData ,city_venue_list},
+
   data() {
     return {
-      nationalMatch: [
-        { city: "001", cityName: "深圳1", venueName: "北堂1" },
-        { city: "001", cityName: "深圳2", venueName: "北堂2" },
-        { city: "001", cityName: "深圳3", venueName: "北堂3" }
+       arr1:[
+        {
+          cityId: "001",
+          cityName: "深圳A",
+          venueId: "15",
+          venueName: "深圳唐球馆1"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆2"
+        },
+        {
+          cityId: "001",
+          cityName: "深圳1",
+          venueId: "15",
+          venueName: "深圳唐球馆3"
+        }
       ],
+    
       cfList: {
         listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
@@ -223,6 +218,7 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
+
   }
 };
 </script>
