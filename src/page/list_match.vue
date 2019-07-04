@@ -9,7 +9,7 @@
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
-      <!-- 赛程联动下拉框 -->
+      <!-- 赛程联动下拉框 ,通过matchType进行初始化-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
@@ -76,7 +76,7 @@ export default {
             width: 100
           },
           {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue",
             width: 90
           },
@@ -175,7 +175,7 @@ export default {
             slot: "slot_detail_item_cityVenueList"
           },
           {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue"
           },
           {
@@ -255,7 +255,7 @@ export default {
             ]
           },
           {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue",
             type: "select",
             ajax: {
@@ -282,10 +282,7 @@ export default {
             type: "select",
             slot: "slot_modify_item_matchProgress"
           },
-          {
-            label: "数据的id",
-            prop: "P1"
-          },
+         
           {
             label: "赛事名称",
             prop: "matchName"
