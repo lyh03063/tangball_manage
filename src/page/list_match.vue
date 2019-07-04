@@ -2,28 +2,16 @@
   <div class>
     <listData :cf="cfList">
       <!-- 全国性赛事 -->
-      <template v-slot:slot_form_item_nationalMatch="{formData}">
+      <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
       </template>
-      
+
+      <template v-slot:slot_detail_item_cityVenueList="{row}">
+        <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
+      </template>
       <!-- 赛程联动下拉框 -->
-      <template v-slot:slot_modify_item_selectMatch="{row}">
-        <el-select v-model="bigmatchProcess" placeholder="请选择" @change="selectChange">
-          <el-option
-            v-for="item in matchProcess"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"
-          ></el-option>
-        </el-select>
-        <el-select v-model="smallmatchProcess" placeholder="请选择">
-          <el-option
-            v-for="item in newsmallmatchProcess"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"
-          ></el-option>
-        </el-select>
+      <template v-slot:slot_modify_item_matchProgress="{formData}">
+        <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
     </listData>
   </div>
@@ -31,51 +19,11 @@
 <script>
 import listData from "../components/list-data/list-data.vue";
 import city_venue_list from "../components/form_item/city_venue_list.vue";
+import select_match_progress from "../components/form_item/select_match_progress.vue";
 export default {
-  components: { listData, city_venue_list },
+  components: { listData, city_venue_list, select_match_progress },
   data() {
     return {
-      bigmatchProcess: "",
-      smallmatchProcess: "",
-      newsmallmatchProcess: [],
-      matchProcess: [
-        {
-          code: 1,
-          name: "城市赛",
-          childrens: [
-            {
-              code: "01",
-              name: "选拔赛"
-            },
-            {
-              code: "02",
-              name: "晋级赛"
-            },
-            {
-              code: "03",
-              name: "决赛"
-            }
-          ]
-        },
-        {
-          code: 2,
-          name: "城际赛",
-          childrens: [
-            {
-              code: "04",
-              name: "淘汰赛/循环赛"
-            },
-            {
-              code: "05",
-              name: "1/4决赛"
-            },
-            {
-              code: "06",
-              name: "决赛"
-            }
-          ]
-        }
-      ],
       arr1: [
         {
           cityId: "001",
@@ -221,6 +169,12 @@ export default {
             prop: "matchTime"
           },
           {
+            label: "全国性赛事",
+            prop: "cityVenueList",
+            type: "select",
+            slot: "slot_detail_item_cityVenueList"
+          },
+          {
             label: "比赛场馆",
             prop: "venue"
           },
@@ -319,13 +273,14 @@ export default {
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
-            slot: "slot_form_item_nationalMatch"
+            slot: "slot_form_item_cityVenueList",
+            term: { matchType: 2 }
           },
           {
             label: "赛事进程",
-            prop: "matchProcess",
+            prop: "matchProgress",
             type: "select",
-            slot: "slot_modify_item_selectMatch"
+            slot: "slot_modify_item_matchProgress"
           },
           {
             label: "数据的id",
@@ -365,17 +320,8 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {
-    selectChange(value) {
-      console.log(value);
-      this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
-      this.smallmatchProcess = this.newsmallmatchProcess[0].name;
-      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
-    }
-  }
+  methods: {}
 };
 </script>
 
 
-<style scoped>
-</style>

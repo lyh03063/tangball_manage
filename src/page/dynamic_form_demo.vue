@@ -62,21 +62,27 @@ export default {
           },
           {
             label: "文本域(textarea)",
-            prop: "prop2",
+            prop: "prop_textarea",
             type: "textarea"
           },
           {
             label: "下拉框(select)",
-            prop: "prop3",
+            prop: "sex",
             type: "select",
             default:2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+           {
+            label: "sex【联动】",
+            prop: "sex_relative",
+            type: "input",
+            //显示条件
+            term:{"$or":[{sex:2},{prop_textarea:2}]}
           },
           {
             label: "下拉框(select+ajax)",
             prop: "prop4",
             type: "select",
-             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }],
             ajax: {
               url: "http://120.76.160.41:3000/crossList?page=mabang-member",
               param:{a:1},
@@ -84,6 +90,8 @@ export default {
               keyValue: "userName"
             }
           },
+
+          
           {
             label: "单选框(radio)",
             prop: "prop_radio",
