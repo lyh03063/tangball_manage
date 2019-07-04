@@ -28,7 +28,6 @@ export default {
         prop1: "abc"
       },
       cfForm: {
-        
         labelWidth: "150px",
         formItems: [
           {
@@ -43,7 +42,6 @@ export default {
               //   message: "请输入正确的邮箱地址",
               //   trigger: ["blur", "change"]
               // },
-
               {
                 pattern: /^[\u4E00-\u9FA5]+$/,
                 message: "用户名只能为中文"

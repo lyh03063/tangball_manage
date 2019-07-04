@@ -328,7 +328,10 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=tangball_member",
               keyLabel: "name",
               keyValue: "P1"
-            }
+            },
+            rules: [{required: true, message: "不能为空" },
+            ]
+
           },
           {
             label: "赛事id",

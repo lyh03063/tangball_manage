@@ -10,7 +10,7 @@
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
       <!-- 赛程联动下拉框 ,通过matchType进行初始化-->
-      <template v-slot:slot_modify_item_matchProgress="{formData}">
+      <template v-slot:slot_modify_item_matchProgress="{formData}">{{formData.matchProgress}}
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
     </listData>
