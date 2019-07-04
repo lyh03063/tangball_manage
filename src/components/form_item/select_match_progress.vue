@@ -33,7 +33,8 @@ export default {
       url: {
         detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match"
       },
-      valueNeed: this.value || {},
+      //****这个初始值保障选项能实时响应
+      valueNeed: this.value || { bigProgress: null, smallProgress: null },
       matchTypeNeed: this.matchType,
       bigProgress: "",
       smallProgress: "",
@@ -117,6 +118,7 @@ export default {
       //绑定值
       handler(newVal, oldVal) {
         console.log("valueNeed#############################################");
+        
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       // immediate: true,//组件初始化时立即执行一次变动
