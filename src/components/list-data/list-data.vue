@@ -223,7 +223,7 @@ export default {
       allCount: 20,
       //------------------ajax请求数据列表的传参对象--------------
       Objparma: {
-        findJson: {},
+        findJson:  this.$store.state.defultFindJson[this.cf.listIndex]||{},
         pageIndex: 1, //第1页
         pageSize: 10 //每页10条
       },
@@ -232,6 +232,9 @@ export default {
     };
   },
   created() {
+
+
+
     let objState = {
       //列表的vuex初始状态对象
       isShowDialogAdd: false, //是否显示新增弹窗
