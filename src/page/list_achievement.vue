@@ -148,7 +148,7 @@ export default {
             }
           },
           {
-            label: "赛事进程",
+            label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
             slot: "slot_modify_item_matchProgress"
