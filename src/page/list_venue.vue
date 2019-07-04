@@ -61,7 +61,6 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-      formData: [],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
@@ -169,6 +168,11 @@ export default {
           {
             label: "分类编号",
             prop: "P1"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId",
+             type: "select",
           },
           {
             label: "场馆名称",
