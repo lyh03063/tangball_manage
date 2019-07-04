@@ -30,28 +30,8 @@
         </ajax_populate>
       </template>
       <!-- 赛程联动下拉框 -->
-      <template v-slot:slot_modify_item_selectMatch="{row}">
-        <el-select
-          class="bigmatchProcess"
-          v-model="bigmatchProcess"
-          placeholder="请选择"
-          @change="selectChange"
-        >
-          <el-option
-            v-for="item in matchProcess"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"
-          ></el-option>
-        </el-select>
-        <el-select v-model="smallmatchProcess" placeholder="请选择">
-          <el-option
-            v-for="item in newsmallmatchProcess"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"
-          ></el-option>
-        </el-select>
+      <template v-slot:slot_modify_item_matchProgress="{formData}">
+        <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
       <!-- 全国性赛事 -->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
@@ -64,59 +44,16 @@
 import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
 import city_venue_list from "../components/form_item/city_venue_list.vue";
+import select_match_progress from "../components/form_item/select_match_progress.vue";
 export default {
-  components: { listData, ajax_populate, city_venue_list },
+  components: {
+    listData,
+    ajax_populate,
+    city_venue_list,
+    select_match_progress
+  },
   data() {
     return {
-      bigmatchProcess: "",
-      smallmatchProcess: "",
-      newsmallmatchProcess: [],
-      matchProcess: [
-        {
-          code: 1,
-          name: "大赛程",
-          childrens: [
-            {
-              code: "01",
-              name: "城市赛"
-            },
-            {
-              code: "02",
-              name: "城际赛"
-            }
-          ]
-        },
-        {
-          code: 2,
-          name: "小赛程",
-          childrens: [
-            {
-              code: "03",
-              name: "选拔赛"
-            },
-            {
-              code: "04",
-              name: "晋级赛"
-            },
-            {
-              code: "05",
-              name: "决赛"
-            },
-            {
-              code: "06",
-              name: "淘汰赛/循环赛"
-            },
-            {
-              code: "07",
-              name: "1/4决赛"
-            },
-            {
-              code: "08",
-              name: "决赛"
-            }
-          ]
-        }
-      ],
       cfList: {
         listIndex: "list_achievement", //vuex对应的字段
         twoTitle: "赛事",
@@ -241,14 +178,7 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   },
-  methods: {
-    selectChange(value) {
-      console.log(value);
-      this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
-      this.smallmatchProcess = this.newsmallmatchProcess[0].name;
-      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
-    }
-  }
+  methods: {}
 };
 </script>
 
