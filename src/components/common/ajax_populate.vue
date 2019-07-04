@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span>z
     <slot :doc="doc">{{text}}</slot>
   </span>
 </template>

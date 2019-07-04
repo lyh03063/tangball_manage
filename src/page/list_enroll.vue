@@ -35,7 +35,7 @@
         </div>
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
-      <template v-slot:slot_detail_item_memberId="{row}">
+      <template v-slot:slot_detail_item_memberId="{row}">--{{row.memberId}}--
         <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">

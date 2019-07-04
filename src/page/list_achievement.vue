@@ -3,16 +3,12 @@
     <listData :cf="cfList">
       <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_participantsId="{row}">
-        <ajax_populate
-          :id="row.participantsId"
-          populateKey="participantsName"
-          page="tangball_member"
-        >
+        <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
-              <b>{{doc.P1}}</b>
-              (参赛人名称:
-              <b>{{doc.name}}</b>)
+              {{doc.P1}}
+              (
+              {{doc.name}})
             </div>
           </template>
         </ajax_populate>
@@ -22,9 +18,9 @@
         <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
-              <b>{{doc.P1}}</b>
-              (赛事名称:
-              <b>{{doc.matchName}}</b>)
+              {{doc.P1}}
+              (
+              {{doc.matchName}})
             </div>
           </template>
         </ajax_populate>
@@ -32,11 +28,27 @@
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
+        {{formData}}
         <select_match_progress
           v-model="formData.matchProgress"
           :matchType="formData.matchType"
           :matchId="formData.matchId"
         ></select_match_progress>
+      </template>
+      <template v-slot:slot_detail_item_matchProgress="row">
+        {{row.row.matchProgress}}
+        <!-- <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              {{doc.P1}}
+              (
+              {{doc.matchName}})
+            </div>
+          </template>
+        </ajax_populate>-->
+      </template>  <template v-slot:slot_detail_item_matchProgress2="row">
+        {{row}}
+
       </template>
     </listData>
   </div>
@@ -70,15 +82,26 @@ export default {
           {
             label: "参赛人Id",
             prop: "participantsId",
-            width: 90
+            slot: "slot_detail_item_participantsId",
+            width: 100
           },
 
           {
             label: "赛事ID",
             prop: "matchId",
-            width: 80
+            slot: "slot_detail_item_matchId",
+            width: 100
           },
-
+          // {
+          //   label: "赛事阶段",
+          //   prop: "matchProgress"
+          // },
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+            slot: "slot_detail_item_matchProgress2",
+            width: 150
+          },
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -114,7 +137,11 @@ export default {
             prop: "matchId",
             slot: "slot_detail_item_matchId"
           },
-
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+            slot: "slot_detail_item_matchProgress"
+          },
           {
             label: "比赛得分",
             prop: "matchScore"
@@ -148,7 +175,7 @@ export default {
             }
           },
           {
-            label: "赛事进程",
+            label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
             slot: "slot_modify_item_matchProgress"
@@ -157,12 +184,12 @@ export default {
             label: "比赛得分",
             prop: "matchScore",
             type: "input"
-          },
-          {
-            label: "名次",
-            prop: "ranking",
-            type: "input"
           }
+          // {
+          //   label: "名次",
+          //   prop: "ranking",
+          //   type: "input"
+          // }
         ]
       }
     };
@@ -175,5 +202,8 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.el-select.el-select--small {
+  margin-right: 10px;
+}
 </style>
