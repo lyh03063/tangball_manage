@@ -88,7 +88,7 @@ export default {
           {
             label: "微信号",
             prop: "unionld",
-            width: 100
+            width: 100    
           },
           {
             label: "身份证号",
