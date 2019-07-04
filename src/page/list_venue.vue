@@ -61,7 +61,6 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-      formData: [],
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
