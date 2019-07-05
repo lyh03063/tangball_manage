@@ -61,7 +61,8 @@ export default {
           {
             label: "分类说明",
             prop: "remark",
-            width: 250
+            width: 250,
+            statistics:{listIndex:'list_article', targetIdKey:'articleCategory'}
           },
           {
             label: "文章详情",
