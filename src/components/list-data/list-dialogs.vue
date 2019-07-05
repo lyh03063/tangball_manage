@@ -103,8 +103,8 @@ export default {
           { text: "取消", event: "cancel" }
         ]
       },
-      formAdd: {}, //新增产品的表单数据
-      formModify: {}, //修改产品的表单数据
+      formAdd: {}, //新增数据的表单数据
+      formModify: {}, //修改数据的表单数据
       isShowDialogModify: false, //是否显示修改弹窗
       editorOption: {
         //编辑器的配置
@@ -158,18 +158,18 @@ export default {
       })
         .then(response => {
           this.$message({
-            message: "修改产品成功",
+            message: "修改数据成功",
             duration: 1500,
             type: "success"
           });
           this.isShowDialogModify = false; //关闭弹窗
-          this.$parent.getProList(); //更新产品列表
+          this.$parent.getDataList(); //更新数据列表
         })
         .catch(function(error) {
           alert("异常:" + error);
         });
     },
-    //-------------新增产品的函数--------------
+    //-------------新增数据的函数--------------
     addData() {
       axios({
         //请求接口
@@ -179,12 +179,12 @@ export default {
       })
         .then(response => {
           this.$message({
-            message: "新增产品成功",
+            message: "新增成功",
             duration: 1500,
             type: "success"
           });
           this.closeDialogAddFun(); //关闭弹窗
-          this.$parent.getProList(); //更新产品列表
+          this.$parent.getDataList(); //更新数据列表
           this.formAdd = {};
         })
         .catch(function(error) {

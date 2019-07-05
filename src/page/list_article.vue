@@ -1,13 +1,24 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+
+<!--详情弹窗的 memberId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_articleCategory="{row}">
+        <ajax_populate :id="row.articleCategory"  page="tangball_article_category">
+          <template v-slot:default="{doc}">
+             {{doc.name}}
+          </template>
+        </ajax_populate>
+      </template>
+
+    </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-
+import ajax_populate from "../components/common/ajax_populate.vue";
 export default {
-  components: { listData },
+  components: { listData,ajax_populate },
   data() {
     return {
       cfList: {
@@ -26,6 +37,12 @@ export default {
         columns: [
           {
             label: "文章分类",
+            prop: "aaa",
+            width: 120,
+            slot:"slot_detail_item_articleCategory"
+          },
+            {
+            label: "分类编号",
             prop: "articleCategory",
             width: 90
           },
@@ -71,11 +88,11 @@ export default {
             label: "文章分类",
             prop: "articleCategory",
             type: "select",
-            options: [
-              { label: "唐球规则", value: "1" },
-              { label: "比赛说明", value: "2" },
-              { label: "推广赞助", value: "3" }
-            ]
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_article_category",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "文章标题",
@@ -114,11 +131,11 @@ export default {
             label: "文章分类",
             prop: "articleCategory",
             type: "select",
-            options: [
-              { label: "唐球规则", value: "1" },
-              { label: "比赛说明", value: "2" },
-              { label: "推广赞助", value: "3" }
-            ]
+           ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_article_category",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "文章标题",
@@ -129,14 +146,6 @@ export default {
             label: "文章详情",
             prop: "articleContent",
             type: "textarea"
-          },
-          {
-            label: "其他",
-            prop: "extend",
-            width: 200,
-            formatter: function(extend) {
-              return JSON.stringify(extend.extend);
-            }
           }
         ]
       }

@@ -9,19 +9,18 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt />
+        <img :src="urlBigImg" alt>
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
-
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <select_city v-model="formData.area" valuetype="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
-        </el-form> -->
+        </el-form>-->
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -33,7 +32,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          />
+          >
         </div>
       </template>
     </listData>
@@ -43,7 +42,7 @@
 import listData from "../components/list-data/list-data.vue";
 import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData,select_city },
+  components: { listData, select_city },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -117,9 +116,20 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
+            label: "场馆编号",
             prop: "P1",
             type: "input"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId",
+            type: "select",
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "加盟时间",
@@ -172,7 +182,13 @@ export default {
           {
             label: "加盟商",
             prop: "franchiseeId",
-             type: "select",
+            type: "select",
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "场馆名称",

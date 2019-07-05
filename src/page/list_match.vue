@@ -13,6 +13,10 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
+      <!--列表的registeredPersons字段插槽组件-->
+      <template v-slot:slot_list_column_registeredPersons="{row}">
+        <a class="link-blue"  href="javascript:;" @click="filterEnroll(row.P1)">{{row.registeredPersons}}</a>
+      </template>
     </listData>
   </div>
 </template>
@@ -83,7 +87,8 @@ export default {
           {
             label: "报名人数",
             prop: "registeredPersons",
-            width: 90
+            width: 90,
+            slot:"slot_list_column_registeredPersons"
           },
           {
             label: "报名费",
@@ -290,10 +295,10 @@ export default {
 
          
 
-          {
-            label: "报名人数",
-            prop: "registeredPersons"
-          },
+          // {
+          //   label: "报名人数",
+          //   prop: "registeredPersons"
+          // },
           {
             label: "报名费用",
             prop: "registrationFee"
@@ -319,7 +324,18 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {}
+  methods: {
+    filterEnroll(pid) {
+      //函数：{筛选文章函数}
+
+      this.$store.commit("setListFindJson", {
+        //改变列表的初始状态值
+        listIndex: "list_enroll",
+        findJson: { matchId: pid }
+      });
+      this.$router.push({ path: "/list_enroll" });
+    }
+  },
 };
 </script>
 
