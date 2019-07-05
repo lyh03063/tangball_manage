@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       text: "",
-      doc: null
+      doc: {}
     };
   },
   watch: {
@@ -52,30 +52,27 @@ export default {
         console.log("getExitDoc####");
         let docExit = PUB_ajax_populate[this.keyExit];
         //如果为pending...，表示请求已经发出但还没有完成
-        getExitDoc();
-        // if (docExit == "pending...") {
-        //   console.log("pending...,等待返回结果");
-        //   setTimeout(() => {
-        //     //延迟函数
-        //     getExitDoc();
-        //   }, 100);
-        // } else {
-        //   //请求已完成
-        //   console.log("获取到缓存的数据");
-        //   this.text = docExit[this.populateKey];
-        // }
+        if (docExit == "pending...") {
+          console.log("pending...,等待返回结果");
+          setTimeout(() => {
+            //延迟函数
+            getExitDoc();
+          }, 100);
+        } else {
+          //请求已完成
+          console.log("获取到缓存的数据");
+          this.doc=docExit;//****** */
+          this.text = docExit[this.populateKey];
+        }
       };
-      console.log(
-        "PUB_ajax_populate[this.keyExit]",
-        PUB_ajax_populate[this.keyExit]
-      );
+      console.log("PUB_ajax_populate[this.keyExit]", PUB_ajax_populate[this.keyExit]);
       if (PUB_ajax_populate[this.keyExit]) {
         return getExitDoc(); //调用：{获取缓存数据的函数}
       }
 
       /**以下是在没用读取到缓存数据，才发送ajax请求 */
       PUB_ajax_populate[this.keyExit] = "pending...";
-      this.ajax.param = this.ajax.param || {};
+      this.ajax.param = this.ajax.param ;
       this.ajax.param[this.idKey] = this.id;
       console.log("this.ajax.url######", this.ajax.url);
 

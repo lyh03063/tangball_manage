@@ -32,7 +32,6 @@
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_memberId="{row}">
-     
         <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
@@ -92,13 +91,13 @@ export default {
             label: "报名会员id",
             prop: "memberId",
             slot: "slot_detail_item_memberId",
-            width: 80
+            width: 100
           },
           {
             label: "赛事",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width: 80
+            width: 120
           },
           {
             label: "手机号",
@@ -332,7 +331,7 @@ export default {
               keyLabel: "name",
               keyValue: "P1"
             },
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "报名会员id" }]
           },
           {
             label: "赛事id",
@@ -344,13 +343,12 @@ export default {
               keyLabel: "matchName",
               keyValue: "P1"
             },
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "赛事id" }]
           },
           {
             label: "赛事信息",
             prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo",
-            rules: [{ required: true, message: "不能为空" }]
+            slot: "slot_form_item_matchInfo"
           },
 
           {
