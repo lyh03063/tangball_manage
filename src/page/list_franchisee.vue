@@ -1,12 +1,6 @@
 <template>
   <div class>
-    <listData :cf="cfList">
-
-      <!--列表的countVenue字段插槽组件-->
-      <template v-slot:slot_list_column_countVenue="{row}">
-        <a class="link-blue"  href="javascript:;" @click="filterVenue(row.P1)">{{row.countVenue}}</a>
-      </template>
-    </listData>
+    <listData :cf="cfList"></listData>
   </div>
 </template>
 <script>
@@ -83,7 +77,8 @@ export default {
             label: "场馆数",
             prop: "countVenue",
             width: 75,
-            slot:"slot_list_column_countVenue"
+            // slot:"slot_list_column_countVenue"
+            statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
           },
            {
             label: "加盟时间",
@@ -151,16 +146,7 @@ export default {
     };
   },
   methods: {
-    filterVenue(pid) {
-      //函数：{筛选文章函数}
-
-      this.$store.commit("setListFindJson", {
-        //改变列表的初始状态值
-        listIndex: "list_venue",
-        findJson: { franchiseeId: pid }
-      });
-      this.$router.push({ path: "/list_venue" });
-    }
+   
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
