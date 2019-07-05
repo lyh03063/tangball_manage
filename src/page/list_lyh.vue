@@ -1,31 +1,23 @@
 <template>
-  <div class>{{formData}}</div>
+  <div class>
+    
+    <match_achievement class="" ></match_achievement>
+  </div>
 </template>
 <script>
-import select_match_progress from "../components/form_item/select_match_progress.vue";
+import match_achievement from "../components/bussiness/match_achievement.vue";
 
 export default {
-  components: { select_match_progress },
+  components: { match_achievement },
   data() {
     return {
-      formData: {
-        a: 2,
-        //  obj:null
-      }
+      matchId: 15
     };
   },
-  watch: {
-    formData: {
-      handler(newName, oldName) {
-        console.log("formData变动");
-      },
-      // immediate: true,
-      deep: true
-    }
-  },
+  
   created() {
-    this.formData.obj = { c: 1 };
-     this.formData=this.formData
+   
+
   },
 
   methods: {}
