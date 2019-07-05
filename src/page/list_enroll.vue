@@ -16,7 +16,7 @@
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
         <match_venue
-          v-model="formData.\"
+          v-model="formData.cityVenueId"
           :matchId="formData.matchId"
         
         ></match_venue>
