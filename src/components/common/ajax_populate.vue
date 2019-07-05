@@ -1,5 +1,5 @@
 <template>
-  <span>z
+  <span>
     <slot :doc="doc">{{text}}</slot>
   </span>
 </template>
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       text: "",
-      doc: {}
+      doc: null
     };
   },
   watch: {
@@ -61,7 +61,6 @@ export default {
         } else {
           //请求已完成
           console.log("获取到缓存的数据");
-          this.doc=docExit;//****** */
           this.text = docExit[this.populateKey];
         }
       };
@@ -72,7 +71,7 @@ export default {
 
       /**以下是在没用读取到缓存数据，才发送ajax请求 */
       PUB_ajax_populate[this.keyExit] = "pending...";
-      this.ajax.param = this.ajax.param ;
+      this.ajax.param = this.ajax.param || {};
       this.ajax.param[this.idKey] = this.id;
       console.log("this.ajax.url######", this.ajax.url);
 
