@@ -1,5 +1,6 @@
 <template>
   <div class>
+    <!--弹出图片显示 -->
     <el-dialog
       custom-class="n-el-dialog"
       width="70%"
@@ -14,16 +15,16 @@
     </el-dialog>
 
     <listData :cf="cfList">
-
+      <!--****地区联动组件***** -->
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <select_city v-model="formData.area" valuetype="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
           </el-form-item>
-        </el-form> -->
+        </el-form>-->
       </template>
-
+      <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
@@ -43,7 +44,7 @@
 import listData from "../components/list-data/list-data.vue";
 import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData,select_city },
+  components: { listData, select_city },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -98,7 +99,9 @@ export default {
           {
             label: "赛事数量",
             prop: "countMatch",
-            width: 100
+            width: 100,
+           
+            
           },
           {
             label: "加盟时间",
@@ -172,7 +175,7 @@ export default {
           {
             label: "加盟商",
             prop: "franchiseeId",
-             type: "select",
+          
           },
           {
             label: "场馆名称",
@@ -194,7 +197,10 @@ export default {
           },
           {
             label: "联系方式",
-            prop: "phoneNumber"
+            prop: "phoneNumber",
+             rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "相册",
