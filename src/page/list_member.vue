@@ -51,6 +51,12 @@ export default {
             // slot:"slot_list_column_entries"
             statistics:{listIndex:'list_enroll', targetIdKey:'memberId'}
           },
+           {
+            label: "成绩数",
+            prop: "countAchievement",
+            width: 100,
+            statistics:{listIndex:'list_achievement', targetIdKey:'memberId'}
+          },
           {
             label: "唐球积分",
             prop: "integral",
@@ -90,7 +96,7 @@ export default {
           {
             label: "微信号",
             prop: "unionld",
-            width: 100    
+            width: 100
           },
           {
             label: "身份证号",

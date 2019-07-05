@@ -99,7 +99,6 @@ export default {
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            slot: "slot_detail_item_matchProgress2",
             width: 150
           },
           {
