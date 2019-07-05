@@ -1,17 +1,21 @@
 <template>
   <div class>
     <listData :cf="cfList">
-      <!-- 全国性赛事 -->
+      <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
       </template>
-
+      <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
-      <!-- 赛程联动下拉框 -->
+      <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
+      </template>
+      <!--列表的registeredPersons字段插槽组件-->
+      <template v-slot:slot_list_column_registeredPersons="{row}">
+        <a class="link-blue"  href="javascript:;" @click="filterEnroll(row.P1)">{{row.registeredPersons}}</a>
       </template>
     </listData>
   </div>
@@ -76,14 +80,15 @@ export default {
             width: 100
           },
           {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue",
             width: 90
           },
           {
             label: "报名人数",
             prop: "registeredPersons",
-            width: 90
+            width: 90,
+            slot:"slot_list_column_registeredPersons"
           },
           {
             label: "报名费",
@@ -175,7 +180,7 @@ export default {
             slot: "slot_detail_item_cityVenueList"
           },
           {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue"
           },
           {
@@ -228,6 +233,10 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
+           {
+            label: "赛事名称",
+            prop: "matchName"
+          },
           {
             label: "赛事状态",
             prop: "matchStatus",
@@ -245,17 +254,9 @@ export default {
             type: "select",
             options: [{ label: "是", value: 1 }, { label: "否", value: 2 }]
           },
+          
           {
-            label: "赛事类型",
-            prop: "matchType",
-            type: "select",
-            options: [
-              { label: "普通赛", value: 1 },
-              { label: "全国赛", value: 2 }
-            ]
-          },
-          {
-            label: "比赛场馆",
+            label: "决赛场馆",
             prop: "venue",
             type: "select",
             ajax: {
@@ -270,31 +271,34 @@ export default {
             type: "date"
           },
           {
-            label: "全国性赛事",
+            label: "赛事类型",
+            prop: "matchType",
+            type: "select",
+            options: [
+              { label: "普通赛", value: 1 },
+              { label: "全国赛", value: 2 }
+            ]
+          },
+          {
+            label: "全国赛城市场馆",
             prop: "cityVenueList",
             type: "select",
             slot: "slot_form_item_cityVenueList",
             term: { matchType: 2 }
           },
           {
-            label: "赛事进程",
+            label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
             slot: "slot_modify_item_matchProgress"
           },
-          {
-            label: "数据的id",
-            prop: "P1"
-          },
-          {
-            label: "赛事名称",
-            prop: "matchName"
-          },
 
-          {
-            label: "报名人数",
-            prop: "registeredPersons"
-          },
+         
+
+          // {
+          //   label: "报名人数",
+          //   prop: "registeredPersons"
+          // },
           {
             label: "报名费用",
             prop: "registrationFee"
@@ -320,7 +324,18 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {}
+  methods: {
+    filterEnroll(pid) {
+      //函数：{筛选文章函数}
+
+      this.$store.commit("setListFindJson", {
+        //改变列表的初始状态值
+        listIndex: "list_enroll",
+        findJson: { matchId: pid }
+      });
+      this.$router.push({ path: "/list_enroll" });
+    }
+  },
 };
 </script>
 

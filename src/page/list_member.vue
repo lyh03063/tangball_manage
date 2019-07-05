@@ -1,6 +1,13 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <listData :cf="cfList">
+
+<!--列表的entries字段插槽组件-->
+      <template v-slot:slot_list_column_entries="{row}">
+        <a class="link-blue"  href="javascript:;" @click="filterEnroll(row.P1)">{{row.entries}}</a>
+      </template>
+
+    </listData>
   </div>
 </template>
 <script>
@@ -47,7 +54,8 @@ export default {
           {
             label: "参赛次数",
             prop: "entries",
-            width: 100
+            width: 100,
+            slot:"slot_list_column_entries"
           },
           {
             label: "唐球积分",
@@ -88,7 +96,7 @@ export default {
           {
             label: "微信号",
             prop: "unionld",
-            width: 100
+            width: 100    
           },
           {
             label: "身份证号",
@@ -163,6 +171,18 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
+  },
+  methods: {
+    filterEnroll(pid) {
+      //函数：{筛选文章函数}
+
+      this.$store.commit("setListFindJson", {
+        //改变列表的初始状态值
+        listIndex: "list_enroll",
+        findJson: { memberId: pid }
+      });
+      this.$router.push({ path: "/list_enroll" });
+    }
   }
 };
 </script>

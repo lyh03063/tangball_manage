@@ -199,7 +199,13 @@ export default {
           },
           {
             label: "赛事id",
-            prop: "matchId"
+            prop: "matchId",
+             type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            }
           },
           {
             label: "支付状态",

@@ -10,12 +10,11 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt />
+        <img :src="urlBigImg" alt>
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
-      <!--****地区联动组件***** -->
       <template v-slot:slot_area="{formData}">
         <select_city v-model="formData.area" valuetype="cityId"></select_city>
         <!-- <el-form>
@@ -34,7 +33,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          />
+          >
         </div>
       </template>
     </listData>
@@ -120,9 +119,20 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "分类编号",
+            label: "场馆编号",
             prop: "P1",
             type: "input"
+          },
+          {
+            label: "加盟商",
+            prop: "franchiseeId",
+            type: "select",
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "加盟时间",
@@ -175,16 +185,28 @@ export default {
           {
             label: "加盟商",
             prop: "franchiseeId",
-          
+            type: "select",
+            ajax: {
+              url:
+                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "场馆名称",
-            prop: "name"
+            prop: "name",
+            rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "所属地区",
             prop: "area",
-            slot: "slot_area"
+            slot: "slot_area",
+            rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "赛事数量",

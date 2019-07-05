@@ -314,7 +314,7 @@ export default {
             slot: "slot_modify_item_nationalMatch"
           },
           {
-            label: "赛事进程",
+            label: "赛事阶段",
             prop: "matchProcess",
             type: "select",
             slot: "slot_modify_item_selectMatch"
@@ -358,7 +358,7 @@ export default {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
   methods: {
-    //赛事进程下拉框
+    //赛事阶段下拉框
     selectChange(value) {
       console.log(value);
       this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
