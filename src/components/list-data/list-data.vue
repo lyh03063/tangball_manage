@@ -19,10 +19,12 @@
         @click="$store.commit('openDialogAdd',cf.listIndex)"
       >新增</el-button>
       <space v-else height="32"></space>
+       <el-button @click="deleteSelection()" size="mini"  type="primary">删除选中</el-button>
     </el-row>
     <space height="10"></space>
     <!--主列表-->
     <el-table
+      ref="multipleTable"
       :data="tableData"
       border
       :stripe="true"
@@ -45,7 +47,14 @@
           <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
           <!--Q2:有formatter-->
           <span class v-else-if="column.formatter">{{column.formatter(scope.row)}}</span>
-          <!--Q3:其他-->
+          <!--Q3:可跳转的统计数字链接-->
+          <a
+            class="link-blue"
+            href="javascript:;"
+            @click="filterData({pid:scope.row.P1,listIndex:column.statistics.listIndex, targetIdKey:column.statistics.targetIdKey})"
+            v-else-if="column.statistics"
+          >{{scope.row[column.prop]}}</a>
+          <!--Q4:其他-->
           <span class v-else>{{scope.row[column.prop]}}</span>
         </template>
       </el-table-column>
@@ -94,7 +103,6 @@
         <!--根据cf.formItems循环输出插槽--新增修改表单弹窗-->
         <slot :name="formItem.slot" :formData="formData" v-if="formItem.slot"></slot>
       </template>
-
       <!--列表用到的各种弹窗-->
     </listDialogs>
     <div class></div>
@@ -117,6 +125,37 @@ export default {
     }
   },
   methods: {
+    // 删除选中数据的方法
+     deleteSelection() {
+      //  得到选中的数据对象
+       var selects = this.$refs.multipleTable.selection;
+      //  有选中的就遍历得到P1，进行批量删除
+       if(selects.length>0){
+          var arr = []
+        for (let i = 0; i < selects.length; i++) {
+           arr.push(selects[i].P1)
+         }
+        //  调用方法删除数据
+        this.confirmDelete(arr);
+        // 没有选中的数据提示用户
+       }else{
+          this.$message({message: "请先选中要删除的数据",type: "success"})
+       }
+      },
+    filterData(param) {
+      let { pid, listIndex, targetIdKey } = param;
+      //函数：{筛选数据函数}
+      //targetIdKey:筛选目标列表的条件列字段名
+      //listIndex页面的标记
+      //pid当前的数据id
+
+      this.$store.commit("setListFindJson", {
+        //改变列表的初始状态值
+        listIndex,
+        findJson: { [targetIdKey]: pid } //es6的对象属性名用变量替代的方法
+      });
+      this.$router.push({ path: "/" + listIndex });
+    },
     async showDetail(row) {
       //判断详情接口是否存在，如果存在，进行ajax请求
       if (this.cf.url.detail) {
@@ -225,17 +264,18 @@ export default {
     };
   },
   created() {
+    //读取vuex的当前列表页默认筛选参数
     let defultFindJson = this.$store.state.defultFindJson[this.cf.listIndex];
     console.log("defultFindJson###", defultFindJson);
     if (defultFindJson) {
       console.log("defultFindJson存在");
       //如果{默认的查询参数}存在，清空默认查询参数，避免下次切换时还保留
       this.Objparma.findJson = defultFindJson;
-      // this.$store.commit("setListFindJson", {
-      //   //改变列表的初始状态值
-      //   listIndex: this.cf.listIndex,
-      //   findJson: {} 
-      // });
+      this.$store.commit("setListFindJson", {
+        //改变列表的初始状态值
+        listIndex: this.cf.listIndex,
+        findJson: {}
+      });
       console.log("this.Objparma2222", this.Objparma);
     }
 

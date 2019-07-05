@@ -79,7 +79,7 @@ export default {
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            width:150
+            width: 150
           },
           {
             label: "比赛得分",
