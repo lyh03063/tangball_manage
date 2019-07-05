@@ -14,9 +14,7 @@ import listHome from "./page/listHome";
 import listCategory from "./page/listCategory";
 import listCommodity from "./page/listCommodity";
 import listMember from "./page/listMember";
-import listOrder from "./page/listOrder";
-import listOrderData from "./components/list-data/list-order-data";
-import listOrderCommodity from "./components/list-data/list-order-commodity";
+
 import util from "./assets/js/util.js";
 
 import list_lyh from "./page/list_lyh";
@@ -119,10 +117,7 @@ const router = new VueRouter({
           path: '/listCategory',
           component: listCategory,
         },
-        {
-          path: '/listOrderCommodity',
-          component: listOrderCommodity,
-        },
+        
         {
           path: '/listMember',
           component: listMember
@@ -184,16 +179,7 @@ const router = new VueRouter({
           path: '/demo_common',
           component: demo_common
         },
-        {
-          path: '/listOrder',
-          component: listOrder,
-          children: [
-            {
-              path: '/listOrderData',
-              component: listOrderData
-            }
-          ]
-        }
+        
       ]
     },
   ]

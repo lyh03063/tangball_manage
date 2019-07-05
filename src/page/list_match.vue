@@ -13,6 +13,9 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
+
+
+     
     </listData>
   </div>
 </template>
@@ -83,7 +86,9 @@ export default {
           {
             label: "报名人数",
             prop: "registeredPersons",
-            width: 90
+            width: 90,
+            // slot:"slot_list_column_registeredPersons"
+            statistics:{listIndex:'list_enroll', targetIdKey:'matchId'}
           },
           {
             label: "报名费",
@@ -290,10 +295,10 @@ export default {
 
          
 
-          {
-            label: "报名人数",
-            prop: "registeredPersons"
-          },
+          // {
+          //   label: "报名人数",
+          //   prop: "registeredPersons"
+          // },
           {
             label: "报名费用",
             prop: "registrationFee"
@@ -319,7 +324,9 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {}
+  methods: {
+   
+  },
 };
 </script>
 

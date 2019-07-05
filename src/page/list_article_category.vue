@@ -2,17 +2,11 @@
   <div class>
    
     <listData :cf="cfList">
-      <template v-slot:slot_detail_item_article="{row}">
-         <div class="article-text" @click="filterActicle(row.P1)" size="mini">文章详情</div>
-         
-          
-      </template>
     </listData>
   </div>
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import Mock from "mockjs";
 
 export default {
   components: { listData },
@@ -61,13 +55,13 @@ export default {
           {
             label: "分类说明",
             prop: "remark",
-            width: 250
+            width: 250,
           },
           {
-            label: "文章详情",
-            prop: "aa",
+            label: "文章数量",
+            prop: "acticleNumber",
             width: 90,
-            slot:"slot_detail_item_article"
+            statistics:{listIndex:'list_article', targetIdKey:'articleCategory'}
           },
         ],
         //-------筛选表单字段数组-------

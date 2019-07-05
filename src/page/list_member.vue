@@ -47,7 +47,9 @@ export default {
           {
             label: "参赛次数",
             prop: "entries",
-            width: 100
+            width: 100,
+            // slot:"slot_list_column_entries"
+            statistics:{listIndex:'list_enroll', targetIdKey:'memberId'}
           },
           {
             label: "唐球积分",
@@ -88,7 +90,7 @@ export default {
           {
             label: "微信号",
             prop: "unionld",
-            width: 100    
+            width: 100
           },
           {
             label: "身份证号",
@@ -163,6 +165,9 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
+  },
+  methods: {
+    
   }
 };
 </script>
