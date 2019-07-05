@@ -13,9 +13,6 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
-
-
-     
     </listData>
   </div>
 </template>
@@ -87,8 +84,7 @@ export default {
             label: "报名人数",
             prop: "registeredPersons",
             width: 90,
-            // slot:"slot_list_column_registeredPersons"
-            statistics:{listIndex:'list_enroll', targetIdKey:'matchId'}
+            statistics: { listIndex: "list_enroll", targetIdKey: "matchId" }
           },
           {
             label: "报名费",
@@ -162,34 +158,8 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "数据id",
-            prop: "P1"
-          },
-          {
             label: "赛事名称",
             prop: "matchName"
-          },
-          {
-            label: "赛事时间",
-            prop: "matchTime"
-          },
-          {
-            label: "全国性赛事",
-            prop: "cityVenueList",
-            type: "select",
-            slot: "slot_detail_item_cityVenueList"
-          },
-          {
-            label: "决赛场馆",
-            prop: "venue"
-          },
-          {
-            label: "报名人数",
-            prop: "registeredPersons"
-          },
-          {
-            label: "报名费用",
-            prop: "registrationFee"
           },
           {
             label: "赛事状态",
@@ -212,11 +182,33 @@ export default {
             }
           },
           {
+            label: "决赛场馆",
+            prop: "venue"
+          },
+          {
+            label: "赛事时间",
+            prop: "matchTime"
+          },
+          {
             label: "赛事类型",
             prop: "matchType",
             formatter: function(rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
+          },
+          {
+            label: "全国性赛事",
+            prop: "cityVenueList",
+            type: "select",
+            slot: "slot_detail_item_cityVenueList",
+          },
+          {
+            label: "报名人数",
+            prop: "registeredPersons"
+          },
+          {
+            label: "报名费用",
+            prop: "registrationFee"
           },
           {
             label: "赛事介绍",
@@ -233,9 +225,10 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-           {
+          {
             label: "赛事名称",
-            prop: "matchName"
+            prop: "matchName",
+            rules: [{ required: true, message: "赛事名称不能为空" }]
           },
           {
             label: "赛事状态",
@@ -254,7 +247,7 @@ export default {
             type: "select",
             options: [{ label: "是", value: 1 }, { label: "否", value: 2 }]
           },
-          
+
           {
             label: "决赛场馆",
             prop: "venue",
@@ -268,7 +261,8 @@ export default {
           {
             label: "赛事时间",
             prop: "matchTime",
-            type: "date"
+            type: "date",
+            rules: [{ required: true, message: "赛事时间不能为空" }]
           },
           {
             label: "赛事类型",
@@ -292,8 +286,6 @@ export default {
             type: "select",
             slot: "slot_modify_item_matchProgress"
           },
-
-         
 
           // {
           //   label: "报名人数",
@@ -324,9 +316,7 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {
-   
-  },
+  methods: {}
 };
 </script>
 

@@ -9,17 +9,13 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt>
+        <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
     <listData :cf="cfList">
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
-        <match_venue
-          v-model="formData.cityVenueId"
-          :matchId="formData.matchId"
-        
-        ></match_venue>
+        <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -31,7 +27,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          >
+          />
         </div>
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
@@ -95,13 +91,13 @@ export default {
             label: "报名会员id",
             prop: "memberId",
             slot: "slot_detail_item_memberId",
-            width: 90
+            width: 100
           },
           {
             label: "赛事",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width: 80
+            width: 120
           },
           {
             label: "手机号",
@@ -200,7 +196,7 @@ export default {
           {
             label: "赛事id",
             prop: "matchId",
-             type: "select",
+            type: "select",
             ajax: {
               url: "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchName",
@@ -334,7 +330,8 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=tangball_member",
               keyLabel: "name",
               keyValue: "P1"
-            }
+            },
+            rules: [{ required: true, message: "报名会员id" }]
           },
           {
             label: "赛事id",
@@ -345,7 +342,8 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
-            }
+            },
+            rules: [{ required: true, message: "赛事id" }]
           },
           {
             label: "赛事信息",

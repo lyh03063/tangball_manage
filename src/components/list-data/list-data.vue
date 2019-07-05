@@ -19,10 +19,12 @@
         @click="$store.commit('openDialogAdd',cf.listIndex)"
       >新增</el-button>
       <space v-else height="32"></space>
+       <el-button @click="deleteSelection()" size="mini"  type="primary">删除选中</el-button>
     </el-row>
     <space height="10"></space>
     <!--主列表-->
     <el-table
+      ref="multipleTable"
       :data="tableData"
       border
       :stripe="true"
@@ -102,7 +104,6 @@
         <!--根据cf.formItems循环输出插槽--新增修改表单弹窗-->
         <slot :name="formItem.slot" :formData="formData" v-if="formItem.slot"></slot>
       </template>
-
       <!--列表用到的各种弹窗-->
     </listDialogs>
     <div class></div>
@@ -125,6 +126,23 @@ export default {
     }
   },
   methods: {
+    // 删除选中数据的方法
+     deleteSelection() {
+      //  得到选中的数据对象
+       var selects = this.$refs.multipleTable.selection;
+      //  有选中的就遍历得到P1，进行批量删除
+       if(selects.length>0){
+          var arr = []
+        for (let i = 0; i < selects.length; i++) {
+           arr.push(selects[i].P1)
+         }
+        //  调用方法删除数据
+        this.confirmDelete(arr);
+        // 没有选中的数据提示用户
+       }else{
+          this.$message({message: "请先选中要删除的数据",type: "success"})
+       }
+      },
     filterData(param) {
       let { pid, listIndex, targetIdKey } = param;
       //函数：{筛选数据函数}

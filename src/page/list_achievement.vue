@@ -28,11 +28,27 @@
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
+        {{formData}}
         <select_match_progress
           v-model="formData.matchProgress"
           :matchType="formData.matchType"
           :matchId="formData.matchId"
         ></select_match_progress>
+      </template>
+      <template v-slot:slot_detail_item_matchProgress="row">
+        {{row.row.matchProgress}}
+        <!-- <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              {{doc.P1}}
+              (
+              {{doc.matchName}})
+            </div>
+          </template>
+        </ajax_populate>-->
+      </template>  <template v-slot:slot_detail_item_matchProgress2="row">
+        {{row}}
+
       </template>
     </listData>
   </div>
@@ -76,10 +92,14 @@ export default {
             slot: "slot_detail_item_matchId",
             width: 100
           },
+          // {
+          //   label: "赛事阶段",
+          //   prop: "matchProgress"
+          // },
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            width:150
+            width: 150
           },
           {
             label: "比赛得分",
@@ -119,6 +139,7 @@ export default {
           {
             label: "赛事阶段",
             prop: "matchProgress",
+            slot: "slot_detail_item_matchProgress"
           },
           {
             label: "比赛得分",
