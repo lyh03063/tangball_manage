@@ -16,9 +16,9 @@
       <NavMenu :cf="navMenuList"></NavMenu>
 
       <el-main>
-        <keep-alive>
+        
           <router-view></router-view>
-        </keep-alive>
+     
       </el-main>
     </el-container>
   </div>

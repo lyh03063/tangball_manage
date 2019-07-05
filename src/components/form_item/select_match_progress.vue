@@ -33,8 +33,9 @@ export default {
       url: {
         detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match"
       },
-      valueNeed: this.value || {},
-      matchTypeNeed:this.matchType,
+      //****这个初始值保障选项能实时响应
+      valueNeed: this.value || { bigProgress: null, smallProgress: null },
+      matchTypeNeed: this.matchType,
       bigProgress: "",
       smallProgress: "",
       optionsSmall: [],
@@ -79,8 +80,10 @@ export default {
     };
   },
 
-  watch: {//监听器
-    matchId: {//赛事id
+  watch: {
+    //监听器
+    matchId: {
+      //赛事id
       async handler(newVal, oldVal) {
         if (!this.matchId) return;
 
@@ -96,31 +99,31 @@ export default {
         console.log("this.matchTypeNeed################", this.matchTypeNeed);
         this.matchTypeNeed = data.doc.matchType;
       },
-      immediate: true,//组件初始化时立即执行一次变动
+      immediate: true, //组件初始化时立即执行一次变动
       deep: true //深度监听
     },
-    matchTypeNeed: {//赛事类型
+    matchTypeNeed: {
+      //组件内部使用的赛事类型
       handler(newVal, oldVal) {
         this.init(); //调用：{初始化函数}
       },
       immediate: true, //组件初始化时立即执行一次变动
       deep: true //深度监听
     },
-    valueNeed: {//绑定值
+    matchType() {
+      //外部传入的赛事类型
+      this.matchTypeNeed = this.matchType;
+    },
+    valueNeed: {
+      //绑定值
       handler(newVal, oldVal) {
         console.log("valueNeed#############################################");
+        
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       // immediate: true,//组件初始化时立即执行一次变动
       deep: true //深度监听
-    },
-    // matchType: {
-    //   handler(newVal, oldVal) {
-    //     this.init(); //调用：{初始化函数}
-    //   },
-    //   immediate: true, //组件初始化时立即执行一次变动
-    //   deep: true //深度监听
-    // }
+    }
   },
   methods: {
     selectBigProcess(value) {

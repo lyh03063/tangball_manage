@@ -76,7 +76,9 @@ export default {
           {
             label: "场馆数",
             prop: "countVenue",
-            width: 75
+            width: 75,
+            // slot:"slot_list_column_countVenue"
+            statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
           },
            {
             label: "加盟时间",
@@ -142,6 +144,9 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+   
   },
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
