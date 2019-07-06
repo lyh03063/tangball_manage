@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="cf.isShowBreadcrumb">
       <el-breadcrumb-item :to="{ path: '/listHome' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
     <space height="12"></space>
-    <div class="search-form-box">
+    <div class="search-form-box" v-if="cf.isShowSearchForm">
       <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
 
@@ -59,7 +59,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" min-width="150">
+      <el-table-column label="操作" min-width="150" v-if="cf.isShowOperateColumn">
         <template slot-scope="scope">
           <el-button
             title="详情"
@@ -91,6 +91,7 @@
       @current-change="handleCurrentChange"
       :total="allCount"
       style="float:right;margin:10px 0 0 0;"
+      v-if="cf.isShowPageLink"
     ></el-pagination>
     <listDialogs ref="listDialogs" :cf="cf">
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
@@ -264,20 +265,28 @@ export default {
     };
   },
   created() {
+    this.cf.isShowSearchForm === false || (this.cf.isShowSearchForm = true);
+    this.cf.isShowBreadcrumb === false || (this.cf.isShowBreadcrumb = true);
+    this.cf.isShowPageLink === false || (this.cf.isShowPageLink = true);
+    this.cf.isShowOperateColumn === false ||
+      (this.cf.isShowOperateColumn = true);
+
+    let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数
     let defultFindJson = this.$store.state.defultFindJson[this.cf.listIndex];
-    console.log("defultFindJson###", defultFindJson);
     if (defultFindJson) {
       console.log("defultFindJson存在");
       //如果{默认的查询参数}存在，清空默认查询参数，避免下次切换时还保留
-      this.Objparma.findJson = defultFindJson;
+      Object.assign(findJsonDefault, defultFindJson); //合并对象
+
       this.$store.commit("setListFindJson", {
         //改变列表的初始状态值
         listIndex: this.cf.listIndex,
         findJson: {}
       });
-      console.log("this.Objparma2222", this.Objparma);
     }
+
+    this.Objparma.findJson = findJsonDefault;
 
     let objState = {
       //列表的vuex初始状态对象

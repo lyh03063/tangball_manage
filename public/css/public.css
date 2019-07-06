@@ -699,20 +699,22 @@ table.n-table.n-table-form th {
 
 
 
- .LH12{ line-height: 12px;}
- .LH14{ line-height: 14px;}
- .LH16{ line-height: 16px;}
- .LH18{ line-height: 18px;}
- .LH20{ line-height: 20px;}
- .LH22{ line-height: 22px;}
- .LH24{ line-height: 24px;}
- .LH26{ line-height: 26px;}
- .LH28{ line-height: 28px;}
- .LH30{ line-height: 30px;}
- .LH32{ line-height: 30px;}
- .LH34{ line-height: 30px;}
- .LH36{ line-height: 36px;}
- .LH50{ line-height: 50px;}
+.LH12{ line-height: 12px;}
+.LH14{ line-height: 14px;}
+.LH16{ line-height: 16px;}
+.LH18{ line-height: 18px;}
+.LH20{ line-height: 20px;}
+.LH22{ line-height: 22px;}
+.LH24{ line-height: 24px;}
+.LH26{ line-height: 26px;}
+.LH28{ line-height: 28px;}
+.LH30{ line-height: 30px;}
+.LH32{ line-height: 32px;}
+.LH34{ line-height: 34px;}
+.LH36{ line-height: 36px;}
+.LH38{ line-height: 38px;}
+.LH40{ line-height: 40px;}
+.LH50{ line-height: 50px;}
  
  .FS12{
    font-size: 12px;
