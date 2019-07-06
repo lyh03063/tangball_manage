@@ -48,7 +48,7 @@
           :matchId="formData.matchId"
         ></select_match_progress>
       </template>
-      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row.row.matchProgress}}</template>
+      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row}}===={{row.row.matchProgress}}</template>
       <template v-slot:slot_detail_item_matchProgress2="row">{{row}}</template>
     </listData>
   </div>
