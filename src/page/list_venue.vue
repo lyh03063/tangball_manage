@@ -1,5 +1,6 @@
 <template>
   <div class>
+    <!--弹出图片显示 -->
     <el-dialog
       custom-class="n-el-dialog"
       width="70%"
@@ -22,7 +23,7 @@
           </el-form-item>
         </el-form>-->
       </template>
-
+      <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
@@ -97,7 +98,9 @@ export default {
           {
             label: "赛事数量",
             prop: "countMatch",
-            width: 100
+            width: 100,
+           
+            
           },
           {
             label: "加盟时间",
@@ -192,12 +195,18 @@ export default {
           },
           {
             label: "场馆名称",
-            prop: "name"
+            prop: "name",
+            rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "所属地区",
             prop: "area",
-            slot: "slot_area"
+            slot: "slot_area",
+            rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "赛事数量",
@@ -210,7 +219,10 @@ export default {
           },
           {
             label: "联系方式",
-            prop: "phoneNumber"
+            prop: "phoneNumber",
+             rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "相册",

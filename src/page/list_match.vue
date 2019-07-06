@@ -13,6 +13,12 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
+      <!-- 赛程成绩-->
+      <template v-slot:slot_modify_item_achievementProgress="{formData}">
+        <achievement_progress></achievement_progress>
+        <div style="clear:both"></div>
+        <match_achievement></match_achievement>
+      </template>
     </listData>
   </div>
 </template>
@@ -20,8 +26,16 @@
 import listData from "../components/list-data/list-data.vue";
 import city_venue_list from "../components/form_item/city_venue_list.vue";
 import select_match_progress from "../components/form_item/select_match_progress.vue";
+import achievement_progress from "../components/form_item/achievement_progress.vue";
+import match_achievement from "../components/bussiness/match_achievement.vue";
 export default {
-  components: { listData, city_venue_list, select_match_progress },
+  components: {
+    listData,
+    city_venue_list,
+    select_match_progress,
+    achievement_progress,
+    match_achievement
+  },
   data() {
     return {
       arr1: [
@@ -120,6 +134,11 @@ export default {
             formatter: function(rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
+          },
+          {
+            label: "成绩",
+            // prop: "achievement",
+            width: 75
           }
         ],
         //-------筛选表单字段数组-------
@@ -200,7 +219,7 @@ export default {
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
-            slot: "slot_detail_item_cityVenueList",
+            slot: "slot_detail_item_cityVenueList"
           },
           {
             label: "报名人数",
@@ -225,6 +244,10 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
+          {
+            label: "比赛成绩表",
+            slot: "slot_modify_item_achievementProgress"
+          },
           {
             label: "赛事名称",
             prop: "matchName",
@@ -287,10 +310,6 @@ export default {
             slot: "slot_modify_item_matchProgress"
           },
 
-          // {
-          //   label: "报名人数",
-          //   prop: "registeredPersons"
-          // },
           {
             label: "报名费用",
             prop: "registrationFee"
