@@ -4,14 +4,14 @@
     <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
 
-    <div class>
-      <div class="FWB FS16">城市赛（时间2019-4-5到2019-6-5）</div>
+    <div class="panel">
+      <div class="FWB FS16 LH30">城市赛（时间2019-4-5到2019-6-5）</div>
 
       <div class>
         <el-radio-group
           v-model="cityMatchVenuId"
           style="margin-bottom: 10px;"
-          @change="changeCityMatch"
+          @change="changeCityMatchProgress"
         >
           <el-radio-button
             :label="item.venueId"
@@ -22,7 +22,7 @@
       </div>
       <!-- 城市赛场馆id：{{cityMatchVenuId}} -->
       <div class>
-        <el-radio-group v-model="cityMatchProgress"  @change="changeCityMatch">
+        <el-radio-group v-model="cityMatchProgress" @change="changeCityMatchProgress">
           <el-radio-button :label="11">选拔赛</el-radio-button>
           <el-radio-button :label="12">晋级赛</el-radio-button>
           <el-radio-button :label="13">决赛</el-radio-button>
@@ -65,6 +65,52 @@
         </template>
       </listData>
     </div>
+
+    <space height="20"></space>
+
+    <div class="panel">
+      <div class="FWB FS16 LH30">城际赛（时间2019-7-5到2019-8-5）</div>
+
+      <!-- 城市赛场馆id：{{cityMatchVenuId}} -->
+      <div class>
+        <el-radio-group v-model="crossCityMatchProgress" @change="changeCrossCityMatchProgress">
+          <el-radio-button :label="21">循环/淘汰赛</el-radio-button>
+          <el-radio-button :label="22">1/4决赛</el-radio-button>
+          <el-radio-button :label="23">决赛</el-radio-button>
+        </el-radio-group>
+      </div>
+    
+      
+
+      <table class="n-table MT10" >
+           
+            <tr>
+                <td>arrCrossCityMatchAchievement</td>
+                <td>
+                    {{arrCrossCityMatchAchievement}}
+                </td>
+            </tr>
+            <tr>
+                <td>arrCrossCityMatchPersonAchievement: </td>
+                <td>
+                    {{arrCrossCityMatchPersonAchievement}}
+                </td>
+            </tr>
+
+        </table>
+      <el-table :data="arrCrossCityMatchAchievement" border style="width: 100%" class="MT10">
+        <el-table-column prop="cityName" label="队名" width="180"></el-table-column>
+        <el-table-column prop="scoreTeam" label="分数" width="180"></el-table-column>
+        <el-table-column label="名次" type="index" width="50"></el-table-column>
+        <!-- <el-table-column prop="name" label="备注" width="180"></el-table-column>
+        <el-table-column prop="name" label="时间" width="180"></el-table-column>-->
+        <el-table-column prop="address" label="明细">
+          <template slot-scope>
+            <a href="javascript:;">查看明细</a>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -79,6 +125,14 @@ export default {
   },
   data() {
     return {
+      findJsonCrossCityMatchPersonAchievement: {
+        matchId: this.matchId,
+        "matchProgress.bigProgress": 2
+        // cityVenueId: 23
+      },
+      arrCrossCityMatchAchievement: [], //城际赛成绩列表
+      arrCrossCityMatchPersonAchievement: [], //城际赛成绩明细总列表
+      crossCityMatchProgress: 21,
       cityMatchVenuId: 11, //城市赛场馆选项卡的聚焦值
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: {},
@@ -222,12 +276,11 @@ export default {
     };
   },
   watch: {
-    matchId: {
+    "matchInfo.cityVenueList": {
       handler(newVal, oldVal) {
-        if (!this.matchId) return;
-        this.getMatchData();
-      },
-      immediate: true //组件初始化时立即执行一次变动
+        this.getCrossCityMatchAchievement(); //调用：{获取城际赛成绩列表函数}
+      }
+      // immediate: true //组件初始化时立即执行一次变动
     },
     valueNeed: {
       handler(newVal, oldVal) {
@@ -245,15 +298,77 @@ export default {
     }
   },
   methods: {
-    changeCityMatch() {
+    //函数：{获取城际赛成绩列表函数}
+    async getCrossCityMatchAchievement() {
+      console.log("matchInfo.cityVenueList变动#####################");
+      let { cityVenueList } = this.matchInfo;
+      this.arrCrossCityMatchAchievement = util.deepCopy(cityVenueList);
+
+      // this.arrCrossCityMatchPersonAchievement = [];
+      //
+      let { data } = await axios({
+        //请求接口
+        method: "post",
+        url: "http://120.76.160.41:3000/crossList?page=tangball_achievement",
+        data: {
+          findJson: {
+            matchId: this.matchId,
+            "matchProgress.bigProgress": 2
+            // cityVenueId: 23
+          }
+        } //传递参数
+      });
+
+      this.arrCrossCityMatchPersonAchievement = data.list;
+      this.filterCrossCityMatchAchievement(); //调用：{成城际赛成绩中过滤出当前所在赛段的团队成绩}
+    },
+    //函数：{成城际赛成绩中过滤出当前所在赛段的团队成绩}
+    filterCrossCityMatchAchievement() {
+  //过滤出城际赛当前小赛段的成绩
+      let arrCCPAchievementNeed = this.arrCrossCityMatchPersonAchievement.filter(
+        item => item.matchProgress.smallProgress == this.crossCityMatchProgress
+      );
+
+      this.arrCrossCityMatchAchievement.forEach(itemCityVenue => {
+        //循环：{000数组}
+        let scoreTeam = 0;
+
+        let arrAchievementPerson = arrCCPAchievementNeed.filter(
+          item => item.cityVenueId == itemCityVenue.venueId
+        );
+        console.log("arrAchievementPerson$$$$####", arrAchievementPerson);
+        
+        itemCityVenue.scoreTeam = arrAchievementPerson.reduce(
+          (total, doc) => total + (doc["matchScore"] || 0),
+          0
+        );
+      });
+
+      this.arrCrossCityMatchAchievement.sort(function(a, b) {
+        //按团队分降序排序
+        return b.scoreTeam - a.scoreTeam;
+      });
+
+      this.arrCrossCityMatchAchievement = util.deepCopy(
+        this.arrCrossCityMatchAchievement
+      ); //深拷贝
+    },
+
+    //函数：{切换城际赛赛段函数}
+    changeCrossCityMatchProgress() {
+      console.log("changeCrossCityMatchProgress######");
+      this.filterCrossCityMatchAchievement()//调用：{成城际赛成绩中过滤出当前所在赛段的团队成绩}
+    },
+    //函数：{切换城市赛赛段函数}
+    changeCityMatchProgress() {
       console.log("changeTagCity######");
       this.cfList.findJsonDefault[
         "matchProgress.smallProgress"
       ] = this.cityMatchProgress;
       this.cfList.findJsonDefault.cityVenueId = this.cityMatchVenuId;
 
-      if(!this.$refs.list1)return;
-      this.$refs.list1.getDataList()
+      if (!this.$refs.list1) return;
+      this.$refs.list1.getDataList();
     },
     async getMatchData() {
       if (!this.matchId) return;
@@ -274,4 +389,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.panel {
+  border: 1px #ddd solid;
+  border-radius: 5px;
+  padding: 15px;
+}
 </style>
