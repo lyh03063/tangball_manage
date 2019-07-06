@@ -46,7 +46,7 @@ export default {
   watch: {
     valueNeed: {
       handler(newVal, oldVal) {
-        this.$emit("input", valueNeed); //同步valueNeed值到value
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       // immediate: true,//组件初始化时立即执行一次变动
       deep: true //深度监听

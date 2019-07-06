@@ -1,14 +1,35 @@
 <template>
   <div class>
-    <div class="TAC FS18 LH40">标题</div>
-    <div class="TAC FS18 LH40">当前赛事进度</div>
+    {{matchInfo}}
+    <div class="TAC FS18 LH40">{{matchInfo.matchName}}</div>
+    <div class="TAC FS18 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
 
     <div class>
       <div class="FWB">城市赛（时间2019-4-5到2019-6-5）</div>
-      <div class="" >城市选项卡</div>
-      <div class="" >赛事阶段选项卡</div>
 
-      <listData :cf="cfList">
+      <div class>
+        <el-radio-group
+          v-model="cityMatchVenuId"
+          style="margin-bottom: 30px;"
+          @change="changeCityMatch"
+        >
+          <el-radio-button
+            :label="item.venueId"
+            v-for="(item,index) in matchInfo.cityVenueList"
+            :key="index"
+          >{{item.cityName}}</el-radio-button>
+        </el-radio-group>
+      </div>
+      城市赛场馆id：{{cityMatchVenuId}}
+      <div class>
+        <el-radio-group v-model="cityMatchProgress" style="margin-bottom: 30px;" @change="changeCityMatch">
+          <el-radio-button :label="11">选拔赛</el-radio-button>
+          <el-radio-button :label="12">晋级赛</el-radio-button>
+          <el-radio-button :label="13">决赛</el-radio-button>
+        </el-radio-group>
+      </div>
+      城市赛阶段：{{cityMatchProgress}}
+      <listData :cf="cfList" ref="list1">
         <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_participantsId="{row}">
           <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
@@ -58,13 +79,20 @@ export default {
   },
   data() {
     return {
+      cityMatchVenuId: 11, //城市赛场馆选项卡的聚焦值
+      cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
+      matchInfo: {},
       cfList: {
         isShowSearchForm: false, //隐藏查询表单
         isShowBreadcrumb: false, //隐藏面包屑导航
         isShowPageLink: false, //隐藏分页
         // isShowOperateColumn: false, //隐藏操作列
         //默认查询参数
-        findJsonDefault: { matchId: 37,"matchProgress.smallProgress" : 22,"cityId" : 111 },
+        findJsonDefault: {
+          matchId: this.matchId,
+          "matchProgress.smallProgress": 11,
+          cityVenueId: 23
+        },
 
         listIndex: "match_achievement", //vuex对应的字段
         twoTitle: "赛事",
@@ -191,6 +219,54 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    matchId: {
+      handler(newVal, oldVal) {
+        if (!this.matchId) return;
+        this.getMatchData();
+      },
+      immediate: true //组件初始化时立即执行一次变动
+    },
+    valueNeed: {
+      handler(newVal, oldVal) {
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
+      },
+      // immediate: true,//组件初始化时立即执行一次变动
+      deep: true //深度监听
+    },
+    matchId: {
+      handler(newVal, oldVal) {
+        if (!this.matchId) return;
+        this.getMatchData();
+      },
+      immediate: true //组件初始化时立即执行一次变动
+    }
+  },
+  methods: {
+    changeCityMatch() {
+      console.log("changeTagCity######");
+      this.cfList.findJsonDefault[
+        "matchProgress.smallProgress"
+      ] = this.cityMatchProgress;
+      this.cfList.findJsonDefault.cityVenueId = this.cityMatchVenuId;
+
+      if(!this.$refs.list1)return;
+      this.$refs.list1.getDataList()
+    },
+    async getMatchData() {
+      if (!this.matchId) return;
+      //函数：{根据赛事id，ajax获取赛事信息函数}
+      let { data } = await axios({
+        //请求接口
+        method: "post",
+        url: "http://120.76.160.41:3000/crossDetail?page=tangball_match",
+        data: {
+          id: this.matchId
+        } //传递参数
+      });
+      this.matchInfo = data.doc;
+    }
   }
 };
 </script>
