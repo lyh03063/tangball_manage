@@ -17,7 +17,7 @@ export default {
     keyLabel: {
       default: "name"
     },
-    param: [Object]
+    param: [Object],
   },
   data() {
     return {
