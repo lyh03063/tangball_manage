@@ -13,9 +13,9 @@
       <template v-slot:slot_detail_item_participantsId="{row}">
         <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
-              {{doc.P1}}
-              (
-              {{doc.name}})
+            {{doc.P1}}
+            (
+            {{doc.name}})
           </template>
         </ajax_populate>
       </template>
@@ -23,34 +23,32 @@
       <template v-slot:slot_detail_item_matchId="{row}">
         <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
-              {{doc.P1}}
-              (
-              {{doc.matchName}})
+            {{doc.P1}}
+            (
+            {{doc.matchName}})
+          </template>
+        </ajax_populate>
+      </template>
+      <!--详情弹窗的 cityVenueId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_cityVenueId="{row}">
+        <ajax_populate :id="row.cityVenueId" populateKey="name" page="tangball_venue">
+          <template v-slot:default="{doc}">
+            {{doc.P1}}
+            (
+            {{doc.name}})
           </template>
         </ajax_populate>
       </template>
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
-       
         <select_match_progress
           v-model="formData.matchProgress"
           :matchType="formData.matchType"
           :matchId="formData.matchId"
         ></select_match_progress>
       </template>
-      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
-        {{row.row.matchProgress}}
-        <!-- <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
-          <template v-slot:default="{doc}">
-            <div class v-if="doc && doc.P1">
-              {{doc.P1}}
-              (
-              {{doc.matchName}})
-            </div>
-          </template>
-        </ajax_populate>-->
-      </template>
+      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row.row.matchProgress}}</template>
       <template v-slot:slot_detail_item_matchProgress2="row">{{row}}</template>
     </listData>
   </div>
@@ -86,23 +84,46 @@ export default {
             label: "参赛人Id",
             prop: "participantsId",
             slot: "slot_detail_item_participantsId",
-            width: 150
+            width: 120
           },
 
           {
             label: "赛事ID",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width: 200
+            width: 160
           },
           {
             label: "城市赛场馆",
-            prop: "cityVenueId"
+            prop: "cityVenueId",
+            slot: "slot_detail_item_cityVenueId",
+            width: 150
           },
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            width: 290
+            width: 160,
+            formatter: row => {
+              var matchProgress = ""
+              if (row.matchProgress.bigProgress == 1) {
+                if (row.matchProgress.smallProgress == 11) {
+                  matchProgress = "城市赛--选拔赛"
+                } else if (row.matchProgress.smallProgress == 12) {
+                  matchProgress = "城市赛--晋级赛"
+                } else {
+                  matchProgress = "城市赛--决赛"
+                }
+              } else {
+                if (row.matchProgress.smallProgress == 21) {
+                  matchProgress = "城际赛--淘汰赛/循环赛"
+                } else if (row.matchProgress.smallProgress == 22) {
+                  matchProgress = "城际赛--1/4决赛"
+                } else {
+                  matchProgress = "城际赛--决赛"
+                }
+              }
+              return matchProgress
+            }
           },
           {
             label: "比赛得分",
@@ -185,7 +206,7 @@ export default {
             label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
-            slot: "slot_modify_item_matchProgress"
+            slot: "slot_modify_item_matchProgress2"
           },
           {
             label: "比赛得分",
@@ -210,7 +231,7 @@ export default {
 
 
 <style scoped>
-.el-select.el-select--small {
+/* .el-select.el-select--small {
   margin-right: 10px;
-}
+} */
 </style>
