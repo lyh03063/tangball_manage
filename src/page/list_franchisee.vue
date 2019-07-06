@@ -5,45 +5,6 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import Mock from 'mockjs'
-// 报名（订单）接口
-Mock.mock('/list_abc', function () {
-  let list_enroll =
-  {
-    "code": 0,
-    "message": "操作成功",
-    "page": {
-      "pageIndex": 1,
-      "pageSize": 5,
-      "allCount": 1,
-      "pageCount": 1
-    },
-    "list": [
-      {
-        "P1": "1",
-        "memberId ": "12",
-        "matchId": "22",
-        "idCard": "441521200003331151",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 3
-      },
-      {
-        "P1": "2",
-        "memberId ": "13",
-        "matchId": "21",
-        "idCard": "441521200003331152 ",
-        "time": "2019-06-26",
-        "payStatus": 1,
-        "auditStatus ": 2
-      }
-    ]
-  }
-
-  return list_enroll
-
-})
-
 
 export default {
   components: { listData },

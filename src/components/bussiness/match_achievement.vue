@@ -1,16 +1,16 @@
 <template>
   <div class>
-    {{matchInfo}}
-    <div class="TAC FS18 LH40">{{matchInfo.matchName}}</div>
-    <div class="TAC FS18 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
+    <!-- {{matchInfo}} -->
+    <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
+    <div class="TAC FS16 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
 
     <div class>
-      <div class="FWB">城市赛（时间2019-4-5到2019-6-5）</div>
+      <div class="FWB FS16">城市赛（时间2019-4-5到2019-6-5）</div>
 
       <div class>
         <el-radio-group
           v-model="cityMatchVenuId"
-          style="margin-bottom: 30px;"
+          style="margin-bottom: 10px;"
           @change="changeCityMatch"
         >
           <el-radio-button
@@ -20,15 +20,15 @@
           >{{item.cityName}}</el-radio-button>
         </el-radio-group>
       </div>
-      城市赛场馆id：{{cityMatchVenuId}}
+      <!-- 城市赛场馆id：{{cityMatchVenuId}} -->
       <div class>
-        <el-radio-group v-model="cityMatchProgress" style="margin-bottom: 30px;" @change="changeCityMatch">
+        <el-radio-group v-model="cityMatchProgress"  @change="changeCityMatch">
           <el-radio-button :label="11">选拔赛</el-radio-button>
           <el-radio-button :label="12">晋级赛</el-radio-button>
           <el-radio-button :label="13">决赛</el-radio-button>
         </el-radio-group>
       </div>
-      城市赛阶段：{{cityMatchProgress}}
+      <!-- 城市赛阶段：{{cityMatchProgress}} -->
       <listData :cf="cfList" ref="list1">
         <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_participantsId="{row}">
@@ -86,7 +86,8 @@ export default {
         isShowSearchForm: false, //隐藏查询表单
         isShowBreadcrumb: false, //隐藏面包屑导航
         isShowPageLink: false, //隐藏分页
-        // isShowOperateColumn: false, //隐藏操作列
+        isShowOperateColumn: false, //隐藏操作列
+        isShowToolBar: false, //隐藏工具栏
         //默认查询参数
         findJsonDefault: {
           matchId: this.matchId,

@@ -5,13 +5,13 @@
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <space height="12"></space>
-    <div class="search-form-box" v-if="cf.isShowSearchForm">
+ 
+    <div class="search-form-box MT12" v-if="cf.isShowSearchForm">
       <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
 
-    <space height="10"></space>
-    <el-row size="mini">
+
+    <el-row size="mini" class="MT10" v-if="cf.isShowToolBar">
       <el-button
         v-if="cf.flag"
         size="mini"
@@ -19,7 +19,7 @@
         @click="$store.commit('openDialogAdd',cf.listIndex)"
       >新增</el-button>
       <space v-else height="32"></space>
-       <el-button @click="deleteSelection()" size="mini"  type="primary">删除选中</el-button>
+      <el-button @click="deleteSelection()" size="mini" type="primary">删除选中</el-button>
     </el-row>
     <space height="10"></space>
     <!--主列表-->
@@ -127,22 +127,22 @@ export default {
   },
   methods: {
     // 删除选中数据的方法
-     deleteSelection() {
+    deleteSelection() {
       //  得到选中的数据对象
-       var selects = this.$refs.multipleTable.selection;
+      var selects = this.$refs.multipleTable.selection;
       //  有选中的就遍历得到P1，进行批量删除
-       if(selects.length>0){
-          var arr = []
+      if (selects.length > 0) {
+        var arr = [];
         for (let i = 0; i < selects.length; i++) {
-           arr.push(selects[i].P1)
-         }
+          arr.push(selects[i].P1);
+        }
         //  调用方法删除数据
         this.confirmDelete(arr);
         // 没有选中的数据提示用户
-       }else{
-          this.$message({message: "请先选中要删除的数据",type: "success"})
-       }
-      },
+      } else {
+        this.$message({ message: "请先选中要删除的数据", type: "success" });
+      }
+    },
     filterData(param) {
       let { pid, listIndex, targetIdKey } = param;
       //函数：{筛选数据函数}
@@ -268,8 +268,10 @@ export default {
     this.cf.isShowSearchForm === false || (this.cf.isShowSearchForm = true);
     this.cf.isShowBreadcrumb === false || (this.cf.isShowBreadcrumb = true);
     this.cf.isShowPageLink === false || (this.cf.isShowPageLink = true);
-    this.cf.isShowOperateColumn === false ||
-      (this.cf.isShowOperateColumn = true);
+    this.cf.isShowOperateColumn === false ||(this.cf.isShowOperateColumn = true);
+this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
+
+
 
     let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数
