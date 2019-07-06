@@ -104,25 +104,25 @@ export default {
             prop: "matchProgress",
             width: 160,
             formatter: row => {
-              var matchProgress = ""
+              var matchProgress = "";
               if (row.matchProgress.bigProgress == 1) {
                 if (row.matchProgress.smallProgress == 11) {
-                  matchProgress = "城市赛--选拔赛"
+                  matchProgress = "城市赛--选拔赛";
                 } else if (row.matchProgress.smallProgress == 12) {
-                  matchProgress = "城市赛--晋级赛"
+                  matchProgress = "城市赛--晋级赛";
                 } else {
-                  matchProgress = "城市赛--决赛"
+                  matchProgress = "城市赛--决赛";
                 }
               } else {
                 if (row.matchProgress.smallProgress == 21) {
-                  matchProgress = "城际赛--淘汰赛/循环赛"
+                  matchProgress = "城际赛--淘汰赛/循环赛";
                 } else if (row.matchProgress.smallProgress == 22) {
-                  matchProgress = "城际赛--1/4决赛"
+                  matchProgress = "城际赛--1/4决赛";
                 } else {
-                  matchProgress = "城际赛--决赛"
+                  matchProgress = "城际赛--决赛";
                 }
               }
-              return matchProgress
+              return matchProgress;
             }
           },
           {
@@ -162,8 +162,7 @@ export default {
           },
           {
             label: "赛事阶段",
-            prop: "matchProgress",
-            slot: "slot_detail_item_matchProgress"
+            prop: "matchProgress"
           },
           {
             label: "比赛得分",
