@@ -48,8 +48,18 @@
           :matchId="formData.matchId"
         ></select_match_progress>
       </template>
+<<<<<<< HEAD
       <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row}}===={{row.row.matchProgress}}</template>
       <template v-slot:slot_detail_item_matchProgress2="row">{{row}}</template>
+=======
+      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
+        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
+      </template>
+      <template v-slot:slot_detail_item_matchProgress="row">
+        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
+      </template>
+      
+>>>>>>> 6574c7b911a890640fdd4800304f00e3c3f3d987
     </listData>
   </div>
 </template>
@@ -58,8 +68,9 @@ import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
 import select_match_progress from "../components/form_item/select_match_progress.vue";
 import member_enroll from "../components/form_item/member_enroll.vue";
+import achievement_matchProgress from "../components/form_item/achievement_matchProgress.vue";
 export default {
-  components: { listData, ajax_populate, select_match_progress, member_enroll },
+  components: { listData, ajax_populate, select_match_progress, member_enroll,achievement_matchProgress },
   data() {
     return {
       cfList: {
@@ -102,28 +113,8 @@ export default {
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            width: 160,
-            formatter: row => {
-              var matchProgress = "";
-              if (row.matchProgress.bigProgress == 1) {
-                if (row.matchProgress.smallProgress == 11) {
-                  matchProgress = "城市赛--选拔赛";
-                } else if (row.matchProgress.smallProgress == 12) {
-                  matchProgress = "城市赛--晋级赛";
-                } else {
-                  matchProgress = "城市赛--决赛";
-                }
-              } else {
-                if (row.matchProgress.smallProgress == 21) {
-                  matchProgress = "城际赛--淘汰赛/循环赛";
-                } else if (row.matchProgress.smallProgress == 22) {
-                  matchProgress = "城际赛--1/4决赛";
-                } else {
-                  matchProgress = "城际赛--决赛";
-                }
-              }
-              return matchProgress;
-            }
+            width: 180,
+            slot:"slot_detmember_enrollail_item_matchProgress"
           },
           {
             label: "比赛得分",
@@ -162,7 +153,8 @@ export default {
           },
           {
             label: "赛事阶段",
-            prop: "matchProgress"
+            prop: "matchProgress",
+            slot:"slot_detail_item_matchProgress"
           },
           {
             label: "比赛得分",
@@ -205,7 +197,7 @@ export default {
             label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
-            slot: "slot_modify_item_matchProgress2"
+            slot: "slot_modify_item_matchProgress"
           },
           {
             label: "比赛得分",
