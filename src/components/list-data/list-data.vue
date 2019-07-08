@@ -5,11 +5,10 @@
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
- 
+
     <div class="search-form-box MT12" v-if="cf.isShowSearchForm">
       <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
-
 
     <el-row size="mini" class="MT10" v-if="cf.isShowToolBar">
       <el-button
@@ -85,14 +84,17 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      background
-      layout="total,prev, pager, next"
-      @current-change="handleCurrentChange"
-      :total="allCount"
-      style="float:right;margin:10px 0 0 0;"
-      v-if="cf.isShowPageLink"
-    ></el-pagination>
+    <div class="OFH ">
+      <el-pagination
+        background
+        layout="total,prev, pager, next"
+        @current-change="handleCurrentChange"
+        :total="allCount"
+        style="float:right;margin:10px 0 0 0;"
+        v-if="cf.isShowPageLink"
+      ></el-pagination>
+    </div>
+
     <listDialogs ref="listDialogs" :cf="cf">
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
@@ -268,10 +270,9 @@ export default {
     this.cf.isShowSearchForm === false || (this.cf.isShowSearchForm = true);
     this.cf.isShowBreadcrumb === false || (this.cf.isShowBreadcrumb = true);
     this.cf.isShowPageLink === false || (this.cf.isShowPageLink = true);
-    this.cf.isShowOperateColumn === false ||(this.cf.isShowOperateColumn = true);
-this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
-
-
+    this.cf.isShowOperateColumn === false ||
+      (this.cf.isShowOperateColumn = true);
+    this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
 
     let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数
