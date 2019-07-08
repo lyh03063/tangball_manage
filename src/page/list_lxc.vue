@@ -1,5 +1,6 @@
 <template>
   <div class>
+    
     <listData :cf="cfList"></listData>
   </div>
 </template>
@@ -21,22 +22,23 @@ export default {
           modify: "http://120.76.160.41:3000/crossModify?page=tangball_sponsor", //修改接口
           delete: "http://120.76.160.41:3000/crossDelete?page=tangball_sponsor" //删除接口
         },
+        //这里是通过添加插槽来配置数据，但数据存在则渲染，不存在则不生效
         //-------列配置数组-------
         columns: [
           {
             label: "分类编号",
             prop: "P1",
-            width: 100
+            width:100,
           },
           {
             label: "分类名称",
             prop: "name",
-            width: 200
+            width: 200,
           },
           {
             label: "注释34",
             prop: "description",
-            width: 200
+            width: 200,
           }
         ],
         //-------筛选表单字段数组-------
