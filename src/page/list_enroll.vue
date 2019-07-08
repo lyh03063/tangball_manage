@@ -15,6 +15,7 @@
     <listData :cf="cfList">
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
+        =={{formData}}==
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
 
@@ -239,6 +240,10 @@ export default {
             label: "手机号",
             prop: "phone",
             width: 100
+          },
+          {
+            label: "城市场馆id",
+            prop: "cityVenueId"
           },
           {
             label: "性别",

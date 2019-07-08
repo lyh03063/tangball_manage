@@ -13,11 +13,9 @@
 </template>
 <script>
 export default {
-  props: {
-    cf: {
-      // default: { smallProgress: 1, bigProgress: 1 }
-    }
-  },
+  components: {},
+  props: ["cf"],
+  // matchProgress: { smallProgress: 3, bigProgress: 1 }   需要传入的数据格式
   data() {
     return {
       active: 0, //聚焦的默认状态为0
@@ -31,16 +29,18 @@ export default {
       ]
     };
   },
-  created() {
-    this.stepsArr.forEach((item, index) => {
-      if (this.cf.smallProgress == item.value) {
-        this.active = index; //当前选中状态
-      }
+  mounted() {
+    if (this.cf) {
+      this.stepsArr.forEach((item, index) => {
+        if (this.cf.smallProgress == item.value) {
+          this.active = index; //当前选中状态
+        }
 
-      if (index <= this.active) {
-        item.status = "success"; //当前选中状态的样式
-      }
-    });
+        if (index <= this.active) {
+          item.status = "success"; //当前选中状态的样式
+        }
+      });
+    }
   }
 };
 </script>
