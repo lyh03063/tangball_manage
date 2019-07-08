@@ -6,7 +6,7 @@
     :size="cf.size||'small'"
     :inline="cf.inline"
   >
-    <el-row>
+    <el-row >
       <template v-for="item in cf.formItems">
         <el-col :span="cf.col_span" :key="item.prop">
           <el-form-item
