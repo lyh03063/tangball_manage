@@ -15,7 +15,7 @@
     <listData :cf="cfList">
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
-        =={{formData}}==
+     
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
 
