@@ -13,9 +13,9 @@
       <template v-slot:slot_detail_item_participantsId="{row}">
         <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
-              {{doc.P1}}
-              (
-              {{doc.name}})
+            {{doc.P1}}
+            (
+            {{doc.name}})
           </template>
         </ajax_populate>
       </template>
@@ -23,35 +23,43 @@
       <template v-slot:slot_detail_item_matchId="{row}">
         <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
-              {{doc.P1}}
-              (
-              {{doc.matchName}})
+            {{doc.P1}}
+            (
+            {{doc.matchName}})
+          </template>
+        </ajax_populate>
+      </template>
+      <!--详情弹窗的 cityVenueId 字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_cityVenueId="{row}">
+        <ajax_populate :id="row.cityVenueId" populateKey="name" page="tangball_venue">
+          <template v-slot:default="{doc}">
+            {{doc.P1}}
+            (
+            {{doc.name}})
           </template>
         </ajax_populate>
       </template>
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
-       
         <select_match_progress
           v-model="formData.matchProgress"
           :matchType="formData.matchType"
           :matchId="formData.matchId"
         ></select_match_progress>
       </template>
-      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
-        {{row.row.matchProgress}}
-        <!-- <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
-          <template v-slot:default="{doc}">
-            <div class v-if="doc && doc.P1">
-              {{doc.P1}}
-              (
-              {{doc.matchName}})
-            </div>
-          </template>
-        </ajax_populate>-->
-      </template>
+<<<<<<< HEAD
+      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row}}===={{row.row.matchProgress}}</template>
       <template v-slot:slot_detail_item_matchProgress2="row">{{row}}</template>
+=======
+      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
+        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
+      </template>
+      <template v-slot:slot_detail_item_matchProgress="row">
+        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
+      </template>
+      
+>>>>>>> 6574c7b911a890640fdd4800304f00e3c3f3d987
     </listData>
   </div>
 </template>
@@ -60,8 +68,9 @@ import listData from "../components/list-data/list-data.vue";
 import ajax_populate from "../components/common/ajax_populate.vue";
 import select_match_progress from "../components/form_item/select_match_progress.vue";
 import member_enroll from "../components/form_item/member_enroll.vue";
+import achievement_matchProgress from "../components/form_item/achievement_matchProgress.vue";
 export default {
-  components: { listData, ajax_populate, select_match_progress, member_enroll },
+  components: { listData, ajax_populate, select_match_progress, member_enroll,achievement_matchProgress },
   data() {
     return {
       cfList: {
@@ -86,23 +95,26 @@ export default {
             label: "参赛人Id",
             prop: "participantsId",
             slot: "slot_detail_item_participantsId",
-            width: 150
+            width: 120
           },
 
           {
             label: "赛事ID",
             prop: "matchId",
             slot: "slot_detail_item_matchId",
-            width: 200
+            width: 160
           },
           {
             label: "城市赛场馆",
-            prop: "cityVenueId"
+            prop: "cityVenueId",
+            slot: "slot_detail_item_cityVenueId",
+            width: 150
           },
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            width: 290
+            width: 180,
+            slot:"slot_detmember_enrollail_item_matchProgress"
           },
           {
             label: "比赛得分",
@@ -142,7 +154,7 @@ export default {
           {
             label: "赛事阶段",
             prop: "matchProgress",
-            slot: "slot_detail_item_matchProgress"
+            slot:"slot_detail_item_matchProgress"
           },
           {
             label: "比赛得分",
@@ -210,7 +222,7 @@ export default {
 
 
 <style scoped>
-.el-select.el-select--small {
+/* .el-select.el-select--small {
   margin-right: 10px;
-}
+} */
 </style>
