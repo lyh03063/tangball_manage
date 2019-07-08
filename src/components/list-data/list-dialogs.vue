@@ -6,7 +6,7 @@
       :visible.sync="isShowDialogDetail"
       width="60%"
       :before-close="closeDialogDetailFun"
-       :append-to-body="true"
+      :append-to-body="true"
     >
       <table class="table-normal WP100">
         <tr v-for="item in cf.detailItems" :key="item.prop">
@@ -37,15 +37,13 @@
       v-if="isShowDialogAdd"
       width="50%"
       :before-close="closeDialogAddFun"
-       :append-to-body="true"
+      :append-to-body="true"
     >
-      <dynamicForm
-        v-model="formAdd"
-        :cf="cfFormAdd"
-        @submit="addData"
-        @cancel="closeDialogAddFun"
-       
-      >
+      {{formAdd}}
+      <br>
+      cf.formDataAddInit
+      {{cf.formDataAddInit}}
+      <dynamicForm v-model="formAdd" :cf="cfFormAdd" @submit="addData" @cancel="closeDialogAddFun">
         <template v-slot:[item.slot]="{formData}" v-for="item in cf.formItems">
           <!--根据cf.formItems循环输出插槽--新增修改表单弹窗-->
           <slot :name="item.slot" :formData="formData" v-if="item.slot"></slot>
@@ -59,7 +57,7 @@
       :visible.sync="isShowDialogModify"
       v-if="isShowDialogModify"
       width="60%"
-       :append-to-body="true"
+      :append-to-body="true"
     >
       <dynamicForm
         v-model="formModify"
@@ -118,6 +116,17 @@ export default {
       }
     };
   },
+  watch: {
+    "cf.formDataAddInit": {
+      //监听新增表单的初始化数据
+      handler(newName, oldName) {
+        console.log("cf.formDataAddInit变动", this.cf.formDataAddInit);
+        this.initFormDataAdd();//调用：{初始化新增数据表单函数}
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   computed: {
     row() {
       //来自vuex的当前行数据
@@ -133,6 +142,13 @@ export default {
     }
   },
   methods: {
+    initFormDataAdd(){//函数：{初始化新增数据表单函数}
+ if (!this.cf.formDataAddInit) {
+          return
+        }
+        
+        this.formAdd = util.deepCopy(this.cf.formDataAddInit);
+    },
     closeDialogDetailFun(done) {
       //关闭详情弹窗的配置事件函数
       this.$store.commit("closeDialogDetail", this.cf.listIndex); //执行store的closeDialogAdd事件
@@ -185,7 +201,7 @@ export default {
           });
           this.closeDialogAddFun(); //关闭弹窗
           this.$parent.getDataList(); //更新数据列表
-          this.formAdd = {};
+          this.initFormDataAdd();//调用：{初始化新增数据表单函数}
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -198,7 +214,7 @@ export default {
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
-      this.dataIdModify=rowNew.P1;
+      this.dataIdModify = rowNew.P1;
     }
   },
   mounted() {}
