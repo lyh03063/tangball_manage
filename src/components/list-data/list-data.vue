@@ -5,11 +5,10 @@
       <el-breadcrumb-item>{{cf.twoTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{cf.threeTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
- 
+
     <div class="search-form-box MT12" v-if="cf.isShowSearchForm">
       <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
-
 
     <el-row size="mini" class="MT10" v-if="cf.isShowToolBar">
       <el-button
@@ -245,6 +244,7 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
+        col_span:10,
         labelWidth: "auto",
         size: "mini",
         inline: true,
@@ -268,10 +268,9 @@ export default {
     this.cf.isShowSearchForm === false || (this.cf.isShowSearchForm = true);
     this.cf.isShowBreadcrumb === false || (this.cf.isShowBreadcrumb = true);
     this.cf.isShowPageLink === false || (this.cf.isShowPageLink = true);
-    this.cf.isShowOperateColumn === false ||(this.cf.isShowOperateColumn = true);
-this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
-
-
+    this.cf.isShowOperateColumn === false ||
+      (this.cf.isShowOperateColumn = true);
+    this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
 
     let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数

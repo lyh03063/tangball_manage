@@ -10,7 +10,7 @@ export default {
 
   data() {
     return {
-      matchProgress: { smallProgress:11, bigProgress: 1 }
+      matchProgress: { smallProgress: 21, bigProgress: 1 }
     };
   },
   created() {},

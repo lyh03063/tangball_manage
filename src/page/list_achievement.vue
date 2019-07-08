@@ -48,10 +48,6 @@
           :matchId="formData.matchId"
         ></select_match_progress>
       </template>
-<<<<<<< HEAD
-      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">{{row}}===={{row.row.matchProgress}}</template>
-      <template v-slot:slot_detail_item_matchProgress2="row">{{row}}</template>
-=======
       <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
         <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
       </template>
@@ -59,7 +55,6 @@
         <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
       </template>
       
->>>>>>> 6574c7b911a890640fdd4800304f00e3c3f3d987
     </listData>
   </div>
 </template>
@@ -204,11 +199,7 @@ export default {
             prop: "matchScore",
             type: "input"
           }
-          // {
-          //   label: "名次",
-          //   prop: "ranking",
-          //   type: "input"
-          // }
+         
         ]
       }
     };
@@ -222,7 +213,5 @@ export default {
 
 
 <style scoped>
-/* .el-select.el-select--small {
-  margin-right: 10px;
-} */
+
 </style>
