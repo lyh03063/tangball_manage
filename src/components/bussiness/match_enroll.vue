@@ -1,26 +1,41 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0">
-      <tr>
-        <td>matchInfo</td>
-        <td>{{matchInfo}}</td>
+    <table class="n-table MTB0" v-if="debug">
+       <tr>
+        <td class="WP20">字段</td>
+        <td class="WP30">说明</td>
+        <td>字段值</td>
       </tr>
       <tr>
+        <td>matchInfo</td>
+        <td>赛事信息</td>
+        <td>{{matchInfo}}</td>
+      </tr>
+     
+      <tr>
         <td>matchInfo.matchProgress</td>
+        <td>赛事阶段</td>
         <td>{{matchInfo.matchProgress}}</td>
       </tr>
       <tr>
         <td>cityVenuIdForEnroll</td>
+        <td>报名表的城市场馆id</td>
         <td>{{cityVenuIdForEnroll}}</td>
       </tr>
       <tr>
+        <td>cfListForEnroll.findJsonDefault</td>
+        <td>列表的默认查询参数</td>
+        <td>{{cfListForEnroll.findJsonDefault}}</td>
+      </tr>
+      <tr>
         <td>cfListForEnroll.formDataAddInit</td>
+        <td>新增报名数据的初始值</td>
         <td>{{cfListForEnroll.formDataAddInit}}</td>
       </tr>
     </table>
     <!-- {{matchInfo}} -->
     <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
-    <div class="TAC FS16 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
+    <div class="TAC FS16 LH40">当前赛事进度</div>
 
     <div class="panel">
       <div class="FWB FS16 LH30">城市赛报名信息</div>
@@ -93,10 +108,12 @@ import match_venue from "../form_item/match_venue.vue";
 export default {
   components: { listData, ajax_populate, select_match_progress, match_venue },
   props: {
-    matchId: [String, Number]
+    matchId: [String, Number],
+    debug:Boolean
   },
   data() {
     return {
+      
       cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
       cityVenuIdForEnroll: null, //城市赛场馆选项卡的聚焦值(用于报名表)
       matchInfo: null, //赛事信息

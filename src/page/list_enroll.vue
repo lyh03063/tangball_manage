@@ -192,7 +192,8 @@ export default {
           },
           {
             label: "报名会员id",
-            prop: "memberId"
+            prop: "memberId",
+            type: "jsonEditor"
           },
           {
             label: "赛事id",

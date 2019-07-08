@@ -1,22 +1,37 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0">
+    <table class="n-table MTB0" v-if="debug">
+      <tr>
+        <td class="WP20">字段</td>
+        <td class="WP30">说明</td>
+        <td>字段值</td>
+      </tr>
       <tr>
         <td>matchInfo</td>
+        <td>赛事信息</td>
         <td>{{matchInfo}}</td>
       </tr>
       <tr>
         <td>matchInfo.matchProgress</td>
+        <td>赛事阶段</td>
         <td>{{matchInfo.matchProgress}}</td>
       </tr>
       <tr>
+        <td>cfList.findJsonDefault</td>
+        <td>成绩列表的默认查询参数</td>
+        <td>{{ cfList.findJsonDefault}}</td>
+      </tr>
+
+      <tr>
         <td>cfList.formItems[0].ajax.param.findJson</td>
+        <td>弹窗表单的第一个字段的下拉框选项ajax查询参数</td>
         <td>{{cfList.formItems[0].ajax.param.findJson}}</td>
       </tr>
     </table>
+
     <!-- {{matchInfo}} -->
     <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
-    <div class="TAC FS16 LH40">当前赛事进度{{matchInfo.matchProgress}}</div>
+    <div class="TAC FS16 LH40">当前赛事进度</div>
 
     <space height="20"></space>
     <div class v-if="matchInfo.matchType==2">
@@ -102,11 +117,18 @@
 
           <table class="n-table MT10">
             <tr>
+              <td class="WP20">字段</td>
+              <td class="WP30">说明</td>
+              <td>字段值</td>
+            </tr>
+            <tr>
               <td>arrCrossCityMatchAchievement</td>
+              <td>城际赛团队成绩列表</td>
               <td>{{arrCrossCityMatchAchievement}}</td>
             </tr>
             <tr>
               <td>arrCrossCityMatchPersonAchievement:</td>
+              <td>城际赛个人成绩列表</td>
               <td>{{arrCrossCityMatchPersonAchievement}}</td>
             </tr>
           </table>
@@ -139,7 +161,8 @@ import match_venue from "../form_item/match_venue.vue";
 export default {
   components: { listData, ajax_populate, select_match_progress, match_venue },
   props: {
-    matchId: [String, Number]
+    matchId: [String, Number],
+    debug: [Boolean]
   },
   data() {
     return {
@@ -416,7 +439,7 @@ export default {
         this.cityMatchVenuId = this.matchInfo.cityVenueList[0].venueId;
         this.cfList.formDataAddInit.cityVenueId = this.cityMatchVenuId;
         //修改人员下拉框的ajax参数，不同场馆对应着不同的报名人员
-      this.cfList.formItems[0].ajax.param.findJson.cityVenueId = this.cityMatchVenuId;
+        this.cfList.formItems[0].ajax.param.findJson.cityVenueId = this.cityMatchVenuId;
 
         this.cfList.formDataAddInit.matchProgress = {
           bigProgress: 1,
