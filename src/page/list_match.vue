@@ -1,6 +1,46 @@
 <template>
   <div class>
+    <!--成绩单弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="85%"
+      :title="titleDialogAchievement"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialogAchievement"
+      v-if="showDialogAchievement"
+    >
+      <div class>
+        <match_achievement :matchId="matchId" :debug111="true" ></match_achievement>
+
+      </div>
+    </el-dialog>
+    <!--报名表弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="85%"
+      :title="titleDialogEnroll"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialogEnroll"
+      v-if="showDialogEnroll"
+    >
+      <div class>
+        <match_enroll :matchId="matchId" :debug111="true" ></match_enroll>
+
+      </div>
+    </el-dialog>
     <listData :cf="cfList">
+      <!-- 成绩列插槽 (列表)-->
+      <template v-slot:slot_column_enroll="{row}">
+        <a href="javascript:;" class="link-blue" @click="dialogEnroll(row)">报名表</a>
+      </template>
+      <!-- 成绩列插槽 (列表)-->
+      <template v-slot:slot_column_achievement="{row}">
+        <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">成绩单</a>
+      </template>
       <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
@@ -28,37 +68,23 @@ import city_venue_list from "../components/form_item/city_venue_list.vue";
 import select_match_progress from "../components/form_item/select_match_progress.vue";
 import achievement_progress from "../components/form_item/achievement_progress.vue";
 import match_achievement from "../components/bussiness/match_achievement.vue";
+import match_enroll from "../components/bussiness/match_enroll.vue";
 export default {
   components: {
     listData,
     city_venue_list,
     select_match_progress,
     achievement_progress,
-    match_achievement
+    match_achievement,
+     match_enroll,
   },
   data() {
     return {
-      arr1: [
-        {
-          cityId: "001",
-          cityName: "深圳A",
-          venueId: "15",
-          venueName: "深圳唐球馆1"
-        },
-        {
-          cityId: "001",
-          cityName: "深圳1",
-          venueId: "15",
-          venueName: "深圳唐球馆2"
-        },
-        {
-          cityId: "001",
-          cityName: "深圳1",
-          venueId: "15",
-          venueName: "深圳唐球馆3"
-        }
-      ],
-
+      matchId:null,
+      titleDialogAchievement:"",//成绩弹窗标题
+      showDialogAchievement:false,//是否显示成绩弹窗
+      titleDialogEnroll:"",//报名弹窗标题
+      showDialogEnroll:false,//是否显示报名弹窗
       cfList: {
         listIndex: "list_match", //vuex对应的字段
         twoTitle: "赛事",
@@ -136,9 +162,16 @@ export default {
             }
           },
           {
-            label: "成绩",
+            label: "报名表",
             // prop: "achievement",
-            width: 75
+            width: 75,
+            slot: "slot_column_enroll"
+          },
+          {
+            label: "成绩单",
+            // prop: "achievement",
+            width: 75,
+            slot: "slot_column_achievement"
           }
         ],
         //-------筛选表单字段数组-------
@@ -335,7 +368,20 @@ export default {
   beforeCreate() {
     this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
   },
-  methods: {}
+  methods: {
+    dialogAchievement(doc){
+      this.matchId=doc.P1;
+      this.titleDialogAchievement=`【${doc.matchName}】成绩单`;
+      this.showDialogAchievement=true;
+    },dialogEnroll(doc){
+      this.matchId=doc.P1;
+      this.titleDialogEnroll=`【${doc.matchName}】报名表`;
+      this.showDialogEnroll=true;
+    }
+
+
+
+  }
 };
 </script>
 
