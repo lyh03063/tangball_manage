@@ -55,7 +55,7 @@
         </div>
         <listData
           :cf="cfList"
-          ref="list2222222222"
+         
           @after-add="$emit('after-add')"
           @after-modify="$emit('after-modify')"
         >

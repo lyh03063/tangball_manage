@@ -12,6 +12,7 @@ export default {
     return {
       cfList: {
         listIndex: "listMember", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "会员/订单",
         threeTitle: "会员中心",
         flag: true,
@@ -170,9 +171,6 @@ export default {
         ]
       }
     };
-  },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
 };
 </script>

@@ -72,6 +72,7 @@ export default {
         listIndex: "list_achievement", //vuex对应的字段
         twoTitle: "赛事",
         threeTitle: "比赛成绩",
+        focusMenu:true,//进行菜单聚焦
         flag: true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
@@ -204,9 +205,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  },
+ 
   methods: {}
 };
 </script>

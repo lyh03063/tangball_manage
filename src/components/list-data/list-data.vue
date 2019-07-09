@@ -84,7 +84,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="OFH ">
+    <div class="OFH">
       <el-pagination
         background
         layout="total,prev, pager, next"
@@ -95,7 +95,12 @@
       ></el-pagination>
     </div>
 
-    <listDialogs ref="listDialogs" :cf="cf" @after-add="$emit('after-add')" @after-modify="$emit('after-modify')">
+    <listDialogs
+      ref="listDialogs"
+      :cf="cf"
+      @after-add="$emit('after-add')"
+      @after-modify="$emit('after-modify')"
+    >
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
         <slot :name="item.slot" :row="row" v-if="item.slot"></slot>
@@ -247,7 +252,7 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
-        col_span:8,
+        col_span: 8,
         labelWidth: "auto",
         size: "mini",
         inline: true,
@@ -305,7 +310,10 @@ export default {
       objState: objState
     });
 
-    this.$store.commit("changeActiveMenu", this.cf.listIndex); //菜单聚焦
+    if (this.cf.focusMenu) {
+      //如果需要聚焦菜单
+      this.$store.commit("changeActiveMenu", this.cf.listIndex); //菜单聚焦
+    }
 
     if (localStorage.isLogin != "1") {
       //如果未登录

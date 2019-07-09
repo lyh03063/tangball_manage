@@ -76,6 +76,7 @@ export default {
       urlBigImg: "", //大图地址
       cfList: {
         listIndex: "listProduct", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "商品中心",
         threeTitle: "商品列表",
         flag: true,
@@ -290,9 +291,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listProduct"); //菜单聚焦
-  }
+ 
 };
 </script>
 

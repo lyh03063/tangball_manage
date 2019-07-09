@@ -261,7 +261,7 @@ export default {
         ]
       },
        cfList2: {
-        listIndex: "list_achievement", //vuex对应的字段
+        listIndex: "list_achievement2", //vuex对应的字段
         twoTitle: "赛事",
         threeTitle: "比赛成绩",
         flag: true,
@@ -397,9 +397,7 @@ export default {
 
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  },
+
   methods: {}
 };
 </script>

@@ -13,6 +13,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_member", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "会员中心",
         threeTitle: "会员列表",
         flag:true,
@@ -169,9 +170,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  },
+
   methods: {
     
   }

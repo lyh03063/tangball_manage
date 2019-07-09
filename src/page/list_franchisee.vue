@@ -12,6 +12,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_franchisee", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "加盟商",
         flag:true,
@@ -109,9 +110,7 @@ export default {
   methods: {
    
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  }
+
 };
 </script>
 
