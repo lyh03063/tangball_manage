@@ -1,6 +1,6 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0" v-if="debug">
+    <table class="n-table n-table-debug  MTB0" v-if="debug">
       <tr>
         <td class="WP20">字段</td>
         <td class="WP30">说明</td>

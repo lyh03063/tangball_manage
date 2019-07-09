@@ -1,6 +1,6 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0" v-if="debug">
+    <table class="n-table n-table-debug MB10" v-if="debug">
       <tr>
         <td class="WP20">字段</td>
         <td class="WP30">说明</td>
@@ -121,7 +121,7 @@
             </el-radio-group>
           </div>
 
-          <table class="n-table MT10" v-if="debug">
+          <table class="n-table n-table-debug  MT10" v-if="debug">
             <tr>
               <td class="WP20">字段</td>
               <td class="WP30">说明</td>
@@ -138,11 +138,11 @@
               <td>城际赛团队成绩列表</td>
               <td>{{arrCrossCityMatchAchievement}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>arrCrossCityMatchPersonAchievement:</td>
               <td>城际赛成绩明细总列表</td>
               <td>{{arrCrossCityMatchPersonAchievement}}</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>showDialogCCityAchievementPersonal</td>
               <td>显示明细列表弹窗</td>
@@ -184,7 +184,6 @@
     <ccity_match_achievement_personal
       class
       :show.sync="showDialogCCityAchievementPersonal"
-      :debug111="true"
       :findJsonDefault="findJsonDefaultCCityAchP"
       :info="infoDefaultCCityAchP"
       @after-add="afterAddCCityAch"
@@ -213,7 +212,7 @@ export default {
   },
   data() {
     return {
-      debug: window.pub_debug,
+      debug: window.pub_debug,//是否启用调试模式
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},
