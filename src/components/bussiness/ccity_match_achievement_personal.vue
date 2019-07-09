@@ -1,0 +1,350 @@
+<template>
+  <div class>
+    <!--xxx弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="95%"
+      title="城际赛个人成绩明细"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialog"
+      v-if="showDialog"
+    >
+      <div class>
+        <table class="n-table MTB0" v-if="debug">
+          <tr>
+            <td class="WP20">字段</td>
+            <td class="WP30">说明</td>
+            <td>字段值</td>
+          </tr>
+
+          <tr>
+            <td>findJsonDefault</td>
+            <td>成绩列表的默认查询参数</td>
+            <td>{{ findJsonDefault}}</td>
+          </tr>
+          <tr>
+            <td>cfList.formDataAddInit</td>
+            <td>新增表单的初始数据</td>
+            <td>{{ cfList.formDataAddInit}}</td>
+          </tr>
+          <tr>
+            <td>cfList.formItems[0].ajax.param.sheetRelation.findJson</td>
+            <td>弹窗表单的第一个字段的下拉框选项ajax查询参数</td>
+            <td>{{cfList.formItems[0].ajax.param.sheetRelation.findJson}}</td>
+          </tr>
+          <tr>
+            <td>info</td>
+            <td>展示的一些信息</td>
+            <td>{{info}}</td>
+          </tr>
+        </table>
+
+        <div class="OFH">
+          <div class="FL FWB FS16 LH30">【{{info.cityName}}】代表队的【{{info.progressName}}】成绩明细表</div>
+
+          <div class="FR">
+            <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
+            <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
+          </div>
+        </div>
+        <listData
+          :cf="cfList"
+          ref="list1"
+          @after-add="$emit('after-add')"
+          @after-modify="$emit('after-modify')"
+        >
+          <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
+          <template v-slot:slot_detail_item_participantsId="{row}">
+            <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
+              <template v-slot:default="{doc}">
+                <div class v-if="doc && doc.P1">
+                  {{doc.P1}}
+                  (
+                  {{doc.name}})
+                </div>
+              </template>
+            </ajax_populate>
+          </template>
+          <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
+          <template v-slot:slot_detail_item_matchId="{row}">
+            <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+              <template v-slot:default="{doc}">
+                <div class v-if="doc && doc.P1">
+                  {{doc.P1}}
+                  (
+                  {{doc.matchName}})
+                </div>
+              </template>
+            </ajax_populate>
+          </template>
+
+          <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
+          <template v-slot:slot_modify_item_matchProgress="{formData}">
+            <select_match_progress
+              v-model="formData.matchProgress"
+              :matchType="formData.matchType"
+              :matchId="formData.matchId"
+            ></select_match_progress>
+          </template>
+        </listData>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import listData from "../list-data/list-data.vue";
+import ajax_populate from "../common/ajax_populate.vue";
+import select_match_progress from "../form_item/select_match_progress.vue";
+import match_venue from "../form_item/match_venue.vue";
+export default {
+  components: { listData, ajax_populate, select_match_progress, match_venue },
+  props: {
+    matchId: [String, Number],
+    findJsonDefault: [Object],
+    debug: [Boolean],
+    show: [Boolean],
+    info: [Object]
+  },
+  data() {
+    return {
+      isEdit: false, //是否编辑状态
+      showDialog: this.show,
+      arrCrossCityMatchAchievement: [], //城际赛成绩列表
+      arrCrossCityMatchPersonAchievement: [], //城际赛成绩明细总列表
+      crossCityMatchSmallProgress: 21, //城际赛赛段id聚焦值
+      cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
+      cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
+      matchInfo: null, //赛事信息
+      cfList: {
+        isShowSearchForm: false, //隐藏查询表单
+        isShowBreadcrumb: false, //隐藏面包屑导航
+        isShowPageLink: false, //隐藏分页
+        isShowOperateColumn: false, //隐藏操作列
+        isShowToolBar: false, //隐藏工具栏
+        //默认查询参数
+        findJsonDefault: this.findJsonDefault,
+        //新增表单初始赋值
+        formDataAddInit: {},
+
+        listIndex: "match_achievement", //vuex对应的字段
+        twoTitle: "赛事",
+        threeTitle: "比赛成绩",
+        flag: true,
+        url: {
+          list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
+          add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
+          modify:
+            "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
+          detail:
+            "http://120.76.160.41:3000/crossDetail?page=tangball_achievement", //查看单条数据详情接口，在修改表单或详情弹窗用到
+
+          delete:
+            "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
+        },
+        //-------列配置数组-------
+        columns: [
+          {
+            label: "参赛人",
+            prop: "participantsId",
+            slot: "slot_detail_item_participantsId",
+            width: 150
+          },
+
+          {
+            label: "赛事ID",
+            prop: "matchId",
+            slot: "slot_detail_item_matchId",
+            width: 200
+          },
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+            width: 300
+          },
+          {
+            label: "比赛得分",
+            prop: "matchScore",
+            width: 90
+          },
+          {
+            label: "名次",
+            prop: "ranking",
+            "min-width": "150"
+          }
+        ],
+        //-------筛选表单字段数组-------
+        searchFormItems: [
+          {
+            label: "参赛人Id",
+            prop: "participantsId"
+          },
+
+          {
+            label: "赛事ID",
+            prop: "matchId"
+          }
+        ],
+        //-------详情字段数组-------
+        detailItems: [
+          {
+            label: "参赛人Id",
+            prop: "participantsId",
+            slot: "slot_detail_item_participantsId"
+          },
+          {
+            label: "赛事ID",
+            prop: "matchId",
+            slot: "slot_detail_item_matchId"
+          },
+          {
+            label: "赛事阶段",
+            prop: "matchProgress"
+          },
+          {
+            label: "比赛得分",
+            prop: "matchScore"
+          },
+          {
+            label: "名次",
+            prop: "ranking"
+          }
+        ],
+        //-------新增、修改表单字段数组-------
+        formItems: [
+          {
+            label: "参赛人",
+            prop: "participantsId",
+            type: "select",
+            ajax11111: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_enroll",
+
+              keyLabel: "memberId",
+              keyValue: "memberId",
+              param: { findJson: { matchId: this.matchId } }
+            },
+            ajax: {
+              url: "http://120.76.160.41:3000/crossListRelation",
+              keyLabel: "name",
+              keyValue: "P1",
+
+              param: {
+                needRelation: "1",
+                columnItem: "memberId",
+                columnTarget: "P1",
+                sheetRelation: {
+                  page: "tangball_enroll",
+                  findJson: {
+                    matchId: this.matchId,
+                    cityVenueId: 23
+                  }
+                },
+                sheetTarget: {
+                  page: "tangball_member",
+                  pageSize: "2000",
+                  findJson: {}
+                }
+              }
+            }
+          },
+
+          {
+            label: "赛事ID",
+            prop: "matchId",
+            type: "select",
+            ajax: {
+              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              keyLabel: "matchName",
+              keyValue: "P1"
+            },
+            hide: true
+          },
+          {
+            label: "赛事阶段",
+            prop: "matchProgress",
+            type: "select",
+            slot: "slot_modify_item_matchProgress",
+            hide: true
+          },
+          {
+            label: "比赛得分",
+            prop: "matchScore",
+            type: "input"
+          }
+          // {
+          //   label: "名次",
+          //   prop: "ranking",
+          //   type: "input"
+          // }
+        ]
+      }
+    };
+  },
+  watch: {
+    isEdit: {
+      handler(newVal, oldVal) {
+        if (this.isEdit) {
+          //如果{000}000
+          this.cfList.isShowToolBar = true;
+          this.cfList.isShowOperateColumn = true;
+        } else {
+          this.cfList.isShowToolBar = false;
+          this.cfList.isShowOperateColumn = false;
+        }
+      }
+    },
+    valueNeed: {
+      handler(newVal, oldVal) {
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
+      },
+      // immediate: true,//组件初始化时立即执行一次变动
+      deep: true //深度监听
+    },
+    show: {
+      handler(newVal, oldVal) {
+        this.showDialog = this.show;
+      },
+      immediate: true //组件初始化时立即执行一次变动
+      // deep: true //深度监听
+    },
+    showDialog: {
+      handler(newVal, oldVal) {
+        // this.showDialog=this.show
+        console.log("showDialog变动");
+        this.$emit("update:show", this.showDialog); //同步外部的show
+      },
+      immediate: true //组件初始化时立即执行一次变动
+      // deep: true //深度监听
+    },
+    findJsonDefault: {
+      handler(newVal, oldVal) {
+        // //同步更新新增表单初始数据
+        // this.formDataAddInit.matchId = this.findJsonDefault.matchId;
+        // this.formDataAddInit.cityVenueId = this.findJsonDefault.cityVenueId;
+        // this.formDataAddInit.matchProgress = {
+        //   bigProgress: 2,
+        //   smallProgress: this.findJsonDefault["matchProgress.smallProgress"]
+        // };
+
+        this.cfList.formDataAddInit = {
+          matchId: this.findJsonDefault.matchId,
+          cityVenueId: this.findJsonDefault.cityVenueId,
+          matchProgress: {
+            bigProgress: 2,
+            smallProgress: this.findJsonDefault["matchProgress.smallProgress"]
+          }
+        };
+      },
+      immediate: true, //组件初始化时立即执行一次变动
+      deep: true //深度监听
+    }
+  },
+  methods: {}
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>

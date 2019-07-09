@@ -1,7 +1,7 @@
 <template>
   <div class v-if="matchInfo">
     <table class="n-table MTB0" v-if="debug">
-       <tr>
+      <tr>
         <td class="WP20">字段</td>
         <td class="WP30">说明</td>
         <td>字段值</td>
@@ -11,7 +11,7 @@
         <td>赛事信息</td>
         <td>{{matchInfo}}</td>
       </tr>
-     
+
       <tr>
         <td>matchInfo.matchProgress</td>
         <td>赛事阶段</td>
@@ -34,11 +34,19 @@
       </tr>
     </table>
     <!-- {{matchInfo}} -->
-    <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
-    <div class="TAC FS16 LH40">当前赛事进度</div>
+    <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
+    <div class="TAC FS16 LH40">当前赛事进度</div>-->
 
     <div class="panel">
-      <div class="FWB FS16 LH30">城市赛报名信息</div>
+      <div class="OFH">
+        <div class="FL FWB FS16 LH30">城市赛报名信息</div>
+
+        <div class="FR">
+          <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
+          <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
+        </div>
+      </div>
+
       <div class>
         <el-radio-group
           v-model="cityVenuIdForEnroll"
@@ -109,11 +117,12 @@ export default {
   components: { listData, ajax_populate, select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
-    debug:Boolean
+    debug: Boolean
   },
   data() {
     return {
-      
+      isEdit: false, //是否为可编辑状态
+
       cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
       cityVenuIdForEnroll: null, //城市赛场馆选项卡的聚焦值(用于报名表)
       matchInfo: null, //赛事信息
@@ -122,6 +131,8 @@ export default {
         isShowSearchForm: false, //隐藏查询表单
         listIndex: "list_enroll", //vuex对应的字段
         isShowBreadcrumb: false, //隐藏面包屑导航
+        isShowOperateColumn: false, //隐藏操作列
+        isShowToolBar: false, //隐藏工具栏
         flag: true, //显示新增按钮
         findJsonDefault: {
           matchId: this.matchId
@@ -197,7 +208,7 @@ export default {
           {
             label: "审核状态",
             prop: "auditStatus",
-            width: 70,
+            "min-width": "100",
             formatter: function(rowData) {
               if (rowData.auditStatus == 1) {
                 return "未审核";
@@ -447,6 +458,19 @@ export default {
     };
   },
   watch: {
+    isEdit: {
+      handler(newVal, oldVal) {
+        if (this.isEdit) {
+          //如果{000}000
+          this.cfListForEnroll.isShowToolBar = true;
+          this.cfListForEnroll.isShowOperateColumn = true;
+        } else {
+          this.cfListForEnroll.isShowToolBar = false;
+          this.cfListForEnroll.isShowOperateColumn = false;
+        }
+      },
+      
+    },
     valueNeed: {
       handler(newVal, oldVal) {
         this.$emit("input", this.valueNeed); //同步valueNeed值到value

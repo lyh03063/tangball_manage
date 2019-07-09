@@ -1,8 +1,8 @@
 <template>
   <div class>
-    <match_enroll :matchId="matchId" :debug="true" ></match_enroll>
+    <match_enroll :matchId="matchId" :debug111="true" ></match_enroll>
     <space height="100" ></space>
-    <match_achievement :matchId="matchId" :debug="true" ></match_achievement>
+    <match_achievement :matchId="matchId" :debug111="true" ></match_achievement>
   </div>
 </template>
 <script>
