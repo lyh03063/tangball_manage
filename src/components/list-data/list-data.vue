@@ -95,7 +95,7 @@
       ></el-pagination>
     </div>
 
-    <listDialogs ref="listDialogs" :cf="cf">
+    <listDialogs ref="listDialogs" :cf="cf" @after-add="$emit('after-add')" @after-modify="$emit('after-modify')">
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
         <slot :name="item.slot" :row="row" v-if="item.slot"></slot>

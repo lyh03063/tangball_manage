@@ -108,21 +108,15 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "其他",
-            prop: "extend",
-            width: 200,
-            formatter: function(extend) {
-              return JSON.stringify(extend.extend);
-            }
+            label: "标题",
+            prop: "articleTitle",
+            width: 200
           },
           {
             label: "文章详情",
             prop: "articleContent",
-            ajax: {
-              url: "http://120.76.160.41:3000/crossDetail?page=tangball_article",
-              keyLabel: "articleContent",
-              keyValue: "P1"
-            },
+            type:"html"
+         
           }
         ],
         //-------新增、修改表单字段数组-------
@@ -145,7 +139,7 @@ export default {
           {
             label: "文章详情",
             prop: "articleContent",
-            type: "textarea"
+            type: "editor"
           }
         ]
       }

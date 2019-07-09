@@ -180,6 +180,7 @@ export default {
           });
           this.isShowDialogModify = false; //关闭弹窗
           this.$parent.getDataList(); //更新数据列表
+          this.$emit('after-modify')//触发外部事件
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -202,6 +203,7 @@ export default {
           this.closeDialogAddFun(); //关闭弹窗
           this.$parent.getDataList(); //更新数据列表
           this.initFormDataAdd();//调用：{初始化新增数据表单函数}
+          this.$emit('after-add')//触发外部事件
         })
         .catch(function(error) {
           alert("异常:" + error);
