@@ -170,7 +170,8 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=tangball_member",
               keyLabel: "name",
               keyValue: "P1"
-            }
+            },
+            rules: [{ required: true, message: "参赛人Id" }]
           },
 
           {
@@ -181,7 +182,8 @@ export default {
               url: "http://120.76.160.41:3000/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
-            }
+            },
+            rules: [{ required: true, message: "赛事ID" }]
           },
           {
             label: "赛事报名信息",
