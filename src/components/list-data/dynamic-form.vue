@@ -6,14 +6,13 @@
     :size="cf.size||'small'"
     :inline="cf.inline"
   >
-    <el-row >
+    <el-row>
       <template v-for="item in cf.formItems">
         <el-col :span="cf.col_span" :key="item.prop">
           <el-form-item
             :label="item.label"
             :prop="item.prop"
             :rules="item.rules||[]"
-             v-show="!item.hide"
             v-if="satisfyTerm(item)"
           >
             <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
@@ -260,12 +259,7 @@ export default {
             console.log("t_json", t_json);
           }
         });
-        //  this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
-
-        //Object.assign(this.formDataNeed, jsonData);//** */合并对象-也允许formItems之外的传值
-
-       this.formDataNeed = Object.assign(jsonData,this.formDataNeed)
-
+        this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }

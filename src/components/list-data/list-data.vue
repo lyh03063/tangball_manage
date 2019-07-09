@@ -247,7 +247,7 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
-        col_span:8,
+        col_span:5,
         labelWidth: "auto",
         size: "mini",
         inline: true,
