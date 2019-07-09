@@ -209,10 +209,11 @@ export default {
   },
   props: {
     matchId: [String, Number],
-    debug: [Boolean]
+    
   },
   data() {
     return {
+      debug: window.pub_debug,
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},

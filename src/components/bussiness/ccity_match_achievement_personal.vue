@@ -104,12 +104,13 @@ export default {
   props: {
     matchId: [String, Number],
     findJsonDefault: [Object],
-    debug: [Boolean],
+
     show: [Boolean],
     info: [Object]
   },
   data() {
     return {
+       debug: window.pub_debug,
       isEdit: false, //是否编辑状态
       showDialog: this.show,
       arrCrossCityMatchAchievement: [], //城际赛成绩列表

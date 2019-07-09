@@ -1,3 +1,5 @@
+// window.pub_debug=true;//开启调试模式
+
 import Vue from 'vue'
 Vue.config.productionTip = false
 
@@ -6,6 +8,7 @@ Vue.use(space);   //必须有install
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";
+
 
 
 import login from "./login";

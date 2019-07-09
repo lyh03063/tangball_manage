@@ -16,7 +16,7 @@
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valuetype="cityId"></select_city>
+        <select_city v-model="formData.area" valueType="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>

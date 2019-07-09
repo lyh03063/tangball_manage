@@ -117,10 +117,11 @@ export default {
   components: { listData, ajax_populate, select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
-    debug: Boolean
+
   },
   data() {
     return {
+       debug: window.pub_debug,
       isEdit: false, //是否为可编辑状态
 
       cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
