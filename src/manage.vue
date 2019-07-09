@@ -16,9 +16,7 @@
       <NavMenu :cf="navMenuList"></NavMenu>
 
       <el-main>
-        
-          <router-view></router-view>
-     
+        <router-view></router-view>
       </el-main>
     </el-container>
   </div>
@@ -167,5 +165,14 @@ export default {
 };
 </script>
 
-
+<style >
+/* 单选框补丁 */
+body .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  color: #fff;
+  background-color: #E6A23C;
+  border-color: #E6A23C;
+  -webkit-box-shadow: -1px 0 0 0 #E6A23C;
+  box-shadow: -1px 0 0 0 #E6A23C;
+}
+</style>
 

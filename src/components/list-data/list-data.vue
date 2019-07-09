@@ -84,15 +84,18 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      background
-      layout="total,prev, pager, next"
-      @current-change="handleCurrentChange"
-      :total="allCount"
-      style="float:right;margin:10px 0 0 0;"
-      v-if="cf.isShowPageLink"
-    ></el-pagination>
-    <listDialogs ref="listDialogs" :cf="cf">
+    <div class="OFH ">
+      <el-pagination
+        background
+        layout="total,prev, pager, next"
+        @current-change="handleCurrentChange"
+        :total="allCount"
+        style="float:right;margin:10px 0 0 0;"
+        v-if="cf.isShowPageLink"
+      ></el-pagination>
+    </div>
+
+    <listDialogs ref="listDialogs" :cf="cf" @after-add="$emit('after-add')" @after-modify="$emit('after-modify')">
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
         <slot :name="item.slot" :row="row" v-if="item.slot"></slot>
@@ -244,7 +247,7 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
-        col_span:10,
+        col_span:8,
         labelWidth: "auto",
         size: "mini",
         inline: true,

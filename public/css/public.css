@@ -95,6 +95,10 @@ table.n-table.n-table-form th {
     display: none
 }
 
+ /* 饿了么弹窗补丁，取消上方padding */
+ .n-el-dialog .el-dialog__body{
+  padding-top:0;
+}
 
 
 
