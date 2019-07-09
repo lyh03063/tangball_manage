@@ -32,31 +32,44 @@
       style="width: 100%;"
     >
       <el-table-column label="id" prop="P1" :width="40" type="selection"></el-table-column>
-      <el-table-column
-        :prop="column.prop"
-        :label="column.label"
-        :width="column.width"
-        :show-overflow-tooltip="true"
-        v-for="column in cf.columns"
-        :key="column.prop"
-        :formatter="column.formatter"
-      >
-        <template slot-scope="scope">
-          <!--Q1:有插槽-->
-          <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
-          <!--Q2:有formatter-->
-          <span class v-else-if="column.formatter">{{column.formatter(scope.row)}}</span>
-          <!--Q3:可跳转的统计数字链接-->
-          <a
-            class="link-blue"
-            href="javascript:;"
-            @click="filterData({pid:scope.row.P1,listIndex:column.statistics.listIndex, targetIdKey:column.statistics.targetIdKey})"
-            v-else-if="column.statistics"
-          >{{scope.row[column.prop]}}</a>
-          <!--Q4:其他-->
-          <span class v-else>{{scope.row[column.prop]}}</span>
-        </template>
-      </el-table-column>
+
+      <template class v-for="(column,index) in cf.columns">
+        <!--Q1:column.type存在-->
+        <el-table-column
+          :label="column.label"
+          type="index"
+          :width="column.width"
+          :key="index"
+          v-if="column.type"
+        ></el-table-column>
+        <!--Q2:column.type不存在-->
+        <el-table-column
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+          :type="column.type"
+          :show-overflow-tooltip="true"
+          :key="index"
+          :formatter="column.formatter"
+          v-else
+        >
+          <template slot-scope="scope">
+            <!--Q1:有插槽-->
+            <slot :name="column.slot" :row="scope.row" v-if="column.slot"></slot>
+            <!--Q2:有formatter-->
+            <span class v-else-if="column.formatter">{{column.formatter(scope.row)}}</span>
+            <!--Q3:可跳转的统计数字链接-->
+            <a
+              class="link-blue"
+              href="javascript:;"
+              @click="filterData({pid:scope.row.P1,listIndex:column.statistics.listIndex, targetIdKey:column.statistics.targetIdKey})"
+              v-else-if="column.statistics"
+            >{{scope.row[column.prop]}}</a>
+            <!--Q4:其他-->
+            <span class v-else>{{scope.row[column.prop]}}</span>
+          </template>
+        </el-table-column>
+      </template>
 
       <el-table-column label="操作" min-width="150" v-if="cf.isShowOperateColumn">
         <template slot-scope="scope">
@@ -296,6 +309,7 @@ export default {
     }
 
     this.Objparma.findJson = findJsonDefault;
+    this.Objparma.sortJson = this.cf.sortJsonDefault;
 
     let objState = {
       //列表的vuex初始状态对象
