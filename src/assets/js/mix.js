@@ -23,7 +23,7 @@ MIX.list.list_achievement = {
                 //-------列配置数组-------
                 columns: [
                     {
-                        label: "参赛人Id-----",
+                        label: "参赛人Id",
                         prop: "participantsId",
                         slot: "slot_detail_item_participantsId",
                         width: 120
@@ -141,6 +141,45 @@ MIX.list.list_achievement = {
         };
     }
 }
+
+
+
+MIX.list.list_achievement_simple = {
+    data() {
+        return {
+            cfList: {
+                //-------列配置数组-------
+                columns: [
+                    {
+                        label: "参赛人---",
+                        prop: "participantsId",
+                        slot: "slot_detail_item_participantsId",
+                        width: 150
+                    },
+
+
+                    {
+                        label: "比赛得分",
+                        prop: "matchScore",
+                        width: 90
+                    },
+                    {
+                        label: "名次",
+                        prop: "ranking",
+                        // type:"index",
+                        "min-width": "150"
+                    }
+                ],
+            
+
+            }
+        };
+    }
+}
+
+
+
+
 
 window.MIX = MIX;
 export default MIX

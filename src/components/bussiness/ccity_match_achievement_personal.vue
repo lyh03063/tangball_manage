@@ -112,6 +112,7 @@ export default {
     show: [Boolean],
     info: [Object]
   },
+  mixins: [MIX.list.list_achievement,MIX.list.list_achievement_simple],
   data() {
     return {
       debug: window.pub_debug,
@@ -135,88 +136,8 @@ export default {
         formDataAddInit: {},
         //vuex对应的字段---注意这里不能和其他列表重复
         listIndex: "match_achievement_crosscity",
-        twoTitle: "赛事",
-        threeTitle: "比赛成绩",
-        flag: true,
-        url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
-          modify:
-            "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
-          detail:
-            "http://120.76.160.41:3000/crossDetail?page=tangball_achievement", //查看单条数据详情接口，在修改表单或详情弹窗用到
-
-          delete:
-            "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
-        },
         //-------列配置数组-------
-        columns: [
-          {
-            label: "参赛人",
-            prop: "participantsId",
-            slot: "slot_detail_item_participantsId",
-            width: 150
-          },
-
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId",
-            width: 200
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress",
-            width: 300
-          },
-          {
-            label: "比赛得分",
-            prop: "matchScore",
-            width: 90
-          },
-          {
-            label: "名次",
-            prop: "ranking",
-            "min-width": "150"
-          }
-        ],
-        //-------筛选表单字段数组-------
-        searchFormItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId"
-          },
-
-          {
-            label: "赛事ID",
-            prop: "matchId"
-          }
-        ],
-        //-------详情字段数组-------
-        detailItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId",
-            slot: "slot_detail_item_participantsId"
-          },
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId"
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress"
-          },
-          {
-            label: "比赛得分",
-            prop: "matchScore"
-          },
-          {
-            label: "名次",
-            prop: "ranking"
-          }
-        ],
+      
         //-------新增、修改表单字段数组-------
         formItems: [
           {
@@ -272,11 +193,7 @@ export default {
             prop: "matchScore",
             type: "input"
           }
-          // {
-          //   label: "名次",
-          //   prop: "ranking",
-          //   type: "input"
-          // }
+        \
         ]
       }
     };
