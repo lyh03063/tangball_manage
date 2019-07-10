@@ -178,10 +178,10 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-          {
-            label: "分类编号",
-            prop: "P1"
-          },
+          // {
+          //   label: "分类编号",
+          //   prop: "P1"
+          // },
           {
             label: "加盟商",
             prop: "franchiseeId",
@@ -204,9 +204,9 @@ export default {
             label: "所属地区",
             prop: "area",
             slot: "slot_area",
-            // rules:[
-            //   {required: true, message: "不能为空"}
-            // ]
+            rules:[
+              {required: true, message: "不能为空"}
+            ]
           },
           {
             label: "赛事数量",
