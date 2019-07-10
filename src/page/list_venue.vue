@@ -179,10 +179,10 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-          {
-            label: "分类编号",
-            prop: "P1"
-          },
+          // {
+          //   label: "分类编号",
+          //   prop: "P1"
+          // },
           {
             label: "加盟商",
             prop: "franchiseeId",
@@ -209,10 +209,10 @@ export default {
               {required: true, message: "不能为空"}
             ]
           },
-          {
-            label: "赛事数量",
-            prop: "countMatch"
-          },
+          // {
+          //   label: "赛事数量",
+          //   prop: "countMatch"
+          // },
           {
             type: "date",
             label: "加盟时间",
