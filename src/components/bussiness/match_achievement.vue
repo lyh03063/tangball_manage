@@ -1,6 +1,6 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0" v-if="debug">
+    <table class="n-table n-table-debug MB10" v-if="debug">
       <tr>
         <td class="WP20">字段</td>
         <td class="WP30">说明</td>
@@ -79,18 +79,7 @@
               </template>
             </ajax_populate>
           </template>
-          <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
-          <template v-slot:slot_detail_item_matchId="{row}">
-            <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
-              <template v-slot:default="{doc}">
-                <div class v-if="doc && doc.P1">
-                  {{doc.P1}}
-                  (
-                  {{doc.matchName}})
-                </div>
-              </template>
-            </ajax_populate>
-          </template>
+       
 
           <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
           <template v-slot:slot_modify_item_matchProgress="{formData}">
@@ -121,7 +110,7 @@
             </el-radio-group>
           </div>
 
-          <table class="n-table MT10" v-if="debug">
+          <table class="n-table n-table-debug  MT10" v-if="debug">
             <tr>
               <td class="WP20">字段</td>
               <td class="WP30">说明</td>
@@ -138,11 +127,11 @@
               <td>城际赛团队成绩列表</td>
               <td>{{arrCrossCityMatchAchievement}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>arrCrossCityMatchPersonAchievement:</td>
               <td>城际赛成绩明细总列表</td>
               <td>{{arrCrossCityMatchPersonAchievement}}</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>showDialogCCityAchievementPersonal</td>
               <td>显示明细列表弹窗</td>
@@ -184,7 +173,6 @@
     <ccity_match_achievement_personal
       class
       :show.sync="showDialogCCityAchievementPersonal"
-      :debug111="true"
       :findJsonDefault="findJsonDefaultCCityAchP"
       :info="infoDefaultCCityAchP"
       @after-add="afterAddCCityAch"
@@ -209,10 +197,12 @@ export default {
   },
   props: {
     matchId: [String, Number],
-    debug: [Boolean]
+    
   },
+  mixins: [MIX.list.list_achievement,MIX.list.list_achievement_simple],
   data() {
     return {
+      debug: window.pub_debug,//是否启用调试模式
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},
@@ -230,17 +220,14 @@ export default {
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: null, //赛事信息
       cfList: {
-        isShowSearchForm: false, //隐藏查询表单
-        isShowBreadcrumb: false, //隐藏面包屑导航
-        isShowPageLink: false, //隐藏分页
-        isShowOperateColumn: false, //隐藏操作列
-        isShowToolBar: false, //隐藏工具栏
+       
         //默认查询参数
         findJsonDefault: {
           matchId: this.matchId,
           "matchProgress.smallProgress": 11,
           cityVenueId: 23
         },
+        
         //新增表单初始赋值
         formDataAddInit: {
           matchId: this.matchId,
@@ -249,101 +236,38 @@ export default {
         },
 
         listIndex: "match_achievement", //vuex对应的字段
-        twoTitle: "赛事",
-        threeTitle: "比赛成绩",
-        flag: true,
-        url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_achievement", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_achievement", //新增接口
-          modify:
-            "http://120.76.160.41:3000/crossModify?page=tangball_achievement", //修改接口
-          detail:
-            "http://120.76.160.41:3000/crossDetail?page=tangball_achievement", //查看单条数据详情接口，在修改表单或详情弹窗用到
 
-          delete:
-            "http://120.76.160.41:3000/crossDelete?page=tangball_achievement" //删除接口
-        },
-        //-------列配置数组-------
-        columns: [
-          {
-            label: "参赛人",
-            prop: "participantsId",
-            slot: "slot_detail_item_participantsId",
-            width: 150
-          },
+        
+        // //-------列配置数组-------
+        // columns: [
+        //   {
+        //     label: "参赛人",
+        //     prop: "participantsId",
+        //     slot: "slot_detail_item_participantsId",
+        //     width: 150
+        //   },
 
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId",
-            width: 200
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress",
-            width: 300
-          },
-          {
-            label: "比赛得分",
-            prop: "matchScore",
-            width: 90
-          },
-          {
-            label: "名次",
-            prop: "ranking",
-            "min-width": "150"
-          }
-        ],
-        //-------筛选表单字段数组-------
-        searchFormItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId"
-          },
-
-          {
-            label: "赛事ID",
-            prop: "matchId"
-          }
-        ],
-        //-------详情字段数组-------
-        detailItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId",
-            slot: "slot_detail_item_participantsId"
-          },
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId"
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress"
-          },
-          {
-            label: "比赛得分",
-            prop: "matchScore"
-          },
-          {
-            label: "名次",
-            prop: "ranking"
-          }
-        ],
+        
+        //   {
+        //     label: "比赛得分",
+        //     prop: "matchScore",
+        //     width: 90
+        //   },
+        //   {
+        //     label: "名次",
+        //     prop: "ranking",
+        //     // type:"index",
+        //     "min-width": "150"
+        //   }
+        // ],
+        
         //-------新增、修改表单字段数组-------
         formItems: [
           {
             label: "参赛人",
             prop: "participantsId",
             type: "select",
-            ajax11111: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_enroll",
-
-              keyLabel: "memberId",
-              keyValue: "memberId",
-              param: { findJson: { matchId: this.matchId } }
-            },
+           
             ajax: {
               url: "http://120.76.160.41:3000/crossListRelation",
               keyLabel: "name",
@@ -392,11 +316,6 @@ export default {
             prop: "matchScore",
             type: "input"
           }
-          // {
-          //   label: "名次",
-          //   prop: "ranking",
-          //   type: "input"
-          // }
         ]
       }
     };

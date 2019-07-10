@@ -26,6 +26,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_article_category", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "文章分类",
         flag: true,

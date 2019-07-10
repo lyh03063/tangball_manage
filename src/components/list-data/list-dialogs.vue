@@ -39,10 +39,33 @@
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
-      {{formAdd}}
+     <table class="n-table n-table-debug  MB10" v-if="debug">
+          <tr>
+            <td class="WP20">字段</td>
+            <td class="WP30">说明</td>
+            <td>字段值</td>
+          </tr>
+          <!-- <tr>
+            <td>matchId</td>
+            <td>赛事id</td>
+            <td>matchId</td>
+          </tr>-->
+          <tr>
+            <td>formAdd</td>
+            <td>表单的绑定数据</td>
+            <td>{{formAdd}}</td>
+          </tr>
+          <tr>
+            <td> cf.formDataAddInit</td>
+            <td>新增表单的初始数据</td>
+            <td>{{cf.formDataAddInit}}</td>
+          </tr>
+        
+        </table>
+      
       <br>
-      cf.formDataAddInit
-      {{cf.formDataAddInit}}
+     
+      
       <dynamicForm v-model="formAdd" :cf="cfFormAdd" @submit="addData" @cancel="closeDialogAddFun">
         <template v-slot:[item.slot]="{formData}" v-for="item in cf.formItems">
           <!--根据cf.formItems循环输出插槽--新增修改表单弹窗-->
@@ -84,6 +107,7 @@ export default {
   props: ["cf"],
   data: function() {
     return {
+       debug: window.pub_debug,//是否启用调试模式
       //------------------新增表单组件配置--------------
       cfFormAdd: {
         formItems: this.cf.formItems,

@@ -23,6 +23,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_article", //vuex对应的字段~
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "其他数据",
         threeTitle: "文章管理",
         flag: true,
@@ -145,9 +146,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  }
+  
 };
 </script>
 

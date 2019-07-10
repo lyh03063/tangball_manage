@@ -199,9 +199,6 @@ export default {
         ]
       }
     };
-  },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
 };
 </script>

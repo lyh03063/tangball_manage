@@ -87,6 +87,7 @@ export default {
       showDialogEnroll:false,//是否显示报名弹窗
       cfList: {
         listIndex: "list_match", //vuex对应的字段
+        focusMenu:true,//是否进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "赛事数据",
         flag: true,
@@ -365,9 +366,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
-  },
+
   methods: {
     dialogAchievement(doc){
       this.matchId=doc.P1;

@@ -12,6 +12,7 @@ export default {
     return {
       cfList: {
         listIndex: "listOrder", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         url: {
           list: "http://120.76.160.41:3000/crossList?page=mabang-order", //列表接口
           add: "http://120.76.160.41:3000/crossList?page=mabang-order", //新增接口
@@ -107,9 +108,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listOrder"); //菜单聚焦
-  },
+ 
 };
 </script>
 
