@@ -113,15 +113,14 @@
         </el-col>
       </template>
 
-      <el-form-item>
-        <!-- 查询按钮 -->
-        <el-button
-          :type="item.type"
-          @click="btnClick(item.event,item.validate)"
-          v-for="(item,index) in cf.btns"
-          :key="index"
-        >{{item.text}}</el-button>
-      </el-form-item>
+      <!-- 查询按钮 -->
+      <el-button
+        :type="item.type"
+        @click="btnClick(item.event,item.validate)"
+        v-for="(item,index) in cf.btns"
+        :key="index"
+        size="mini"
+      >{{item.text}}</el-button>
     </el-row>
   </el-form>
 </template>
