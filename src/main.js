@@ -19,6 +19,7 @@ import listCommodity from "./page/listCommodity";
 import listMember from "./page/listMember";
 
 import util from "./assets/js/util.js";
+import MIX from "./assets/js/mix.js";
 
 import list_lyh from "./page/list_lyh";
 import list_cdc from "./page/list_cdc";
