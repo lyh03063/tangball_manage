@@ -1,5 +1,8 @@
 <template>
   <div class v-if="matchInfo">
+    <!-- 赛事进度条 -->
+    <match_progress_step :cf="matchProgress"></match_progress_step>
+
     <table class="n-table n-table-debug MB10" v-if="debug">
       <tr>
         <td class="WP20">字段</td>
@@ -28,7 +31,7 @@
         <td>{{cfList.formItems[0].ajax.param.sheetRelation.findJson}}</td>
       </tr>
     </table>
-
+    
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>
@@ -79,7 +82,6 @@
               </template>
             </ajax_populate>
           </template>
-       
 
           <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
           <template v-slot:slot_modify_item_matchProgress="{formData}">
@@ -110,7 +112,7 @@
             </el-radio-group>
           </div>
 
-          <table class="n-table n-table-debug  MT10" v-if="debug">
+          <table class="n-table n-table-debug MT10" v-if="debug">
             <tr>
               <td class="WP20">字段</td>
               <td class="WP30">说明</td>
@@ -131,7 +133,7 @@
               <td>arrCrossCityMatchPersonAchievement:</td>
               <td>城际赛成绩明细总列表</td>
               <td>{{arrCrossCityMatchPersonAchievement}}</td>
-            </tr> -->
+            </tr>-->
             <tr>
               <td>showDialogCCityAchievementPersonal</td>
               <td>显示明细列表弹窗</td>
@@ -187,22 +189,24 @@ import ajax_populate from "../common/ajax_populate.vue";
 import select_match_progress from "../form_item/select_match_progress.vue";
 import match_venue from "../form_item/match_venue.vue";
 import ccity_match_achievement_personal from "../bussiness/ccity_match_achievement_personal.vue";
+import match_progress_step from "./match_progress_step";
 export default {
   components: {
     listData,
     ajax_populate,
     select_match_progress,
     match_venue,
-    ccity_match_achievement_personal
+    ccity_match_achievement_personal,
+    match_progress_step
   },
   props: {
-    matchId: [String, Number],
-    
+    matchId: [String, Number]
   },
-  mixins: [MIX.list.list_achievement,MIX.list.list_achievement_simple],
+  mixins: [MIX.list.list_achievement, MIX.list.list_achievement_simple],
   data() {
     return {
-      debug: window.pub_debug,//是否启用调试模式
+      matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
+      debug: window.pub_debug, //是否启用调试模式
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},
@@ -220,14 +224,13 @@ export default {
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: null, //赛事信息
       cfList: {
-       
         //默认查询参数
         findJsonDefault: {
           matchId: this.matchId,
           "matchProgress.smallProgress": 11,
           cityVenueId: 23
         },
-        
+
         //新增表单初始赋值
         formDataAddInit: {
           matchId: this.matchId,
@@ -237,7 +240,6 @@ export default {
 
         listIndex: "match_achievement", //vuex对应的字段
 
-        
         // //-------列配置数组-------
         // columns: [
         //   {
@@ -247,7 +249,6 @@ export default {
         //     width: 150
         //   },
 
-        
         //   {
         //     label: "比赛得分",
         //     prop: "matchScore",
@@ -260,14 +261,14 @@ export default {
         //     "min-width": "150"
         //   }
         // ],
-        
+
         //-------新增、修改表单字段数组-------
         formItems: [
           {
             label: "参赛人",
             prop: "participantsId",
             type: "select",
-           
+
             ajax: {
               url: "http://120.76.160.41:3000/crossListRelation",
               keyLabel: "name",
