@@ -209,10 +209,10 @@ export default {
               {required: true, message: "不能为空"}
             ]
           },
-          {
-            label: "赛事数量",
-            prop: "countMatch"
-          },
+          // {
+          //   label: "赛事数量",
+          //   prop: "countMatch"
+          // },
           {
             type: "date",
             label: "加盟时间",
