@@ -12,6 +12,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_area", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         flag:true,
         url: {
           list: "http://120.76.160.41:3000/crossList?page=dmagic_area", //列表接口
@@ -88,9 +89,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  }
+ 
 };
 </script>
 

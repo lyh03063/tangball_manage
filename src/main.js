@@ -1,3 +1,5 @@
+// window.pub_debug=true;//开启调试模式
+
 import Vue from 'vue'
 Vue.config.productionTip = false
 
@@ -8,6 +10,7 @@ Vue.use(VueRouter)
 import "./mock.js";
 
 
+
 import login from "./login";
 import manage from "./manage";
 import listHome from "./page/listHome";
@@ -16,6 +19,7 @@ import listCommodity from "./page/listCommodity";
 import listMember from "./page/listMember";
 
 import util from "./assets/js/util.js";
+import MIX from "./assets/js/mix.js";
 
 import list_lyh from "./page/list_lyh";
 import list_cdc from "./page/list_cdc";

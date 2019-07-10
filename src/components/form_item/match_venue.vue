@@ -7,11 +7,12 @@
         class="C_f30"
         v-if="matchInfo&&matchInfo.matchType"
       >{{matchInfo.matchType==2?"全国赛":"普通赛"}}</span>
+，
+<span  v-if="matchInfo&&matchInfo.matchType==2">选择场馆:</span>
     </div>
     <div class v-if="matchInfo&&matchInfo.matchType==2">
-      场馆选项:
-      
-      <el-radio
+  <el-radio
+      class="MB10"
         v-model="valueNeed"
         :label="doc.venueId"
         border

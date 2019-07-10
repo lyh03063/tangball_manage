@@ -64,6 +64,7 @@ export default {
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "场馆",
         flag: true,
@@ -232,9 +233,6 @@ export default {
         ]
       }
     };
-  },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
 };
 </script>
