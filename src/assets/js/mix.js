@@ -1,5 +1,6 @@
 let MIX = {};
 MIX.list = {}
+//标准版的成绩表配置，用于在赛事中显示当前赛事的成绩
 MIX.list.list_achievement = {
     data() {
         return {
@@ -143,11 +144,20 @@ MIX.list.list_achievement = {
 }
 
 
-
+//简化版的成绩表配置，用于在赛事中显示当前赛事的成绩
 MIX.list.list_achievement_simple = {
     data() {
         return {
             cfList: {
+                isShowSearchForm: false, //隐藏查询表单
+                isShowBreadcrumb: false, //隐藏面包屑导航
+                isShowPageLink: false, //隐藏分页
+                isShowOperateColumn: false, //隐藏操作列
+                isShowToolBar: false, //隐藏工具栏
+                //默认排序参数
+                sortJsonDefault: {
+                 matchScore:-1//按比分降序
+                },
                 //-------列配置数组-------
                 columns: [
                     {

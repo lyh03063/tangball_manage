@@ -125,11 +125,11 @@ export default {
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: null, //赛事信息
       cfList: {
-        isShowSearchForm: false, //隐藏查询表单
-        isShowBreadcrumb: false, //隐藏面包屑导航
-        isShowPageLink: false, //隐藏分页
-        isShowOperateColumn: false, //隐藏操作列
-        isShowToolBar: false, //隐藏工具栏
+        // isShowSearchForm: false, //隐藏查询表单
+        // isShowBreadcrumb: false, //隐藏面包屑导航
+        // isShowPageLink: false, //隐藏分页
+        // isShowOperateColumn: false, //隐藏操作列
+        // isShowToolBar: false, //隐藏工具栏
         //默认查询参数
         findJsonDefault: this.findJsonDefault,
         //新增表单初始赋值
