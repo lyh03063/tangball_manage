@@ -1,7 +1,8 @@
 <template>
   <div class v-if="matchInfo">
     <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-
+<!-- 赛事进度条 -->
+    <match_progress_step :cf="matchProgress"></match_progress_step>
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>
@@ -128,12 +129,14 @@ import listData from "../list-data/list-data.vue";
 import select_match_progress from "../form_item/select_match_progress.vue";
 import match_venue from "../form_item/match_venue.vue";
 import ccity_match_achievement_personal from "../bussiness/ccity_match_achievement_personal.vue";
+import match_progress_step from "./match_progress_step";
 export default {
   components: {
     listData,
     select_match_progress,
     match_venue,
-    ccity_match_achievement_personal
+    ccity_match_achievement_personal,
+    match_progress_step
   },
   props: {
     matchId: [String, Number]
@@ -145,6 +148,7 @@ export default {
   ],
   data() {
     return {
+      matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
       debugConfig: {
         list: [
           { label: "赛事信息", key: "matchInfo" },

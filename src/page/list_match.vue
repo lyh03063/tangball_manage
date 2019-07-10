@@ -12,8 +12,7 @@
       v-if="showDialogAchievement"
     >
       <div class>
-        <match_achievement :matchId="matchId" :debug111="true" ></match_achievement>
-
+        <match_achievement :matchId="matchId" :debug111="true"></match_achievement>
       </div>
     </el-dialog>
     <!--报名表弹窗-->
@@ -28,8 +27,7 @@
       v-if="showDialogEnroll"
     >
       <div class>
-        <match_enroll :matchId="matchId" :debug111="true" ></match_enroll>
-
+        <match_enroll :matchId="matchId" :debug111="true"></match_enroll>
       </div>
     </el-dialog>
     <listData :cf="cfList">
@@ -53,12 +51,6 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
-      <!-- 赛程成绩-->
-      <template v-slot:slot_modify_item_achievementProgress="{formData}">
-        <achievement_progress></achievement_progress>
-        <div style="clear:both"></div>
-        <match_achievement></match_achievement>
-      </template>
     </listData>
   </div>
 </template>
@@ -66,7 +58,6 @@
 import listData from "../components/list-data/list-data.vue";
 import city_venue_list from "../components/form_item/city_venue_list.vue";
 import select_match_progress from "../components/form_item/select_match_progress.vue";
-import achievement_progress from "../components/form_item/achievement_progress.vue";
 import match_achievement from "../components/bussiness/match_achievement.vue";
 import match_enroll from "../components/bussiness/match_enroll.vue";
 export default {
@@ -74,20 +65,19 @@ export default {
     listData,
     city_venue_list,
     select_match_progress,
-    achievement_progress,
     match_achievement,
-     match_enroll,
+    match_enroll
   },
   data() {
     return {
-      matchId:null,
-      titleDialogAchievement:"",//成绩弹窗标题
-      showDialogAchievement:false,//是否显示成绩弹窗
-      titleDialogEnroll:"",//报名弹窗标题
-      showDialogEnroll:false,//是否显示报名弹窗
+      matchId: null,
+      titleDialogAchievement: "", //成绩弹窗标题
+      showDialogAchievement: false, //是否显示成绩弹窗
+      titleDialogEnroll: "", //报名弹窗标题
+      showDialogEnroll: false, //是否显示报名弹窗
       cfList: {
         listIndex: "list_match", //vuex对应的字段
-        focusMenu:true,//是否进行菜单聚焦
+        focusMenu: true, //是否进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "赛事数据",
         flag: true,
@@ -279,10 +269,6 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "比赛成绩表",
-            slot: "slot_modify_item_achievementProgress"
-          },
-          {
             label: "赛事名称",
             prop: "matchName",
             rules: [{ required: true, message: "赛事名称不能为空" }]
@@ -368,18 +354,16 @@ export default {
   },
 
   methods: {
-    dialogAchievement(doc){
-      this.matchId=doc.P1;
-      this.titleDialogAchievement=`【${doc.matchName}】成绩单`;
-      this.showDialogAchievement=true;
-    },dialogEnroll(doc){
-      this.matchId=doc.P1;
-      this.titleDialogEnroll=`【${doc.matchName}】报名表`;
-      this.showDialogEnroll=true;
+    dialogAchievement(doc) {
+      this.matchId = doc.P1;
+      this.titleDialogAchievement = `【${doc.matchName}】成绩单`;
+      this.showDialogAchievement = true;
+    },
+    dialogEnroll(doc) {
+      this.matchId = doc.P1;
+      this.titleDialogEnroll = `【${doc.matchName}】报名表`;
+      this.showDialogEnroll = true;
     }
-
-
-
   }
 };
 </script>

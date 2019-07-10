@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div class="match_step">
     <el-steps :active="active" align-center finish-status="success">
       <el-step
         :title="item.title"
@@ -47,4 +47,7 @@ export default {
 
 
 <style scoped>
+.match_step {
+  margin: 10px;
+}
 </style>

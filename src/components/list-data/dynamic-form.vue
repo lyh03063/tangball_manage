@@ -7,13 +7,17 @@
     :inline="cf.inline"
   >
     <el-row>
-      <template v-for="item in cf.formItems">
-        <el-col :span="cf.col_span" :key="item.prop">
+      <template v-for="(item,index) in cf.formItems">
+        <el-col
+          :span="cf.col_span"
+          :key="item.prop"
+          :class="{clear:spanIndex==index,clearall:clearall}"
+        >
+          <!--  -->
           <el-form-item
             :label="item.label"
             :prop="item.prop"
             :rules="item.rules||[]"
-             v-show="!item.hide"
             v-if="satisfyTerm(item)"
           >
             <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
@@ -108,17 +112,16 @@
           </el-form-item>
         </el-col>
       </template>
-    </el-row>
-    <el-form-item>
-      <!-- 查询按钮 -->
 
+      <!-- 查询按钮 -->
       <el-button
         :type="item.type"
         @click="btnClick(item.event,item.validate)"
         v-for="(item,index) in cf.btns"
         :key="index"
+        size="mini"
       >{{item.text}}</el-button>
-    </el-form-item>
+    </el-row>
   </el-form>
 </template>
 
@@ -144,7 +147,14 @@ export default {
     upload_img,
     time_period
   },
-
+  mounted() {
+    this.spanIndex = Math.floor(24 / this.cf.col_span);
+    if (!this.cf.col_span && this.cf.inline) {
+      //如果form表单已经启动了行内模式和不进行分块
+      this.clearall = true; //控制是否变为行内块状元素
+      this.cf.col_span = null; //控制不分行
+    }
+  },
   props: {
     cf: {
       type: Object,
@@ -153,8 +163,8 @@ export default {
           btns: [
             { text: "提交", event: "submit", type: "primary", validate: true },
             { text: "取消", event: "cancel" }
-          ],
-          col_span: null
+          ]
+          // col_span: 0
         };
       }
     },
@@ -163,6 +173,8 @@ export default {
   },
   data() {
     return {
+      clearall: false, //控制变为行内块状
+      spanIndex: null, //控制span属性值
       isReadyFormData: false, //表单初始化数据是否已备好的逻辑标记
       formDataNeed: this.value,
       editorOption: {
@@ -260,12 +272,7 @@ export default {
             console.log("t_json", t_json);
           }
         });
-        //  this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
-
-        //Object.assign(this.formDataNeed, jsonData);//** */合并对象-也允许formItems之外的传值
-
-       this.formDataNeed = Object.assign(jsonData,this.formDataNeed)
-
+        this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
@@ -299,4 +306,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.clear {
+  /* 清除浮动的样式 */
+  clear: both;
+}
+
+.clearall.el-col {
+  /* 当不需要分块时，把所有区块都设置为行内块级元素 */
+  display: inline-block;
+}
+.clear ~ .el-form-item {
+  /* 查询按钮，按钮浮动 */
+  float: left;
+}
 </style>
