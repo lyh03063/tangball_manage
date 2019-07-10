@@ -113,6 +113,7 @@
       :cf="cf"
       @after-add="$emit('after-add')"
       @after-modify="$emit('after-modify')"
+      @after-delete="$emit('after-delete')"
     >
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
@@ -226,7 +227,11 @@ export default {
           duration: 1500,
           type: "success"
         });
-        this.getDataList(); //更新数据列表
+        this.$emit("after-delete"); //触发外部事件
+        //如果{增删改操作后是否自动刷新}为真
+        if (this.cf.isRefreshAfterCUD) {
+          this.getDataList(); //更新数据列表
+        }
       }
     },
     //-------------查询列表的函数--------------
@@ -292,6 +297,7 @@ export default {
     this.cf.isShowOperateColumn === false ||
       (this.cf.isShowOperateColumn = true);
     this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
+    this.cf.isRefreshAfterCUD === false || (this.cf.isRefreshAfterCUD = true);
 
     let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数

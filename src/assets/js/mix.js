@@ -49,7 +49,7 @@ MIX.list.list_achievement = {
                         slot: "slot_detmember_enrollail_item_matchProgress"
                     },
                     {
-                        label: "比赛得分",
+                        label: "杆数",
                         prop: "matchScore",
                         width: 90
                     },
@@ -89,7 +89,7 @@ MIX.list.list_achievement = {
                         slot: "slot_detail_item_matchProgress"
                     },
                     {
-                        label: "比赛得分",
+                        label: "杆数",
                         prop: "matchScore"
                     },
                     {
@@ -132,7 +132,7 @@ MIX.list.list_achievement = {
                         slot: "slot_modify_item_matchProgress"
                     },
                     {
-                        label: "比赛得分",
+                        label: "杆数",
                         prop: "matchScore",
                         type: "input"
                     }
@@ -156,12 +156,12 @@ MIX.list.list_achievement_simple = {
                 isShowToolBar: false, //隐藏工具栏
                 //默认排序参数
                 sortJsonDefault: {
-                    matchScore: -1//按比分降序
+                    matchScore: 1//按比分降序
                 },
                 //-------列配置数组-------
                 columns: [
                     {
-                        label: "参赛人---",
+                        label: "参赛人",
                         prop: "participantsId",
                         slot: "slot_detail_item_participantsId",
                         width: 150
@@ -169,7 +169,7 @@ MIX.list.list_achievement_simple = {
 
 
                     {
-                        label: "比赛得分",
+                        label: "杆数",
                         prop: "matchScore",
                         width: 90
                     },
@@ -229,7 +229,7 @@ MIX.list.list_achievement_simple = {
                         hide: true
                     },
                     {
-                        label: "比赛得分",
+                        label: "杆数",
                         prop: "matchScore",
                         type: "input"
                     }

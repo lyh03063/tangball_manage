@@ -1,8 +1,6 @@
 <template>
   <div class v-if="matchInfo">
     <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
- 
-   
 
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
@@ -41,7 +39,13 @@
           </el-radio-group>
         </div>
         <!-- 城市赛阶段：{{cityMatchProgress}} -->
-        <listData :cf="cfList" ref="list1">
+        <listData
+          :cf="cfList"
+          ref="list1"
+          @after-add="updateAchievementRanking"
+          @after-modify="updateAchievementRanking"
+          @after-delete="updateAchievementRanking"
+        >
           <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
           <template v-slot:slot_detail_item_participantsId="{row}">
             <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
@@ -84,7 +88,7 @@
             </el-radio-group>
           </div>
 
-           <debug_list class v-model="debugConfig2" v-if="debug"></debug_list>
+          <debug_list class v-model="debugConfig2" v-if="debug"></debug_list>
 
           <el-table :data="arrCrossCityMatchAchievement" border style="width: 100%" class="MT10">
             <el-table-column prop="cityName" label="队名" width="180"></el-table-column>
@@ -134,32 +138,48 @@ export default {
   props: {
     matchId: [String, Number]
   },
-  mixins: [MIX.list.debug,MIX.list.list_achievement, MIX.list.list_achievement_simple],
+  mixins: [
+    MIX.list.debug,
+    MIX.list.list_achievement,
+    MIX.list.list_achievement_simple
+  ],
   data() {
     return {
-      
-       debugConfig: {
+      debugConfig: {
         list: [
           { label: "赛事信息", key: "matchInfo" },
           { label: "赛事阶段", key: "matchInfo.matchProgress" },
           { label: "成绩列表的默认查询参数", key: "cfList.findJsonDefault" },
-          { label: "弹窗表单的第一个字段的下拉框选项ajax查询参数", key: "cfList.formItems[0].ajax.param.sheetRelation.findJson" },
+          {
+            label: "弹窗表单的第一个字段的下拉框选项ajax查询参数",
+            key: "cfList.formItems[0].ajax.param.sheetRelation.findJson"
+          }
         ]
       },
       debugConfig2: {
         // data: {},
         list: [
           { label: "城际赛赛事小阶段", key: "crossCityMatchSmallProgress" },
-          { label: "城际赛团队成绩列表", key: "arrCrossCityMatchAchievement"},
-          { label: "城际赛成绩明细总列表", key: "arrCrossCityMatchPersonAchievement"  },
-          { label: "显示明细列表弹窗", key: "showDialogCCityAchievementPersonal"  },
-          { label: "城际赛的明细列表的默认查询参数", key: "findJsonDefaultCCityAchP"  },
-          { label: "城际赛的明细列表的一些提示信息", key: "infoDefaultCCityAchP"  },
+          { label: "城际赛团队成绩列表", key: "arrCrossCityMatchAchievement" },
+          {
+            label: "城际赛成绩明细总列表",
+            key: "arrCrossCityMatchPersonAchievement"
+          },
+          {
+            label: "显示明细列表弹窗",
+            key: "showDialogCCityAchievementPersonal"
+          },
+          {
+            label: "城际赛的明细列表的默认查询参数",
+            key: "findJsonDefaultCCityAchP"
+          },
+          {
+            label: "城际赛的明细列表的一些提示信息",
+            key: "infoDefaultCCityAchP"
+          }
         ]
       },
-     
-     
-      
+
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},
@@ -177,6 +197,7 @@ export default {
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: null, //赛事信息
       cfList: {
+        isRefreshAfterCUD: false, //增删改操作后是否自动刷新
         //默认查询参数
         findJsonDefault: {
           matchId: this.matchId,
@@ -191,86 +212,7 @@ export default {
           matchProgress: {} //这个要注册
         },
 
-        listIndex: "match_achievement", //vuex对应的字段
-
-        // //-------列配置数组-------
-        // columns: [
-        //   {
-        //     label: "参赛人",
-        //     prop: "participantsId",
-        //     slot: "slot_detail_item_participantsId",
-        //     width: 150
-        //   },
-
-        //   {
-        //     label: "比赛得分",
-        //     prop: "matchScore",
-        //     width: 90
-        //   },
-        //   {
-        //     label: "名次",
-        //     prop: "ranking",
-        //     // type:"index",
-        //     "min-width": "150"
-        //   }
-        // ],
-
-        //-------新增、修改表单字段数组-------
-        formItems1111: [
-          {
-            label: "参赛人",
-            prop: "participantsId",
-            type: "select",
-
-            ajax: {
-              url: "http://120.76.160.41:3000/crossListRelation",
-              keyLabel: "name",
-              keyValue: "P1",
-
-              param: {
-                needRelation: "1",
-                columnItem: "memberId",
-                columnTarget: "P1",
-                sheetRelation: {
-                  page: "tangball_enroll",
-                  findJson: {
-                    matchId: this.matchId,
-                    cityVenueId: 23
-                  }
-                },
-                sheetTarget: {
-                  page: "tangball_member",
-                  pageSize: "2000",
-                  findJson: {}
-                }
-              }
-            }
-          },
-
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            type: "select",
-            ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "P1"
-            },
-            hide: true
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress",
-            type: "select",
-            slot: "slot_modify_item_matchProgress",
-            hide: true
-          },
-          {
-            label: "比赛得分",
-            prop: "matchScore",
-            type: "input"
-          }
-        ]
+        listIndex: "match_achievement" //vuex对应的字段
       }
     };
   },
@@ -315,8 +257,24 @@ export default {
     },
     //函数：{修改城际赛成绩成功后的回调函数}
     afterModifyCCityAch(doc) {
-      this.getCrossCityMatchAchievement(); //调用：{获取城际赛成绩列表函数}
+      this.updateAchievementRanking(); //调用：{获取城际赛成绩列表函数}
     },
+    //函数：{更新小组成绩名次函数}
+    async updateAchievementRanking() {
+      let findJson = this.cfList.findJsonDefault;
+      if (!(findJson.matchId && findJson.cityVenueId)) return;
+      let { data } = await axios({
+        //请求接口
+        method: "post",
+        url: "http://localhost:3000/tangball/updateAchievementRanking",
+        data: {
+          findJson
+        } //传递参数
+      });
+      await util.timeout(500); //延迟
+      this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
+    },
+
     //函数：{弹窗显示城际赛成绩明细列表函数}
     dialogCCityAchievementPersonal(doc) {
       this.showDialogCCityAchievementPersonal = true; //显示弹窗
@@ -387,7 +345,7 @@ export default {
 
       this.arrCrossCityMatchAchievement.sort(function(a, b) {
         //按团队分降序排序
-        return b.scoreTeam - a.scoreTeam;
+        return a.scoreTeam - b.scoreTeam;
       });
 
       this.arrCrossCityMatchAchievement = util.deepCopy(
@@ -440,8 +398,6 @@ export default {
         //修改人员下拉框的ajax参数，不同场馆对应着不同的报名人员
         this.cfList.formItems[0].ajax.param.sheetRelation.findJson.cityVenueId = this.cityMatchVenuId;
         this.cfList.formItems[0].ajax.param.sheetRelation.findJson.matchId = this.matchId;
-
-
 
         this.cfList.formDataAddInit.matchProgress = {
           bigProgress: 1,

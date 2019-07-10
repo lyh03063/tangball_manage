@@ -174,7 +174,7 @@ export default {
             hide: true
           },
           {
-            label: "比赛得分",
+            label: "杆数",
             prop: "matchScore",
             type: "input"
           }

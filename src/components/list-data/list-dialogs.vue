@@ -39,31 +39,11 @@
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
-   
       <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-     <table class="n-table n-table-debug  MB10" v-if="debug">
-          <tr>
-            <td class="WP20">字段</td>
-            <td class="WP30">说明</td>
-            <td>字段值</td>
-          </tr>
-        
-          <tr>
-            <td>formAdd</td>
-            <td>表单的绑定数据</td>
-            <td>{{formAdd}}</td>
-          </tr>
-          <tr>
-            <td> cf.formDataAddInit</td>
-            <td>新增表单的初始数据</td>
-            <td>{{cf.formDataAddInit}}</td>
-          </tr>
-        
-        </table>
       
+
       <br>
-     
-      
+
       <dynamicForm v-model="formAdd" :cf="cfFormAdd" @submit="addData" @cancel="closeDialogAddFun">
         <template v-slot:[item.slot]="{formData}" v-for="item in cf.formItems">
           <!--根据cf.formItems循环输出插槽--新增修改表单弹窗-->
@@ -103,17 +83,21 @@ export default {
     dynamicForm
   },
   props: ["cf"],
+  //混入成绩列表配置
+  mixins: [
+    MIX.list.debug,
+   
+  ],
   data: function() {
     return {
-       debugConfig: {
+      debugConfig: {
         list: [
           { label: "新增表单的绑定数据", key: "formAdd" },
-          { label: "新增表单的初始数据", key: "cf.formDataAddIni" },
-          
+          { label: "新增表单的初始数据", key: "cf.formDataAddIni" }
         ]
       },
 
-             //------------------新增表单组件配置--------------
+      //------------------新增表单组件配置--------------
       cfFormAdd: {
         formItems: this.cf.formItems,
         btns: [
@@ -150,7 +134,7 @@ export default {
       //监听新增表单的初始化数据
       handler(newName, oldName) {
         console.log("cf.formDataAddInit变动", this.cf.formDataAddInit);
-        this.initFormDataAdd();//调用：{初始化新增数据表单函数}
+        this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
       },
       immediate: true,
       deep: true
@@ -171,12 +155,13 @@ export default {
     }
   },
   methods: {
-    initFormDataAdd(){//函数：{初始化新增数据表单函数}
- if (!this.cf.formDataAddInit) {
-          return
-        }
-        
-        this.formAdd = util.deepCopy(this.cf.formDataAddInit);
+    initFormDataAdd() {
+      //函数：{初始化新增数据表单函数}
+      if (!this.cf.formDataAddInit) {
+        return;
+      }
+
+      this.formAdd = util.deepCopy(this.cf.formDataAddInit);
     },
     closeDialogDetailFun(done) {
       //关闭详情弹窗的配置事件函数
@@ -208,8 +193,12 @@ export default {
             type: "success"
           });
           this.isShowDialogModify = false; //关闭弹窗
-          this.$parent.getDataList(); //更新数据列表
-          this.$emit('after-modify')//触发外部事件
+          //如果{增删改操作后是否自动刷新}为真
+          if (this.cf.isRefreshAfterCUD) {
+            this.$parent.getDataList(); //更新数据列表
+          }
+
+          this.$emit("after-modify"); //触发外部事件
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -230,9 +219,12 @@ export default {
             type: "success"
           });
           this.closeDialogAddFun(); //关闭弹窗
-          this.$parent.getDataList(); //更新数据列表
-          this.initFormDataAdd();//调用：{初始化新增数据表单函数}
-          this.$emit('after-add')//触发外部事件
+          //如果{增删改操作后是否自动刷新}为真
+          if (this.cf.isRefreshAfterCUD) {
+            this.$parent.getDataList(); //更新数据列表
+          }
+          this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
+          this.$emit("after-add"); //触发外部事件
         })
         .catch(function(error) {
           alert("异常:" + error);

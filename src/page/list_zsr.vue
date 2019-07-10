@@ -108,7 +108,7 @@ export default {
             width: 150
           },
           {
-            label: "比赛得分",
+            label: "杆数",
             prop: "matchScore",
             width: 100
           },
@@ -154,7 +154,7 @@ export default {
             width: 150
           },
           {
-            label: "比赛得分",
+            label: "杆数",
             prop: "matchScore",
             width: 100
           },
@@ -187,7 +187,7 @@ export default {
             width: 150
           },
           {
-            label: "比赛得分",
+            label: "杆数",
             prop: "matchScore",
             width: 100
           },
