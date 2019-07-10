@@ -14,9 +14,7 @@ export default {
     };
   },
   created() {},
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
-  }
+
 };
 </script>
 

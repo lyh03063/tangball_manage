@@ -1,6 +1,6 @@
 <template>
   <div class v-if="matchInfo">
-    <table class="n-table MTB0" v-if="debug">
+    <table class="n-table n-table-debug MB10" v-if="debug">
       <tr>
         <td class="WP20">字段</td>
         <td class="WP30">说明</td>
@@ -79,18 +79,7 @@
               </template>
             </ajax_populate>
           </template>
-          <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
-          <template v-slot:slot_detail_item_matchId="{row}">
-            <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
-              <template v-slot:default="{doc}">
-                <div class v-if="doc && doc.P1">
-                  {{doc.P1}}
-                  (
-                  {{doc.matchName}})
-                </div>
-              </template>
-            </ajax_populate>
-          </template>
+       
 
           <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
           <template v-slot:slot_modify_item_matchProgress="{formData}">
@@ -121,7 +110,7 @@
             </el-radio-group>
           </div>
 
-          <table class="n-table MT10" v-if="debug">
+          <table class="n-table n-table-debug  MT10" v-if="debug">
             <tr>
               <td class="WP20">字段</td>
               <td class="WP30">说明</td>
@@ -138,11 +127,11 @@
               <td>城际赛团队成绩列表</td>
               <td>{{arrCrossCityMatchAchievement}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>arrCrossCityMatchPersonAchievement:</td>
               <td>城际赛成绩明细总列表</td>
               <td>{{arrCrossCityMatchPersonAchievement}}</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>showDialogCCityAchievementPersonal</td>
               <td>显示明细列表弹窗</td>
@@ -184,7 +173,6 @@
     <ccity_match_achievement_personal
       class
       :show.sync="showDialogCCityAchievementPersonal"
-      :debug111="true"
       :findJsonDefault="findJsonDefaultCCityAchP"
       :info="infoDefaultCCityAchP"
       @after-add="afterAddCCityAch"
@@ -209,10 +197,11 @@ export default {
   },
   props: {
     matchId: [String, Number],
-    debug: [Boolean]
+    
   },
   data() {
     return {
+      debug: window.pub_debug,//是否启用调试模式
       isEdit: false,
       //城际赛的明细列表的一些提示信息
       infoDefaultCCityAchP: {},
@@ -240,6 +229,10 @@ export default {
           matchId: this.matchId,
           "matchProgress.smallProgress": 11,
           cityVenueId: 23
+        },
+        //默认排序参数
+        sortJsonDefault: {
+         matchScore:-1//按比分降序
         },
         //新增表单初始赋值
         formDataAddInit: {
@@ -272,17 +265,7 @@ export default {
             width: 150
           },
 
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId",
-            width: 200
-          },
-          {
-            label: "赛事阶段",
-            prop: "matchProgress",
-            width: 300
-          },
+        
           {
             label: "比赛得分",
             prop: "matchScore",
@@ -291,6 +274,7 @@ export default {
           {
             label: "名次",
             prop: "ranking",
+            // type:"index",
             "min-width": "150"
           }
         ],
@@ -313,11 +297,7 @@ export default {
             prop: "participantsId",
             slot: "slot_detail_item_participantsId"
           },
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId"
-          },
+         
           {
             label: "赛事阶段",
             prop: "matchProgress"

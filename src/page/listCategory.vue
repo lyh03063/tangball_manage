@@ -12,6 +12,7 @@ export default {
     return {
       cfList: {
         listIndex: "listCategory", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "商品中心",
         threeTitle: "商品分类",
         flag:true,
@@ -78,9 +79,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
-  }
+ 
 };
 </script>
 

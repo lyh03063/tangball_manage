@@ -68,6 +68,13 @@ table.n-table.n-table-form th {
   font-size: 14px;
   line-height: 28px
 }
+table.n-table.n-table-debug td,
+table.n-table.n-table-debug th {
+  border: 1px solid #F56C6C;
+}
+
+
+
 
 
 /* 取消下划线 */

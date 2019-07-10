@@ -36,6 +36,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_sponsorship", //vuex对应的字段
+        focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事赞助",
         threeTitle: "赛事赞助",
         flag: true,
@@ -187,9 +188,6 @@ export default {
         ]
       }
     };
-  },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "listCategory"); //菜单聚焦
   }
 };
 </script>

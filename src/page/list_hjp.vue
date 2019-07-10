@@ -354,9 +354,7 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    this.$store.commit("changeActiveMenu", "list_match"); //菜单聚焦
-  },
+
   methods: {
     //赛事阶段下拉框
     selectChange(value) {
