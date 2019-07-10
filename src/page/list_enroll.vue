@@ -61,10 +61,10 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
 import match_venue from "../components/form_item/match_venue.vue";
 export default {
-  components: { listData, ajax_populate, match_venue },
+  components: { listData, match_venue },
+  mixins: [MIX.list.list_enroll],
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-      cfList: {
+      cfList1111: {
         listIndex: "list_enroll", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",

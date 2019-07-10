@@ -12,38 +12,9 @@
       v-if="showDialog"
     >
       <div class>
-        <table class="n-table n-table-debug MB10" v-if="debug">
-          <tr>
-            <td class="WP20">字段</td>
-            <td class="WP30">说明</td>
-            <td>字段值</td>
-          </tr>
-          <!-- <tr>
-            <td>matchId</td>
-            <td>赛事id</td>
-            <td>matchId</td>
-          </tr>-->
-          <tr>
-            <td>findJsonDefault</td>
-            <td>成绩列表的默认查询参数</td>
-            <td>{{ findJsonDefault}}</td>
-          </tr>
-          <tr>
-            <td>cfList.formDataAddInit</td>
-            <td>新增表单的初始数据</td>
-            <td>{{ cfList.formDataAddInit}}</td>
-          </tr>
-          <tr>
-            <td>cfList.formItems[0].ajax.param.sheetRelation.findJson</td>
-            <td>弹窗表单的第一个字段的下拉框选项ajax查询参数</td>
-            <td>{{cfList.formItems[0].ajax.param.sheetRelation.findJson}}</td>
-          </tr>
-          <tr>
-            <td>info</td>
-            <td>展示的一些信息</td>
-            <td>{{info}}</td>
-          </tr>
-        </table>
+        <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
+
+       
 
         <div class="OFH">
           <div class="FL FWB FS16 LH30">【{{info.cityName}}】代表队的【{{info.progressName}}】成绩明细表</div>
@@ -55,7 +26,6 @@
         </div>
         <listData
           :cf="cfList"
-         
           @after-add="$emit('after-add')"
           @after-modify="$emit('after-modify')"
         >
@@ -100,22 +70,37 @@
 
 <script>
 import listData from "../list-data/list-data.vue";
-import ajax_populate from "../common/ajax_populate.vue";
+
 import select_match_progress from "../form_item/select_match_progress.vue";
 import match_venue from "../form_item/match_venue.vue";
 export default {
-  components: { listData, ajax_populate, select_match_progress, match_venue },
+  components: { listData,  select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
     findJsonDefault: [Object],
-
     show: [Boolean],
     info: [Object]
   },
-  mixins: [MIX.list.list_achievement,MIX.list.list_achievement_simple],
+  //混入成绩列表配置
+  mixins: [
+    MIX.list.debug,
+    MIX.list.list_achievement,
+    MIX.list.list_achievement_simple
+  ],
   data() {
     return {
-      debug: window.pub_debug,
+      debugConfig: {
+        //调试数据配置
+        list: [
+          { label: "成绩列表的默认查询参数", key: "findJsonDefault" },
+          { label: "新增表单的初始数据", key: "cfList.formDataAddInit" },
+          {
+            label: "弹窗表单的第一个字段的下拉框选项ajax查询参数",
+            key: "cfList.formItems[0].ajax.param.sheetRelation.findJson"
+          },
+          { label: "展示的一些信息", key: "info" }
+        ]
+      },
       isEdit: false, //是否编辑状态
       showDialog: this.show,
       arrCrossCityMatchAchievement: [], //城际赛成绩列表
@@ -137,9 +122,9 @@ export default {
         //vuex对应的字段---注意这里不能和其他列表重复
         listIndex: "match_achievement_crosscity",
         //-------列配置数组-------
-      
+
         //-------新增、修改表单字段数组-------
-        formItems: [
+        formItems11111: [
           {
             label: "参赛人",
             prop: "participantsId",
@@ -193,7 +178,6 @@ export default {
             prop: "matchScore",
             type: "input"
           }
-       
         ]
       }
     };
@@ -253,9 +237,9 @@ export default {
           }
         };
 
-        // alert(this.findJsonDefault.cityVenueId);
         //修改人员下拉框的ajax参数，不同场馆对应着不同的报名人员
         this.cfList.formItems[0].ajax.param.sheetRelation.findJson.cityVenueId = this.findJsonDefault.cityVenueId;
+        this.cfList.formItems[0].ajax.param.sheetRelation.findJson.matchId = this.findJsonDefault.matchId;
       },
       immediate: true, //组件初始化时立即执行一次变动
       deep: true //深度监听

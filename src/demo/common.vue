@@ -48,10 +48,10 @@
 </template>
 <script>
 //导入自定义复选框组件，注意路径改为自己的
-import ajax_populate from "../components/common/ajax_populate.vue";
+
 
 export default {
-  components: { ajax_populate },
+  components: {  },
   data() {
     return {
       id: 2

@@ -57,10 +57,9 @@
 <script>
 import listData from "../components/list-data/list-data.vue";
 import form_item_test from "../components/form_item_test.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
 
 export default {
-  components: { listData, form_item_test, ajax_populate },
+  components: { listData, form_item_test },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;

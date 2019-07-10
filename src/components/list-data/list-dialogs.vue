@@ -39,17 +39,15 @@
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
+   
+      <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
      <table class="n-table n-table-debug  MB10" v-if="debug">
           <tr>
             <td class="WP20">字段</td>
             <td class="WP30">说明</td>
             <td>字段值</td>
           </tr>
-          <!-- <tr>
-            <td>matchId</td>
-            <td>赛事id</td>
-            <td>matchId</td>
-          </tr>-->
+        
           <tr>
             <td>formAdd</td>
             <td>表单的绑定数据</td>
@@ -107,8 +105,15 @@ export default {
   props: ["cf"],
   data: function() {
     return {
-       debug: window.pub_debug,//是否启用调试模式
-      //------------------新增表单组件配置--------------
+       debugConfig: {
+        list: [
+          { label: "新增表单的绑定数据", key: "formAdd" },
+          { label: "新增表单的初始数据", key: "cf.formDataAddIni" },
+          
+        ]
+      },
+
+             //------------------新增表单组件配置--------------
       cfFormAdd: {
         formItems: this.cf.formItems,
         btns: [

@@ -1,10 +1,18 @@
-// window.pub_debug=true;//开启调试模式
+window.pub_debug=true;//开启调试模式
 
 import Vue from 'vue'
 Vue.config.productionTip = false
 
+import lodash from 'lodash'//导入lodash方法库
+window.lodash=lodash
+
 import space from './components/space/index.js';   //默认情况下找的是index文件
 Vue.use(space);   //必须有install
+import debug_list from './components/common/debug_list/index.js';   //导入debug_list
+Vue.use(debug_list);   //作为全局组件，必须有install
+import ajax_populate from './components/common/ajax_populate/index.js';   //导入ajax_populate
+Vue.use(ajax_populate);   //作为全局组件，必须有install
+
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";

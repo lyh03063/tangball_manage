@@ -28,10 +28,10 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
+
 import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData,ajax_populate,select_city},
+  components: { listData,select_city},
   data() {
     return {
       cfList: {

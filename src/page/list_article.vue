@@ -16,9 +16,9 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
+
 export default {
-  components: { listData,ajax_populate },
+  components: { listData },
   data() {
     return {
       cfList: {

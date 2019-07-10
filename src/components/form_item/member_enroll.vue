@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import ajax_populate from "../common/ajax_populate.vue";
+
 export default {
-  components: { ajax_populate },
+  components: {  },
   //用于列表模糊查询的组件
   props: {
     value: [Number, String],
