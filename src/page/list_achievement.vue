@@ -73,9 +73,9 @@ export default {
       cfList: {
         
         //-------列配置数组-------
-        columns1111111: [
+        columns1111: [
           {
-            label: "参赛人Id88888",
+            label: "参赛人Id-88888",
             prop: "participantsId",
             slot: "slot_detail_item_participantsId",
             width: 120

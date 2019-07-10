@@ -1,5 +1,6 @@
 let MIX = {};
 MIX.list = {}
+//标准版的成绩表配置，用于在赛事中显示当前赛事的成绩
 MIX.list.list_achievement = {
     data() {
         return {
@@ -23,7 +24,7 @@ MIX.list.list_achievement = {
                 //-------列配置数组-------
                 columns: [
                     {
-                        label: "参赛人Id-----",
+                        label: "参赛人Id",
                         prop: "participantsId",
                         slot: "slot_detail_item_participantsId",
                         width: 120
@@ -141,6 +142,54 @@ MIX.list.list_achievement = {
         };
     }
 }
+
+
+//简化版的成绩表配置，用于在赛事中显示当前赛事的成绩
+MIX.list.list_achievement_simple = {
+    data() {
+        return {
+            cfList: {
+                isShowSearchForm: false, //隐藏查询表单
+                isShowBreadcrumb: false, //隐藏面包屑导航
+                isShowPageLink: false, //隐藏分页
+                isShowOperateColumn: false, //隐藏操作列
+                isShowToolBar: false, //隐藏工具栏
+                //默认排序参数
+                sortJsonDefault: {
+                 matchScore:-1//按比分降序
+                },
+                //-------列配置数组-------
+                columns: [
+                    {
+                        label: "参赛人---",
+                        prop: "participantsId",
+                        slot: "slot_detail_item_participantsId",
+                        width: 150
+                    },
+
+
+                    {
+                        label: "比赛得分",
+                        prop: "matchScore",
+                        width: 90
+                    },
+                    {
+                        label: "名次",
+                        prop: "ranking",
+                        // type:"index",
+                        "min-width": "150"
+                    }
+                ],
+            
+
+            }
+        };
+    }
+}
+
+
+
+
 
 window.MIX = MIX;
 export default MIX
