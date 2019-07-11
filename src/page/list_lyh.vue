@@ -21,7 +21,7 @@ export default {
     ccity_match_achievement_personal,
    
   },
-  mixins: [MIX.list.debug],
+  mixins: [MIX.debug],
   data() {
     return {
       matchId: 37,
@@ -54,9 +54,7 @@ export default {
   },
 
   created() {
-    // console.log("this.$data", this.$data);
-    // //将当前的整个数据对象传入
-    // this.debugConfig.data = this.$data;
+ 
   },
 
   methods: {}

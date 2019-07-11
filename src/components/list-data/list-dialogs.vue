@@ -85,7 +85,7 @@ export default {
   props: ["cf"],
   //混入成绩列表配置
   mixins: [
-    MIX.list.debug,
+    MIX.debug,
    
   ],
   data: function() {
@@ -107,7 +107,7 @@ export default {
       },
       //------------------修改表单组件配置--------------
       cfFormModify: {
-        urlInit: this.cf.url.detail,
+        urlInit: PUB.domain+this.cf.url.detail,
         formItems: this.cf.formItems,
         btns: [
           { text: "修改", event: "submit", type: "primary", validate: true },
@@ -133,7 +133,6 @@ export default {
     "cf.formDataAddInit": {
       //监听新增表单的初始化数据
       handler(newName, oldName) {
-        console.log("cf.formDataAddInit变动", this.cf.formDataAddInit);
         this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
       },
       immediate: true,
@@ -177,7 +176,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: this.cf.url.modify,
+        url: PUB.domain+this.cf.url.modify,
         data: {
           findJson: {
             //用于定位要修改的数据
@@ -209,7 +208,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: this.cf.url.add,
+        url: PUB.domain+this.cf.url.add,
         data: { data: this.formAdd } //传递参数
       })
         .then(response => {

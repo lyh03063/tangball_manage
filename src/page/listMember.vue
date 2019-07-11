@@ -18,9 +18,9 @@ export default {
         flag: true,
         url: {
           list: "/list_member", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-member", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-member", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-member" //删除接口
+          add: "/crossAdd?page=mabang-member", //新增接口
+          modify: "/crossModify?page=mabang-member", //修改接口
+          delete: "/crossDelete?page=mabang-member" //删除接口
         },
         //-------列配置数组-------
         columns: [

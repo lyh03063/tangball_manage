@@ -191,7 +191,6 @@ export default {
   watch: {
     formDataNeed: {
       handler(newName, oldName) {
-        console.log("formDataNeed changed");
         this.$emit("input", this.formDataNeed);
       }
     }
@@ -246,7 +245,6 @@ export default {
           if (valid) {
             this.$emit(eventName);
           } else {
-            console.log("error submit!!");
             return false;
           }
         });
@@ -257,7 +255,6 @@ export default {
     },
     //初始化表单函数
     initForm() {
-      console.log("initForm");
       if (this.docGet) {
         //ajax获取到的表单数据存在
         let jsonData = {};
@@ -269,7 +266,6 @@ export default {
           if (util.type(valCurr) == "object" || util.type(valCurr) == "array") {
             //如果是json类型
             var t_json = JSON.stringify(valCurr); //json转字符串
-            console.log("t_json", t_json);
           }
         });
         this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
@@ -295,10 +291,8 @@ export default {
           id: this.value.P1
         } //传递参数
       });
-      // console.log("doc", doc);
       this.docGet = data.doc;
     }
-    console.log("this.docGet######", this.docGet);
     this.initForm(); //调用：{初始化表单函数}
   }
 };

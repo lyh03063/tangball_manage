@@ -80,11 +80,11 @@ export default {
         threeTitle: "商品列表",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-commodity", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-commodity", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-commodity", //修改接口
-          detail: "http://120.76.160.41:3000/crossDetail?page=mabang-commodity", //查看单条数据详情接口，在修改表单或详情弹窗用到
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-commodity" //删除接口
+          list: "/crossList?page=mabang-commodity", //列表接口
+          add: "/crossAdd?page=mabang-commodity", //新增接口
+          modify: "/crossModify?page=mabang-commodity", //修改接口
+          detail: "/crossDetail?page=mabang-commodity", //查看单条数据详情接口，在修改表单或详情弹窗用到
+          delete: "/crossDelete?page=mabang-commodity" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -146,7 +146,7 @@ export default {
             prop: "category",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=mabang-category",
+              url: "/crossList?page=mabang-category",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -235,7 +235,7 @@ export default {
             prop: "category",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=mabang-category",
+              url: "/crossList?page=mabang-category",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -251,7 +251,7 @@ export default {
             prop: "detail",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=mabang-member",
+              url: "/crossList?page=mabang-member",
               keyLabel: "nickName",
               keyValue: "userName"
             }

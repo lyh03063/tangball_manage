@@ -49,7 +49,7 @@ export default {
       venueOp: [],
       cityName: this.value.cityName,
       url: {
-        list: "http://120.76.160.41:3000/crossList?page=tangball_venue" //场馆列表接口
+        list: "/crossList?page=tangball_venue" //场馆列表接口
       },
       arrArea: [this.value.cityId.substr(0, 2), this.value.cityId]
     };
@@ -57,7 +57,6 @@ export default {
   watch: {
     valueNeed: {
       handler(newName, oldName) {
-        console.log("select_city_venue的valueNeed变动");
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
       immediate: true,
@@ -66,8 +65,7 @@ export default {
     arrArea: {
       //监听地区数组
       async handler(newName, oldName) {
-        console.log("this.arrArea##########", this.arrArea);
-        console.log("arrArea变动");
+     
         this.cityIdTemp = this.arrArea[1];
         if (!this.cityIdTemp)return 
         this.venueOp = await this.ajaxGetVenue(this.cityIdTemp);
@@ -88,7 +86,7 @@ export default {
       //请求接口
       let { data } = await axios({
         method: "post",
-        url: this.url.list,
+        url: PUB.domain+this.url.list,
         //传递参数
         data: {
           findJson: { area: cityId }

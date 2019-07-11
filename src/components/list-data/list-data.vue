@@ -185,7 +185,7 @@ export default {
         let { data } = await axios({
           //请求接口
           method: "post",
-          url: this.cf.url.detail,
+          url: PUB.domain+this.cf.url.detail,
           data: {
             id: row.P1
           } //传递参数
@@ -211,7 +211,7 @@ export default {
         await axios({
           //请求接口
           method: "post",
-          url: this.cf.url.delete,
+          url: PUB.domain+this.cf.url.delete,
           data: {
             findJson: {
               //用于定位要修改的数据
@@ -246,11 +246,10 @@ export default {
     },
     //-------------ajax获取数据列表函数--------------
     getDataList() {
-      console.log("this.Objparma####", this.Objparma);
       axios({
         //请求接口
         method: "post",
-        url: this.cf.url.list,
+        url: PUB.domain+this.cf.url.list,
         data: this.Objparma
       })
         .then(response => {
@@ -258,7 +257,6 @@ export default {
           this.tableData = list;
           this.page = page;
           this.allCount = page.allCount; //更改总数据量
-          console.log("数据", response);
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -303,7 +301,6 @@ export default {
     //读取vuex的当前列表页默认筛选参数
     let defultFindJson = this.$store.state.defultFindJson[this.cf.listIndex];
     if (defultFindJson) {
-      console.log("defultFindJson存在");
       //如果{默认的查询参数}存在，清空默认查询参数，避免下次切换时还保留
       Object.assign(findJsonDefault, defultFindJson); //合并对象
 

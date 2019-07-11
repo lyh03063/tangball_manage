@@ -1,5 +1,9 @@
 window.pub_debug=true;//开启调试模式
 
+window.PUB={}
+window.PUB.domain="http://120.76.160.41:3000"
+// window.PUB.domain="http://localhost:3000"
+
 import Vue from 'vue'
 Vue.config.productionTip = false
 
@@ -16,7 +20,7 @@ Vue.use(ajax_populate);   //作为全局组件，必须有install
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";
-
+import  "./assets/js/mix.js";//注意位置要提前
 
 
 import login from "./login";
@@ -25,9 +29,8 @@ import listHome from "./page/listHome";
 import listCategory from "./page/listCategory";
 import listCommodity from "./page/listCommodity";
 import listMember from "./page/listMember";
-
 import util from "./assets/js/util.js";
-import  "./assets/js/mix.js";
+
 
 import list_lyh from "./page/list_lyh";
 import list_cdc from "./page/list_cdc";
@@ -222,7 +225,6 @@ const store = new Vuex.Store({//定义Vuex的存储对象
   mutations: {//变更事件
 
     setListFindJson(state, param) {//设置列表的初始筛选参数值
-      console.log("param", param);
       state.defultFindJson[param.listIndex] = param.findJson;
       //对listState进行整个对象的变更（深拷贝），因为listState是有注册的，可以触发响应
       let str = JSON.stringify(state.defultFindJson)//对象转换成字符串
@@ -230,7 +232,6 @@ const store = new Vuex.Store({//定义Vuex的存储对象
     },
 
     initListState(state, param) {//改变列表的初始状态值
-      console.log("param", param);
       state.listState[param.listIndex] = param.objState;
       //对listState进行整个对象的变更（深拷贝），因为listState是有注册的，可以触发响应
       let str = JSON.stringify(state.listState)//对象转换成字符串

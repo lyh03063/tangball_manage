@@ -36,7 +36,7 @@ export default {
     return {
       enrollInfo: {}, //赛事信息
       url: {
-        list: "http://120.76.160.41:3000/crossList?page=tangball_enroll"
+        list: "/crossList?page=tangball_enroll"
       },
       valueNeed: this.value
     };
@@ -71,13 +71,12 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: this.url.list,
+        url: PUB.domain+this.url.list,
         data: {
           findJson: { memberId: this.memberId, matchId: this.matchId }
         } //传递参数
       });
       let { list } = data;
-      console.log("list", list);
       if (list.length) {
         //如果{000}000
         this.enrollInfo = list[0];

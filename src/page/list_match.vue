@@ -82,12 +82,12 @@ export default {
         threeTitle: "赛事数据",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
-          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
+          list: "/crossList?page=tangball_match", //列表接口
+          add: "/crossAdd?page=tangball_match", //新增接口
+          modify: "/crossModify?page=tangball_match", //修改接口
+          detail: "/crossDetail?page=tangball_match", //查看单条数据详情接口，在修改表单或详情弹窗用到
 
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
+          delete: "/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -296,7 +296,7 @@ export default {
             prop: "venue",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_venue",
+              url: "/crossList?page=tangball_venue",
               keyLabel: "name",
               keyValue: "name"
             }

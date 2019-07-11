@@ -17,11 +17,11 @@ export default {
         threeTitle: "加盟商",
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_franchisee", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_franchisee", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_franchisee", //修改接口
-         detail: "http://120.76.160.41:3000/crossDetail?page=tangball_franchisee", //查看单条数据详情接口，在修改表单或详情弹窗用到
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_franchisee" //删除接口
+          list: "/crossList?page=tangball_franchisee", //列表接口
+          add: "/crossAdd?page=tangball_franchisee", //新增接口
+          modify: "/crossModify?page=tangball_franchisee", //修改接口
+         detail: "/crossDetail?page=tangball_franchisee", //查看单条数据详情接口，在修改表单或详情弹窗用到
+          delete: "/crossDelete?page=tangball_franchisee" //删除接口
         },
         //-------列配置数组-------
         columns: [

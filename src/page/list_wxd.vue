@@ -144,10 +144,8 @@ export default {
     // time_period
   },
   mounted() {
-    console.log("cf", this.cf.col_span);
 
     this.spanIndex = Math.floor(24 / this.cf.col_span);
-    console.log("spanIndex", this.spanIndex);
   },
 
   props: {

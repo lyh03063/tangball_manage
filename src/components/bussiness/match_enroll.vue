@@ -77,7 +77,7 @@ export default {
     matchId: [String, Number],
 
   },
-  mixins: [MIX.list.debug,MIX.list.list_enroll],
+  mixins: [MIX.debug,MIX.list.list_enroll],
   
   data() {
     return {
@@ -186,7 +186,7 @@ export default {
 
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+              url: "/crossList?page=tangball_member",
               keyLabel: "name",
               keyValue: "P1"
             },
@@ -198,7 +198,7 @@ export default {
 
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             },
@@ -311,7 +311,6 @@ export default {
   methods: {
     //函数：{切换报名表城市场馆函数}
     changecityVenuIdForEnroll() {
-      console.log("changecityVenuIdForEnroll######");
 
       this.cfList.findJsonDefault.cityVenueId = this.cityVenuIdForEnroll;
       this.cfList.formDataAddInit.cityVenueId = this.cityVenuIdForEnroll;
@@ -324,7 +323,7 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: "http://120.76.160.41:3000/crossDetail?page=tangball_match",
+        url: PUB.domain+"/crossDetail?page=tangball_match",
         data: {
           id: this.matchId
         } //传递参数

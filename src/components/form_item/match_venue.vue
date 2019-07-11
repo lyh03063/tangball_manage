@@ -39,7 +39,7 @@ export default {
     return {
       matchInfo: null, //赛事信息
       url: {
-        detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match"
+        detail: "/crossDetail?page=tangball_match"
       },
       valueNeed: this.value
     };
@@ -67,7 +67,7 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: this.url.detail,
+        url: PUB.domain+this.url.detail,
         data: {
           id: this.matchId
         } //传递参数

@@ -142,7 +142,7 @@ export default {
     matchId: [String, Number]
   },
   mixins: [
-    MIX.list.debug,
+    MIX.debug,
     MIX.list.list_achievement,
     MIX.list.list_achievement_simple
   ],
@@ -270,7 +270,7 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: "http://localhost:3000/tangball/updateAchievementRanking",
+        url: PUB.domain+"/tangball/updateAchievementRanking",
         data: {
           findJson
         } //传递参数
@@ -289,16 +289,15 @@ export default {
     },
     //函数：{获取城际赛成绩列表函数}
     async getCrossCityMatchAchievement() {
-      console.log("matchInfo.cityVenueList变动#####################");
+     
       let { cityVenueList } = this.matchInfo;
       this.arrCrossCityMatchAchievement = util.deepCopy(cityVenueList);
 
-      // this.arrCrossCityMatchPersonAchievement = [];
-      //
+      
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: "http://120.76.160.41:3000/crossList?page=tangball_achievement",
+        url: PUB.domain+"/crossList?page=tangball_achievement",
         data: {
           findJson: {
             matchId: this.matchId,
@@ -339,7 +338,6 @@ export default {
         let arrAchievementPerson = arrCCPAchievementNeed.filter(
           item => item.cityVenueId == itemCityVenue.venueId
         );
-        console.log("arrAchievementPerson$$$$####", arrAchievementPerson);
 
         itemCityVenue.scoreTeam = arrAchievementPerson.reduce(
           (total, doc) => total + (doc["matchScore"] || 0),
@@ -359,12 +357,12 @@ export default {
 
     //函数：{切换城际赛赛段函数}
     changeCrossCityMatchProgress() {
-      console.log("changeCrossCityMatchProgress######");
+     
       this.filterCrossCityMatchAchievement(); //调用：{成城际赛成绩中过滤出当前所在赛段的团队成绩}
     },
     //函数：{切换城市赛赛段函数}
     changeCityMatchProgress() {
-      console.log("changeTagCity######");
+    
       this.cfList.findJsonDefault[
         "matchProgress.smallProgress"
       ] = this.cityMatchProgress;
@@ -389,7 +387,7 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: "http://120.76.160.41:3000/crossDetail?page=tangball_match",
+        url: PUB.domain+"/crossDetail?page=tangball_match",
         data: {
           id: this.matchId
         } //传递参数

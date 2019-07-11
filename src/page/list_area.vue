@@ -15,10 +15,10 @@ export default {
         focusMenu:true,//进行菜单聚焦
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=dmagic_area", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=dmagic_area", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=dmagic_area", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=dmagic_area" //删除接口
+          list: "/crossList?page=dmagic_area", //列表接口
+          add: "/crossAdd?page=dmagic_area", //新增接口
+          modify: "/crossModify?page=dmagic_area", //修改接口
+          delete: "/crossDelete?page=dmagic_area" //删除接口
         },
         //-------列配置数组-------
         columns: [

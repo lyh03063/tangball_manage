@@ -83,7 +83,7 @@ export default {
   },
   //混入成绩列表配置
   mixins: [
-    MIX.list.debug,
+    MIX.debug,
     MIX.list.list_achievement,
     MIX.list.list_achievement_simple
   ],
@@ -131,7 +131,7 @@ export default {
             type: "select",
 
             ajax: {
-              url: "http://120.76.160.41:3000/crossListRelation",
+              url: "/crossListRelation",
               keyLabel: "name",
               keyValue: "P1",
 
@@ -160,7 +160,7 @@ export default {
             prop: "matchId",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             },
@@ -211,8 +211,7 @@ export default {
     },
     showDialog: {
       handler(newVal, oldVal) {
-        // this.showDialog=this.show
-        console.log("showDialog变动");
+       
         this.$emit("update:show", this.showDialog); //同步外部的show
       },
       immediate: true //组件初始化时立即执行一次变动

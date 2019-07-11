@@ -28,11 +28,11 @@ export default {
         threeTitle: "文章管理",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_article", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_article", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_article", //修改接口
-          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_article",
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_article" //删除接口
+          list: "/crossList?page=tangball_article", //列表接口
+          add: "/crossAdd?page=tangball_article", //新增接口
+          modify: "/crossModify?page=tangball_article", //修改接口
+          detail: "/crossDetail?page=tangball_article",
+          delete: "/crossDelete?page=tangball_article" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -90,7 +90,7 @@ export default {
             prop: "articleCategory",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_article_category",
+              url: "/crossList?page=tangball_article_category",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -127,7 +127,7 @@ export default {
             prop: "articleCategory",
             type: "select",
            ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_article_category",
+              url: "/crossList?page=tangball_article_category",
               keyLabel: "name",
               keyValue: "P1"
             }

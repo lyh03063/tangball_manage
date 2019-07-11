@@ -9,7 +9,7 @@ export default {
   props: {
     value: [String, Number],
     ajaxUrl: {
-      default: "http://120.76.160.41:3000/crossList?page=mabang-category"
+      default: "/crossList?page=mabang-category"
     },
     keyValue: {
       default: "P1"
@@ -39,7 +39,7 @@ export default {
     let { data } = await axios({
       //请求接口
       method: "post",
-      url: this.ajaxUrl,
+      url: PUB.domain+this.ajaxUrl,
       data: this.param //传递参数
     }).catch(function(error) {
       alert("异常:" + error);
