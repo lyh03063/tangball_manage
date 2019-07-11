@@ -2,6 +2,7 @@
   <div class v-if="matchInfo">
  
     <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
+
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>-->
@@ -88,6 +89,7 @@ export default {
           { label: "报名表的城市场馆id", key: "cityVenuIdForEnroll" },
           { label: "列表的默认查询参数", key: "cfList.findJsonDefault" },
           { label: "新增报名数据的初始值", key: "cfList.formDataAddInit" },
+          { label: "是否显示搜索表单", key: "cfList.isShowSearchForm" },
           
         ]
       },
@@ -95,6 +97,7 @@ export default {
       cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
       cityVenuIdForEnroll: null, //城市赛场馆选项卡的聚焦值(用于报名表)
       matchInfo: null, //赛事信息
+      
       cfList: {
         isShowSearchForm: false, //隐藏查询表单
         listIndex: "list_enroll", //vuex对应的字段

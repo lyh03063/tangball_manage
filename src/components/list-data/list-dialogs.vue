@@ -107,7 +107,7 @@ export default {
       },
       //------------------修改表单组件配置--------------
       cfFormModify: {
-        urlInit: PUB.domain+this.cf.url.detail,
+        urlInit: this.cf.url.detail,
         formItems: this.cf.formItems,
         btns: [
           { text: "修改", event: "submit", type: "primary", validate: true },

@@ -1,4 +1,4 @@
-window.pub_debug=true;//开启调试模式
+// window.pub_debug=true;//开启调试模式
 
 window.PUB={}
 window.PUB.domain="http://120.76.160.41:3000"
@@ -212,6 +212,7 @@ Vue.use(Vuex)//应用组件
 
 const store = new Vuex.Store({//定义Vuex的存储对象
   state: {
+    debug:true,
     activeMenuIndex: "",//当前激活的菜单index
     listState: {//存放列表的共享状态，
 
@@ -223,7 +224,10 @@ const store = new Vuex.Store({//定义Vuex的存储对象
   },
  
   mutations: {//变更事件
-
+    setDebug(state, param) {//设置debug模式
+      state.debug= param;
+      
+    },
     setListFindJson(state, param) {//设置列表的初始筛选参数值
       state.defultFindJson[param.listIndex] = param.findJson;
       //对listState进行整个对象的变更（深拷贝），因为listState是有注册的，可以触发响应

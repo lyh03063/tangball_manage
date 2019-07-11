@@ -39,14 +39,14 @@ export default {
       let url = response.url.replace("./", "");
       url = `http://www.dmagic.cn/${url}`; //图片的绝对路径
       this.valueNeed.push({ url }); //s
-      // this.$emit("input", this.valueNeed); //同步valueNeed值到value
+ 
     },
 
     //处理图片删除后的同步
     handleRemove(file, fileList) {
       console.log(file, fileList);
       this.valueNeed = fileList;
-      // this.$emit("input", this.valueNeed); //触发双向绑定
+     
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;

@@ -3,7 +3,7 @@
   <div class>
     <input type="text" v-model="matchId">
     <space height="10" ></space>
-    <debug_list class v-model="debugConfig"></debug_list>
+    <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
     <!-- <match_enroll :matchId="matchId" :debug111="true" ></match_enroll> -->
     <space height="100"></space>
     <match_achievement :matchId="matchId"  ></match_achievement>

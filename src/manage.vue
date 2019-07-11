@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style>
+  <div id="app" style >
     <el-container>
       <el-header class="MB10">
         <el-row>
@@ -28,6 +28,14 @@ import NavMenu from "./components/NavMenu/NavMenu";
 export default {
   components: { NavMenu }, //注册组件
   methods: {
+    //函数：{切换调试模式函数}
+    toggleDebug() {
+      //来自vuex的当前行数据
+      let debug = this.$store.state.debug;
+      console.log("debug", debug);
+      this.$store.commit("setDebug", !debug);
+
+    },
     logout() {
       //退出登录函数
       localStorage.isLogin = "0";
@@ -161,6 +169,17 @@ export default {
   created() {
     //*引用当前用户名
     this.currentUserName = localStorage.loginUserName;
+    document.onkeydown = (e)=> {//绑定ctrl+D事件
+      var keyCode = e.keyCode || e.which || e.charCode;
+      var ctrlKey = e.ctrlKey || e.metaKey;
+      if (ctrlKey && keyCode == 68) {
+        console.log("ctrlKey", ctrlKey);
+        console.log("keyCode", keyCode);
+        this.toggleDebug();//调用：{切换调试模式函数}
+         e.preventDefault();//阻止默认事件
+         return false;
+      }
+    };
   }
 };
 </script>
@@ -169,10 +188,10 @@ export default {
 /* 单选框补丁 */
 body .el-radio-button__orig-radio:checked + .el-radio-button__inner {
   color: #fff;
-  background-color: #E6A23C;
-  border-color: #E6A23C;
-  -webkit-box-shadow: -1px 0 0 0 #E6A23C;
-  box-shadow: -1px 0 0 0 #E6A23C;
+  background-color: #e6a23c;
+  border-color: #e6a23c;
+  -webkit-box-shadow: -1px 0 0 0 #e6a23c;
+  box-shadow: -1px 0 0 0 #e6a23c;
 }
 </style>
 

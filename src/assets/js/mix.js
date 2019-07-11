@@ -603,9 +603,14 @@ MIX.list.list_enroll = {
 
 //debug组件配置
 MIX.debug = {
+  computed: {
+    debug() {
+      return this.$store.state.debug;
+    }
+  },
   data() {
     return {
-      debug: window.pub_debug, //是否启用调试模式
+    
       debugConfig: {
         list: [
           { label: "姓名", prop: "name" },
@@ -617,7 +622,7 @@ MIX.debug = {
       }
     };
   }, created() {
-    
+
     //将当前的整个数据对象传入到debugConfig
     this.debugConfig.data = this.$data;
     this.debugConfig2.data = this.$data;
@@ -634,6 +639,7 @@ MIX.form_item = {
       valueNeed: this.value
     };
   },
+
   watch: {
     valueNeed: {
       handler(newVal, oldVal) {
