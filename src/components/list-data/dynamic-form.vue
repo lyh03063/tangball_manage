@@ -286,7 +286,7 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: this.cf.urlInit,
+        url: PUB.domain+this.cf.urlInit,
         data: {
           id: this.value.P1
         } //传递参数
