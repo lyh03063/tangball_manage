@@ -97,10 +97,10 @@ export default {
         threeTitle: "赛事数据",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_match", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_match", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_match", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_match" //删除接口
+          list: "/crossList?page=tangball_match", //列表接口
+          add: "/crossAdd?page=tangball_match", //新增接口
+          modify: "/crossModify?page=tangball_match", //修改接口
+          delete: "/crossDelete?page=tangball_match" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -297,7 +297,7 @@ export default {
             prop: "venue",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_venue",
+              url: "/crossList?page=tangball_venue",
               keyLabel: "name",
               keyValue: "name"
             }
@@ -358,10 +358,8 @@ export default {
   methods: {
     //赛事阶段下拉框
     selectChange(value) {
-      console.log(value);
       this.newsmallmatchProcess = this.matchProcess[value - 1].childrens;
       this.smallmatchProcess = this.newsmallmatchProcess[0].name;
-      console.log(this.newsmallmatchProcess[0], "newsmallmatchProcess");
     },
     //删除
     nationalMatchDelete(key) {

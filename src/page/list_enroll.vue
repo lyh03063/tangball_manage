@@ -61,10 +61,10 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
 import match_venue from "../components/form_item/match_venue.vue";
 export default {
-  components: { listData, ajax_populate, match_venue },
+  components: { listData, match_venue },
+  mixins: [MIX.list.list_enroll],
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -74,18 +74,18 @@ export default {
   data() {
     return {
       showDialogBigImg: false,
-      cfList: {
+      cfList1111: {
         listIndex: "list_enroll", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "报名(订单)",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_enroll", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_enroll", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_enroll", //修改接口
-          detail: "http://120.76.160.41:3000/crossDetail?page=tangball_enroll", //查看单条数据详情接口，在修改表单或详情弹窗用到
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_enroll" //删除接口
+          list: "/crossList?page=tangball_enroll", //列表接口
+          add: "/crossAdd?page=tangball_enroll", //新增接口
+          modify: "/crossModify?page=tangball_enroll", //修改接口
+          detail: "/crossDetail?page=tangball_enroll", //查看单条数据详情接口，在修改表单或详情弹窗用到
+          delete: "/crossDelete?page=tangball_enroll" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -201,7 +201,7 @@ export default {
             prop: "matchId",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             }
@@ -334,7 +334,7 @@ export default {
 
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_member",
+              url: "/crossList?page=tangball_member",
               keyLabel: "name",
               keyValue: "P1"
             },
@@ -346,7 +346,7 @@ export default {
 
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             },

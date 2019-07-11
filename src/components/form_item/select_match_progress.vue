@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       url: {
-        detail: "http://120.76.160.41:3000/crossDetail?page=tangball_match"
+        detail: "/crossDetail?page=tangball_match"
       },
       //****这个初始值保障选项能实时响应
       valueNeed: this.value || { bigProgress: null, smallProgress: null },
@@ -90,13 +90,12 @@ export default {
         let { data } = await axios({
           //请求接口
           method: "post",
-          url: this.url.detail,
+          url: PUB.domain+this.url.detail,
           data: {
             id: this.matchId
           } //传递参数
         });
         if (!data.doc) return;
-        console.log("this.matchTypeNeed################", this.matchTypeNeed);
         this.matchTypeNeed = data.doc.matchType;
       },
       immediate: true, //组件初始化时立即执行一次变动
@@ -117,7 +116,6 @@ export default {
     valueNeed: {
       //绑定值
       handler(newVal, oldVal) {
-        console.log("valueNeed#############################################");
         
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
       },
@@ -128,7 +126,6 @@ export default {
   methods: {
     selectBigProcess(value) {
       //函数：{选择大赛段后函数}
-      console.log(value);
       this.optionsSmall = this.options[value - 1].childrens;
       this.valueNeed.smallProgress = this.optionsSmall[0].code;
     },

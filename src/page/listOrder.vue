@@ -14,10 +14,10 @@ export default {
         listIndex: "listOrder", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-order", //列表接口
-          add: "http://120.76.160.41:3000/crossList?page=mabang-order", //新增接口
-          modify: "http://120.76.160.41:3000/crossList?page=mabang-order", //修改接口
-          delete: "http://120.76.160.41:3000/crossList?page=mabang-order" //删除接口
+          list: "/crossList?page=mabang-order", //列表接口
+          add: "/crossList?page=mabang-order", //新增接口
+          modify: "/crossList?page=mabang-order", //修改接口
+          delete: "/crossList?page=mabang-order" //删除接口
         },
         //-------列配置数组-------
         columns: [

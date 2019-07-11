@@ -82,7 +82,7 @@ export default {
             prop: "prop4",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=mabang-member",
+              url: "/crossList?page=mabang-member",
               param:{a:1},
               keyLabel: "nickName",
               keyValue: "userName"

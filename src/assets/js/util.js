@@ -16,6 +16,14 @@ let type = function (obj) {
     return class2type[Object.prototype.toString.call(obj)] || "object";
 };
 
+function timeout(ms) {//使用promise封装一个延迟方法
+    return new Promise((resolve) => {//resolve延迟解决后的回调函数, reject延迟异常的处理函数
+        setTimeout(resolve, ms, 'done');
+    });
+}
+
+
+
 export default {
-    deepCopy,type
+    deepCopy,type,timeout
 }

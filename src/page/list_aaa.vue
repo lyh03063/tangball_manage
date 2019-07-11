@@ -14,10 +14,10 @@ export default {
         listIndex: "listCategory", //vuex对应的字段
         flag:true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=mabang-category", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=mabang-category", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=mabang-category", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=mabang-category" //删除接口
+          list: "/crossList?page=mabang-category", //列表接口
+          add: "/crossAdd?page=mabang-category", //新增接口
+          modify: "/crossModify?page=mabang-category", //修改接口
+          delete: "/crossDelete?page=mabang-category" //删除接口
         },
         //-------列配置数组-------
         columns: [

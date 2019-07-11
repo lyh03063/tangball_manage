@@ -20,27 +20,18 @@
 <script>
 // action="https://jsonplaceholder.typicode.com/posts/"
 export default {
-  props: {
-    value: [Array]
-  },
+  // props: {
+  //   value: [Array]
+  // },
+  mixins: [MIX.form_item],//混入
   data() {
     return {
-      valueNeed: this.value,
+      // valueNeed: this.value,
       dialogImageUrl: "",
       dialogVisible: false
     };
   },
-  watch: {
-    valueNeed: {
-      handler(newVal, oldVal) {//变动后的回调
-        console.log("newVal", newVal);
-        console.log("oldVal", oldVal);
-        this.$emit("input", this.valueNeed); //同步valueNeed值到value
-      },
-      immediate: true,//组件初始化时立即执行一次变动
-      deep: true//深度监听
-    }
-  },
+
   methods: {
     //处理图片上传后的同步
     uploaded(response) {

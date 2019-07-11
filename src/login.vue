@@ -56,7 +56,7 @@ export default {
     return {
       ak47: true,
       objURL: {
-        list: "http://120.76.160.41:3000/crossList?page=tangball_admin"
+        list: "/crossList?page=tangball_admin"
       },
       ruleForm: {
         //表单数据.
@@ -79,13 +79,12 @@ export default {
       let response = await axios({
         //请求接口
         method: "post",
-        url: this.objURL.list,
+        url: PUB.domain+this.objURL.list,
         data: { findJson: this.ruleForm }
       }).catch(function(error) {
         alert("异常:" + error);
       });
 
-      console.log(response.data);
 
       let { list } = response.data;
       list.forEach(element => {
@@ -118,7 +117,6 @@ export default {
     }
   },
   created() {
-    console.log("创建后未挂载$el也是未定义的",this.$el)
 
     //------------如果已经登录------------
     if (localStorage.isLogin == 1) {
