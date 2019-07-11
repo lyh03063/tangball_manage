@@ -610,7 +610,7 @@ MIX.debug = {
   },
   data() {
     return {
-      debug11111: window.pub_debug, //是否启用调试模式
+    
       debugConfig: {
         list: [
           { label: "姓名", prop: "name" },
