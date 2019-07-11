@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style @dblclick.ctrl="toggleDebug">
+  <div id="app" style >
     <el-container>
       <el-header class="MB10">
         <el-row>
@@ -28,11 +28,13 @@ import NavMenu from "./components/NavMenu/NavMenu";
 export default {
   components: { NavMenu }, //注册组件
   methods: {
+    //函数：{切换调试模式函数}
     toggleDebug() {
-  
       //来自vuex的当前行数据
       let debug = this.$store.state.debug;
+      console.log("debug", debug);
       this.$store.commit("setDebug", !debug);
+
     },
     logout() {
       //退出登录函数
@@ -167,6 +169,17 @@ export default {
   created() {
     //*引用当前用户名
     this.currentUserName = localStorage.loginUserName;
+    document.onkeydown = (e)=> {//绑定ctrl+D事件
+      var keyCode = e.keyCode || e.which || e.charCode;
+      var ctrlKey = e.ctrlKey || e.metaKey;
+      if (ctrlKey && keyCode == 68) {
+        console.log("ctrlKey", ctrlKey);
+        console.log("keyCode", keyCode);
+        this.toggleDebug();//调用：{切换调试模式函数}
+         e.preventDefault();//阻止默认事件
+         return false;
+      }
+    };
   }
 };
 </script>
