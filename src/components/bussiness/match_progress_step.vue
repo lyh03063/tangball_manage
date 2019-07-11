@@ -14,7 +14,7 @@
 <script>
 export default {
   components: {},
-  props: ["cf"],
+  props: ["value"],
   // matchProgress: { smallProgress: 3, bigProgress: 1 }   需要传入的数据格式
   data() {
     return {
@@ -30,12 +30,11 @@ export default {
     };
   },
   mounted() {
-    if (this.cf) {
+    if (this.value) {
       this.stepsArr.forEach((item, index) => {
-        if (this.cf.smallProgress == item.value) {
+        if (this.value.smallProgress == item.value) {
           this.active = index; //当前选中状态
         }
-
         if (index <= this.active) {
           item.status = "success"; //当前选中状态的样式
         }

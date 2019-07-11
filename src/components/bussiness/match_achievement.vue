@@ -2,7 +2,7 @@
   <div class v-if="matchInfo">
     <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
 <!-- 赛事进度条 -->
-    <match_progress_step :cf="matchProgress"></match_progress_step>
+    <match_progress_step v-model="matchInfo.matchProgress"></match_progress_step>
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>
@@ -148,7 +148,6 @@ export default {
   ],
   data() {
     return {
-      matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
       debugConfig: {
         list: [
           { label: "赛事信息1", key: "matchInfo" },
