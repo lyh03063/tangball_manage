@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       url: {
-        list: "http://120.76.160.41:3000/crossList?page=dmagic_area" //列表接口
+        list: "/crossList?page=dmagic_area" //列表接口
       },
       valueNeed: [],
       options: [
@@ -93,7 +93,7 @@ export default {
       //请求接口
       let { data } = await axios({
         method: "post",
-        url: this.url.list,
+        url: PUB.domain+this.url.list,
         //传递参数
         data: {
           findJson: { P8: pid }

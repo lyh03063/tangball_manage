@@ -28,10 +28,10 @@
 </template>
 <script>
 import listData from "../components/list-data/list-data.vue";
-import ajax_populate from "../components/common/ajax_populate.vue";
+
 import select_city from "../components/form_item/select_city.vue";
 export default {
-  components: { listData,ajax_populate,select_city},
+  components: { listData,select_city},
   data() {
     return {
       cfList: {
@@ -41,12 +41,12 @@ export default {
         threeTitle: "赛事赞助",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_sponsorship", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_sponsorship", //新增接口
+          list: "/crossList?page=tangball_sponsorship", //列表接口
+          add: "/crossAdd?page=tangball_sponsorship", //新增接口
           modify:
-            "http://120.76.160.41:3000/crossModify?page=tangball_sponsorship", //修改接口
+            "/crossModify?page=tangball_sponsorship", //修改接口
           delete:
-            "http://120.76.160.41:3000/crossDelete?page=tangball_sponsorship" //删除接口
+            "/crossDelete?page=tangball_sponsorship" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -148,7 +148,7 @@ export default {
             prop: "sponsorId",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_sponsor",
+              url: "/crossList?page=tangball_sponsor",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -158,7 +158,7 @@ export default {
             prop: "matchId",
             type: "select",
             ajax: {
-              url: "http://120.76.160.41:3000/crossList?page=tangball_match",
+              url: "/crossList?page=tangball_match",
               keyLabel: "matchName",
               keyValue: "P1"
             }

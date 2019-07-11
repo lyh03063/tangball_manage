@@ -53,7 +53,6 @@ export default {
   watch: {
     formData: {
       handler: function() {
-        console.log("formData", this.formData);
       },
       deep: true //深度监听
     }
@@ -69,10 +68,10 @@ export default {
         threeTitle: "场馆",
         flag: true,
         url: {
-          list: "http://120.76.160.41:3000/crossList?page=tangball_venue", //列表接口
-          add: "http://120.76.160.41:3000/crossAdd?page=tangball_venue", //新增接口
-          modify: "http://120.76.160.41:3000/crossModify?page=tangball_venue", //修改接口
-          delete: "http://120.76.160.41:3000/crossDelete?page=tangball_venue" //删除接口
+          list: "/crossList?page=tangball_venue", //列表接口
+          add: "/crossAdd?page=tangball_venue", //新增接口
+          modify: "/crossModify?page=tangball_venue", //修改接口
+          delete: "/crossDelete?page=tangball_venue" //删除接口
         },
         //-------列配置数组-------
         columns: [
@@ -130,7 +129,7 @@ export default {
             type: "select",
             ajax: {
               url:
-                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+                "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -189,7 +188,7 @@ export default {
             type: "select",
             ajax: {
               url:
-                "http://120.76.160.41:3000/crossList?page=tangball_franchisee",
+                "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }

@@ -1,7 +1,6 @@
-import space2Component from './space.vue';
-const space={
-        install:function (Vue){
-            Vue.component('space',space2Component)//控制组件标签
-        }
+import component from './space.vue';
+export default {
+    install:function (Vue){
+        Vue.component('space',component)//控制组件标签
+    }
 }
-export default space

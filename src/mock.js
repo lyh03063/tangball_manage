@@ -102,12 +102,10 @@ Mock.mock('/list_sponsor/add', function (obj) {
     intro: element.intro
   }
   sponsor.list.push(newSponsor);
-  console.log(newSponsor);
 })
 Mock.mock('/list_sponsor/modify', function (obj) {
   let element = JSON.parse(obj.body).modifyJson;
   for (let i = 0; i < sponsor.list.length; i++) {
-    console.log(element.P1);
     if (sponsor.list[i].P1 == element.P1) {
       sponsor.list[i] = element;
     }
@@ -116,7 +114,6 @@ Mock.mock('/list_sponsor/modify', function (obj) {
 Mock.mock('/list_sponsor/delete', function (obj) {
   let id = JSON.parse(obj.body).findJson.P1;
   for (let i = 0; i < sponsor.list.length; i++) {
-    console.log(id.P1);
     if (sponsor.list[i].P1 == id) {
       sponsor.list.splice(i, 1)
     }

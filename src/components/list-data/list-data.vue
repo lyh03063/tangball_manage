@@ -113,6 +113,7 @@
       :cf="cf"
       @after-add="$emit('after-add')"
       @after-modify="$emit('after-modify')"
+      @after-delete="$emit('after-delete')"
     >
       <template v-slot:[item.slot]="{row}" v-for="item in cf.detailItems">
         <!--根据cf.detailItems循环输出插槽--详情弹窗-->
@@ -184,7 +185,7 @@ export default {
         let { data } = await axios({
           //请求接口
           method: "post",
-          url: this.cf.url.detail,
+          url: PUB.domain+this.cf.url.detail,
           data: {
             id: row.P1
           } //传递参数
@@ -210,7 +211,7 @@ export default {
         await axios({
           //请求接口
           method: "post",
-          url: this.cf.url.delete,
+          url: PUB.domain+this.cf.url.delete,
           data: {
             findJson: {
               //用于定位要修改的数据
@@ -226,7 +227,11 @@ export default {
           duration: 1500,
           type: "success"
         });
-        this.getDataList(); //更新数据列表
+        this.$emit("after-delete"); //触发外部事件
+        //如果{增删改操作后是否自动刷新}为真
+        if (this.cf.isRefreshAfterCUD) {
+          this.getDataList(); //更新数据列表
+        }
       }
     },
     //-------------查询列表的函数--------------
@@ -241,11 +246,10 @@ export default {
     },
     //-------------ajax获取数据列表函数--------------
     getDataList() {
-      console.log("this.Objparma####", this.Objparma);
       axios({
         //请求接口
         method: "post",
-        url: this.cf.url.list,
+        url: PUB.domain+this.cf.url.list,
         data: this.Objparma
       })
         .then(response => {
@@ -253,7 +257,6 @@ export default {
           this.tableData = list;
           this.page = page;
           this.allCount = page.allCount; //更改总数据量
-          console.log("数据", response);
         })
         .catch(function(error) {
           alert("异常:" + error);
@@ -265,7 +268,7 @@ export default {
     return {
       //------------------筛选表单组件配置--------------
       cfSearchForm: {
-        col_span: 8,
+        // col_span: 8,//控制显示一行多列
         labelWidth: "auto",
         size: "mini",
         inline: true,
@@ -292,12 +295,12 @@ export default {
     this.cf.isShowOperateColumn === false ||
       (this.cf.isShowOperateColumn = true);
     this.cf.isShowToolBar === false || (this.cf.isShowToolBar = true);
+    this.cf.isRefreshAfterCUD === false || (this.cf.isRefreshAfterCUD = true);
 
     let findJsonDefault = this.cf.findJsonDefault || {};
     //读取vuex的当前列表页默认筛选参数
     let defultFindJson = this.$store.state.defultFindJson[this.cf.listIndex];
     if (defultFindJson) {
-      console.log("defultFindJson存在");
       //如果{默认的查询参数}存在，清空默认查询参数，避免下次切换时还保留
       Object.assign(findJsonDefault, defultFindJson); //合并对象
 

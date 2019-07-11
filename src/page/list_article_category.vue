@@ -32,14 +32,14 @@ export default {
         flag: true,
         url: {
           list:
-            "http://120.76.160.41:3000/crossList?page=tangball_article_category", //列表接口
+            "/crossList?page=tangball_article_category", //列表接口
           add:
-            "http://120.76.160.41:3000/crossAdd?page=tangball_article_category", //新增接口
+            "/crossAdd?page=tangball_article_category", //新增接口
           modify:
-            "http://120.76.160.41:3000/crossModify?page=tangball_article_category", //修改接口
+            "/crossModify?page=tangball_article_category", //修改接口
 
           delete:
-            "http://120.76.160.41:3000/crossDelete?page=tangball_article_category" //删除接口
+            "/crossDelete?page=tangball_article_category" //删除接口
         },
         //-------列配置数组-------
         columns: [

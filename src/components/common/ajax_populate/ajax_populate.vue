@@ -49,11 +49,9 @@ export default {
 
       //函数：{获取缓存数据的函数}
       var getExitDoc = () => {
-        console.log("getExitDoc####");
         let docExit = PUB_ajax_populate[this.keyExit];
         //如果为pending...，表示请求已经发出但还没有完成
         if (docExit == "pending...") {
-          console.log("pending...,等待返回结果");
           setTimeout(() => {
             //延迟函数
             getExitDoc();
@@ -65,7 +63,6 @@ export default {
           this.text = docExit[this.populateKey];
         }
       };
-      console.log("PUB_ajax_populate[this.keyExit]", PUB_ajax_populate[this.keyExit]);
       if (PUB_ajax_populate[this.keyExit]) {
         return getExitDoc(); //调用：{获取缓存数据的函数}
       }
@@ -74,12 +71,10 @@ export default {
       PUB_ajax_populate[this.keyExit] = "pending...";
       this.ajax.param = this.ajax.param ;
       this.ajax.param[this.idKey] = this.id;
-      console.log("this.ajax.url######", this.ajax.url);
-
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: this.ajax.url,
+        url: PUB.domain+this.ajax.url,
         data: this.ajax.param //传递参数
       }).catch(function(error) {
         alert("异常:" + error);
@@ -102,7 +97,7 @@ export default {
     window.PUB_ajax_populate = window.PUB_ajax_populate || {};
     if (this.page) {
       //如果{000}000
-      this.ajax.url = `http://120.76.160.41:3000/crossDetail?page=${this.page}`;
+      this.ajax.url = `/crossDetail?page=${this.page}`;
 
       this.ajaxGetData();
     }
