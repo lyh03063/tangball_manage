@@ -8,7 +8,7 @@
 <debug_item path="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"/>
 </debug_list>
 <!-- 赛事进度条 -->
-    <match_progress_step :cf="matchProgress"></match_progress_step>
+    <match_progress_step v-model="matchInfo.matchProgress"></match_progress_step>
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>
@@ -163,8 +163,45 @@ export default {
   ],
   data() {
     return {
+<<<<<<< HEAD
       matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
       
+=======
+      debugConfig: {
+        list: [
+          { label: "赛事信息1", key: "matchInfo" },
+          { label: "赛事阶段", key: "matchInfo.matchProgress" },
+          { label: "成绩列表的默认查询参数", key: "cfList.findJsonDefault" },
+          {
+            label: "弹窗表单的第一个字段的下拉框选项ajax查询参数",
+            key: "cfList.formItems[0].ajax.param.sheetRelation.findJson"
+          }
+        ]
+      },
+      debugConfig2: {
+        // data: {},
+        list: [
+          { label: "城际赛赛事小阶段", key: "crossCityMatchSmallProgress" },
+          { label: "城际赛团队成绩列表", key: "arrCrossCityMatchAchievement" },
+          {
+            label: "城际赛成绩明细总列表",
+            key: "arrCrossCityMatchPersonAchievement"
+          },
+          {
+            label: "显示明细列表弹窗",
+            key: "showDialogCCityAchievementPersonal"
+          },
+          {
+            label: "城际赛的明细列表的默认查询参数",
+            key: "findJsonDefaultCCityAchP"
+          },
+          {
+            label: "城际赛的明细列表的一些提示信息",
+            key: "infoDefaultCCityAchP"
+          }
+        ]
+      },
+>>>>>>> d41afe8167aa0002df11e4a065b325fece0c7387
 
       isEdit: false,
       //城际赛的明细列表的一些提示信息
