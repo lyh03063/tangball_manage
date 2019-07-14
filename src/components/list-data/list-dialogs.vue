@@ -40,9 +40,9 @@
       :append-to-body="true"
     >
     
-      <debug_list>
+      <debug_list level-up="1">
         <debug_item path="formAdd" text="新增表单的绑定数据"/>
-        <debug_item path="cf.formDataAddIni" text="新增表单的初始数据"/>
+        <debug_item path="cf.formDataAddInit" text="新增表单的初始数据"/>
       </debug_list>
 
       <br>
