@@ -39,8 +39,11 @@
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
-      <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-      
+    
+      <debug_list>
+        <debug_item path="formAdd" text="新增表单的绑定数据"/>
+        <debug_item path="cf.formDataAddIni" text="新增表单的初始数据"/>
+      </debug_list>
 
       <br>
 
@@ -83,19 +86,10 @@ export default {
     dynamicForm
   },
   props: ["cf"],
-  //混入成绩列表配置
-  mixins: [
-    MIX.debug,
-   
-  ],
-  data: function() {
+
+  data: function () {
     return {
-      debugConfig: {
-        list: [
-          { label: "新增表单的绑定数据", key: "formAdd" },
-          { label: "新增表单的初始数据", key: "cf.formDataAddIni" }
-        ]
-      },
+
 
       //------------------新增表单组件配置--------------
       cfFormAdd: {
@@ -176,7 +170,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.modify,
+        url: PUB.domain + this.cf.url.modify,
         data: {
           findJson: {
             //用于定位要修改的数据
@@ -199,7 +193,7 @@ export default {
 
           this.$emit("after-modify"); //触发外部事件
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert("异常:" + error);
         });
     },
@@ -208,7 +202,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.add,
+        url: PUB.domain + this.cf.url.add,
         data: { data: this.formAdd } //传递参数
       })
         .then(response => {
@@ -225,7 +219,7 @@ export default {
           this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
           this.$emit("after-add"); //触发外部事件
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert("异常:" + error);
         });
     },
@@ -239,7 +233,7 @@ export default {
       this.dataIdModify = rowNew.P1;
     }
   },
-  mounted() {}
+  mounted() { }
 };
 </script>
 

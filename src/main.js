@@ -14,6 +14,8 @@ import space from './components/space/index.js';   //默认情况下找的是ind
 Vue.use(space);   //必须有install
 import debug_list from './components/common/debug_list/index.js';   //导入debug_list
 Vue.use(debug_list);   //作为全局组件，必须有install
+import debug_item from './components/common/debug_item/index.js';   //导入debug_item
+Vue.use(debug_item);   //作为全局组件，必须有install
 import ajax_populate from './components/common/ajax_populate/index.js';   //导入ajax_populate
 Vue.use(ajax_populate);   //作为全局组件，必须有install
 

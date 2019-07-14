@@ -1,6 +1,12 @@
 <template>
   <div class v-if="matchInfo">
-    <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
+   
+    <debug_list >
+<debug_item path="matchInfo" text="赛事信息222"/>
+<debug_item path="matchInfo.matchProgress" text="赛事阶段"/>
+<debug_item path="cfList.findJsonDefault" text="成绩列表的默认查询参数"/>
+<debug_item path="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"/>
+</debug_list>
 <!-- 赛事进度条 -->
     <match_progress_step :cf="matchProgress"></match_progress_step>
     <!-- {{matchInfo}} -->
@@ -89,7 +95,16 @@
             </el-radio-group>
           </div>
 
-          <debug_list class v-model="debugConfig2" v-if="debug"></debug_list>
+<debug_list >
+<debug_item path="crossCityMatchSmallProgress" text="城际赛赛事小阶段"/>
+<debug_item path="arrCrossCityMatchAchievement" text="城际赛团队成绩列表"/>
+<debug_item path="arrCrossCityMatchPersonAchievement" text="城际赛成绩明细总列表"/>
+<debug_item path="showDialogCCityAchievementPersonal" text="显示明细列表弹窗"/>
+<debug_item path="findJsonDefaultCCityAchP" text="城际赛的明细列表的默认查询参数"/>
+<debug_item path="infoDefaultCCityAchP" text="城际赛的明细列表的一些提示信息"/>
+</debug_list>
+
+
 
           <el-table :data="arrCrossCityMatchAchievement" border style="width: 100%" class="MT10">
             <el-table-column prop="cityName" label="队名" width="180"></el-table-column>
@@ -142,47 +157,14 @@ export default {
     matchId: [String, Number]
   },
   mixins: [
-    MIX.debug,
+   
     MIX.list.list_achievement,
     MIX.list.list_achievement_simple
   ],
   data() {
     return {
       matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
-      debugConfig: {
-        list: [
-          { label: "赛事信息1", key: "matchInfo" },
-          { label: "赛事阶段", key: "matchInfo.matchProgress" },
-          { label: "成绩列表的默认查询参数", key: "cfList.findJsonDefault" },
-          {
-            label: "弹窗表单的第一个字段的下拉框选项ajax查询参数",
-            key: "cfList.formItems[0].ajax.param.sheetRelation.findJson"
-          }
-        ]
-      },
-      debugConfig2: {
-        // data: {},
-        list: [
-          { label: "城际赛赛事小阶段", key: "crossCityMatchSmallProgress" },
-          { label: "城际赛团队成绩列表", key: "arrCrossCityMatchAchievement" },
-          {
-            label: "城际赛成绩明细总列表",
-            key: "arrCrossCityMatchPersonAchievement"
-          },
-          {
-            label: "显示明细列表弹窗",
-            key: "showDialogCCityAchievementPersonal"
-          },
-          {
-            label: "城际赛的明细列表的默认查询参数",
-            key: "findJsonDefaultCCityAchP"
-          },
-          {
-            label: "城际赛的明细列表的一些提示信息",
-            key: "infoDefaultCCityAchP"
-          }
-        ]
-      },
+      
 
       isEdit: false,
       //城际赛的明细列表的一些提示信息
