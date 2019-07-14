@@ -12,7 +12,7 @@
       v-if="showDialog"
     >
       <div class>
-        <debug_list>
+        <debug_list level-up="1">
           <debug_item path="findJsonDefault" text="成绩列表的默认查询参数"/>
           <debug_item path="cfList.formDataAddInit" text="新增表单的初始数据"/>
           <debug_item

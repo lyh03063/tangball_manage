@@ -3,16 +3,17 @@
   <div class>
     <input type="text" v-model="matchId">
     <space height="10"></space>
-    
-    <debug_list   >
-      <debug_item path="name" text="姓名1111"/>
-      <debug_item path="matchId" text="赛事id"></debug_item>
-      <debug_item path="objTest" text="测试对象"></debug_item>
-      <debug_item path="objTest.big" text="测试对象属性"></debug_item>
-    </debug_list>
+    <div class>
+      <debug_list>
+        <debug_item path="name" text="姓名22223"/>
+        <debug_item path="matchId" text="赛事id"></debug_item>
+        <debug_item path="objTest" text="测试对象"></debug_item>
+        <debug_item path="objTest.big" text="测试对象属性"></debug_item>
+      </debug_list>
+    </div>
 
-    <space height="10" ></space>
-   
+    <space height="10"></space>
+
     <!-- <match_enroll :matchId="matchId" :debug111="true" ></match_enroll> -->
     <space height="100"></space>
     <match_achievement :matchId="matchId"></match_achievement>
@@ -30,7 +31,7 @@ export default {
     ccity_match_achievement_personal,
 
   },
-  
+
   data() {
     return {
       matchId: 37,
@@ -50,7 +51,7 @@ export default {
 
       },
 
-      
+
     };
   },
 

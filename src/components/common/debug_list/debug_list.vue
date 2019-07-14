@@ -1,19 +1,13 @@
 <template>
- 
-    
-    <table class="n-table n-table-debug " v-if="debug" >
-      <tr>
-        <td class="WP20 FWB">调试数据</td>
-        <td class="WP20 FWB">说明</td>
-        <td class="FWB">字段值</td>
-      </tr>
-      <!--插槽-->
-      <slot class="" >
-       
-      </slot>
-      
-    </table>
- 
+  <table class="n-table n-table-debug MT5 MB5" v-if="debug">
+    <tr>
+      <td class="WP20 FWB">调试数据</td>
+      <td class="WP20 FWB">说明</td>
+      <td class="FWB">字段值</td>
+    </tr>
+    <!--插槽-->
+    <slot class v-if="isReady"></slot>
+  </table>
 </template>
 
 <script>
@@ -23,18 +17,45 @@ export default {
     //注册组件
 
   },
+  props: ["levelUp"],
+  data: function () {
+    return {
+      isReady: false
+    }
 
- computed: {
+  },
+
+  computed: {
     debug() {
       return this.$store.state.debug;
     }
   },
- 
-  
+
+
   methods: {
-    
+
   },
-  created() {}
+  created() {
+    let pathObjNeed = "$parent"//变量：{所需调试组件对象的父级路径}
+    if (this.levelUp > 0) {//如果{所需调试组件对象的父级层级}大于0,
+    console.log("当前组件####");
+    console.log(this);
+      let n = Number(this.levelUp);
+      for (var i = 0; i < n; i++) {
+
+        pathObjNeed += ".$parent"
+      }
+
+    }
+    this.objNeedDebug = lodash.get(this, pathObjNeed)//进行重新定位
+    
+    this.isReady = true;//准备好了
+
+
+
+
+
+  }
 };
 </script>
 

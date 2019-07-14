@@ -1,13 +1,11 @@
 <template>
   <tr>
-      <td class="WP20">{{path}}</td>
-      <td class="WP20">{{text}}</td>
-      <td class>
-        <span
-            class="DPIB valueShow"
-          >{{getValue(path)}}</span>
-      </td>
-    </tr>
+    <td class="WP20">{{path}}</td>
+    <td class="WP20">{{text}}</td>
+    <td class>
+      <span class="DPIB valueShow">{{getValue(path)}}</span>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -27,7 +25,25 @@ export default {
 
   methods: {
     getValue(path) {
-      let objNeed=this.$parent.$parent;
+      let objDebugList = this.$parent;
+      console.log("objDebugList.levelUp", objDebugList.levelUp);
+
+
+
+      let objNeed = objDebugList.objNeedDebug;
+
+      // let pathObjNeed = "$parent"//变量：{所需调试组件对象的父级路径}
+
+      // if (objDebugList.levelUp > 0) {//如果{所需调试组件对象的父级层级}大于0,
+      //   let n = Number(objDebugList.levelUp);
+      //   for (var i = 0; i < n; i++) {
+
+      //     pathObjNeed += ".$parent"
+      //   }
+
+      // }
+      // objNeed = lodash.get(objNeed, pathObjNeed)//进行重新定位
+
       //变量：{根据属性路径获取到对应的属性值}
       //lodash.get函数*****
       let isData = lodash.has(objNeed.$data, path); //变量：{是否为data},通过lodash.has方法来判断
