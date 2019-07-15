@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-order-data.vue";
+import listData from "@/components/list-data/list-order-data.vue";
 
 export default {
   components: { listData },

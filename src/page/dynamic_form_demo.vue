@@ -12,10 +12,10 @@
   </div>
 </template>
 <script>
-import dynamicForm from "../components/list-data/dynamic-form";
-import form_item_test from "../components/form_item_test.vue";
-import checkbox_diy from "../components/form_item/checkbox_diy.vue";
-import time_period from "../components/form_item/time_period.vue";
+import dynamicForm from "@/components/list-data/dynamic-form";
+import form_item_test from "@/components/form_item_test.vue";
+import checkbox_diy from "@/components/form_item/checkbox_diy.vue";
+import time_period from "@/components/form_item/time_period.vue";
 export default {
   components: { dynamicForm, form_item_test,checkbox_diy,time_period },
   data() {

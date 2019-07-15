@@ -59,11 +59,11 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
-import select_match_progress from "../components/form_item/select_match_progress.vue";
-import member_enroll from "../components/form_item/member_enroll.vue";
-import achievement_matchProgress from "../components/form_item/achievement_matchProgress.vue";
+import select_match_progress from "@/components/form_item/select_match_progress.vue";
+import member_enroll from "@/components/form_item/member_enroll.vue";
+import achievement_matchProgress from "@/components/form_item/achievement_matchProgress.vue";
 export default {
   components: { listData, select_match_progress, member_enroll,achievement_matchProgress },
   mixins: [MIX.list.list_achievement],

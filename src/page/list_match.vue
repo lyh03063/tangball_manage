@@ -55,11 +55,11 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
-import city_venue_list from "../components/form_item/city_venue_list.vue";
-import select_match_progress from "../components/form_item/select_match_progress.vue";
-import match_achievement from "../components/bussiness/match_achievement.vue";
-import match_enroll from "../components/bussiness/match_enroll.vue";
+import listData from "@/components/list-data/list-data.vue";
+import city_venue_list from "@/components/form_item/city_venue_list.vue";
+import select_match_progress from "@/components/form_item/select_match_progress.vue";
+import match_achievement from "@/components/bussiness/match_achievement.vue";
+import match_enroll from "@/components/bussiness/match_enroll.vue";
 export default {
   components: {
     listData,

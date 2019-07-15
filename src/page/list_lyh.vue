@@ -4,12 +4,14 @@
     <input type="text" v-model="matchId">
     <space height="10"></space>
     <div class>
-      <debug_list>
-        <debug_item path="name" text="姓名22223"/>
+      <debug_list >
+        <debug_item path="name" text="姓名"/>
         <debug_item path="matchId" text="赛事id"></debug_item>
         <debug_item path="objTest" text="测试对象"></debug_item>
         <debug_item path="objTest.big" text="测试对象属性"></debug_item>
       </debug_list>
+
+     
     </div>
 
     <space height="10"></space>
@@ -21,9 +23,9 @@
 </template>
 <script>
 
-import match_achievement from "../components/bussiness/match_achievement.vue";
-import match_enroll from "../components/bussiness/ccity_match_achievement_personal.vue";
-import ccity_match_achievement_personal from "../components/bussiness/ccity_match_achievement_personal.vue";
+import match_achievement from "@/components/bussiness/match_achievement.vue";
+import match_enroll from "@/components/bussiness/ccity_match_achievement_personal.vue";
+import ccity_match_achievement_personal from "@/components/bussiness/ccity_match_achievement_personal.vue";
 export default {
   components: {
     match_achievement,
@@ -36,6 +38,7 @@ export default {
     return {
       matchId: 37,
       name: "刘胡兰",
+      sex: "男",
       objTest: {
         big: "大大", small: "小小",
         list: [

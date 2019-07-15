@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 import Mock from "mockjs";
 // 报名（订单）接口
 Mock.mock("/list_match", function() {

@@ -131,11 +131,11 @@ import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
 import vueJsonEditor from "vue-json-editor";
-import select_ajax from "../form_item/select_ajax.vue";
-import input_find_vague from "../form_item/input_find_vague.vue";
-import json_editor from "../form_item/json_editor.vue";
-import upload_img from "../form_item/upload_img.vue";
-import time_period from "../form_item/time_period.vue";
+import select_ajax from "@/components/form_item/select_ajax.vue";
+import input_find_vague from "@/components/form_item/input_find_vague.vue";
+import json_editor from "@/components/form_item/json_editor.vue";
+import upload_img from "@/components/form_item/upload_img.vue";
+import time_period from "@/components/form_item/time_period.vue";
 export default {
   components: {
     //注册组件
