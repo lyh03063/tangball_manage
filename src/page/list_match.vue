@@ -245,6 +245,12 @@ export default {
             type: "select",
             slot: "slot_detail_item_cityVenueList"
           },
+         
+          {
+            label: "赛事图片",
+            prop: "album",
+            slot: "slot_detail_item_album"
+          } ,
           {
             label: "报名人数",
             prop: "registeredPersons"
@@ -328,6 +334,11 @@ export default {
             prop: "matchProgress",
             type: "select",
             slot: "slot_modify_item_matchProgress"
+          },
+          {
+            label: "相册",
+            prop: "album",
+            type: "upload"
           },
 
           {
