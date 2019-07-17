@@ -2,7 +2,7 @@
   <el-form
     ref="form"
     :model="value"
-    :label-width="cf.labelWidth||'100px'"
+    :label-width="cf.labelWidth||'120px'"
     :size="cf.size||'small'"
     :inline="cf.inline"
   >
@@ -74,6 +74,16 @@
               type="date"
               placeholder="选择日期"
               v-else-if="item.type=='date'"
+            ></el-date-picker>
+             <!--date日期时间选择-->
+            <el-date-picker
+              v-model="formDataNeed[item.prop]"
+              format="yyyy-MM-dd HH:mm"
+              value-format="yyyy-MM-dd HH:mm"
+              align="right"
+              type="datetime"
+              placeholder="选择日期时间"
+              v-else-if="item.type=='dateTime'"
             ></el-date-picker>
             <!--如果是时间段-->
             <time_period v-model="formDataNeed[item.prop]" v-else-if="item.type=='time_period'"></time_period>
@@ -255,6 +265,7 @@ export default {
     },
     //初始化表单函数
     initForm() {
+console.log("this.docGet", this.docGet);
       if (this.docGet) {
         //ajax获取到的表单数据存在
         let jsonData = {};
@@ -268,6 +279,7 @@ export default {
             var t_json = JSON.stringify(valCurr); //json转字符串
           }
         });
+        console.log("this.formDataNeed", this.formDataNeed);
         this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
@@ -291,7 +303,7 @@ export default {
           id: this.value.P1
         } //传递参数
       });
-      this.docGet = data.doc;
+      this.docGet = data.Doc;//这里要使用大写的Doc
     }
     this.initForm(); //调用：{初始化表单函数}
   }

@@ -45,6 +45,10 @@
       </template>
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
+        <debug_list level-up="2">
+          <debug_item path="row.cityVenueList" v-model="row.cityVenueList" text="场馆列表"/>
+        </debug_list>
+        
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
@@ -126,7 +130,7 @@ export default {
             label: "发布",
             prop: "publicationStatus",
             width: 75,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
             }
           },
@@ -134,21 +138,16 @@ export default {
             label: "状态",
             prop: "matchStatus",
             width: 75,
-            formatter: function(rowData) {
-              if (rowData.matchStatus == 1) {
-                return "未开始";
-              } else if (rowData.matchStatus == 2) {
-                return "进行中";
-              } else {
-                return "已结束";
-              }
+            formatter: function (rowData) {
+              return "赛事状态需对比开始和结束时间";
+
             }
           },
           {
             label: "类型",
             prop: "matchType",
             width: 75,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
@@ -205,22 +204,27 @@ export default {
             prop: "matchName"
           },
           {
+            label: "报名状态",
+            prop: "matchErollStatus",
+            formatter: function (rowData) {
+              let obj = util.getTimeStatus({ start: rowData.enrollTime, end: rowData.enrollTimeEnd })
+              let htmlResult = `报名时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：报名${obj.msg}`
+              return htmlResult;
+            }
+          },
+          {
             label: "赛事状态",
             prop: "matchStatus",
-            formatter: function(rowData) {
-              if (rowData.matchStatus == 1) {
-                return "未开始";
-              } else if (rowData.matchStatus == 2) {
-                return "进行中";
-              } else {
-                return "已结束";
-              }
+            formatter: function (rowData) {
+              let obj = util.getTimeStatus({ start: rowData.matchTime, end: rowData.matchTimeEnd })
+              let htmlResult = `比赛时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：比赛${obj.msg}`
+              return htmlResult;
             }
           },
           {
             label: "发布状态",
             prop: "publicationStatus",
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
             }
           },
@@ -229,13 +233,18 @@ export default {
             prop: "venue"
           },
           {
-            label: "赛事时间",
-            prop: "matchTime"
+            label: "报名开始时间",
+            prop: "enrollTime"
           },
+          {
+            label: "报名结束时间",
+            prop: "enrollTimeEnd"
+          },
+
           {
             label: "赛事类型",
             prop: "matchType",
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
@@ -245,12 +254,12 @@ export default {
             type: "select",
             slot: "slot_detail_item_cityVenueList"
           },
-         
+
           {
             label: "赛事图片",
             prop: "album",
             slot: "slot_detail_item_album"
-          } ,
+          },
           {
             label: "报名人数",
             prop: "registeredPersons"
@@ -279,16 +288,7 @@ export default {
             prop: "matchName",
             rules: [{ required: true, message: "赛事名称不能为空" }]
           },
-          {
-            label: "赛事状态",
-            prop: "matchStatus",
-            type: "select",
-            options: [
-              { label: "未开始", value: 1 },
-              { label: "进行中", value: 2 },
-              { label: "已结束", value: 3 }
-            ]
-          },
+
 
           {
             label: "发布状态",
@@ -308,10 +308,28 @@ export default {
             }
           },
           {
-            label: "赛事时间",
+            label: "报名开始时间",
+            prop: "enrollTime",
+            type: "dateTime",
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "报名结束时间",
+            prop: "enrollTimeEnd",
+            type: "dateTime",
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "赛事开始时间",
             prop: "matchTime",
-            type: "date",
-            rules: [{ required: true, message: "赛事时间不能为空" }]
+            type: "dateTime",
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "赛事结束时间",
+            prop: "matchTimeEnd",
+            type: "dateTime",
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "赛事类型",

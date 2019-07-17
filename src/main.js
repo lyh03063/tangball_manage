@@ -1,14 +1,21 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
-window.PUB.domain="http://120.76.160.41:3000"
-// window.PUB.domain="http://localhost:3000"
+//window.PUB.domain="http://120.76.160.41:3000"
+ window.PUB.domain="http://localhost:3000"
 
 import Vue from 'vue'
 Vue.config.productionTip = false
 
 import lodash from 'lodash'//导入lodash方法库
 window.lodash=lodash
+import axios from "axios";
+window.axios = axios;
+
+import moment from "moment";
+window.moment = moment; 
+
+
 
 import space from './components/space/index.js';   //默认情况下找的是index文件
 Vue.use(space);   //必须有install
@@ -203,11 +210,7 @@ const router = new VueRouter({
 })
 
 
-import axios from "axios";
-window.axios = axios;
 
-import moment from "moment";
-window.moment = moment;
 
 import Vuex from 'vuex'//导入vuex模块
 Vue.use(Vuex)//应用组件

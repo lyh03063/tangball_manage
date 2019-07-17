@@ -3,7 +3,8 @@
     <td >{{path}}</td>
     <td >{{text}}</td>
     <td class>
-      <span class="DPIB valueShow">{{getValue(path)}}</span>
+      <span class="DPIB valueShow" v-if="value">{{value}}</span>
+      <span class="DPIB valueShow" v-else>{{getValue(path)}}</span>
     </td>
   </tr>
 </template>
@@ -16,7 +17,7 @@ export default {
 
   },
 
-  props: ["path", "text"],
+  props: ["path", "text","value"],
   data() {
     return {
       dataValue: this.getValue(this.path),

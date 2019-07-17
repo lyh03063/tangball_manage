@@ -73,9 +73,9 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import listData from "@/components/list-data/list-data.vue";
+// import listData from "../list-data/list-data.vue";
 
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_venue from "@/components/form_item/match_venue.vue";

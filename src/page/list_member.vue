@@ -147,7 +147,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
          {
-            label: "会员名称",
+            label: "会员姓名",
             prop: "name",
             width: 100
           },
@@ -155,6 +155,13 @@ export default {
             label: "微信号",
             prop: "unionld",
             width: 100
+          },
+          {
+            label: "下拉框(select)",
+            prop: "sex",
+            type: "select",
+            default:1,
+            options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {
             label: "身份证号",

@@ -11,9 +11,13 @@ export default {
   data() {
     return {
       cfList: {
+        //默认排序参数
+        sortJsonDefault: {
+          "tangball.countVenue": -1//按场馆数量降序
+        },
         listIndex: "list_area", //vuex对应的字段
-        focusMenu:true,//进行菜单聚焦
-        flag:true,
+        focusMenu: true,//进行菜单聚焦
+        flag: true,
         url: {
           list: "/crossList?page=dmagic_area", //列表接口
           add: "/crossAdd?page=dmagic_area", //新增接口
@@ -35,7 +39,17 @@ export default {
           {
             label: "父地区编号",
             prop: "P8",
-            width: 200
+            width: 150
+          },
+          {
+            label: "场馆数",
+            prop: "tangball",
+            width: 100,
+            formatter: function (rowData) {
+              if (!rowData.tangball) return "";
+              return rowData.tangball.countVenue
+            }
+
           }
         ],
         //-------筛选表单字段数组-------
@@ -44,11 +58,11 @@ export default {
             label: "地区名称",
             prop: "P2",
             type: "input_find_vague"
-          },{
+          }, {
             label: "分类编号",
             prop: "P7",
             type: "input"
-          },{
+          }, {
             label: "父地区编号",
             prop: "P8",
             type: "input"
@@ -72,15 +86,15 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-             label: "地区名称",
+            label: "地区名称",
             prop: "P2",
             type: "input"
           },
           {
-           label: "地区编号",
+            label: "地区编号",
             prop: "P7",
             type: "input"
-          },{
+          }, {
             label: "父地区编号",
             prop: "P8",
             type: "input"
@@ -89,7 +103,7 @@ export default {
       }
     };
   },
- 
+
 };
 </script>
 

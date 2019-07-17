@@ -4,7 +4,8 @@
     <el-dialog
       title="查看详情"
       :visible.sync="isShowDialogDetail"
-      width="60%"
+      v-if="isShowDialogDetail"
+      width="80%"
       :before-close="closeDialogDetailFun"
       :append-to-body="true"
     >
@@ -35,7 +36,7 @@
       title="新增数据"
       :visible.sync="isShowDialogAdd"
       v-if="isShowDialogAdd"
-      width="50%"
+      width="80%"
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
@@ -61,7 +62,7 @@
       title="修改数据"
       :visible.sync="isShowDialogModify"
       v-if="isShowDialogModify"
-      width="60%"
+      width="80%"
       :append-to-body="true"
     >
       <debug_list level-up="1" >
@@ -230,11 +231,13 @@ export default {
     },
     //-------------显示修改弹窗的函数--------------
     showModify(row) {
+   
       let str = JSON.stringify(row); //转换成字符串
       let rowNew = JSON.parse(str); //转换成对象
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
+    
       this.dataIdModify = rowNew.P1;
     }
   },
