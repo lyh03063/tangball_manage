@@ -1,5 +1,9 @@
 <template>
   <div class>
+    <debug_list level-up="0" >
+<debug_item path="formData" text="表单数据"/>
+
+</debug_list>
     <time_period v-model="timePeriod" ></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
     <dynamicForm :cf="cfForm" v-model="formData">
@@ -12,10 +16,10 @@
   </div>
 </template>
 <script>
-import dynamicForm from "../components/list-data/dynamic-form";
-import form_item_test from "../components/form_item_test.vue";
-import checkbox_diy from "../components/form_item/checkbox_diy.vue";
-import time_period from "../components/form_item/time_period.vue";
+import dynamicForm from "@/components/list-data/dynamic-form";
+import form_item_test from "@/components/form_item_test.vue";
+import checkbox_diy from "@/components/form_item/checkbox_diy.vue";
+import time_period from "@/components/form_item/time_period.vue";
 export default {
   components: { dynamicForm, form_item_test,checkbox_diy,time_period },
   data() {
@@ -25,7 +29,8 @@ export default {
         options:[{"label":"label1","value":"1"},{"label":"label2","value":"2"}],
       formData: {
         prop_checkbox: [], //复选框字段的默认数组
-        prop1: "abc"
+        prop1: "abc",
+        prop_dateTime:"2019-7-24 14:09"
       },
       cfForm: {
         labelWidth: "150px",
@@ -103,6 +108,11 @@ export default {
             type: "checkbox",
             default:[2],
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+            {
+            label: "日期时间(dateTime)",
+            prop: "prop_dateTime",
+            type: "dateTime"
           },
           {
             label: "日期选择器(date)",

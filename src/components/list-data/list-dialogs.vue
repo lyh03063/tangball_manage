@@ -4,7 +4,8 @@
     <el-dialog
       title="查看详情"
       :visible.sync="isShowDialogDetail"
-      width="60%"
+      v-if="isShowDialogDetail"
+      width="80%"
       :before-close="closeDialogDetailFun"
       :append-to-body="true"
     >
@@ -35,12 +36,16 @@
       title="新增数据"
       :visible.sync="isShowDialogAdd"
       v-if="isShowDialogAdd"
-      width="50%"
+      width="80%"
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
-      <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-      
+      <div class>
+        <debug_list level-up="1" >
+          <debug_item path="formAdd" text="新增表单的绑定数据"/>
+          <debug_item path="cf.formDataAddInit" text="新增表单的初始数据"/>
+        </debug_list>
+      </div>
 
       <br>
 
@@ -57,9 +62,13 @@
       title="修改数据"
       :visible.sync="isShowDialogModify"
       v-if="isShowDialogModify"
-      width="60%"
+      width="80%"
       :append-to-body="true"
     >
+      <debug_list level-up="1" >
+          <debug_item path="formModify" text="修改表单的绑定数据"/>
+      
+        </debug_list>
       <dynamicForm
         v-model="formModify"
         :cf="cfFormModify"
@@ -83,19 +92,10 @@ export default {
     dynamicForm
   },
   props: ["cf"],
-  //混入成绩列表配置
-  mixins: [
-    MIX.debug,
-   
-  ],
-  data: function() {
+
+  data: function () {
     return {
-      debugConfig: {
-        list: [
-          { label: "新增表单的绑定数据", key: "formAdd" },
-          { label: "新增表单的初始数据", key: "cf.formDataAddIni" }
-        ]
-      },
+
 
       //------------------新增表单组件配置--------------
       cfFormAdd: {
@@ -107,7 +107,7 @@ export default {
       },
       //------------------修改表单组件配置--------------
       cfFormModify: {
-        urlInit: PUB.domain+this.cf.url.detail,
+        urlInit: this.cf.url.detail,
         formItems: this.cf.formItems,
         btns: [
           { text: "修改", event: "submit", type: "primary", validate: true },
@@ -176,7 +176,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.modify,
+        url: PUB.domain + this.cf.url.modify,
         data: {
           findJson: {
             //用于定位要修改的数据
@@ -199,7 +199,7 @@ export default {
 
           this.$emit("after-modify"); //触发外部事件
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert("异常:" + error);
         });
     },
@@ -208,7 +208,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.add,
+        url: PUB.domain + this.cf.url.add,
         data: { data: this.formAdd } //传递参数
       })
         .then(response => {
@@ -225,21 +225,23 @@ export default {
           this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
           this.$emit("after-add"); //触发外部事件
         })
-        .catch(function(error) {
+        .catch(function (error) {
           alert("异常:" + error);
         });
     },
     //-------------显示修改弹窗的函数--------------
     showModify(row) {
+   
       let str = JSON.stringify(row); //转换成字符串
       let rowNew = JSON.parse(str); //转换成对象
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
+    
       this.dataIdModify = rowNew.P1;
     }
   },
-  mounted() {}
+  mounted() { }
 };
 </script>
 

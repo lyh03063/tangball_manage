@@ -27,9 +27,9 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
-import select_city from "../components/form_item/select_city.vue";
+import select_city from "@/components/form_item/select_city.vue";
 export default {
   components: { listData,select_city},
   data() {
