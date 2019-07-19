@@ -10,13 +10,13 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt>
+        <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <select_city v-model="formData.area" valuetype="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
@@ -33,7 +33,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          >
+          />
         </div>
       </template>
     </listData>
@@ -52,8 +52,7 @@ export default {
   },
   watch: {
     formData: {
-      handler: function() {
-      },
+      handler: function() {},
       deep: true //深度监听
     }
   },
@@ -63,7 +62,7 @@ export default {
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
-        focusMenu:true,//进行菜单聚焦
+        focusMenu: true, //进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "场馆",
         flag: true,
@@ -97,11 +96,14 @@ export default {
             width: 100
           },
           {
+            label: "详细地址",
+            prop: "address",
+            width: 100
+          },
+          {
             label: "赛事数量",
             prop: "countMatch",
-            width: 100,
-           
-            
+            width: 100
           },
           {
             label: "加盟时间",
@@ -129,8 +131,7 @@ export default {
             prop: "franchiseeId",
             type: "select",
             ajax: {
-              url:
-                "/crossList?page=tangball_franchisee",
+              url: "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -158,6 +159,10 @@ export default {
           {
             label: "所属地区",
             prop: "area"
+          },
+          {
+            label: "详细地址",
+            prop: "address"
           },
           {
             label: "赛事数量",
@@ -188,8 +193,7 @@ export default {
             prop: "franchiseeId",
             type: "select",
             ajax: {
-              url:
-                "/crossList?page=tangball_franchisee",
+              url: "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -197,17 +201,18 @@ export default {
           {
             label: "场馆名称",
             prop: "name",
-            rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "所属地区",
             prop: "area",
             slot: "slot_area",
-            rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "详细地址",
+            prop: "address",
+            rules: [{ required: true, message: "不能为空" }]
           },
           // {
           //   label: "赛事数量",
@@ -221,9 +226,7 @@ export default {
           {
             label: "联系方式",
             prop: "phoneNumber",
-             rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "相册",
