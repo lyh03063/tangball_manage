@@ -14,7 +14,11 @@
       </debug_list>
     </div>
 
+
     <space height="10"></space>
+
+<loading height="200" ></loading>
+    
 
     <!-- <match_enroll :matchId="matchId" :debug111="true" ></match_enroll> -->
     <space height="100"></space>

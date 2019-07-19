@@ -41,7 +41,7 @@
       :append-to-body="true"
     >
       <div class>
-        <debug_list level-up="1" >
+        <debug_list level-up="1">
           <debug_item path="formAdd" text="新增表单的绑定数据"/>
           <debug_item path="cf.formDataAddInit" text="新增表单的初始数据"/>
         </debug_list>
@@ -65,10 +65,9 @@
       width="80%"
       :append-to-body="true"
     >
-      <debug_list level-up="1" >
-          <debug_item path="formModify" text="修改表单的绑定数据"/>
-      
-        </debug_list>
+      <debug_list level-up="1">
+        <debug_item path="formModify" text="修改表单的绑定数据"/>
+      </debug_list>
       <dynamicForm
         v-model="formModify"
         :cf="cfFormModify"
@@ -93,10 +92,8 @@ export default {
   },
   props: ["cf"],
 
-  data: function () {
+  data: function() {
     return {
-
-
       //------------------新增表单组件配置--------------
       cfFormAdd: {
         formItems: this.cf.formItems,
@@ -199,7 +196,7 @@ export default {
 
           this.$emit("after-modify"); //触发外部事件
         })
-        .catch(function (error) {
+        .catch(function(error) {
           alert("异常:" + error);
         });
     },
@@ -225,23 +222,22 @@ export default {
           this.initFormDataAdd(); //调用：{初始化新增数据表单函数}
           this.$emit("after-add"); //触发外部事件
         })
-        .catch(function (error) {
+        .catch(function(error) {
           alert("异常:" + error);
         });
     },
     //-------------显示修改弹窗的函数--------------
     showModify(row) {
-   
       let str = JSON.stringify(row); //转换成字符串
       let rowNew = JSON.parse(str); //转换成对象
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
-    
+
       this.dataIdModify = rowNew.P1;
     }
   },
-  mounted() { }
+  mounted() {}
 };
 </script>
 

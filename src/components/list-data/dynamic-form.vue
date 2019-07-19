@@ -1,16 +1,22 @@
 <template>
-  <el-form
+<div class="" >
+  <loading height="200" v-if="!isReadyFormData" ></loading>
+  <!--isReadyFormData为真时才开始渲染表单，保证里面的组件初始化时，表单初始数据已经准备好-->
+<el-form
     ref="form"
     :model="value"
     :label-width="cf.labelWidth||'120px'"
     :size="cf.size||'small'"
     :inline="cf.inline"
+    v-if="isReadyFormData"
   >
     <el-row>
       <template v-for="(item,index) in cf.formItems">
-        <el-col
+        <!--这里搞了个特殊的key，其实可以去掉，但编辑器代码会显示红色错误。-->
+      <!--而只使用prop或index则代码会报key重复的错误，很奇怪index也会报key重复-->
+       <el-col
           :span="cf.col_span"
-          :key="item.prop"
+          :key="item.prop+'_'+index"
           :class="{clear:spanIndex==index,clearall:clearall}"
         >
           <!--  -->
@@ -21,7 +27,7 @@
             v-if="satisfyTerm(item)"
           >
             <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
-            <slot :name="item.slot" :formData="value" v-if="item.slot&&isReadyFormData"></slot>
+            <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
             <!--下拉框-->
             <div class v-else-if="item.type=='select'">
               <select_ajax
@@ -31,7 +37,7 @@
                 :keyValue="item.ajax.keyValue"
                 :ajaxUrl="item.ajax.url"
                 :param="item.ajax.param"
-                v-if="item.ajax&&isReadyFormData"
+                v-if="item.ajax"
               ></select_ajax>
               <el-select v-model="formDataNeed[item.prop]" v-else clearable>
                 <el-option
@@ -119,10 +125,15 @@
             ></el-input>
             <!--json字段输入框，根据prop中是否包含点符号来判断-->
             <json_prop
+              v-model="formDataNeed[item.prop]"
+              :prop="item.path"
+              v-else-if="item.path"
+            />
+            <!-- <json_prop
               v-model="formDataNeed[item.prop.split('.')[0]]"
               :prop="item.prop.split('.')[1]"
               v-else-if="item.prop.includes('.')"
-            />
+            /> -->
             <!--普通文本框-->
             <el-input v-model="formDataNeed[item.prop]" v-else></el-input>
           </el-form-item>
@@ -139,6 +150,9 @@
       >{{item.text}}</el-button>
     </el-row>
   </el-form>
+
+</div>
+  
 </template>
 
 <script>
@@ -215,7 +229,7 @@ export default {
   },
   methods: {
     satisfyTerm(item) {
-      //函数：{返回是否满足显示条件的函数}
+      //函数：{返回是否满足显示条件的函数}-用于字段联动
       let flag = true;
       //函数定义：{递归检查条件函数}
       let checkTerm = objTerm => {
@@ -289,8 +303,10 @@ export default {
         });
      
         //让初始传入的formData但在formItems中未定义的数据也要保留！！
-        let json1 = Object.assign(this.formDataNeed, jsonData);//合并对象
+        let json1 = Object.assign(this.docGet, jsonData);//合并对象
+
         this.formDataNeed = util.deepCopy(json1)//深拷贝，触发完整的双向绑定！！！
+        console.log("formDataNeed####", this.formDataNeed);
 
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true

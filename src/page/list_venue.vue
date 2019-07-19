@@ -10,13 +10,13 @@
       v-if="showDialogBigImg"
     >
       <div class="TAC">
-        <img :src="urlBigImg" alt />
+        <img :src="urlBigImg" alt>
       </div>
     </el-dialog>
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valuetype="cityId"></select_city>
+        <select_city v-model="formData.area" value-type="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
@@ -33,7 +33,7 @@
             v-for="item in row.album"
             :key="item.url"
             class="W100 H100"
-          />
+          >
         </div>
       </template>
     </listData>
@@ -70,7 +70,7 @@ export default {
           list: "/crossList?page=tangball_venue", //列表接口
           add: "/crossAdd?page=tangball_venue", //新增接口
           modify: "/crossModify?page=tangball_venue", //修改接口
-           detail: "/crossDetail?page=tangball_venue", //查看单条数据详情接口，在修改表单或详情弹窗用到
+          detail: "/crossDetail?page=tangball_venue", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "/crossDelete?page=tangball_venue" //删除接口
         },
         //-------列配置数组-------
@@ -235,21 +235,25 @@ export default {
           },
           {
             label: "经度",
-            prop: "extend.longitude",
-     
+            prop: "extend",
+            path:"longitude",
           },
           {
             label: "纬度",
-            prop: "extend.latitude",
-     
-          },
-         
-          {
-            label: "其他",
             prop: "extend",
-            type: "vueJsonEditor",
-     
-          }
+            path:"latitude",
+          },
+          // {
+          //   label: "纬度",
+          //   prop: "extend.latitude"
+          // },
+
+          // {
+          //   label: "其他",
+          //   prop: "extend",
+          //   type: "vueJsonEditor",
+
+          // }
         ]
       }
     };

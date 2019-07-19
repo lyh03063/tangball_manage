@@ -26,9 +26,9 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "会员编号",
+            label: "会员号",
             prop: "P1",
-            width: 100
+            width: 80
           },
           {
             label: "会员名称",
@@ -39,6 +39,11 @@ export default {
             label: "微信号",
             prop: "unionld",
             width: 100
+          },
+           {
+            label: "性别",
+            prop: "sex",
+            width: 65
           },
           {
             label: "身份证号",
@@ -66,7 +71,7 @@ export default {
           {
             label: "备注",
             prop: "remark",
-            width: 150
+            width: 65
           }
         ],
         //-------筛选表单字段数组-------
@@ -157,7 +162,7 @@ export default {
             width: 100
           },
           {
-            label: "下拉框(select)",
+            label: "性别",
             prop: "sex",
             type: "select",
             default:1,

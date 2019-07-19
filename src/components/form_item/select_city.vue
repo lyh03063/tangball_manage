@@ -11,6 +11,7 @@
 </template>
 
 <script>
+
 /** 这个组件比较坑的地方在于其默认绑定的value数据格式是编号数组形式
  * 获取城市名称很不方便
  *
@@ -61,18 +62,7 @@ export default {
       }
     };
   },
-  // watch: {
-  //   valueNeed: {
-  //     handler(newName, oldName) {
-  //       //Q1:{值类型}不是城市ID
-  //       if (this.valueType != "cityId") {
-  //         this.$emit("input", this.valueNeed); //同步valueNeed值到value
-  //       }
-  //     },
-  //     immediate: true,
-  //     deep: true
-  //   }
-  // },
+  
 
   methods: {
     changeArea(arr) {
@@ -89,6 +79,7 @@ export default {
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
       }
     },
+    //函数：{ajax获取子地区数据函数}
     async ajaxGetOp(pid) {
       //请求接口
       let { data } = await axios({
@@ -127,7 +118,7 @@ export default {
     }
   },
   async created() {
-    this.options = await this.ajaxGetOp("0001");
+    this.options = await this.ajaxGetOp("0001");//调用：{ajax获取子地区数据函数}
 
     if (this.value && this.value[0]) {
       let provinceId = this.value[0];
@@ -141,10 +132,11 @@ export default {
         this.valueNeed = this.value;
       }
 
+console.log("this.valueNeed", this.valueNeed);
       let objOption = this.options.find(opEach => opEach.value == provinceId);
       if (objOption) {
         //如果{000}000
-        objOption.cities = await this.ajaxGetOp(provinceId);
+        objOption.cities = await this.ajaxGetOp(provinceId);//调用：{ajax获取子地区数据函数}
       }
     }
   }

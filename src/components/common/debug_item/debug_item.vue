@@ -3,7 +3,7 @@
     <td class>{{path}}</td>
     <td class>{{text}}</td>
     <td class>
-      <el-tooltip class="item" effect="dark" placement="left">
+      <el-tooltip class="item" effect="dark" placement="left" >
         <div slot="content">
           <pre class="valueShowInTip">{{getValueStr(path)}}</pre>
         </div>
@@ -34,7 +34,7 @@ export default {
       let type = util.type(data);
       if (type == "object" || type == "array") {//如果类型是对象或数组
 
-        data = JSON.stringify(data, null, 2);//{Json对象转换Json字符串函数}-后面两个参数可以设置缩进
+        data = JSON.stringify(data, null, 4);//{Json对象转换Json字符串函数}-后面两个参数可以设置缩进
 
       } else {
         data += "";//转成字符串
@@ -78,10 +78,11 @@ export default {
 }
 .valueShowInTip {
   overflow-y: auto;
-  max-height: 250px;
+  max-height: 350px;
+  font-size: 16px;
 }
 table.n-table.n-table-debug td,
 table.n-table.n-table-debug th {
-  padding: 5px;
+  padding: 3px;
 }
 </style>

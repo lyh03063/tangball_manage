@@ -25,6 +25,10 @@ import debug_item from './components/common/debug_item/index.js';   //导入debu
 Vue.use(debug_item);   //作为全局组件，必须有install
 import ajax_populate from './components/common/ajax_populate/index.js';   //导入ajax_populate
 Vue.use(ajax_populate);   //作为全局组件，必须有install
+import loading from './components/common/loading/index.js';   //导入loading
+Vue.use(loading);   //作为全局组件，必须有install
+
+
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
