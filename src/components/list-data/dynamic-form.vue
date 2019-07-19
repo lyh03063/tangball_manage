@@ -75,7 +75,7 @@
               placeholder="选择日期"
               v-else-if="item.type=='date'"
             ></el-date-picker>
-             <!--date日期时间选择-->
+            <!--date日期时间选择-->
             <el-date-picker
               v-model="formDataNeed[item.prop]"
               format="yyyy-MM-dd HH:mm"
@@ -117,6 +117,12 @@
               v-else-if="item.type=='password'"
               show-password
             ></el-input>
+            <!--json字段输入框，根据prop中是否包含点符号来判断-->
+            <json_prop
+              v-model="formDataNeed[item.prop.split('.')[0]]"
+              :prop="item.prop.split('.')[1]"
+              v-else-if="item.prop.includes('.')"
+            />
             <!--普通文本框-->
             <el-input v-model="formDataNeed[item.prop]" v-else></el-input>
           </el-form-item>
@@ -146,6 +152,7 @@ import input_find_vague from "@/components/form_item/input_find_vague.vue";
 import json_editor from "@/components/form_item/json_editor.vue";
 import upload_img from "@/components/form_item/upload_img.vue";
 import time_period from "@/components/form_item/time_period.vue";
+import json_prop from "@/components/form_item/json_prop.vue";
 export default {
   components: {
     //注册组件
@@ -155,7 +162,8 @@ export default {
     input_find_vague,
     json_editor,
     upload_img,
-    time_period
+    time_period,
+    json_prop
   },
   mounted() {
     this.spanIndex = Math.floor(24 / this.cf.col_span);
@@ -265,7 +273,7 @@ export default {
     },
     //初始化表单函数
     initForm() {
-console.log("this.docGet", this.docGet);
+      console.log("this.docGet", this.docGet);
       if (this.docGet) {
         //ajax获取到的表单数据存在
         let jsonData = {};
@@ -279,8 +287,11 @@ console.log("this.docGet", this.docGet);
             var t_json = JSON.stringify(valCurr); //json转字符串
           }
         });
-        console.log("this.formDataNeed", this.formDataNeed);
-        this.formDataNeed = jsonData; //******非得这样，不能属性赋值，否则element表单组件不能输入值，坑!!
+     
+        //让初始传入的formData但在formItems中未定义的数据也要保留！！
+        let json1 = Object.assign(this.formDataNeed, jsonData);//合并对象
+        this.formDataNeed = util.deepCopy(json1)//深拷贝，触发完整的双向绑定！！！
+
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
@@ -298,7 +309,7 @@ console.log("this.docGet", this.docGet);
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.urlInit,
+        url: PUB.domain + this.cf.urlInit,
         data: {
           id: this.value.P1
         } //传递参数

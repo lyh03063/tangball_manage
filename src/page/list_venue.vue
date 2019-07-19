@@ -71,6 +71,7 @@ export default {
           list: "/crossList?page=tangball_venue", //列表接口
           add: "/crossAdd?page=tangball_venue", //新增接口
           modify: "/crossModify?page=tangball_venue", //修改接口
+           detail: "/crossDetail?page=tangball_venue", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "/crossDelete?page=tangball_venue" //删除接口
         },
         //-------列配置数组-------
@@ -228,6 +229,23 @@ export default {
             label: "相册",
             prop: "album",
             type: "upload"
+          },
+          {
+            label: "经度",
+            prop: "extend.longitude",
+     
+          },
+          {
+            label: "纬度",
+            prop: "extend.latitude",
+     
+          },
+         
+          {
+            label: "其他",
+            prop: "extend",
+            type: "vueJsonEditor",
+     
           }
         ]
       }

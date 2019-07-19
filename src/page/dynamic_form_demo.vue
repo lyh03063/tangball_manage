@@ -1,18 +1,29 @@
 <template>
   <div class>
-    <debug_list level-up="0" >
-<debug_item path="formData" text="表单数据"/>
+    <json_prop class v-model="obj.son" prop="name"></json_prop>
+    <json_prop class v-model="obj.son" prop="name"></json_prop>
+    <json_prop class v-model="obj.son" prop="age.a"></json_prop>
 
-</debug_list>
-    <time_period v-model="timePeriod" ></time_period>
+   
+    <tree_power v-model="power"></tree_power>
+
+    <time_period v-model="timePeriod"></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
+     <debug_list level-up="0">
+      <debug_item path="obj" text="测试的对象"/>
+      <debug_item path="formData" text="表单数据"/>
+      <debug_item path="power" text="外部的权限"/>
+    </debug_list>
     <dynamicForm :cf="cfForm" v-model="formData">
-      <!--弹窗表单的description字段插槽组件-->
+      <!--description字段插槽组件-->
       <template v-slot:slot_form_item_description="{formData}">
         <form_item_test class v-model="formData.description"></form_item_test>
       </template>
+      <!--自定义复选框插槽组件-->
+      <template v-slot:slot_form_item_diycheckbox="{formData}">
+        <checkbox_diy v-model="formData.diycheckbox" :options="options"></checkbox_diy>
+      </template>
     </dynamicForm>
-    <checkbox_diy v-model="arr1" :options="options" ></checkbox_diy>
   </div>
 </template>
 <script>
@@ -20,33 +31,47 @@ import dynamicForm from "@/components/list-data/dynamic-form";
 import form_item_test from "@/components/form_item_test.vue";
 import checkbox_diy from "@/components/form_item/checkbox_diy.vue";
 import time_period from "@/components/form_item/time_period.vue";
+import tree_power from "@/components/form_item/tree_power.vue";
+import json_prop from "@/components/form_item/json_prop.vue";
+
 export default {
-  components: { dynamicForm, form_item_test,checkbox_diy,time_period },
+  components: { dynamicForm, form_item_test, checkbox_diy, time_period, tree_power, json_prop },
   data() {
     return {
-      timePeriod:null,
-      arr1:[1],
-        options:[{"label":"label1","value":"1"},{"label":"label2","value":"2"}],
+      obj: { "a": 1, "name": "abc11", "son": { "a": "222" } },
+      power: { "normalPagePower": { "home": true } },
+      timePeriod: null,
+
+      options: [{ "label": "label1", "value": "1" }, { "label": "label2", "value": "2" }],
       formData: {
+        extend:{ "aaa": 1,name:"lucy"},
         prop_checkbox: [], //复选框字段的默认数组
-        prop1: "abc",
-        prop_dateTime:"2019-7-24 14:09"
+        prop1: "abcd",
+        prop_dateTime: "2019-7-24 14:09",
+        diycheckbox: [1],
       },
       cfForm: {
         labelWidth: "150px",
         formItems: [
+          //   {
+          //   label: "extend",
+          //   prop: "extend",
+          //   type: "jsonEditor",
+     
+          // },
+           {
+            label: "纬度",
+            prop: "extend.latitude",
+     
+          },
           {
             label: "普通文本框(input)",
             prop: "prop1",
             type: "input",
-            default:"默认文本",
+            default: "默认文本",
             rules: [
               { required: true, message: "不能为空" },
-              // {
-              //   type: "email",
-              //   message: "请输入正确的邮箱地址",
-              //   trigger: ["blur", "change"]
-              // },
+
               {
                 pattern: /^[\u4E00-\u9FA5]+$/,
                 message: "用户名只能为中文"
@@ -72,15 +97,15 @@ export default {
             label: "下拉框(select)",
             prop: "sex",
             type: "select",
-            default:2,
+            default: 2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
-           {
+          {
             label: "sex【联动】",
             prop: "sex_relative",
             type: "input",
             //显示条件
-            term:{"$or":[{sex:2},{prop_textarea:2}]}
+            term: { "$or": [{ sex: 2 }, { prop_textarea: 2 }] }
           },
           {
             label: "下拉框(select+ajax)",
@@ -88,28 +113,28 @@ export default {
             type: "select",
             ajax: {
               url: "/crossList?page=mabang-member",
-              param:{a:1},
+              param: { a: 1 },
               keyLabel: "nickName",
               keyValue: "userName"
             }
           },
 
-          
+
           {
             label: "单选框(radio)",
             prop: "prop_radio",
             type: "radio",
-            default:2,
+            default: 2,
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {
             label: "复选框(checkbox)",
             prop: "prop_checkbox",
             type: "checkbox",
-            default:[2],
+            default: [2],
             options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
-            {
+          {
             label: "日期时间(dateTime)",
             prop: "prop_dateTime",
             type: "dateTime"
@@ -142,7 +167,20 @@ export default {
           {
             label: "自定义组件(slot实现)",
             prop: "description",
-            slot: "slot_form_item_description"
+            slot: "slot_form_item_description",
+            rules: [
+              { required: true, message: "不能为空" },
+
+            ]
+          },
+          {
+            label: "diycheckbox(slot实现)",
+            prop: "diycheckbox",
+            slot: "slot_form_item_diycheckbox",
+            rules: [
+              { required: true, message: "不能为空" },
+
+            ]
           }
         ],
         btns: [
@@ -152,7 +190,7 @@ export default {
       }
     };
   },
-  beforeCreate() {}
+  beforeCreate() { }
 };
 </script>
 
