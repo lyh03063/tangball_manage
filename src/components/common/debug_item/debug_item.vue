@@ -32,16 +32,14 @@ export default {
     getValueStr(path) {
       let data = this.getValue(path);
       let type = util.type(data);
-      if (type == "object" || type == "array") {//如果类型是对象或数组
-
+      let arrType=["object","array"];
+      if (arrType.includes(type)) {//如果类型是对象或数组
         data = JSON.stringify(data, null, 4);//{Json对象转换Json字符串函数}-后面两个参数可以设置缩进
 
       } else {
         data += "";//转成字符串
       }
-
       return data
-
     },
     getValue(path) {
       let objDebugList = this.$parent;

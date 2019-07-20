@@ -9,7 +9,7 @@
       :before-close="closeDialogDetailFun"
       :append-to-body="true"
     >
-      <table class="table-normal WP100">
+      <table class="table-normal WP100" @click="test()">
         <tr v-for="item in cf.detailItems" :key="item.prop">
           <td class="W100">{{item.label}}</td>
           <td>
@@ -151,6 +151,9 @@ export default {
     }
   },
   methods: {
+    test(){
+alert("外部表格被点击");
+    },
     initFormDataAdd() {
       //函数：{初始化新增数据表单函数}
       if (!this.cf.formDataAddInit) {

@@ -295,11 +295,17 @@ export default {
           //循环：{表单字段配置数组}
           jsonData[itemEach.prop] = this.docGet[itemEach.prop];
           //遍历：{文档字段}
-          let valCurr = jsonData[itemEach.prop];
-          if (util.type(valCurr) == "object" || util.type(valCurr) == "array") {
-            //如果是json类型
-            var t_json = JSON.stringify(valCurr); //json转字符串
-          }
+          // let valCurr = jsonData[itemEach.prop];
+          // let type=util.type(valCurr);
+
+        //   let arrType=["object","array"];
+
+
+        // console.log("type#####", type);
+        //   if (arrType.includes(type)) {
+        //     //如果是json类型
+        //     var t_json = JSON.stringify(valCurr); //json转字符串
+        //   }
         });
      
         //让初始传入的formData但在formItems中未定义的数据也要保留！！

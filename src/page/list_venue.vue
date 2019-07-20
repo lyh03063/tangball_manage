@@ -27,7 +27,7 @@
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
-            @click="showBigImg(item.url)"
+            @click.stop="showBigImg(item.url)"
             :src="item.url"
             alt
             v-for="item in row.album"
