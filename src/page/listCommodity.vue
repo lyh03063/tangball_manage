@@ -55,8 +55,8 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
-import form_item_test from "../components/form_item_test.vue";
+import listData from "@/components/list-data/list-data.vue";
+import form_item_test from "@/components/form_item_test.vue";
 
 export default {
   components: { listData, form_item_test },

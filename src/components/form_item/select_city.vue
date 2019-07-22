@@ -93,10 +93,13 @@ export default {
       //请求接口
       let { data } = await axios({
         method: "post",
-        url: PUB.domain+this.url.list,
+        url: PUB.domain + this.url.list,
         //传递参数
         data: {
-          findJson: { P8: pid }
+          findJson: { P8: pid },
+          sortJson: {
+            "tangball.countVenue": -1//按场馆数量降序
+          },
         }
       });
       if (pid != "0001") {
@@ -114,11 +117,11 @@ export default {
     },
     async handleItemChange(val, p2) {
       let provinceId = val[0];
-      if(!provinceId)return;
+      if (!provinceId) return;
       let objOption = this.options.find(opEach => opEach.value == provinceId);
       //如果能找到
       if (objOption) {
-        
+
         objOption.cities = await this.ajaxGetOp(provinceId);
       }
     }

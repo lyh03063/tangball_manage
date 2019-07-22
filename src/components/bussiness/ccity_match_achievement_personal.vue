@@ -12,9 +12,15 @@
       v-if="showDialog"
     >
       <div class>
-        <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-
-       
+        <debug_list level-up="1">
+          <debug_item path="findJsonDefault" text="成绩列表的默认查询参数"/>
+          <debug_item path="cfList.formDataAddInit" text="新增表单的初始数据"/>
+          <debug_item
+            path="cfList.formItems[0].ajax.param.sheetRelation.findJson"
+            text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
+          />
+          <debug_item path="info" text="展示的一些信息"/>
+        </debug_list>
 
         <div class="OFH">
           <div class="FL FWB FS16 LH30">【{{info.cityName}}】代表队的【{{info.progressName}}】成绩明细表</div>
@@ -67,14 +73,14 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
-import listData from "../list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
+// import listData from "../list-data/list-data.vue";
 
-import select_match_progress from "../form_item/select_match_progress.vue";
-import match_venue from "../form_item/match_venue.vue";
+import select_match_progress from "@/components/form_item/select_match_progress.vue";
+import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: { listData,  select_match_progress, match_venue },
+  components: { listData, select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
     findJsonDefault: [Object],
@@ -83,24 +89,13 @@ export default {
   },
   //混入成绩列表配置
   mixins: [
-    MIX.debug,
+
     MIX.list.list_achievement,
     MIX.list.list_achievement_simple
   ],
   data() {
     return {
-      debugConfig: {
-        //调试数据配置
-        list: [
-          { label: "成绩列表的默认查询参数", key: "findJsonDefault" },
-          { label: "新增表单的初始数据", key: "cfList.formDataAddInit" },
-          {
-            label: "弹窗表单的第一个字段的下拉框选项ajax查询参数",
-            key: "cfList.formItems[0].ajax.param.sheetRelation.findJson"
-          },
-          { label: "展示的一些信息", key: "info" }
-        ]
-      },
+
       isEdit: false, //是否编辑状态
       showDialog: this.show,
       arrCrossCityMatchAchievement: [], //城际赛成绩列表
@@ -211,7 +206,7 @@ export default {
     },
     showDialog: {
       handler(newVal, oldVal) {
-       
+
         this.$emit("update:show", this.showDialog); //同步外部的show
       },
       immediate: true //组件初始化时立即执行一次变动
@@ -245,7 +240,7 @@ export default {
     }
   },
   methods: {},
-  created() {}
+  created() { }
 };
 </script>
 

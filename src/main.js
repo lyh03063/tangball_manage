@@ -1,19 +1,28 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
-window.PUB.domain="http://120.76.160.41:3000"
-// window.PUB.domain="http://localhost:3000"
+//window.PUB.domain="http://120.76.160.41:3000"
+ window.PUB.domain="http://localhost:3000"
 
 import Vue from 'vue'
 Vue.config.productionTip = false
 
 import lodash from 'lodash'//导入lodash方法库
 window.lodash=lodash
+import axios from "axios";
+window.axios = axios;
+
+import moment from "moment";
+window.moment = moment; 
+
+
 
 import space from './components/space/index.js';   //默认情况下找的是index文件
 Vue.use(space);   //必须有install
 import debug_list from './components/common/debug_list/index.js';   //导入debug_list
 Vue.use(debug_list);   //作为全局组件，必须有install
+import debug_item from './components/common/debug_item/index.js';   //导入debug_item
+Vue.use(debug_item);   //作为全局组件，必须有install
 import ajax_populate from './components/common/ajax_populate/index.js';   //导入ajax_populate
 Vue.use(ajax_populate);   //作为全局组件，必须有install
 
@@ -23,41 +32,41 @@ import "./mock.js";
 import  "./assets/js/mix.js";//注意位置要提前
 
 
-import login from "./login";
-import manage from "./manage";
-import listHome from "./page/listHome";
-import listCategory from "./page/listCategory";
-import listCommodity from "./page/listCommodity";
-import listMember from "./page/listMember";
-import util from "./assets/js/util.js";
+import login from "@/login";
+import manage from "@/manage";
+import listHome from "@/page/listHome";
+import listCategory from "@/page/listCategory";
+import listCommodity from "@/page/listCommodity";
+import listMember from "@/page/listMember";
+import util from "@/assets/js/util.js";
 
 
-import list_lyh from "./page/list_lyh";
-import list_cdc from "./page/list_cdc";
-import list_cdx from "./page/list_cdx";
-import list_dgx from "./page/list_dgx";
-import list_dgz from "./page/list_dgz";
-import list_hjp from "./page/list_hjp";
-import list_lfh from "./page/list_lfh";
-import list_lxc from "./page/list_lxc";
-import list_wxd from "./page/list_wxd";
-import list_xql from "./page/list_xql";
-import list_zjw from "./page/list_zjw";
-import list_zsr from "./page/list_zsr";
-import list_venue from "./page/list_venue";
-import list_franchisee from "./page/list_franchisee";
-import list_match from "./page/list_match";
-import list_enroll from "./page/list_enroll";
-import list_achievement from "./page/list_achievement";
-import list_member from "./page/list_member";
-import list_sponsor from "./page/list_sponsor";
-import list_sponsorship from "./page/list_sponsorship";
-import list_article_category from "./page/list_article_category";
-import list_article from "./page/list_article";
-import list_admin from "./page/list_admin";
-import list_area from "./page/list_area";
-import dynamic_form_demo from "./page/dynamic_form_demo";
-import demo_common from "./demo/common.vue";
+import list_lyh from "@/page/list_lyh";
+import list_cdc from "@/page/list_cdc";
+import list_cdx from "@/page/list_cdx";
+import list_dgx from "@/page/list_dgx";
+import list_dgz from "@/page/list_dgz";
+import list_hjp from "@/page/list_hjp";
+import list_lfh from "@/page/list_lfh";
+import list_lxc from "@/page/list_lxc";
+import list_wxd from "@/page/list_wxd";
+import list_xql from "@/page/list_xql";
+import list_zjw from "@/page/list_zjw";
+import list_zsr from "@/page/list_zsr";
+import list_venue from "@/page/list_venue";
+import list_franchisee from "@/page/list_franchisee";
+import list_match from "@/page/list_match";
+import list_enroll from "@/page/list_enroll";
+import list_achievement from "@/page/list_achievement";
+import list_member from "@/page/list_member";
+import list_sponsor from "@/page/list_sponsor";
+import list_sponsorship from "@/page/list_sponsorship";
+import list_article_category from "@/page/list_article_category";
+import list_article from "@/page/list_article";
+import list_admin from "@/page/list_admin";
+import list_area from "@/page/list_area";
+import dynamic_form_demo from "@/page/dynamic_form_demo";
+import demo_common from "@/demo/common.vue";
 
 
 window.util=util;
@@ -201,11 +210,7 @@ const router = new VueRouter({
 })
 
 
-import axios from "axios";
-window.axios = axios;
 
-import moment from "moment";
-window.moment = moment;
 
 import Vuex from 'vuex'//导入vuex模块
 Vue.use(Vuex)//应用组件

@@ -4,17 +4,17 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
 export default {
   components: { listData },
   data() {
     return {
       cfList: {
-        listIndex: "listCategory", //vuex对应的字段
+        listIndex: "list_sponsor", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
+        twoTitle: "赛事赞助",
+        threeTitle: "赞助商",
         flag:true,
         url: {
           list: "/crossList?page=tangball_sponsor", //列表接口
