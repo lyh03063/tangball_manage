@@ -611,7 +611,13 @@ MIX.form_item = {
     };
   },
 
-  watch: {
+  watch: {//监听器，双向同步
+    value: {
+      handler(newName, oldName) {
+        this.valueNeed = this.value
+      },
+      deep: true
+    },
     valueNeed: {
       handler(newVal, oldVal) {
         this.$emit("input", this.valueNeed); //同步valueNeed值到value

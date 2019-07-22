@@ -1,10 +1,14 @@
 <template>
   <tr>
-    <td >{{path}}</td>
-    <td >{{text}}</td>
+    <td class>{{path}}</td>
+    <td class>{{text}}</td>
     <td class>
-      <span class="DPIB valueShow" v-if="value">{{value}}</span>
-      <span class="DPIB valueShow" v-else>{{getValue(path)}}</span>
+      <el-tooltip class="item" effect="dark" placement="left" >
+        <div slot="content">
+          <pre class="valueShowInTip">{{getValueStr(path)}}</pre>
+        </div>
+        <span class="DPIB valueShow">{{getValue(path)}}</span>
+      </el-tooltip>
     </td>
   </tr>
 </template>
@@ -17,7 +21,7 @@ export default {
 
   },
 
-  props: ["path", "text","value"],
+  props: ["path", "text", "value"],
   data() {
     return {
       dataValue: this.getValue(this.path),
@@ -25,6 +29,18 @@ export default {
   },
 
   methods: {
+    getValueStr(path) {
+      let data = this.getValue(path);
+      let type = util.type(data);
+      let arrType=["object","array"];
+      if (arrType.includes(type)) {//如果类型是对象或数组
+        data = JSON.stringify(data, null, 4);//{Json对象转换Json字符串函数}-后面两个参数可以设置缩进
+
+      } else {
+        data += "";//转成字符串
+      }
+      return data
+    },
     getValue(path) {
       let objDebugList = this.$parent;
       let objNeed = objDebugList.objNeedDebug;//需要调试的组件对象
@@ -58,9 +74,13 @@ export default {
   overflow-y: auto;
   max-height: 50px;
 }
-
+.valueShowInTip {
+  overflow-y: auto;
+  max-height: 350px;
+  font-size: 16px;
+}
 table.n-table.n-table-debug td,
 table.n-table.n-table-debug th {
-  padding: 5px;
+  padding: 3px;
 }
 </style>

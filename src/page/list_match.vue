@@ -304,7 +304,7 @@ export default {
             ajax: {
               url: "/crossList?page=tangball_venue",
               keyLabel: "name",
-              keyValue: "name"
+              keyValue: "P1"
             }
           },
           {
