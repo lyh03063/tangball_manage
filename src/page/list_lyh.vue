@@ -93,7 +93,7 @@ export default {
       data: {
         findJson: {
           //或查询条件：range==1或[range==2&&memberIdList包含当前会员id]
-          $or: [{ range: 1 }, { range: 2, memberIdList: 1 }]
+          $or: [{ range: 1 }, { range: 2, memberIdList: this.memberId }]
         }
       } //传递参数
     });
