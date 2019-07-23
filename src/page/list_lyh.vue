@@ -6,6 +6,7 @@
       <debug_list>
         <!-- <debug_item v-model="name" text="姓名"/>
         -->
+        <debug_item v-model="memberId" text="当前会员id"></debug_item>
         <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
 
         <!-- <debug_item v-model="objTest.big" text="测试对象属性"></debug_item> -->
@@ -15,24 +16,21 @@
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
       <div class="FWB">
         {{item.name}}
-        <ajax_populate :id="item.memberId" :ajax="{'param':{'findJson':{'memberId':17,'msgId':item.P1}}}" page="tangball_msg_read">
+        <ajax_populate :id="item.memberId" :ajax="{'param':{'findJson':{'memberId':memberId,'msgId':item.P1}}}" page="tangball_msg_read">
           <template v-slot:default="{doc}">
-            {{doc}}
             <span class="C_3a0" v-if="doc.P1">已读-{{doc.readTime}}</span>
             <span class="C_f30" v-else>未读</span>
-            
           </template>
         </ajax_populate>
       </div>
-
       <div class>{{item.detail}}</div>
     </div>
 
     <space height="10"></space>
 
-    <loading height="200"></loading>
+    <!-- <loading height="200"></loading> -->
 
-    <match_enroll :matchId="matchId"></match_enroll>
+    <!-- <match_enroll :matchId="matchId"></match_enroll> -->
     <space height="100"></space>
     <!-- <match_achievement :matchId="matchId"></match_achievement> -->
   </div>
@@ -50,6 +48,7 @@ export default {
 
   data() {
     return {
+      memberId:17,
       myMsgList: null,
       dictPerson: null,
       arrPerson: null,
