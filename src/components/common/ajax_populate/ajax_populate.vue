@@ -44,8 +44,15 @@ export default {
   methods: {
     async ajaxGetData() {
       if (!this.ajax.url) return;
-      if (!this.id) return;
+      if (!(this.id || this.ajax.param)) return;
       this.keyExit = `${this.page}__${this.idKey}__${this.id}`;
+
+      if (this.ajax.param) {
+        let str= JSON.stringify(this.ajax.param)
+        this.keyExit +=`__${str}`
+      }
+
+      console.log("this.keyExit", this.keyExit);
 
       //函数：{获取缓存数据的函数}
       var getExitDoc = () => {
@@ -59,7 +66,7 @@ export default {
         } else {
           //请求已完成
           console.log("获取到缓存的数据");
-          this.doc=docExit;//****** */
+          this.doc = docExit; //****** */
           this.text = docExit[this.populateKey];
         }
       };
@@ -69,18 +76,21 @@ export default {
 
       /**以下是在没用读取到缓存数据，才发送ajax请求 */
       PUB_ajax_populate[this.keyExit] = "pending...";
-      this.ajax.param = this.ajax.param ;
-      this.ajax.param[this.idKey] = this.id;
+      this.ajax.param = this.ajax.param;
+      if (this.id) {
+        this.ajax.param[this.idKey] = this.id;
+      }
+
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.ajax.url,
+        url: PUB.domain + this.ajax.url,
         data: this.ajax.param //传递参数
       }).catch(function(error) {
         alert("异常:" + error);
       });
 
-      this.doc = data.doc || {};
+      this.doc = data.Doc || {};
 
       //Q1:{文档存在}
       if (this.doc) {

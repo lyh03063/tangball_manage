@@ -1,8 +1,8 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
-window.PUB.domain="http://120.76.160.41:3000"
- //window.PUB.domain="http://localhost:3000"
+//window.PUB.domain="http://120.76.160.41:3000"
+ window.PUB.domain="http://localhost:3000"
 
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -69,6 +69,9 @@ import list_article_category from "@/page/list_article_category";
 import list_article from "@/page/list_article";
 import list_admin from "@/page/list_admin";
 import list_area from "@/page/list_area";
+import list_msg from "@/page/list_msg";
+import list_msg_read from "@/page/list_msg_read";
+
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
 
@@ -134,6 +137,14 @@ const router = new VueRouter({
           component: list_admin
         },
         {
+          path: '/list_msg',
+          component: list_msg
+        },
+        {
+          path: '/list_msg_read',
+          component: list_msg_read
+        },
+        {
           path: '/listHome',
           component: listHome
         },
@@ -150,6 +161,7 @@ const router = new VueRouter({
           path: '/listMember',
           component: listMember
         },
+       
         
         {
           path: '/list_lyh',
