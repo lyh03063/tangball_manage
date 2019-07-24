@@ -75,7 +75,7 @@ export default {
   methods: {
     /**
      * 函数：{获取当前会员的消息列表}
-     * 难点：或查询条件的配置
+     * 难点：两次ajax请求和数据的拼装
      *
      */
     async getMyMsgList(_json) {
@@ -91,7 +91,6 @@ export default {
         } //传递参数
       });
 
-
       {
         let { data } = await axios({
           //请求接口
@@ -106,18 +105,14 @@ export default {
         this.myMsgRead = data.list;
       }
 
-    
-
       // this.dictMsgRead = {}; //消息阅读记录的数据字典对象
       // this.myMsgRead.forEach(msgReadEach => {
       //   //循环：{消息阅读记录数组}
       //   this.dictMsgRead[msgReadEach.msgId] = msgReadEach;
       // });
 
-//使用lodash.keyBy制作数据字典
-    this.dictMsgRead = lodash.keyBy(this.myMsgRead, "msgId");
-
-
+      //使用lodash.keyBy制作数据字典
+      this.dictMsgRead = lodash.keyBy(this.myMsgRead, "msgId");
 
       //循环：{消息数组}
       data.list.forEach(msgEach => {
@@ -151,6 +146,7 @@ export default {
           modifyJson: { msgId, memberId }
         }
       });
+      this.getMyMsgList()//调用：{000函数}
     },
     //接收子组件emit的事件
     getImgUrl(data) {
