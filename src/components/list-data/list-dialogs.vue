@@ -42,8 +42,8 @@
     >
       <div class>
         <debug_list level-up="1">
-          <debug_item path="formAdd" text="新增表单的绑定数据"/>
-          <debug_item path="cf.formDataAddInit" text="新增表单的初始数据"/>
+          <debug_item v-model="formAdd" text="新增表单的绑定数据"/>
+          <debug_item v-model="cf.formDataAddInit" text="新增表单的初始数据"/>
         </debug_list>
       </div>
 
@@ -66,7 +66,7 @@
       :append-to-body="true"
     >
       <debug_list level-up="1">
-        <debug_item path="formModify" text="修改表单的绑定数据"/>
+        <debug_item v-model="formModify" text="修改表单的绑定数据"/>
       </debug_list>
       <dynamicForm
         v-model="formModify"

@@ -13,13 +13,11 @@
     >
       <div class>
         <debug_list level-up="1">
-          <debug_item path="findJsonDefault" text="成绩列表的默认查询参数"/>
-          <debug_item path="cfList.formDataAddInit" text="新增表单的初始数据"/>
-          <debug_item
-            path="cfList.formItems[0].ajax.param.sheetRelation.findJson"
-            text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
+          <debug_item v-model="findJsonDefault"  text="成绩列表的默认查询参数"/>
+          <debug_item v-model="cfList.formDataAddInit"  text="新增表单的初始数据"/>
+          <debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
           />
-          <debug_item path="info" text="展示的一些信息"/>
+          <debug_item v-model="info" text="展示的一些信息"/>
         </debug_list>
 
         <div class="OFH">

@@ -46,7 +46,7 @@
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <debug_list level-up="2">
-          <debug_item path="row.cityVenueList" v-model="row.cityVenueList" text="场馆列表"/>
+          <debug_item  v-model="row.cityVenueList" text="场馆列表"/>
         </debug_list>
         
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>

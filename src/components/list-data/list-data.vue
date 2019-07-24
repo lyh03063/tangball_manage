@@ -190,7 +190,7 @@ export default {
             id: row.P1
           } //传递参数
         });
-        row = data.doc;
+        row = data.Doc;
       }
 
       this.$store.commit("openDialogDetail", {

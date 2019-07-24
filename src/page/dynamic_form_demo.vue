@@ -10,9 +10,9 @@
     <time_period v-model="timePeriod"></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
      <debug_list level-up="0">
-      <debug_item path="obj" text="测试的对象"/>
-      <debug_item path="formData" text="表单数据"/>
-      <debug_item path="power" text="外部的权限"/>
+      <debug_item v-model="obj" text="测试的对象"/>
+      <debug_item v-model="formData" text="表单数据"/>
+      <debug_item v-model="power" text="外部的权限"/>
     </debug_list>
     <dynamicForm :cf="cfForm" v-model="formData">
       <!--description字段插槽组件-->

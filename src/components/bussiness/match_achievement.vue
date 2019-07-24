@@ -1,12 +1,10 @@
 <template>
   <div class v-if="matchInfo">
     <debug_list>
-      <debug_item path="matchInfo" text="赛事信息222"/>
-      <debug_item path="matchInfo.matchProgress" text="赛事阶段"/>
-      <debug_item path="cfList.findJsonDefault" text="成绩列表的默认查询参数"/>
-      <debug_item
-        path="cfList.formItems[0].ajax.param.sheetRelation.findJson"
-        text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
+      <debug_item  v-model="matchInfo"  text="赛事信息"/>
+      <debug_item v-model="matchInfo.matchProgress"  text="赛事阶段"/>
+      <debug_item v-model="cfList.findJsonDefault"  text="成绩列表的默认查询参数"/>
+      <debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
       />
     </debug_list>
     <!-- 赛事进度条 -->
@@ -98,12 +96,12 @@
           </div>
 
           <debug_list>
-            <debug_item path="crossCityMatchSmallProgress" text="城际赛赛事小阶段"/>
-            <debug_item path="arrCrossCityMatchAchievement" text="城际赛团队成绩列表"/>
-            <debug_item path="arrCrossCityMatchPersonAchievement" text="城际赛成绩明细总列表"/>
-            <debug_item path="showDialogCCityAchievementPersonal" text="显示明细列表弹窗"/>
-            <debug_item path="findJsonDefaultCCityAchP" text="城际赛的明细列表的默认查询参数"/>
-            <debug_item path="infoDefaultCCityAchP" text="城际赛的明细列表的一些提示信息"/>
+            <debug_item v-model="crossCityMatchSmallProgress" text="城际赛赛事小阶段"/>
+            <debug_item v-model="arrCrossCityMatchAchievement" text="城际赛团队成绩列表"/>
+            <debug_item v-model="arrCrossCityMatchPersonAchievement" text="城际赛成绩明细总列表"/>
+            <debug_item v-model="showDialogCCityAchievementPersonal" text="显示明细列表弹窗"/>
+            <debug_item v-model="findJsonDefaultCCityAchP" text="城际赛的明细列表的默认查询参数"/>
+            <debug_item v-model="infoDefaultCCityAchP" text="城际赛的明细列表的一些提示信息"/>
           </debug_list>
 
           <el-table :data="arrCrossCityMatchAchievement" border style="width: 100%" class="MT10">
@@ -374,7 +372,7 @@ export default {
           id: this.matchId
         } //传递参数
       });
-      this.matchInfo = data.doc;
+      this.matchInfo = data.Doc;
       if (this.matchInfo.cityVenueList) {
         //如果{000}000
         this.cityMatchVenuId = this.matchInfo.cityVenueList[0].venueId;

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style >
+  <div id="app" style>
     <el-container>
       <el-header class="MB10">
         <el-row>
@@ -28,14 +28,14 @@ import NavMenu from "./components/NavMenu/NavMenu";
 export default {
   components: { NavMenu }, //注册组件
   methods: {
-    //函数：{切换调试模式函数}
-    toggleDebug() {
-      //来自vuex的当前行数据
-      let debug = this.$store.state.debug;
-      console.log("debug", debug);
-      this.$store.commit("setDebug", !debug);
+    // //函数：{切换调试模式函数}
+    // toggleDebug() {
+    //   //来自vuex的当前行数据
+    //   let debug = this.$store.state.debug;
+    //   console.log("debug", debug);
+    //   this.$store.commit("setDebug", !debug);
 
-    },
+    // },
     logout() {
       //退出登录函数
       localStorage.isLogin = "0";
@@ -129,6 +129,23 @@ export default {
           ]
         },
         {
+          index: "3",
+          icon: "el-icon-setting",
+          title: "互动",
+          menuItem: [
+            {
+              index: "list_msg",
+              route: "/list_msg",
+              title: "消息"
+            },
+            {
+              index: "list_msg_read",
+              route: "/list_msg_read",
+              title: "消息已读记录"
+            }
+          ]
+        },
+        {
           index: "4",
           icon: "el-icon-setting",
           title: "系统管理",
@@ -169,15 +186,20 @@ export default {
   created() {
     //*引用当前用户名
     this.currentUserName = localStorage.loginUserName;
-    document.onkeydown = (e)=> {//绑定ctrl+D事件
+    document.onkeydown = e => {
+      //绑定ctrl+D事件
       var keyCode = e.keyCode || e.which || e.charCode;
       var ctrlKey = e.ctrlKey || e.metaKey;
       if (ctrlKey && keyCode == 68) {
         console.log("ctrlKey", ctrlKey);
         console.log("keyCode", keyCode);
-        this.toggleDebug();//调用：{切换调试模式函数}
-         e.preventDefault();//阻止默认事件
-         return false;
+        // this.toggleDebug();//调用：{切换调试模式函数}
+
+        let debug = this.$store.state.debug;
+        console.log("debug", debug);
+        this.$store.commit("setDebug", !debug);
+        e.preventDefault(); //阻止默认事件
+        return false;
       }
     };
   }

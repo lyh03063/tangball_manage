@@ -1,9 +1,9 @@
 <template>
   <div class>
     <debug_list level-up="0">
-      <debug_item path="value" text="value"/>
+      <debug_item v-model="value" text="value"/>
 
-      <debug_item path="valueNeed" text="valueNeed"/>
+      <debug_item v-model="valueNeed" text="valueNeed"/>
     </debug_list>
     <textarea class="WP100 H100 PL10 PR10 PT5 PB5" v-model="valueNeedStr" @change="change"></textarea>
   </div>

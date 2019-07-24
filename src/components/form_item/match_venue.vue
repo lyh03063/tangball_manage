@@ -73,7 +73,7 @@ export default {
         } //传递参数
       });
 
-      this.matchInfo = data.doc;
+      this.matchInfo = data.Doc;
     }
     // changeVanue(doc) {
 

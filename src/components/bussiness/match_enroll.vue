@@ -1,12 +1,12 @@
 <template>
   <div class v-if="matchInfo">
     <debug_list>
-      <debug_item path="matchInfo" text="赛事信息"/>
-      <debug_item path="matchInfo.matchProgress" text="赛事阶段"/>
-      <debug_item path="cityVenuIdForEnroll" text="报名表的城市场馆id"/>
-      <debug_item path="cfList.findJsonDefault" text="列表的默认查询参数"/>
-      <debug_item path="cfList.formDataAddInit" text="新增报名数据的初始值"/>
-      <debug_item path="cfList.isShowSearchForm" text="是否显示搜索表单"/>
+      <debug_item  v-model="matchInfo"  text="赛事信息-"/>
+      <debug_item  v-model="matchInfo.matchProgress"  text="赛事阶段"/>
+      <debug_item  v-model="cityVenuIdForEnroll"  text="报名表的城市场馆id"/>
+      <debug_item  v-model="cfList.findJsonDefault" text="列表的默认查询参数"/>
+      <debug_item  v-model="cfList.formDataAddInit"  text="新增报名数据的初始值"/>
+      <debug_item  v-model="cfList.isShowSearchForm"  text="是否显示搜索表单"/>
     </debug_list>
 
     <!-- {{matchInfo}} -->
@@ -325,7 +325,7 @@ export default {
           id: this.matchId
         } //传递参数
       });
-      this.matchInfo = data.doc;
+      this.matchInfo = data.Doc;
       if (this.matchInfo.cityVenueList) {
         //如果{000}000
         this.cityMatchVenuId = this.matchInfo.cityVenueList[0].venueId;
