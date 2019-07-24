@@ -13,13 +13,25 @@
       </debug_list>
     </div>
 
+    <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
+
+
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
       <div class="FWB">
-        {{item.name}}
-        <ajax_populate :id="item.memberId" :ajax="{'param':{'findJson':{'memberId':memberId,'msgId':item.P1}}}" page="tangball_msg_read">
+       {{item.P1}} ： {{item.name}}
+        <ajax_populate
+          :ajax="{'param':{'findJson':{'memberId':memberId,'msgId':item.P1}}}"
+          page="tangball_msg_read"
+        >
           <template v-slot:default="{doc}">
-            <span class="C_3a0" v-if="doc.P1">已读-{{doc.readTime}}</span>
-            <span class="C_f30" v-else>未读</span>
+            <span class="C_3a0" v-if="doc.memberId">已读-{{doc.readTime}}</span>
+            <span class="C_f30" v-else>
+              未读--
+              <a
+                href="javascript:;"
+                @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
+              >设为已读</a>
+            </span>
           </template>
         </ajax_populate>
       </div>
@@ -48,7 +60,7 @@ export default {
 
   data() {
     return {
-      memberId:17,
+      memberId: 17,
       myMsgList: null,
       dictPerson: null,
       arrPerson: null,
@@ -86,7 +98,21 @@ export default {
     }
   },
   async created() {
-    let { data } = await axios({
+    
+
+    //获取消息阅读状态
+  },
+
+  methods: {
+
+/**
+     * 函数：{获取当前会员的消息列表}
+     * 难点：或查询条件的配置
+     *
+     */
+    async getMyMsgList(_json) {
+
+      let { data } = await axios({
       //请求接口
       method: "post",
       url: `${PUB.domain}/crossList?page=tangball_msg`,
@@ -98,11 +124,29 @@ export default {
       } //传递参数
     });
     this.myMsgList = data.list;
+     
+    },
 
-    //获取消息阅读状态
-  },
 
-  methods: {
+
+    /**
+     * 函数：{设置消息已读状态的函数}
+     * 往消息已读状态记录表更新一条记录,如果该记录不存在则新增
+     *
+     */
+    async setReadStatus(_json) {
+      console.log("_json", _json);
+      let { memberId, msgId } = _json;
+      await axios({
+        //请求接口
+        method: "post",
+        url: `${PUB.domain}/crossModify?page=tangball_msg_read`,
+        data: {
+          findJson: { msgId, memberId },
+          modifyJson: { msgId, memberId }
+        }
+      });
+    },
     //接收子组件emit的事件
     getImgUrl(data) {
       alert("getImgUrl");
