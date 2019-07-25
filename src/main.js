@@ -14,6 +14,7 @@ window.axios = axios;
 
 import moment from "moment";
 window.moment = moment; 
+import  "./assets/js/mix.js";//注意位置要提前
 
 
 
@@ -33,7 +34,6 @@ Vue.use(loading);   //作为全局组件，必须有install
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";
-import  "./assets/js/mix.js";//注意位置要提前
 
 
 import login from "@/login";

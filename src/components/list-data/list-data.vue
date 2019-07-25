@@ -22,6 +22,10 @@
     </el-row>
     <space height="10"></space>
     <!--主列表-->
+    <debug_list>
+      <debug_item v-model="cf.dynamicDict" text="动态数据字典配置"/>
+      <debug_item v-model="tableData" text="列表数据"/>
+    </debug_list>
     <el-table
       ref="multipleTable"
       :data="tableData"
@@ -146,6 +150,31 @@ export default {
       }
     }
   },
+
+  data() {
+    return {
+      //------------------筛选表单组件配置--------------
+      cfSearchForm: {
+        // col_span: 8,//控制显示一行多列
+        labelWidth: "auto",
+        size: "mini",
+        inline: true,
+        formItems: this.cf.searchFormItems,
+        btns: [{ text: "查询", event: "submit1", type: "primary" }]
+      },
+
+      //------------------列表的数据总量--------------
+      allCount: 20,
+      //------------------ajax请求数据列表的传参对象--------------
+      Objparma: {
+        findJson: {},
+        pageIndex: 1, //第1页
+        pageSize: 10 //每页10条
+      },
+
+      tableData: [] //列表数据
+    };
+  },
   methods: {
     // 删除选中数据的方法
     deleteSelection() {
@@ -185,7 +214,7 @@ export default {
         let { data } = await axios({
           //请求接口
           method: "post",
-          url: PUB.domain+this.cf.url.detail,
+          url: PUB.domain + this.cf.url.detail,
           data: {
             id: row.P1
           } //传递参数
@@ -211,7 +240,7 @@ export default {
         await axios({
           //请求接口
           method: "post",
-          url: PUB.domain+this.cf.url.delete,
+          url: PUB.domain + this.cf.url.delete,
           data: {
             findJson: {
               //用于定位要修改的数据
@@ -245,49 +274,44 @@ export default {
       this.getDataList(); //第一次加载此函数，页面才不会空
     },
     //-------------ajax获取数据列表函数--------------
-    getDataList() {
-      axios({
+    async getDataList() {
+      let { data } = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.list,
+        url: PUB.domain + this.cf.url.list,
         data: this.Objparma
-      })
-        .then(response => {
-          let { list, page } = response.data; //解构赋值
-          this.tableData = list;
-          this.page = page;
-          this.allCount = page.allCount; //更改总数据量
-        })
-        .catch(function(error) {
-          alert("异常:" + error);
-        });
+      });
+      let { list, page } = data; //解构赋值
+      this.tableData = list;
+      this.page = page;
+      this.allCount = page.allCount; //更改总数据量
+
+      console.log("ajaxPopulate-1");
+
+      if (this.cf.dynamicDict) {
+        //如果{填充配置数组}存在.
+
+        // populate.forEach(async populateCFEach => {//循环异步操作：{填充配置数组}
+        //   await funPopulate(populateCFEach);//调用：{根据填充配置进行一次ajax请求关联数据的函数}
+
+        // })
+
+        for await (const populateCFEach of this.cf.dynamicDict) {
+          // await   funPopulate(populateCFEach);//调用：{根据填充配置进行一次ajax请求关联数据的函数}
+          this.tableData = await util.ajaxPopulate({
+            listData: this.tableData,
+            page: "tangball_article_category",
+            populateColumn: "categoryDoc",
+            idColumn: "articleCategory",
+            idColumn2: "P1"
+          });
+        }
+      }
+
+      console.log("ajaxPopulate-2");
     }
   },
 
-  data() {
-    return {
-      //------------------筛选表单组件配置--------------
-      cfSearchForm: {
-        // col_span: 8,//控制显示一行多列
-        labelWidth: "auto",
-        size: "mini",
-        inline: true,
-        formItems: this.cf.searchFormItems,
-        btns: [{ text: "查询", event: "submit1", type: "primary" }]
-      },
-
-      //------------------列表的数据总量--------------
-      allCount: 20,
-      //------------------ajax请求数据列表的传参对象--------------
-      Objparma: {
-        findJson: {},
-        pageIndex: 1, //第1页
-        pageSize: 10 //每页10条
-      },
-
-      tableData: [] //列表数据
-    };
-  },
   created() {
     this.cf.isShowSearchForm === false || (this.cf.isShowSearchForm = true);
     this.cf.isShowBreadcrumb === false || (this.cf.isShowBreadcrumb = true);
