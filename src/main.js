@@ -1,8 +1,8 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
-// window.PUB.domain="http://120.76.160.41:3000"
-window.PUB.domain="http://localhost:3000"
+ window.PUB.domain="http://120.76.160.41:3000"
+//window.PUB.domain="http://localhost:3000"
 
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -12,8 +12,20 @@ window.lodash=lodash
 import axios from "axios";
 window.axios = axios;
 
+import ajax from "@/assets/js/ajax.js";
+window.ajax = ajax;
+
+
+
+
+
 import moment from "moment";
 window.moment = moment; 
+import  "./assets/js/mix.js";//注意位置要提前
+
+
+
+
 
 
 
@@ -33,7 +45,6 @@ Vue.use(loading);   //作为全局组件，必须有install
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";
-import  "./assets/js/mix.js";//注意位置要提前
 
 
 import login from "@/login";

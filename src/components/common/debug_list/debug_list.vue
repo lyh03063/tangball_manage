@@ -17,7 +17,7 @@ export default {
     //注册组件
 
   },
-  props: ["levelUp"],
+  // props: ["levelUp"],
   data: function () {
     return {
       isReady: false
@@ -36,18 +36,18 @@ export default {
 
   },
   created() {
-    let pathObjNeed = "$parent"//变量：{所需调试组件对象的父级路径}
-    if (this.levelUp > 0) {//如果{所需调试组件对象的父级层级}大于0,
-    console.log("当前组件####");
-    console.log(this);
-      let n = Number(this.levelUp);
-      for (var i = 0; i < n; i++) {
+    // let pathObjNeed = "$parent"//变量：{所需调试组件对象的父级路径}
+    // if (this.levelUp > 0) {//如果{所需调试组件对象的父级层级}大于0,
+    // console.log("当前组件####");
+    // console.log(this);
+    //   let n = Number(this.levelUp);
+    //   for (var i = 0; i < n; i++) {
 
-        pathObjNeed += ".$parent"
-      }
+    //     pathObjNeed += ".$parent"
+    //   }
 
-    }
-    this.objNeedDebug = lodash.get(this, pathObjNeed)//进行重新定位
+    // }
+    // this.objNeedDebug = lodash.get(this, pathObjNeed)//进行重新定位
     
     this.isReady = true;//准备好了
 

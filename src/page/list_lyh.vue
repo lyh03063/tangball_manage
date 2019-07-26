@@ -6,6 +6,7 @@
       <debug_list>
         <!-- <debug_item v-model="name" text="姓名"/>
         -->
+        <debug_item v-model="msgList" text="消息列表"></debug_item>
         <debug_item v-model="memberId" text="当前会员id"></debug_item>
         <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
 
@@ -13,27 +14,25 @@
       </debug_list>
     </div>
 
+<el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
+
+
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
+
+
 
 
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
       <div class="FWB">
-       {{item.P1}} ： {{item.name}}
-        <ajax_populate
-          :ajax="{'param':{'findJson':{'memberId':memberId,'msgId':item.P1}}}"
-          page="tangball_msg_read"
-        >
-          <template v-slot:default="{doc}">
-            <span class="C_3a0" v-if="doc.memberId">已读-{{doc.readTime}}</span>
-            <span class="C_f30" v-else>
-              未读--
-              <a
-                href="javascript:;"
-                @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
-              >设为已读</a>
-            </span>
-          </template>
-        </ajax_populate>
+        {{item.P1}} ： {{item.name}}
+        <span class="C_3a0" v-if="item.readDoc">已读-{{item.readDoc}}</span>
+        <span class="C_f30" v-else>
+          未读-
+          <a
+            href="javascript:;"
+            @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
+          >设为已读</a>
+        </span>
       </div>
       <div class>{{item.detail}}</div>
     </div>
@@ -60,6 +59,8 @@ export default {
 
   data() {
     return {
+      
+      msgList: null,
       memberId: 17,
       myMsgList: null,
       dictPerson: null,
@@ -98,36 +99,64 @@ export default {
     }
   },
   async created() {
-    
 
-    //获取消息阅读状态
+
   },
 
   methods: {
-
-/**
+    /**
      * 函数：{获取当前会员的消息列表}
      * 难点：或查询条件的配置
      *
      */
     async getMyMsgList(_json) {
-
       let { data } = await axios({
-      //请求接口
-      method: "post",
-      url: `${PUB.domain}/crossList?page=tangball_msg`,
-      data: {
-        findJson: {
-          //或查询条件：range==1或[range==2&&memberIdList包含当前会员id]
-          $or: [{ range: 1 }, { range: 2, memberIdList: this.memberId }]
+        //请求接口
+        method: "post",
+        url: `${PUB.domain}/crossList?page=tangball_msg`,
+        data: {
+          findJson: {
+            //或查询条件：range==1或[range==2&&memberIdList包含当前会员id]
+            $or: [{ range: 1 }, { range: 2, memberIdList: this.memberId }]
+          }
+        } //传递参数
+      });
+      this.myMsgList = data.list;
+
+      this.myMsgList = await util.ajaxPopulate({
+        listData: this.myMsgList,
+        populateColumn: "readDoc",
+        idColumn: "P1",
+        idColumn2: "msgId",
+        page: "tangball_msg_read",
+        findJson:{
+          memberId: this.memberId
         }
-      } //传递参数
-    });
-    this.myMsgList = data.list;
-     
+      });
+
+      console.log("this.myMsgList2", this.myMsgList);
+
+
+
     },
+    async getMyMsgList2(_json) {
+     
+     let  data  = await ajax({
+          //请求接口
+          timeout:1,
+          method: "get",
+          baseURL:"http://localhost:3000",
+          url: `/console_split`,
+          data: {
+            // id: 1
+          } //传递参数
+        });
+        
+     this.msgList =  data.list
 
 
+
+    },
 
     /**
      * 函数：{设置消息已读状态的函数}

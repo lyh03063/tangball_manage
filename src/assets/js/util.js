@@ -62,6 +62,60 @@ function getTimeStatus(param) {//
 }
 
 
+/**ajax填充数据列表的某个字段函数
+ * 可用于动态数据字典
+ */
+
+
+
+async function ajaxPopulate(populateConfig) {
+    let { listData,page, populateColumn, idColumn, idColumn2,findJson={} } = populateConfig;
+    let arrId = [];
+    listData.forEach(itemEach => {//循环：{原数据数组}
+      if (itemEach[idColumn]) {//如果{000}000
+        arrId.push(itemEach[idColumn])
+      }
+    })
+  
+    //变量：{填充查询条件}
+    let findJsonNeed = {
+      [idColumn2]: {
+        "$in": arrId
+      }
+    }
+
+    Object.assign(findJsonNeed, findJson);//合并对象
+
+
+    let { data } = await axios({
+        //请求接口
+        method: "post",
+        url: window.PUB.domain + `/crossList?page=${page}`,
+        data: {
+            findJson:findJsonNeed, pageSize: 999
+          } //传递参数
+      });
+  
+
+
+    // let { data } = await postRequest({
+    //   url: window.PUB.domain + `/crossList?page=${page}`,
+    //   param: {
+    //     findJsonNeed, pageSize: 999
+    //   }
+    // });
+  
+    var dict = lodash.keyBy(data.list, idColumn2)
+    listData.forEach(itemEach => {//循环：{原数据数组}
+      let key = itemEach[idColumn];//字典key值
+      itemEach[populateColumn] = dict[key]
+    })
+     return deepCopy(listData);//深拷贝，返回一个全新的对象
+  
+    //return listData
+  
+  }
+
 export default {
-    deepCopy, type, timeout, getTimeStatus
+    deepCopy, type, timeout, getTimeStatus,ajaxPopulate
 }

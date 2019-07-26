@@ -1,20 +1,24 @@
 <template>
   <div class>
-    <debug_list level-up="0">
+    <!-- <debug_list level-up="0">
       <debug_item v-model="value" text="value"/>
-
       <debug_item v-model="valueNeed" text="valueNeed"/>
-    </debug_list>
-    <textarea class="WP100 H100 PL10 PR10 PT5 PB5" v-model="valueNeedStr" @change="change"></textarea>
+    </debug_list>-->
+    <textarea
+      class="WP100 H100 PL10 PR10 PT5 PB5"
+      v-model="valueNeedStr"
+      @change="change"
+      @blur="$emit('blur')"
+    ></textarea>
   </div>
 </template>
 
 <script>
 export default {
-  mixins: [MIX.form_item],//混入
+  mixins: [MIX.form_item], //混入
   //用于列表模糊查询的组件
   props: {
-    value: [Object]
+    value: [Object, Array]
   },
   data() {
     return {
@@ -28,7 +32,7 @@ export default {
       },
       immediate: true,
       deep: true
-    },
+    }
     // valueNeedStr: {
     //   handler(newName, oldName) {
     //     this.valueNeedStr = JSON.stringify(this.value);
@@ -48,9 +52,9 @@ export default {
           alert("json格式错误");
         }
       }
-      this.valueNeed=json;
+      this.valueNeed = json;
 
-      // this.$emit("input", json); //触发双向绑定
+      this.$emit("change", json); //触发双向绑定
     }
   },
   created() {
