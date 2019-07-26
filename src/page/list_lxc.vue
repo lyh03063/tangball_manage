@@ -19,7 +19,8 @@
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
     <space height="10"></space>
 
-    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
+已读
+    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="item.isRead">
       <div class="FWB">
         {{item.P1}} ： {{item.name}}
         <span class="C_3a0" v-if="item.isRead">已读-{{item.readTime}}</span>
@@ -35,7 +36,21 @@
     </div>
 
     <space height="10"></space>
-
+未读
+    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="!item.isRead">
+      <div class="FWB">
+        {{item.P1}} ： {{item.name}}
+        <span class="C_3a0" v-if="item.isRead">已读-{{item.readTime}}</span>
+        <span class="C_f30" v-else>
+          未读-
+          <a
+            href="javascript:;"
+            @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
+          >设为已读</a>
+        </span>
+      </div>
+      <div class>{{item.detail}}</div>
+    </div>
     <!-- <loading height="200"></loading> -->
 
     <!-- <match_enroll :matchId="matchId"></match_enroll> -->
@@ -75,7 +90,7 @@ export default {
   methods: {
     /**
      * 函数：{获取当前会员的消息列表}
-     * 难点：或查询条件的配置
+     * 难点：两次ajax请求和数据的拼装
      *
      */
     async getMyMsgList(_json) {
@@ -91,7 +106,6 @@ export default {
         } //传递参数
       });
 
-
       {
         let { data } = await axios({
           //请求接口
@@ -106,18 +120,14 @@ export default {
         this.myMsgRead = data.list;
       }
 
-    
-
       // this.dictMsgRead = {}; //消息阅读记录的数据字典对象
       // this.myMsgRead.forEach(msgReadEach => {
       //   //循环：{消息阅读记录数组}
       //   this.dictMsgRead[msgReadEach.msgId] = msgReadEach;
       // });
 
-//使用lodash.keyBy制作数据字典
-    this.dictMsgRead = lodash.keyBy(this.myMsgRead, "msgId");
-
-
+      //使用lodash.keyBy制作数据字典
+      this.dictMsgRead = lodash.keyBy(this.myMsgRead, "msgId");
 
       //循环：{消息数组}
       data.list.forEach(msgEach => {
@@ -151,6 +161,7 @@ export default {
           modifyJson: { msgId, memberId }
         }
       });
+      this.getMyMsgList()//调用：{000函数}
     },
     //接收子组件emit的事件
     getImgUrl(data) {
