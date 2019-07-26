@@ -1,4 +1,5 @@
 import axios from "axios";
+console.log("ajax-1");
 /**
  * 优势1，统一接口数据处理规范
  * 优势2，精简代码
@@ -11,8 +12,48 @@ import axios from "axios";
 /****** 创建axios实例 ******/
 const service = axios.create({
    baseURL: "http://120.76.160.41:3000",  // api的base_url
-  timeout: 1000  // 请求超时时间
+  timeout: 1000,  // 请求超时时间
+ 
 });
+
+
+
+
+/****** request拦截器==>对请求做处理 ******/
+service.interceptors.request.use(
+  config => {
+    /**
+     * 设置token，后端要配合
+     */
+    // const xToken = "xToken"
+    // if (xToken !== null) {
+    //   config.headers['X-Token'] = xToken
+    // }
+
+      /**
+     * 加上时间戳
+     */
+    if (config.method === 'post') {
+      config.data = {
+        ...config.data, 
+        _t: Date.parse(new Date()) / 1000, 
+      }
+    } else if (config.method === 'get') {
+      config.params = {
+         _t: Date.parse(new Date()) / 1000, 
+         ...config.params 
+      }
+    }
+    return config
+  }, function (error) {
+    return Promise.reject(error) 
+  }
+)
+
+
+
+
+
 
 /****** respone拦截器==>对响应做处理 ******/
 service.interceptors.response.use(
@@ -21,13 +62,13 @@ service.interceptors.response.use(
     console.log(response);
     console.log("response.data", response.data);
 
-    //这里根据后端提供的数据进行对应的处理
-    if (response.data.code === 0) {
-      console.log("接口数据正确");
+    // //这里根据后端提供的数据进行对应的处理
+    // if (response.data.code === 0) {
+    //   console.log("接口数据正确");
       
-    } else {
-      alert("接口数据错误");
-    }
+    // } else {
+    //   alert("接口数据错误");
+    // }
     return response.data;
   },
   error => {  //响应错误处理
@@ -48,7 +89,7 @@ service.interceptors.response.use(
     
   }
 );
-
+service.defaults.timeout=1000;
 
 
 
