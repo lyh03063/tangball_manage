@@ -72,6 +72,29 @@ export default {
             label: "备注",
             prop: "remark",
             width: 65
+          },
+          {
+            label: "职业",
+            prop: "career",
+            width: 50
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.ballAge == 1) {
+                return "一年以下";
+              } else if (rowData.ballAge == 2) {
+                return "一到三年";
+              } else if (rowData.ballAge == 3) {
+                return "三到五年";
+              } else if (rowData.ballAge == 4) {
+                return "五到十年";
+              } else {
+                return "十年以上";
+              }
+            }
           }
         ],
         //-------筛选表单字段数组-------
@@ -119,29 +142,29 @@ export default {
             prop: "integral",
             width: 100
           },     
-           {
-            label: "创建时间",
-            prop: "CreateTime",
-            width: 170,
-             formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            },
+          
+          {
+            label: "职业",
+            prop: "career",
+            width: 50
           },
           {
-            label: "修改时间",
-            prop: "UpdateTime",
-            width: 170,
-             formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return new Date(+new Date(dateee) + 8 * 3600 * 1000)
-                .toISOString()
-                .replace(/T/g, " ")
-                .replace(/\.[\d]{3}Z/, "");
-            },
+            label: "球龄",
+            prop: "ballAge",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.ballAge == 1) {
+                return "一年以下";
+              } else if (rowData.ballAge == 2) {
+                return "一到三年";
+              } else if (rowData.ballAge == 3) {
+                return "三到五年";
+              } else if (rowData.ballAge == 4) {
+                return "五到十年";
+              } else {
+                return "十年以上";
+              }
+            }
           },
           {
             label: "备注",
@@ -177,7 +200,24 @@ export default {
             label: "备注",
             prop: "remark",
             width: 150
-          }  
+          } ,
+          {
+            label: "职业",
+            prop: "career",
+            type: "input"
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            type: "select",
+            options: [
+              { label: "一年以下", value: 1 },
+              { label: "一到三年", value: 2 },
+              { label: "三到五年", value: 3 },
+              { label: "五到十年", value: 4 },
+              { label: "十年以上", value: 5 }
+            ]
+          }, 
         ]
       }
     };
