@@ -60,8 +60,8 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
-import match_venue from "../components/form_item/match_venue.vue";
+import listData from "@/components/list-data/list-data.vue";
+import match_venue from "@/components/form_item/match_venue.vue";
 export default {
   components: { listData, match_venue },
   mixins: [MIX.list.list_enroll],

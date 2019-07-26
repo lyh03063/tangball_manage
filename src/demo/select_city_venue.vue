@@ -6,7 +6,7 @@
 </template>
 <script>
 
-import select_city_venue from "../components/form_item/select_city_venue.vue";
+import select_city_venue from "@/components/form_item/select_city_venue.vue";
 
 export default {
   components: { select_city_venue },

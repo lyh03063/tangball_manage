@@ -1,21 +1,17 @@
 <template>
   <div class>
     <listData :cf="cfList">
-
-<!--详情弹窗的 memberId 字段组件，注意插槽命名-->
+      <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_articleCategory="{row}">
-        <ajax_populate :id="row.articleCategory"  page="tangball_article_category">
-          <template v-slot:default="{doc}">
-             {{doc.name}}
-          </template>
+        <ajax_populate :id="row.articleCategory" page="tangball_article_category">
+          <template v-slot:default="{doc}">{{doc.name}}</template>
         </ajax_populate>
       </template>
-
     </listData>
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
 export default {
   components: { listData },
@@ -23,7 +19,7 @@ export default {
     return {
       cfList: {
         listIndex: "list_article", //vuex对应的字段~
-        focusMenu:true,//进行菜单聚焦
+        focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
         threeTitle: "文章管理",
         flag: true,
@@ -34,18 +30,29 @@ export default {
           detail: "/crossDetail?page=tangball_article",
           delete: "/crossDelete?page=tangball_article" //删除接口
         },
+        dynamicDict: [{ page: "tangball_article_category",populateColumn: "categoryDoc", idColumn: "articleCategory", idColumn2: "P1" }],
+
         //-------列配置数组-------
         columns: [
           {
             label: "文章分类",
             prop: "aaa",
             width: 120,
-            slot:"slot_detail_item_articleCategory"
+            slot: "slot_detail_item_articleCategory"
           },
-            {
+          {
             label: "分类编号",
             prop: "articleCategory",
             width: 90
+          },
+          {
+            label: "分类名称",
+            prop: "categoryDoc",
+            width: 90,
+            formatter: function(rowData) {
+             let name= lodash.get(rowData,"categoryDoc.name");
+              return name
+            }
           },
           {
             label: "文章标题",
@@ -68,7 +75,7 @@ export default {
             prop: "UpdateTime",
             width: 145,
             formatter: function(date) {
-             var dateee = new Date(date).toJSON();
+              var dateee = new Date(date).toJSON();
               return moment(
                 new Date(+new Date(dateee) + 8 * 3600 * 1000)
               ).format("YYYY年 MM月 DD日");
@@ -116,17 +123,16 @@ export default {
           {
             label: "文章详情",
             prop: "articleContent",
-            type:"html"
-         
+            type: "html"
           }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "文章分类",
+            label: "文章分类1",
             prop: "articleCategory",
             type: "select",
-           ajax: {
+            ajax: {
               url: "/crossList?page=tangball_article_category",
               keyLabel: "name",
               keyValue: "P1"
@@ -141,12 +147,16 @@ export default {
             label: "文章详情",
             prop: "articleContent",
             type: "editor"
+          },
+          {
+            label: "公众号文章地址",
+            prop: "extend",
+            path:"wxArticleUrl",
           }
         ]
       }
     };
-  },
-  
+  }
 };
 </script>
 

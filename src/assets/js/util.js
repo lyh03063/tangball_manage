@@ -1,3 +1,5 @@
+
+
 let deepCopy = function (obj) {//深拷贝一个Json对象的函数
     let str = JSON.stringify(obj);//json对象转字符串
     let objNew = JSON.parse(str); //字符串转json对象
@@ -6,7 +8,7 @@ let deepCopy = function (obj) {//深拷贝一个Json对象的函数
 
 let class2type = {},
     //用于记录[object class]样式  
-arrObjs = "Boolean Number String Function Array Date RegExp Null Undefined".split(" ");
+    arrObjs = "Boolean Number String Function Array Date RegExp Null Undefined".split(" ");
 for (var i = 0, l = arrObjs.length; i < l; i++) {
     class2type["[object " + arrObjs[i] + "]"] = arrObjs[i].toLowerCase();
 }
@@ -21,9 +23,99 @@ function timeout(ms) {//使用promise封装一个延迟方法
         setTimeout(resolve, ms, 'done');
     });
 }
+/**
+ * 
+ * @param {开始时间} _json.startTime
+ * @param {结束时间} _json.endTime
+ *  @param {当前时间} _json.currTime
+ */
+function getTimeStatus(param) {//
+    console.log("getTimeStatus###");
+    let flag = 2;
+    let msg = "进行中";
+    let { start, end, now } = param;
+  
+    
+    if ((start > end)||!(start&&end)) {
+        start=start||"——";
+        end=end||"——";
+        flag = 4;
+        msg = "时间段设置有误";
+        return { flag, msg,start,end }
+    }
+    let fomatStr = "YYYY-MM-DD HH:mm";
+
+    now = now || moment();
+    now = moment(now).format(fomatStr);
+    start = moment(start).format(fomatStr);
+    end = moment(end).format(fomatStr);
 
 
+    if (now < start) {//如果{000}000
+        msg = "未开始";
+        flag = 1;
+    } else if (now > end) {//如果{000}000
+        flag = 3;
+        msg = "已结束";
+    }
+    return { flag, msg,start,end,now }
+}
+
+
+/**ajax填充数据列表的某个字段函数
+ * 可用于动态数据字典
+ */
+
+
+
+async function ajaxPopulate(populateConfig) {
+    let { listData,page, populateColumn, idColumn, idColumn2,findJson={} } = populateConfig;
+    let arrId = [];
+    listData.forEach(itemEach => {//循环：{原数据数组}
+      if (itemEach[idColumn]) {//如果{000}000
+        arrId.push(itemEach[idColumn])
+      }
+    })
+  
+    //变量：{填充查询条件}
+    let findJsonNeed = {
+      [idColumn2]: {
+        "$in": arrId
+      }
+    }
+
+    Object.assign(findJsonNeed, findJson);//合并对象
+
+
+    let { data } = await axios({
+        //请求接口
+        method: "post",
+        url: window.PUB.domain + `/crossList?page=${page}`,
+        data: {
+            findJson:findJsonNeed, pageSize: 999
+          } //传递参数
+      });
+  
+
+
+    // let { data } = await postRequest({
+    //   url: window.PUB.domain + `/crossList?page=${page}`,
+    //   param: {
+    //     findJsonNeed, pageSize: 999
+    //   }
+    // });
+  
+    var dict = lodash.keyBy(data.list, idColumn2)
+    listData.forEach(itemEach => {//循环：{原数据数组}
+      let key = itemEach[idColumn];//字典key值
+      itemEach[populateColumn] = dict[key]
+    })
+     return deepCopy(listData);//深拷贝，返回一个全新的对象
+  
+    //return listData
+  
+  }
 
 export default {
-    deepCopy,type,timeout
+    deepCopy, type, timeout, getTimeStatus,ajaxPopulate
 }

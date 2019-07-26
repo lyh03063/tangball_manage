@@ -601,35 +601,6 @@ MIX.list.list_enroll = {
 }
 
 
-//debug组件配置
-MIX.debug = {
-  computed: {
-    debug() {
-      return this.$store.state.debug;
-    }
-  },
-  data() {
-    return {
-    
-      debugConfig: {
-        list: [
-          { label: "姓名", prop: "name" },
-        ]
-      }, debugConfig2: {
-        list: [
-
-        ]
-      }
-    };
-  }, created() {
-
-    //将当前的整个数据对象传入到debugConfig
-    this.debugConfig.data = this.$data;
-    this.debugConfig2.data = this.$data;
-    this.debugConfig.props = this.$props;
-    this.debugConfig2.props = this.$props;
-  },
-}
 
 //表单字段组件配置
 MIX.form_item = {
@@ -640,7 +611,13 @@ MIX.form_item = {
     };
   },
 
-  watch: {
+  watch: {//监听器，双向同步
+    value: {
+      handler(newName, oldName) {
+        this.valueNeed = this.value
+      },
+      deep: true
+    },
     valueNeed: {
       handler(newVal, oldVal) {
         this.$emit("input", this.valueNeed); //同步valueNeed值到value

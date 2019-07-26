@@ -95,8 +95,8 @@ export default {
             id: this.matchId
           } //传递参数
         });
-        if (!data.doc) return;
-        this.matchTypeNeed = data.doc.matchType;
+        if (!data.Doc) return;
+        this.matchTypeNeed = data.Doc.matchType;
       },
       immediate: true, //组件初始化时立即执行一次变动
       deep: true //深度监听

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
 export default {
   
@@ -26,9 +26,9 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "会员编号",
+            label: "会员号",
             prop: "P1",
-            width: 100
+            width: 80
           },
           {
             label: "会员名称",
@@ -39,6 +39,11 @@ export default {
             label: "微信号",
             prop: "unionld",
             width: 100
+          },
+           {
+            label: "性别",
+            prop: "sex",
+            width: 65
           },
           {
             label: "身份证号",
@@ -66,7 +71,7 @@ export default {
           {
             label: "备注",
             prop: "remark",
-            width: 150
+            width: 65
           }
         ],
         //-------筛选表单字段数组-------
@@ -147,7 +152,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
          {
-            label: "会员名称",
+            label: "会员姓名",
             prop: "name",
             width: 100
           },
@@ -155,6 +160,13 @@ export default {
             label: "微信号",
             prop: "unionld",
             width: 100
+          },
+          {
+            label: "性别",
+            prop: "sex",
+            type: "select",
+            default:1,
+            options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
           },
           {
             label: "身份证号",

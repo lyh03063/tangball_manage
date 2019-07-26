@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 import Mock from "mockjs";
 // 比赛成绩接口
 Mock.mock("/list_achievement", function() {

@@ -1,7 +1,13 @@
 <template>
   <div class v-if="matchInfo">
- 
-    <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
+    <debug_list>
+      <debug_item  v-model="matchInfo"  text="赛事信息-"/>
+      <debug_item  v-model="matchInfo.matchProgress"  text="赛事阶段"/>
+      <debug_item  v-model="cityVenuIdForEnroll"  text="报名表的城市场馆id"/>
+      <debug_item  v-model="cfList.findJsonDefault" text="列表的默认查询参数"/>
+      <debug_item  v-model="cfList.formDataAddInit"  text="新增报名数据的初始值"/>
+      <debug_item  v-model="cfList.isShowSearchForm"  text="是否显示搜索表单"/>
+    </debug_list>
 
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
@@ -60,44 +66,32 @@
             </template>
           </ajax_populate>
         </template>
-
-       
       </listData>
     </div>
   </div>
 </template>
 
 <script>
-import listData from "../list-data/list-data.vue";
+import listData from "@/components/list-data/list-data.vue";
 
-import select_match_progress from "../form_item/select_match_progress.vue";
-import match_venue from "../form_item/match_venue.vue";
+import select_match_progress from "@/components/form_item/select_match_progress.vue";
+import match_venue from "@/components/form_item/match_venue.vue";
 export default {
   components: { listData, select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
 
   },
-  mixins: [MIX.debug,MIX.list.list_enroll],
-  
+  mixins: [ MIX.list.list_enroll],
+
   data() {
     return {
-      debugConfig: {//数据调试配置
-        list: [
-          { label: "赛事信息", key: "matchInfo" },
-          { label: "赛事阶段", key: "matchInfo.matchProgress" },
-          { label: "报名表的城市场馆id", key: "cityVenuIdForEnroll" },
-          { label: "列表的默认查询参数", key: "cfList.findJsonDefault" },
-          { label: "新增报名数据的初始值", key: "cfList.formDataAddInit" },
-          { label: "是否显示搜索表单", key: "cfList.isShowSearchForm" },
-          
-        ]
-      },
+
       isEdit: false, //是否为可编辑状态
       cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
       cityVenuIdForEnroll: null, //城市赛场馆选项卡的聚焦值(用于报名表)
       matchInfo: null, //赛事信息
-      
+
       cfList: {
         isShowSearchForm: false, //隐藏查询表单
         listIndex: "list_enroll", //vuex对应的字段
@@ -115,7 +109,7 @@ export default {
           cityVenueId: 21
         },
 
-       
+
         //-------列配置数组-------
         columns: [
           {
@@ -124,7 +118,7 @@ export default {
             slot: "slot_detail_item_memberId",
             width: 130
           },
-       
+
           {
             label: "手机号",
             prop: "phone",
@@ -134,7 +128,7 @@ export default {
             label: "性别",
             prop: "sex",
             width: 65,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               if (rowData.sex == 1) {
                 return "男";
               } else {
@@ -157,7 +151,7 @@ export default {
             label: "支付状态",
             prop: "payStatus",
             width: 70,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               if (rowData.payStatus == 1) {
                 return "已支付";
               } else {
@@ -169,7 +163,7 @@ export default {
             label: "审核状态",
             prop: "auditStatus",
             "min-width": "100",
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               if (rowData.auditStatus == 1) {
                 return "未审核";
               } else if (rowData.auditStatus == 2) {
@@ -180,7 +174,7 @@ export default {
             }
           }
         ],
-        
+
         //-------新增、修改表单字段数组-------
         formItems: [
           {
@@ -294,7 +288,7 @@ export default {
           this.cfList.isShowOperateColumn = false;
         }
       },
-      
+
     },
     valueNeed: {
       handler(newVal, oldVal) {
@@ -326,12 +320,12 @@ export default {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain+"/crossDetail?page=tangball_match",
+        url: PUB.domain + "/crossDetail?page=tangball_match",
         data: {
           id: this.matchId
         } //传递参数
       });
-      this.matchInfo = data.doc;
+      this.matchInfo = data.Doc;
       if (this.matchInfo.cityVenueList) {
         //如果{000}000
         this.cityMatchVenuId = this.matchInfo.cityVenueList[0].venueId;

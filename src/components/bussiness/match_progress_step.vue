@@ -18,7 +18,7 @@ export default {
   // matchProgress: { smallProgress: 3, bigProgress: 1 }   需要传入的数据格式
   data() {
     return {
-      active: 0, //聚焦的默认状态为0
+      active: null, //聚焦的默认状态为0
       stepsArr: [
         { title: "选拔赛(城市赛)", description: "", value: 11 },
         { title: "晋级赛(城市赛)", description: "", value: 12 },
@@ -35,9 +35,9 @@ export default {
         if (this.value.smallProgress == item.value) {
           this.active = index; //当前选中状态
         }
-        if (index <= this.active) {
-          item.status = "success"; //当前选中状态的样式
-        }
+        // if (this.active == index) {
+        //   item.status = "success"; //当前选中状态的样式
+        // }
       });
     }
   }

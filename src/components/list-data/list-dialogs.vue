@@ -4,11 +4,12 @@
     <el-dialog
       title="查看详情"
       :visible.sync="isShowDialogDetail"
-      width="60%"
+      v-if="isShowDialogDetail"
+      width="80%"
       :before-close="closeDialogDetailFun"
       :append-to-body="true"
     >
-      <table class="table-normal WP100">
+      <table class="table-normal WP100" >
         <tr v-for="item in cf.detailItems" :key="item.prop">
           <td class="W100">{{item.label}}</td>
           <td>
@@ -35,12 +36,16 @@
       title="新增数据"
       :visible.sync="isShowDialogAdd"
       v-if="isShowDialogAdd"
-      width="50%"
+      width="80%"
       :before-close="closeDialogAddFun"
       :append-to-body="true"
     >
-      <debug_list class v-model="debugConfig" v-if="debug"></debug_list>
-      
+      <div class>
+        <debug_list level-up="1">
+          <debug_item v-model="formAdd" text="新增表单的绑定数据"/>
+          <debug_item v-model="cf.formDataAddInit" text="新增表单的初始数据"/>
+        </debug_list>
+      </div>
 
       <br>
 
@@ -57,9 +62,12 @@
       title="修改数据"
       :visible.sync="isShowDialogModify"
       v-if="isShowDialogModify"
-      width="60%"
+      width="80%"
       :append-to-body="true"
     >
+      <debug_list level-up="1">
+        <debug_item v-model="formModify" text="修改表单的绑定数据"/>
+      </debug_list>
       <dynamicForm
         v-model="formModify"
         :cf="cfFormModify"
@@ -83,20 +91,9 @@ export default {
     dynamicForm
   },
   props: ["cf"],
-  //混入成绩列表配置
-  mixins: [
-    MIX.debug,
-   
-  ],
+
   data: function() {
     return {
-      debugConfig: {
-        list: [
-          { label: "新增表单的绑定数据", key: "formAdd" },
-          { label: "新增表单的初始数据", key: "cf.formDataAddIni" }
-        ]
-      },
-
       //------------------新增表单组件配置--------------
       cfFormAdd: {
         formItems: this.cf.formItems,
@@ -154,6 +151,7 @@ export default {
     }
   },
   methods: {
+   
     initFormDataAdd() {
       //函数：{初始化新增数据表单函数}
       if (!this.cf.formDataAddInit) {
@@ -176,7 +174,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.modify,
+        url: PUB.domain + this.cf.url.modify,
         data: {
           findJson: {
             //用于定位要修改的数据
@@ -208,7 +206,7 @@ export default {
       axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.cf.url.add,
+        url: PUB.domain + this.cf.url.add,
         data: { data: this.formAdd } //传递参数
       })
         .then(response => {
@@ -236,6 +234,7 @@ export default {
 
       this.isShowDialogModify = true; //打开弹窗
       this.formModify = rowNew; //表单赋值
+
       this.dataIdModify = rowNew.P1;
     }
   },

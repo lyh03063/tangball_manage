@@ -16,7 +16,7 @@
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" valueType="cityId"></select_city>
+        <select_city v-model="formData.area" value-type="cityId"></select_city>
         <!-- <el-form>
           <el-form-item prop="area">
             <el-cascader :options="options" v-model="formData.area"></el-cascader>
@@ -27,7 +27,7 @@
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
-            @click="showBigImg(item.url)"
+            @click.stop="showBigImg(item.url)"
             :src="item.url"
             alt
             v-for="item in row.album"
@@ -40,8 +40,8 @@
   </div>
 </template>
 <script>
-import listData from "../components/list-data/list-data.vue";
-import select_city from "../components/form_item/select_city.vue";
+import listData from "@/components/list-data/list-data.vue";
+import select_city from "@/components/form_item/select_city.vue";
 export default {
   components: { listData, select_city },
   methods: {
@@ -52,8 +52,7 @@ export default {
   },
   watch: {
     formData: {
-      handler: function() {
-      },
+      handler: function() {},
       deep: true //深度监听
     }
   },
@@ -63,7 +62,7 @@ export default {
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
-        focusMenu:true,//进行菜单聚焦
+        focusMenu: true, //进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "场馆",
         flag: true,
@@ -71,6 +70,7 @@ export default {
           list: "/crossList?page=tangball_venue", //列表接口
           add: "/crossAdd?page=tangball_venue", //新增接口
           modify: "/crossModify?page=tangball_venue", //修改接口
+          detail: "/crossDetail?page=tangball_venue", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "/crossDelete?page=tangball_venue" //删除接口
         },
         //-------列配置数组-------
@@ -96,11 +96,14 @@ export default {
             width: 100
           },
           {
+            label: "详细地址",
+            prop: "address",
+            width: 100
+          },
+          {
             label: "赛事数量",
             prop: "countMatch",
-            width: 100,
-           
-            
+            width: 100
           },
           {
             label: "加盟时间",
@@ -128,8 +131,7 @@ export default {
             prop: "franchiseeId",
             type: "select",
             ajax: {
-              url:
-                "/crossList?page=tangball_franchisee",
+              url: "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -157,6 +159,10 @@ export default {
           {
             label: "所属地区",
             prop: "area"
+          },
+          {
+            label: "详细地址",
+            prop: "address"
           },
           {
             label: "赛事数量",
@@ -187,8 +193,7 @@ export default {
             prop: "franchiseeId",
             type: "select",
             ajax: {
-              url:
-                "/crossList?page=tangball_franchisee",
+              url: "/crossList?page=tangball_franchisee",
               keyLabel: "name",
               keyValue: "P1"
             }
@@ -196,17 +201,18 @@ export default {
           {
             label: "场馆名称",
             prop: "name",
-            rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "所属地区",
             prop: "area",
             slot: "slot_area",
-            rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "详细地址",
+            prop: "address",
+            rules: [{ required: true, message: "不能为空" }]
           },
           // {
           //   label: "赛事数量",
@@ -220,15 +226,34 @@ export default {
           {
             label: "联系方式",
             prop: "phoneNumber",
-             rules:[
-              {required: true, message: "不能为空"}
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "相册",
             prop: "album",
             type: "upload"
-          }
+          },
+          {
+            label: "经度",
+            prop: "extend",
+            path:"longitude",
+          },
+          {
+            label: "纬度",
+            prop: "extend",
+            path:"latitude",
+          },
+          // {
+          //   label: "纬度",
+          //   prop: "extend.latitude"
+          // },
+
+          // {
+          //   label: "其他",
+          //   prop: "extend",
+          //   type: "vueJsonEditor",
+
+          // }
         ]
       }
     };
