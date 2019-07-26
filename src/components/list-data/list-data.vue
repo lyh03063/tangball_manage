@@ -23,8 +23,12 @@
     <space height="10"></space>
     <!--主列表-->
     <debug_list>
-      <debug_item v-model="cf.dynamicDict" text="动态数据字典配置"/>
-      <debug_item v-model="tableData" text="列表数据"/>
+      <debug_item v-model="cf.columns" text="列配置" />
+      <debug_item v-model="cf.formItems" text="新增/修改表单配置" />
+      <debug_item v-model="cf.searchFormItems" text="筛选表单配置" />
+      <debug_item v-model="cf.detailItems" text="详情弹窗字段配置" />
+      <debug_item v-model="cf.dynamicDict" text="动态数据字典配置" />
+      <debug_item v-model="tableData" text="列表数据" />
     </debug_list>
     <el-table
       ref="multipleTable"
