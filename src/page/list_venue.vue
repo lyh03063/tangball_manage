@@ -1,7 +1,7 @@
 <template>
   <div class>
     <!--弹出图片显示 -->
-    <el-dialog
+    <!-- <el-dialog
       custom-class="n-el-dialog"
       width="70%"
       title="显示大图"
@@ -12,20 +12,16 @@
       <div class="TAC">
         <img :src="urlBigImg" alt>
       </div>
-    </el-dialog>
+    </el-dialog> -->
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
         <select_city v-model="formData.area" value-type="cityId"></select_city>
-        <!-- <el-form>
-          <el-form-item prop="area">
-            <el-cascader :options="options" v-model="formData.area"></el-cascader>
-          </el-form-item>
-        </el-form>-->
       </template>
       <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
-        <div class v-if="row.album && row.album.length">
+        <openPhoto v-model="row.props"></openPhoto>
+        <!-- <div class v-if="row.album && row.album.length">
           <img
             @click.stop="showBigImg(item.url)"
             :src="item.url"
@@ -34,7 +30,7 @@
             :key="item.url"
             class="W100 H100"
           >
-        </div>
+        </div> -->
       </template>
     </listData>
   </div>
@@ -42,13 +38,14 @@
 <script>
 import listData from "@/components/list-data/list-data.vue";
 import select_city from "@/components/form_item/select_city.vue";
+import openPhoto from "@/components/common/openPhoto/openPhoto.vue"
 export default {
-  components: { listData, select_city },
+  components: { listData, select_city,openPhoto },
   methods: {
-    showBigImg(url) {
-      this.showDialogBigImg = true;
-      this.urlBigImg = url;
-    }
+    // showBigImg(url) {
+    //   this.showDialogBigImg = true;
+    //   this.urlBigImg = url;
+    // }
   },
   watch: {
     formData: {
@@ -58,7 +55,7 @@ export default {
   },
   data() {
     return {
-      showDialogBigImg: false,
+      // showDialogBigImg: false,
       options: option,
       cfList: {
         listIndex: "list_venue", //vuex对应的字段
