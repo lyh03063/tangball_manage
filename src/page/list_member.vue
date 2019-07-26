@@ -48,25 +48,25 @@ export default {
           {
             label: "身份证号",
             prop: "idCard",
-            width: 180
+            width: 100
           },
           {
             label: "参赛次数",
             prop: "entries",
-            width: 100,
+            width: 65,
             // slot:"slot_list_column_entries"
             statistics:{listIndex:'list_enroll', targetIdKey:'memberId'}
           },
            {
             label: "成绩数",
             prop: "countAchievement",
-            width: 100,
+            width: 65,
             statistics:{listIndex:'list_achievement', targetIdKey:'memberId'}
           },
           {
             label: "唐球积分",
             prop: "integral",
-            width: 100
+            width: 65
           },       
           {
             label: "备注",
@@ -81,7 +81,7 @@ export default {
           {
             label: "球龄",
             prop: "ballAge",
-            width: 100,
+            width: 65,
             formatter: function(rowData) {
               if (rowData.ballAge == 1) {
                 return "一年以下";
@@ -115,32 +115,27 @@ export default {
           {
             label: "会员编号",
             prop: "P1",
-            width: 100
           },
           {
             label: "会员名称",
             prop: "name",
-            width: 100
           },
           {
             label: "微信号",
             prop: "unionld",
-            width: 100
           },
           {
             label: "身份证号",
             prop: "idCard",
-            width: 180
           },
           {
             label: "参赛次数",
             prop: "entries",
-            width: 100
           },
           {
             label: "唐球积分",
             prop: "integral",
-            width: 100
+            width: 65
           },     
           
           {
@@ -151,7 +146,7 @@ export default {
           {
             label: "球龄",
             prop: "ballAge",
-            width: 100,
+            width: 65,
             formatter: function(rowData) {
               if (rowData.ballAge == 1) {
                 return "一年以下";
@@ -194,7 +189,7 @@ export default {
           {
             label: "身份证号",
             prop: "idCard",
-            width: 180
+            width: 100
           },
           {
             label: "备注",
