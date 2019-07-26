@@ -2,7 +2,7 @@
   <tr>
     <td class>{{pathNeed}}</td>
     <td class>{{text}}</td>
-    <td class="PSR" :class="{'changing':isChanging}">
+    <td class="PSR" :class="{'changing':isChanging}" @dblclick="isEdit=true">
       <el-tooltip class="item MR6 PSA L3 T2" effect="dark" placement="left">
         <i class="el-icon-view"></i>
         <div slot="content">
@@ -12,14 +12,14 @@
       <!-- <i class="el-icon-edit MR6 PSA L3 T16 CurP" @click="isEdit=true">
 
       </i> -->
-      <span class="DPIB valueShow" v-if="!isEdit" @dblclick="isEdit=true">{{valueNeed}}</span>
+      <span class="DPIB valueShow" v-if="!isEdit" >{{valueNeed}}</span>
       <div class="PL18 " v-if="isEdit">
         <!-- -{{editComType}} -->
         
 
+        <input type="number"  v-model.number="valueNeed" class="WP100" v-if="editComType=='number'" @blur="isEdit=false" />
         <textarea  v-model="valueNeed" class="WP100" v-if="editComType=='text'" @blur="isEdit=false" ></textarea>
-        <textarea  v-model.number="valueNeed" class="WP100" v-if="editComType=='number'" @blur="isEdit=false" ></textarea>
-      <json_editor  v-model.number="valueNeed" class="WP100" v-if="editComType=='json'" @blur="isEdit=false" ></json_editor>
+      <json_editor  v-model="valueNeed" class="WP100" v-if="editComType=='json'" @blur="isEdit=false" ></json_editor>
         </div>
   
     </td>

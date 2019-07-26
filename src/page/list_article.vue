@@ -129,7 +129,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "文章分类",
+            label: "文章分类1",
             prop: "articleCategory",
             type: "select",
             ajax: {
@@ -147,6 +147,11 @@ export default {
             label: "文章详情",
             prop: "articleContent",
             type: "editor"
+          },
+          {
+            label: "公众号文章地址",
+            prop: "extend",
+            path:"wxArticleUrl",
           }
         ]
       }

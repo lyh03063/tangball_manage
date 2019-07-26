@@ -6,6 +6,7 @@
       <debug_list>
         <!-- <debug_item v-model="name" text="姓名"/>
         -->
+        <debug_item v-model="msgList" text="消息列表"></debug_item>
         <debug_item v-model="memberId" text="当前会员id"></debug_item>
         <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
 
@@ -13,7 +14,13 @@
       </debug_list>
     </div>
 
+<el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
+
+
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
+
+
+
 
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
       <div class="FWB">
@@ -52,6 +59,8 @@ export default {
 
   data() {
     return {
+      
+      msgList: null,
       memberId: 17,
       myMsgList: null,
       dictPerson: null,
@@ -89,7 +98,10 @@ export default {
       }
     }
   },
-  async created() {},
+  async created() {
+
+
+  },
 
   methods: {
     /**
@@ -123,6 +135,24 @@ export default {
       });
 
       console.log("this.myMsgList2", this.myMsgList);
+
+
+
+    },
+    async getMyMsgList2(_json) {
+     
+     let  data  = await ajax({
+          //请求接口
+          timeout:1,
+          method: "get",
+          baseURL:"http://localhost:3000",
+          url: `/console_split`,
+          data: {
+            // id: 1
+          } //传递参数
+        });
+        
+     this.msgList =  data.list
 
 
 

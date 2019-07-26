@@ -19,7 +19,8 @@
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
     <space height="10"></space>
 
-    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
+已读
+    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="item.isRead">
       <div class="FWB">
         {{item.P1}} ： {{item.name}}
         <span class="C_3a0" v-if="item.isRead">已读-{{item.readTime}}</span>
@@ -35,7 +36,21 @@
     </div>
 
     <space height="10"></space>
-
+未读
+    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="!item.isRead">
+      <div class="FWB">
+        {{item.P1}} ： {{item.name}}
+        <span class="C_3a0" v-if="item.isRead">已读-{{item.readTime}}</span>
+        <span class="C_f30" v-else>
+          未读-
+          <a
+            href="javascript:;"
+            @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
+          >设为已读</a>
+        </span>
+      </div>
+      <div class>{{item.detail}}</div>
+    </div>
     <!-- <loading height="200"></loading> -->
 
     <!-- <match_enroll :matchId="matchId"></match_enroll> -->
