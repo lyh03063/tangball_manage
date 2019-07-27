@@ -37,6 +37,7 @@
             </template>
 
             <el-menu-item
+              style="padding-left:77px;"
               :index="item.index"
               :route="item.route"
               v-for="item in menuEach.menuItem"
@@ -70,16 +71,13 @@ export default {
   data() {
     return {
       open: {
-        width: "80px",
-
+        width: "80px"
       },
       close: {
-        width: "202px",
-   
+        width: "202px"
       },
       open1: {
-        width: "64px",
-      
+        width: "64px"
       },
       isCollapse: false
     };
@@ -91,11 +89,11 @@ ul {
   margin: 0;
   padding: 0;
 }
-.bar{
+.bar {
   cursor: pointer;
 }
-.el-aside{
-overflow: hidden;
+.el-aside {
+  overflow: hidden;
 }
 
 </style>

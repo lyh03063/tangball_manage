@@ -1,12 +1,7 @@
 <template>
   <div class>
     <listData :cf="cfList">
-      <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
-      <template v-slot:slot_detail_item_articleCategory="{row}">
-        <ajax_populate :id="row.articleCategory" page="tangball_article_category">
-          <template v-slot:default="{doc}">{{doc.name}}</template>
-        </ajax_populate>
-      </template>
+     
     </listData>
   </div>
 </template>
@@ -34,52 +29,26 @@ export default {
 
         //-------列配置数组-------
         columns: [
-          {
-            label: "文章分类",
-            prop: "aaa",
-            width: 120,
-            slot: "slot_detail_item_articleCategory"
-          },
-          {
-            label: "分类编号",
-            prop: "articleCategory",
-            width: 90
+       {
+            label: "文章标题",
+            prop: "articleTitle",
+            width: 260
           },
           {
             label: "分类名称",
             prop: "categoryDoc",
-            width: 90,
+            width: 150,
             formatter: function(rowData) {
              let name= lodash.get(rowData,"categoryDoc.name");
               return name
             }
           },
-          {
-            label: "文章标题",
-            prop: "articleTitle",
-            width: 200
-          },
+          
           {
             label: "创建时间",
             prop: "CreateTime",
             width: 145,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return moment(
-                new Date(+new Date(dateee) + 8 * 3600 * 1000)
-              ).format("YYYY年 MM月 DD日");
-            }
-          },
-          {
-            label: "最后修改时间",
-            prop: "UpdateTime",
-            width: 145,
-            formatter: function(date) {
-              var dateee = new Date(date).toJSON();
-              return moment(
-                new Date(+new Date(dateee) + 8 * 3600 * 1000)
-              ).format("YYYY年 MM月 DD日");
-            }
+           
           },
           {
             label: "其他",

@@ -143,8 +143,8 @@ export default {
      
      let  data  = await ajax({
           //请求接口
-          timeout:1,
-          method: "get",
+          timeout:11,
+          method: "post",
           baseURL:"http://localhost:3000",
           url: `/console_split`,
           data: {
@@ -152,8 +152,12 @@ export default {
           } //传递参数
         });
         
-     this.msgList =  data.list
+     this.msgList =  data
 
+
+// axios.post("http://localhost:3000/console_split", {
+//    body: {}
+//  },{timeout:20}).then(res=>{})
 
 
     },

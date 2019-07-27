@@ -1,8 +1,11 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
- window.PUB.domain="http://120.76.160.41:3000"
-//window.PUB.domain="http://localhost:3000"
+window.PUB.domain="http://120.76.160.41:3000"
+ //window.PUB.domain="http://localhost:3000"
+
+
+
 
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -52,7 +55,7 @@ import manage from "@/manage";
 import listHome from "@/page/listHome";
 import listCategory from "@/page/listCategory";
 import listCommodity from "@/page/listCommodity";
-import listMember from "@/page/listMember";
+
 import util from "@/assets/js/util.js";
 
 
@@ -168,10 +171,7 @@ const router = new VueRouter({
           component: listCategory,
         },
         
-        {
-          path: '/listMember',
-          component: listMember
-        },
+      
        
         
         {
