@@ -6,20 +6,17 @@
       width="70%"
       title="显示大图"
       :close-on-press-escape="false"
-      v-bind:visible.sync="showDialogBigImg"
-      v-if="showDialogBigImg"
+      :visible.sync="showDialogBigImg"
     >
       <div class="TAC">
         <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
-    <div class v-if="row.album && row.album.length">
+    <div>
       <img
-        @click.stop="showBigImg(item.url)"
-        :src="item.url"
+        @click.stop="showBigImg(url)"
+        :src="urlBigImg"
         alt
-        v-for="item in row.album"
-        :key="item.url"
         class="W100 H100"
       />
     </div>
@@ -36,6 +33,8 @@ export default {
   },
   data() {
     return {
+      album: [],
+      urlBigImg: "",
       showDialogBigImg: false
     };
   }

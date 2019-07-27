@@ -12,7 +12,7 @@
       <div class="TAC">
         <img :src="urlBigImg" alt>
       </div>
-    </el-dialog> -->
+    </el-dialog>-->
 
     <listData :cf="cfList">
       <template v-slot:slot_area="{formData}">
@@ -20,8 +20,8 @@
       </template>
       <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
-        <openPhoto v-model="row.props"></openPhoto>
-        <!-- <div class v-if="row.album && row.album.length">
+        <openPhoto v-for="item in row.album" :key="item.url" v-model="row.album"></openPhoto>
+        <!-- <div>
           <img
             @click.stop="showBigImg(item.url)"
             :src="item.url"
@@ -30,7 +30,7 @@
             :key="item.url"
             class="W100 H100"
           >
-        </div> -->
+        </div>-->
       </template>
     </listData>
   </div>
@@ -38,9 +38,9 @@
 <script>
 import listData from "@/components/list-data/list-data.vue";
 import select_city from "@/components/form_item/select_city.vue";
-import openPhoto from "@/components/common/openPhoto/openPhoto.vue"
+import openPhoto from "@/components/common/openPhoto/openPhoto.vue";
 export default {
-  components: { listData, select_city,openPhoto },
+  components: { listData, select_city, openPhoto },
   methods: {
     // showBigImg(url) {
     //   this.showDialogBigImg = true;
@@ -49,6 +49,10 @@ export default {
   },
   watch: {
     formData: {
+      handler: function() {},
+      deep: true //深度监听
+    },
+    row: {
       handler: function() {},
       deep: true //深度监听
     }
@@ -233,13 +237,13 @@ export default {
           {
             label: "经度",
             prop: "extend",
-            path:"longitude",
+            path: "longitude"
           },
           {
             label: "纬度",
             prop: "extend",
-            path:"latitude",
-          },
+            path: "latitude"
+          }
           // {
           //   label: "纬度",
           //   prop: "extend.latitude"
