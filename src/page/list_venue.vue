@@ -20,7 +20,7 @@
       </template>
       <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
-        <openPhoto v-for="item in row.album" :key="item.url" v-model="row.album"></openPhoto>
+        <openPhoto v-model="row.album"></openPhoto>
         <!-- <div>
           <img
             @click.stop="showBigImg(item.url)"
@@ -52,10 +52,6 @@ export default {
       handler: function() {},
       deep: true //深度监听
     },
-    row: {
-      handler: function() {},
-      deep: true //深度监听
-    }
   },
   data() {
     return {
