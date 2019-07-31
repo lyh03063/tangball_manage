@@ -1,86 +1,36 @@
 <template>
-  <div class>
-    <listData :cf="cfList"></listData>
-  </div>
+  <baidu-map :center="center" class="map">
+    
+    <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>
+  </baidu-map>
 </template>
 <script>
+import Vue from "vue";
+import BaiduMap from "vue-baidu-map";
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: "DKhqcI7PA5nHcKZIlfA66DFAfpr2W440"
+});
 import listData from "@/components/list-data/list-data.vue";
 
 export default {
-  components: { listData },
   data() {
     return {
-      cfList: {
-        listIndex: "listCategory", //vuex对应的字段
-        twoTitle: "商品中心",
-        threeTitle: "商品分类",
-        flag:true,
-        url: {
-          list: "/crossList?page=mabang-category", //列表接口
-          add: "/crossAdd?page=mabang-category", //新增接口
-          modify: "/crossModify?page=mabang-category", //修改接口
-          delete: "/crossDelete?page=mabang-category" //删除接口
-        },
-        //-------列配置数组-------
-        columns: [
-          {
-            label: "分类编号",
-            prop: "P1",
-            width: 100
-          },
-          {
-            label: "分类名称",
-            prop: "name",
-            width: 200
-          },
-          {
-            label: "注释",
-            prop: "description",
-            width: 200
-          }
-        ],
-        //-------筛选表单字段数组-------
-        searchFormItems: [
-          {
-            label: "分类编号",
-            prop: "P1",
-            type: "input"
-          }
-        ],
-        //-------详情字段数组-------
-        detailItems: [
-          {
-            label: "分类编号",
-            prop: "P1"
-          },
-          {
-            label: "分类名称",
-            prop: "name"
-          },
-          {
-            label: "注释",
-            prop: "description"
-          }
-        ],
-        //-------新增、修改表单字段数组-------
-        formItems: [
-          {
-            label: "分类名称",
-            prop: "name",
-            type: "input"
-          },
-          {
-            label: "注释",
-            prop: "description",
-            type: "textarea"
-          }
-        ]
-      }
+      center: { lng: 0, lat: 0 }
     };
+  },
+
+  mounted() {
+    this.lng = 116.404;
+    this.lat = 39.915;
   }
 };
 </script>
 
 
 <style>
+.map {
+  width: 100%;
+  height: 300px;
+}
 </style>
