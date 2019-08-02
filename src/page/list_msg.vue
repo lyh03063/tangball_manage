@@ -1,13 +1,20 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    
+    <listData :cf="cfList">
+      <template v-slot:slot_form_item_memberIdList="{formData}">
+        <msgTransfer v-model="formData.memberIdList" url='/crossList?page=tangball_member'></msgTransfer>
+      </template>
+    </listData>
+    
   </div>
 </template>
 <script>
 import listData from "@/components/list-data/list-data.vue";
+import msgTransfer from '../components/form_item/msg_transfer'
 
 export default {
-  components: { listData },
+  components: { listData,msgTransfer  },
   data() {
     return {
       cfList: {
@@ -146,7 +153,8 @@ export default {
             term:{range:2},
             label: "指定会员id数组",
             prop: "memberIdList",
-            type: "jsonEditor"
+            type: "jsonEditor",
+            slot:"slot_form_item_memberIdList"
           },
 
           {
