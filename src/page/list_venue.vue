@@ -233,15 +233,32 @@ export default {
             prop: "album",
             type: "upload"
           },
+          // {
+          //   label: "经度",
+          //   prop: "extend",
+          //   path:"longitude",
+          // },
+          // {
+          //   label: "纬度",
+          //   prop: "extend",
+          //   path:"latitude",
+          // },
           {
-            label: "经度",
+            label: "地图位置信息",
             prop: "extend",
-            path:"longitude",
-          },
-          {
-            label: "纬度",
-            prop: "extend",
-            path:"latitude",
+            default:{},//默认值必须要有，新增的时候回出问题
+            cfForm: {
+              formItems: [
+                {
+                  label: "经度",
+                  prop: "longitude"
+                },
+                {
+                  label: "纬度",
+                  prop: "latitude"
+                }
+              ]
+            }
           },
           // {
           //   label: "纬度",

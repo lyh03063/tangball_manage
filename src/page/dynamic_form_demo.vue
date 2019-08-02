@@ -4,15 +4,15 @@
     <json_prop class v-model="obj.son" prop="name"></json_prop>
     <json_prop class v-model="obj.son" prop="age.a"></json_prop>
 
-   
     <tree_power v-model="power"></tree_power>
 
     <time_period v-model="timePeriod"></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
-     <debug_list level-up="0">
-      <debug_item v-model="obj" text="测试的对象"/>
-      <debug_item v-model="formData" text="表单数据"/>
-      <debug_item v-model="power" text="外部的权限"/>
+    <debug_list level-up="0">
+      <debug_item v-model="formDataSon" text="递归表单数据" />
+      <debug_item v-model="obj" text="测试的对象" />
+      <debug_item v-model="formData" text="表单数据" />
+      <debug_item v-model="power" text="外部的权限" />
     </debug_list>
     <dynamicForm :cf="cfForm" v-model="formData">
       <!--description字段插槽组件-->
@@ -35,21 +35,32 @@ import tree_power from "@/components/form_item/tree_power.vue";
 import json_prop from "@/components/form_item/json_prop.vue";
 
 export default {
-  components: { dynamicForm, form_item_test, checkbox_diy, time_period, tree_power, json_prop },
+  components: {
+    dynamicForm,
+    form_item_test,
+    checkbox_diy,
+    time_period,
+    tree_power,
+    json_prop
+  },
   data() {
     return {
-      obj: { "a": 1, "name": "abc11", "son": { "a": "222" } },
-      power: { "normalPagePower": { "home": true } },
+      obj: { a: 1, name: "abc11", son: { a: "222" } },
+      power: { normalPagePower: { home: true } },
       timePeriod: null,
 
-      options: [{ "label": "label1", "value": "1" }, { "label": "label2", "value": "2" }],
+      options: [
+        { label: "label1", value: "1" },
+        { label: "label2", value: "2" }
+      ],
       formData: {
-        extend:{ "aaa": 1,name:"lucy"},
+        extend: { aaa: 1, name: "lucy" },
         prop_checkbox: [], //复选框字段的默认数组
         prop1: "abcd",
         prop_dateTime: "2019-7-24 14:09",
-        diycheckbox: [1],
+        diycheckbox: [1]
       },
+      formDataSon: {},
       cfForm: {
         labelWidth: "150px",
         formItems: [
@@ -57,12 +68,58 @@ export default {
           //   label: "extend",
           //   prop: "extend",
           //   type: "jsonEditor",
-     
+
           // },
-           {
+          {
+            label: "联系人信息",
+            prop: "extend",
+            cfForm: {
+              formItems: [
+                {
+                  label: "姓名",
+                  prop: "name",
+                  type: "input"
+                },
+                {
+                  label: "下拉框(select)",
+                  prop: "sex",
+                  type: "select",
+                  default: 2,
+                  options: [
+                    { value: 1, label: "男" },
+                    { value: 2, label: "女" }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            label: "负责人信息",
+            // prop: "extend",
+            cfForm: {
+              formItems: [
+                {
+                  label: "姓名",
+                  prop: "name",
+                  type: "input"
+                },
+                {
+                  label: "下拉框(select)",
+                  prop: "sex",
+                  type: "select",
+                  default: 2,
+                  options: [
+                    { value: 1, label: "男" },
+                    { value: 2, label: "女" }
+                  ]
+                }
+              ]
+            }
+          },
+          {
             label: "纬度",
-            prop: "extend.latitude",
-     
+            prop: "extend",
+            path: "latitude"
           },
           {
             label: "普通文本框(input)",
@@ -105,7 +162,7 @@ export default {
             prop: "sex_relative",
             type: "input",
             //显示条件
-            term: { "$or": [{ sex: 2 }, { prop_textarea: 2 }] }
+            term: { $or: [{ sex: 2 }, { prop_textarea: 2 }] }
           },
           {
             label: "下拉框(select+ajax)",
@@ -118,7 +175,6 @@ export default {
               keyValue: "userName"
             }
           },
-
 
           {
             label: "单选框(radio)",
@@ -168,19 +224,13 @@ export default {
             label: "自定义组件(slot实现)",
             prop: "description",
             slot: "slot_form_item_description",
-            rules: [
-              { required: true, message: "不能为空" },
-
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "diycheckbox(slot实现)",
             prop: "diycheckbox",
             slot: "slot_form_item_diycheckbox",
-            rules: [
-              { required: true, message: "不能为空" },
-
-            ]
+            rules: [{ required: true, message: "不能为空" }]
           }
         ],
         btns: [
@@ -190,7 +240,7 @@ export default {
       }
     };
   },
-  beforeCreate() { }
+  beforeCreate() {}
 };
 </script>
 

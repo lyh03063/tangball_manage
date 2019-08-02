@@ -9,7 +9,7 @@
       :before-close="closeDialogDetailFun"
       :append-to-body="true"
     >
-      <table class="table-normal WP100" >
+      <table class="n-table WP100" >
         <tr v-for="item in cf.detailItems" :key="item.prop">
           <td class="W100">{{item.label}}</td>
           <td>

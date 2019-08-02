@@ -182,7 +182,7 @@ Mock.mock('/list_member', function () {
     "list": [
       {
         "P1": "1",
-        "unionld  ": "12",
+        "unionId  ": "12",
         "name ": "张三",
         "idCard": "441521200003331151",
         "entries": 1,
@@ -190,7 +190,7 @@ Mock.mock('/list_member', function () {
       },
       {
         "P1": "2",
-        "unionld ": "13",
+        "unionId ": "13",
         "name": "李四",
         "idCard": "441521200003331152 ",
         "entries": 1,
@@ -198,7 +198,7 @@ Mock.mock('/list_member', function () {
       },
       {
         "P1": "1",
-        "unionld ": "14",
+        "unionId ": "14",
         "name": "王五",
         "idCard": "441521200003331153",
         "entries": 2,

@@ -1,158 +1,166 @@
 <template>
-<div class="" >
-  <loading height="200" v-if="!isReadyFormData" ></loading>
-  <!--isReadyFormData为真时才开始渲染表单，保证里面的组件初始化时，表单初始数据已经准备好-->
-<el-form
-    ref="form"
-    :model="value"
-    :label-width="cf.labelWidth||'120px'"
-    :size="cf.size||'small'"
-    :inline="cf.inline"
-    v-if="isReadyFormData"
-  >
-    <el-row>
-      <template v-for="(item,index) in cf.formItems">
-        <!--这里搞了个特殊的key，其实可以去掉，但编辑器代码会显示红色错误。-->
-      <!--而只使用prop或index则代码会报key重复的错误，很奇怪index也会报key重复-->
-       <el-col
-          :span="cf.col_span"
-          :key="item.prop+'_'+index"
-          :class="{clear:spanIndex==index,clearall:clearall}"
-        >
-          <!--  -->
-          <el-form-item
-            :label="item.label"
-            :prop="item.prop"
-            :rules="item.rules||[]"
-            v-if="satisfyTerm(item)"
+  <div class>
+    <loading height="200" v-if="!isReadyFormData"></loading>
+    <!--isReadyFormData为真时才开始渲染表单，保证里面的组件初始化时，表单初始数据已经准备好-->
+    <debug_list>
+      <debug_item v-model="formDataNeed" text="formDataNeed" />
+      <debug_item v-model="value" text="value" />
+    </debug_list>
+    <el-form
+      ref="form"
+      :model="value"
+      :label-width="cf.labelWidth||'120px'"
+      :size="cf.size||'small'"
+      :inline="cf.inline"
+      v-if="isReadyFormData"
+    >
+      <el-row>
+        <template v-for="(item,index) in cf.formItems">
+          <!--这里搞了个特殊的key，其实可以去掉，但编辑器代码会显示红色错误。-->
+          <!--而只使用prop或index则代码会报key重复的错误，很奇怪index也会报key重复-->
+          <el-col
+            :span="cf.col_span"
+            :key="item.prop+'_'+index"
+            :class="{clear:spanIndex==index,clearall:clearall}"
           >
-            <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
-            <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
-            <!--下拉框-->
-            <div class v-else-if="item.type=='select'">
-              <select_ajax
-                class
-                v-model="formDataNeed[item.prop]"
-                :keyLabel="item.ajax.keyLabel"
-                :keyValue="item.ajax.keyValue"
-                :ajaxUrl="item.ajax.url"
-                :param="item.ajax.param"
-                v-if="item.ajax"
-              ></select_ajax>
-              <el-select v-model="formDataNeed[item.prop]" v-else clearable>
-                <el-option
-                  :label="option.label"
-                  :value="option.value"
-                  v-for="option in item.options"
-                  :key="option.value"
-                ></el-option>
-              </el-select>
+            <div v-if="satisfyTerm(item)&&item.cfForm" class="form-group-box">
+              <div class="FWB FS16">{{item.label}}</div>
+              <!--递归组件-->
+              <dynamicForm :cf="item.cfForm" v-model="formDataNeed[item.prop]" v-if="item.prop"></dynamicForm>
+              <dynamicForm :cf="item.cfForm" v-model="formDataNeed" v-else></dynamicForm>
             </div>
 
-            <!--单选框-->
-            <el-radio-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='radio'">
-              <el-radio
-                :label="option.value"
-                v-for="option in item.options"
-                :key="option.value"
-              >{{option.label}}</el-radio>
-            </el-radio-group>
-            <!--复选框-->
-            <el-checkbox-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='checkbox'">
-              <el-checkbox
-                :label="option.value"
-                v-for="option in item.options"
-                :key="option.value"
-              >{{option.label}}</el-checkbox>
-            </el-checkbox-group>
-            <!--文本域-->
-            <el-input
-              type="textarea"
-              v-model="formDataNeed[item.prop]"
-              v-else-if="item.type=='textarea'"
-            ></el-input>
+            <el-form-item
+              :label="item.label"
+              :prop="item.prop"
+              :rules="item.rules||[]"
+              v-if="satisfyTerm(item)&&!item.cfForm"
+            >
+              <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
+              <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
+              <!--下拉框-->
+              <div class v-else-if="item.type=='select'">
+                <select_ajax
+                  class
+                  v-model="formDataNeed[item.prop]"
+                  :keyLabel="item.ajax.keyLabel"
+                  :keyValue="item.ajax.keyValue"
+                  :ajaxUrl="item.ajax.url"
+                  :param="item.ajax.param"
+                  v-if="item.ajax"
+                ></select_ajax>
+                <el-select v-model="formDataNeed[item.prop]" v-else clearable>
+                  <el-option
+                    :label="option.label"
+                    :value="option.value"
+                    v-for="option in item.options"
+                    :key="option.value"
+                  ></el-option>
+                </el-select>
+              </div>
 
-            <!--date日期选择-->
-            <el-date-picker
-              v-model="formDataNeed[item.prop]"
-              value-format="yyyy-MM-dd"
-              align="right"
-              type="date"
-              placeholder="选择日期"
-              v-else-if="item.type=='date'"
-            ></el-date-picker>
-            <!--date日期时间选择-->
-            <el-date-picker
-              v-model="formDataNeed[item.prop]"
-              format="yyyy-MM-dd HH:mm"
-              value-format="yyyy-MM-dd HH:mm"
-              align="right"
-              type="datetime"
-              placeholder="选择日期时间"
-              v-else-if="item.type=='dateTime'"
-            ></el-date-picker>
-            <!--如果是时间段-->
-            <time_period v-model="formDataNeed[item.prop]" v-else-if="item.type=='time_period'"></time_period>
-            <!--如果是vue-json编辑器-->
-            <vue-json-editor
-              v-model="formDataNeed[item.prop]"
-              v-else-if="item.type=='vueJsonEditor'"
-              lang="zh"
-            ></vue-json-editor>
-            <!--如果是普通json编辑器-->
-            <json_editor v-model="formDataNeed[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
-            <!--如果是图片上传控件-->
-            <upload_img v-model="formDataNeed[item.prop]" v-else-if="item.type=='upload'"></upload_img>
-            <!--富文本编辑器-->
-            <quillEditor
-              v-model="formDataNeed[item.prop]"
-              :options="editorOption"
-              v-else-if="item.type=='editor'"
-            ></quillEditor>
-            <!--模糊查询文本框-->
-            <input_find_vague
-              v-model="formDataNeed[item.prop]"
-              v-else-if="item.type=='input_find_vague'"
-            ></input_find_vague>
+              <!--单选框-->
+              <el-radio-group v-model="formDataNeed[item.prop]" v-else-if="item.type=='radio'">
+                <el-radio
+                  :label="option.value"
+                  v-for="option in item.options"
+                  :key="option.value"
+                >{{option.label}}</el-radio>
+              </el-radio-group>
+              <!--复选框-->
+              <el-checkbox-group
+                v-model="formDataNeed[item.prop]"
+                v-else-if="item.type=='checkbox'"
+              >
+                <el-checkbox
+                  :label="option.value"
+                  v-for="option in item.options"
+                  :key="option.value"
+                >{{option.label}}</el-checkbox>
+              </el-checkbox-group>
+              <!--文本域-->
+              <el-input
+                type="textarea"
+                v-model="formDataNeed[item.prop]"
+                v-else-if="item.type=='textarea'"
+              ></el-input>
 
-            <!--密码框-->
+              <!--date日期选择-->
+              <el-date-picker
+                v-model="formDataNeed[item.prop]"
+                value-format="yyyy-MM-dd"
+                align="right"
+                type="date"
+                placeholder="选择日期"
+                v-else-if="item.type=='date'"
+              ></el-date-picker>
+              <!--date日期时间选择-->
+              <el-date-picker
+                v-model="formDataNeed[item.prop]"
+                format="yyyy-MM-dd HH:mm"
+                value-format="yyyy-MM-dd HH:mm"
+                align="right"
+                type="datetime"
+                placeholder="选择日期时间"
+                v-else-if="item.type=='dateTime'"
+              ></el-date-picker>
+              <!--如果是时间段-->
+              <time_period v-model="formDataNeed[item.prop]" v-else-if="item.type=='time_period'"></time_period>
+              <!--如果是vue-json编辑器-->
+              <vue-json-editor
+                v-model="formDataNeed[item.prop]"
+                v-else-if="item.type=='vueJsonEditor'"
+                lang="zh"
+              ></vue-json-editor>
+              <!--如果是普通json编辑器-->
+              <json_editor v-model="formDataNeed[item.prop]" v-else-if="item.type=='jsonEditor'"></json_editor>
+              <!--如果是图片上传控件-->
+              <upload_img v-model="formDataNeed[item.prop]" v-else-if="item.type=='upload'"></upload_img>
+              <!--富文本编辑器-->
+              <quillEditor
+                v-model="formDataNeed[item.prop]"
+                :options="editorOption"
+                v-else-if="item.type=='editor'"
+              ></quillEditor>
+              <!--模糊查询文本框-->
+              <input_find_vague
+                v-model="formDataNeed[item.prop]"
+                v-else-if="item.type=='input_find_vague'"
+              ></input_find_vague>
 
-            <el-input
-              placeholder="请输入密码"
-              v-model="formDataNeed[item.prop]"
-              v-else-if="item.type=='password'"
-              show-password
-            ></el-input>
-            <!--json字段输入框，根据prop中是否包含点符号来判断-->
-            <json_prop
-              v-model="formDataNeed[item.prop]"
-              :prop="item.path"
-              v-else-if="item.path"
-            />
-            <!-- <json_prop
+              <!--密码框-->
+
+              <el-input
+                placeholder="请输入密码"
+                v-model="formDataNeed[item.prop]"
+                v-else-if="item.type=='password'"
+                show-password
+              ></el-input>
+              <!--json字段输入框，根据prop中是否包含点符号来判断-->
+              <json_prop v-model="formDataNeed[item.prop]" :prop="item.path" v-else-if="item.path" />
+
+              <!-- <json_prop
               v-model="formDataNeed[item.prop.split('.')[0]]"
               :prop="item.prop.split('.')[1]"
               v-else-if="item.prop.includes('.')"
-            /> -->
-            <!--普通文本框-->
-            <el-input v-model="formDataNeed[item.prop]" v-else></el-input>
-          </el-form-item>
-        </el-col>
-      </template>
+              />-->
+              <!--普通文本框-->
+              <el-input v-model="formDataNeed[item.prop]" v-else></el-input>
+            </el-form-item>
+          </el-col>
+        </template>
 
-      <!-- 查询按钮 -->
-      <el-button
-        :type="item.type"
-        @click="btnClick(item.event,item.validate)"
-        v-for="(item,index) in cf.btns"
-        :key="index"
-        size="mini"
-      >{{item.text}}</el-button>
-    </el-row>
-  </el-form>
-
-</div>
-  
+        <!-- 查询按钮 -->
+        <el-button
+          :type="item.type"
+          @click="btnClick(item.event,item.validate)"
+          v-for="(item,index) in cf.btns"
+          :key="index"
+          size="mini"
+        >{{item.text}}</el-button>
+      </el-row>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -168,6 +176,7 @@ import upload_img from "@/components/form_item/upload_img.vue";
 import time_period from "@/components/form_item/time_period.vue";
 import json_prop from "@/components/form_item/json_prop.vue";
 export default {
+  name: "dynamicForm", //组件名，用于递归
   components: {
     //注册组件
     quillEditor,
@@ -208,7 +217,7 @@ export default {
       clearall: false, //控制变为行内块状
       spanIndex: null, //控制span属性值
       isReadyFormData: false, //表单初始化数据是否已备好的逻辑标记
-      formDataNeed: this.value,
+      formDataNeed: this.value||{},
       editorOption: {
         //编辑器的配置
         modules: {
@@ -223,8 +232,17 @@ export default {
   watch: {
     formDataNeed: {
       handler(newName, oldName) {
+        console.log("formDataNeed变更");
         this.$emit("input", this.formDataNeed);
-      }
+      },
+      deep: true
+    },
+    value: {
+      handler(newName, oldName) {
+        console.log("form-value变更");
+        this.formDataNeed = this.value||{};
+      },
+      deep: true
     }
   },
   methods: {
@@ -293,27 +311,25 @@ export default {
         let jsonData = {};
         this.cf.formItems.forEach(itemEach => {
           //循环：{表单字段配置数组}
+          console.log("this.docGet#######", this.docGet);
           jsonData[itemEach.prop] = this.docGet[itemEach.prop];
           //遍历：{文档字段}
           // let valCurr = jsonData[itemEach.prop];
           // let type=util.type(valCurr);
 
-        //   let arrType=["object","array"];
+          //   let arrType=["object","array"];
 
-
-        // console.log("type#####", type);
-        //   if (arrType.includes(type)) {
-        //     //如果是json类型
-        //     var t_json = JSON.stringify(valCurr); //json转字符串
-        //   }
+          // console.log("type#####", type);
+          //   if (arrType.includes(type)) {
+          //     //如果是json类型
+          //     var t_json = JSON.stringify(valCurr); //json转字符串
+          //   }
         });
-     
+
         //让初始传入的formData但在formItems中未定义的数据也要保留！！
-        let json1 = Object.assign(this.docGet, jsonData);//合并对象
+        let json1 = Object.assign(this.docGet, jsonData); //合并对象
 
-        this.formDataNeed = util.deepCopy(json1)//深拷贝，触发完整的双向绑定！！！
-        console.log("formDataNeed####", this.formDataNeed);
-
+        this.formDataNeed = util.deepCopy(json1); //深拷贝，触发完整的双向绑定！！！
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
@@ -321,9 +337,14 @@ export default {
   async created() {
     this.docGet = this.value || {}; //**** */
     this.cf.formItems.forEach(itemEach => {
-      //循环：{表单字段配置数组}c处理默认值
+      //循环：{表单字段配置数组}处理默认值
       this.docGet[itemEach.prop] =
         this.value[itemEach.prop] || itemEach.default;
+
+      // if (itemEach.cfForm) {//如果{000}000
+      // console.log("itemEach.cfForm#############");
+      // itemEach.formData=this.formDataNeed
+      // }
     });
 
     //如果初始化的ajax地址存在
@@ -336,7 +357,7 @@ export default {
           id: this.value.P1
         } //传递参数
       });
-      this.docGet = data.Doc;//这里要使用大写的Doc
+      this.docGet = data.Doc; //这里要使用大写的Doc
     }
     this.initForm(); //调用：{初始化表单函数}
   }
@@ -357,5 +378,12 @@ export default {
 .clear ~ .el-form-item {
   /* 查询按钮，按钮浮动 */
   float: left;
+}
+
+.form-group-box{
+  border: 1px #ddd solid;
+border-radius: 5px;
+padding: 10px;
+margin:0 0 20px 0;
 }
 </style>

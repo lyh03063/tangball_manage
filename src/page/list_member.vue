@@ -37,7 +37,7 @@ export default {
           },
           {
             label: "微信号",
-            prop: "unionld",
+            prop: "openid",
             width: 100
           },
            {
@@ -122,7 +122,7 @@ export default {
           },
           {
             label: "微信号",
-            prop: "unionld",
+            prop: "openid",
           },
           {
             label: "身份证号",
@@ -175,8 +175,8 @@ export default {
             width: 100
           },
           {
-            label: "微信号",
-            prop: "unionld",
+            label: "微信openid",
+            prop: "openid",
             width: 100
           },
           {
