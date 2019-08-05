@@ -18,10 +18,15 @@ export default {
     url:{//父组件传过来的地址
       type:String,
       default:"/crossList?page=tangball_member"
+    },
+    keyValue:{//父组件传过来的搜索key
+      type:String,
+      default:'name'
     }
   },
   data() {
     return {
+      param:{},
       search:"",//搜索框搜索的内容
       memberList: [],//会员数组
       checkedMemberList:[],//已经选中的会员数据
@@ -52,14 +57,20 @@ export default {
         url: PUB.domain + this.url,
         data:{
           findJson: {
-              name:{
+              [this.keyValue]:{
                 $options: "i",
                 $regex:name
               }
             }
         }
       });
-      this.memberList = this.transferData(data.list).concat(this.checkedMemberList)
+      this.memberList = this.transferData(data.list).concat(this.checkedMemberList);
+      // 防止同时出现两个相同的会员，对象数组去重
+      var obj = {}
+      this.memberList = this.memberList.reduce((item,next)=>{
+        obj[next.key]?'':obj[next.key] = true && item.push(next);
+        return item
+      },[])
       }else{
       let { data } = await axios({
         //请求接口
@@ -102,7 +113,7 @@ export default {
         data.forEach(member => {
           let newMember = {}
           newMember.key=member.P1
-          newMember.label=member.P1+'('+member.name+')'
+          newMember.label=member.P1+'('+member[this.keyValue]+')'
           newData.push(newMember)
       });
       return newData
@@ -115,6 +126,7 @@ export default {
   mounted(){
     // 页面加载就调用此方法，参数才不会为空
     this.getMenber();
+
   }
 };
 </script>
