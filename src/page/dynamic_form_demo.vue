@@ -9,7 +9,7 @@
     <time_period v-model="timePeriod"></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
     <debug_list level-up="0">
-      <debug_item v-model="formDataSon" text="递归表单数据" />
+  
       <debug_item v-model="obj" text="测试的对象" />
       <debug_item v-model="formData" text="表单数据" />
       <debug_item v-model="power" text="外部的权限" />
@@ -60,7 +60,6 @@ export default {
         prop_dateTime: "2019-7-24 14:09",
         diycheckbox: [1]
       },
-      formDataSon: {},
       cfForm: {
         labelWidth: "150px",
         formItems: [
@@ -73,6 +72,7 @@ export default {
           {
             label: "联系人信息",
             prop: "extend",
+            default: {},
             cfForm: {
               formItems: [
                 {
@@ -89,6 +89,34 @@ export default {
                     { value: 1, label: "男" },
                     { value: 2, label: "女" }
                   ]
+                },
+                {
+                  label: "联系人信息2",
+                  prop: "extend1",
+                   default: {},
+                   
+                  cfForm: {
+                    col_span:12,
+                    formItems: [
+                      {
+                        label: "姓名",
+                        prop: "name",
+                        type: "input",
+                        col_span:12,
+                      },
+                      {
+                        label: "下拉框(select)",
+                        prop: "sex",
+                        type: "select",
+                        default: 2,
+                        options: [
+                          { value: 1, label: "男" },
+                          { value: 2, label: "女" }
+                        ],
+                        col_span:12,
+                      }
+                    ]
+                  }
                 }
               ]
             }

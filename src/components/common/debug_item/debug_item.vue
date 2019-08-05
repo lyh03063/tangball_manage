@@ -102,6 +102,7 @@ export default {
   overflow-y: auto;
   max-height: 50px;
   padding: 0 0 0 18px;
+  word-break: break-all
 }
 
 .valueShowInTip {

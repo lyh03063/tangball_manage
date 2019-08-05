@@ -84,7 +84,7 @@ import list_admin from "@/page/list_admin";
 import list_area from "@/page/list_area";
 import list_msg from "@/page/list_msg";
 import list_msg_read from "@/page/list_msg_read";
-
+import list_recommend from "@/page/list_recommend";
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
 
@@ -169,7 +169,10 @@ const router = new VueRouter({
           path: '/listCategory',
           component: listCategory,
         },
-        
+        {
+          path: '/list_recommend',
+          component: list_recommend
+        },
       
        
         

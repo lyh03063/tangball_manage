@@ -108,6 +108,11 @@ export default {
               index: "list_article",
               route: "/list_article",
               title: "文章管理"
+            },
+            {
+              index: "list_recommend",
+              route: "/list_recommend",
+              title: "首页轮播图"
             }
           ]
         },

@@ -188,14 +188,6 @@ export default {
     time_period,
     json_prop
   },
-  mounted() {
-    this.spanIndex = Math.floor(24 / this.cf.col_span);
-    if (!this.cf.col_span && this.cf.inline) {
-      //如果form表单已经启动了行内模式和不进行分块
-      this.clearall = true; //控制是否变为行内块状元素
-      this.cf.col_span = null; //控制不分行
-    }
-  },
   props: {
     cf: {
       type: Object,
@@ -246,6 +238,18 @@ export default {
     }
   },
   methods: {
+         //给递归表单字段做一层空对象的保障
+    
+initRecursionProp() {
+  console.log("initRecursionProp#######");
+      this.cf.formItems.forEach(itemEach => { //循环：{表单字段配置数组}
+                   if (itemEach.cfForm&&itemEach.prop) {//如果是递归字段
+                     this.formDataNeed[itemEach.prop]=this.formDataNeed[itemEach.prop]||{};
+
+                     }
+
+                })
+    },
     satisfyTerm(item) {
       //函数：{返回是否满足显示条件的函数}-用于字段联动
       let flag = true;
@@ -290,7 +294,7 @@ export default {
     btnClick(eventName, validate) {
       //Q1：需要校验
       if (validate) {
-        //如果{000}000
+
         this.$refs.form.validate(valid => {
           if (valid) {
             this.$emit(eventName);
@@ -313,38 +317,26 @@ export default {
           //循环：{表单字段配置数组}
           console.log("this.docGet#######", this.docGet);
           jsonData[itemEach.prop] = this.docGet[itemEach.prop];
-          //遍历：{文档字段}
-          // let valCurr = jsonData[itemEach.prop];
-          // let type=util.type(valCurr);
-
-          //   let arrType=["object","array"];
-
-          // console.log("type#####", type);
-          //   if (arrType.includes(type)) {
-          //     //如果是json类型
-          //     var t_json = JSON.stringify(valCurr); //json转字符串
-          //   }
+         
         });
 
         //让初始传入的formData但在formItems中未定义的数据也要保留！！
         let json1 = Object.assign(this.docGet, jsonData); //合并对象
 
         this.formDataNeed = util.deepCopy(json1); //深拷贝，触发完整的双向绑定！！！
+        this.initRecursionProp();//给递归表单字段做一层空对象的保障
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
   },
   async created() {
     this.docGet = this.value || {}; //**** */
+     this.initRecursionProp();//给递归表单字段做一层空对象的保障       
     this.cf.formItems.forEach(itemEach => {
       //循环：{表单字段配置数组}处理默认值
       this.docGet[itemEach.prop] =
         this.value[itemEach.prop] || itemEach.default;
 
-      // if (itemEach.cfForm) {//如果{000}000
-      // console.log("itemEach.cfForm#############");
-      // itemEach.formData=this.formDataNeed
-      // }
     });
 
     //如果初始化的ajax地址存在
@@ -360,6 +352,14 @@ export default {
       this.docGet = data.Doc; //这里要使用大写的Doc
     }
     this.initForm(); //调用：{初始化表单函数}
+  },
+  mounted() {
+    this.spanIndex = Math.floor(24 / this.cf.col_span);
+    if (!this.cf.col_span && this.cf.inline) {
+      //如果form表单已经启动了行内模式和不进行分块
+      this.clearall = true; //控制是否变为行内块状元素
+      this.cf.col_span = null; //控制不分行
+    }
   }
 };
 </script>
