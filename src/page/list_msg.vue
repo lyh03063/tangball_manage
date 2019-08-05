@@ -3,7 +3,7 @@
     
     <listData :cf="cfList">
       <template v-slot:slot_form_item_memberIdList="{formData}">
-        <msgTransfer v-model="formData.memberIdList" url='/crossList?page=tangball_member'></msgTransfer>
+        <msgTransfer v-model="formData.memberIdList" url='/crossList?page=tangball_member' keyValue="name"></msgTransfer>
       </template>
     </listData>
     
