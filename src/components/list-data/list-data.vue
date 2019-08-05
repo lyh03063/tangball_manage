@@ -7,7 +7,7 @@
     </el-breadcrumb>
 
     <div class="search-form-box MT12" v-if="cf.isShowSearchForm">
-      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparam.findJson"></dynamicForm>
     </div>
 
     <el-row size="mini" class="MT10" v-if="cf.isShowToolBar">
@@ -170,7 +170,7 @@ export default {
       //------------------列表的数据总量--------------
       allCount: 20,
       //------------------ajax请求数据列表的传参对象--------------
-      Objparma: {
+      Objparam: {
         findJson: {},
         pageIndex: 1, //第1页
         pageSize: 10 //每页10条
@@ -274,7 +274,7 @@ export default {
 
     //-------------处理分页变动函数--------------
     handleCurrentChange(pageIndex) {
-      this.Objparma.pageIndex = pageIndex; //改变ajax传参的第几页
+      this.Objparam.pageIndex = pageIndex; //改变ajax传参的第几页
       this.getDataList(); //第一次加载此函数，页面才不会空
     },
     //-------------ajax获取数据列表函数--------------
@@ -283,7 +283,7 @@ export default {
         //请求接口
         method: "post",
         url: PUB.domain + this.cf.url.list,
-        data: this.Objparma
+        data: this.Objparam
       });
       let { list, page } = data; //解构赋值
       this.tableData = list;
@@ -339,8 +339,18 @@ export default {
       });
     }
 
-    this.Objparma.findJson = findJsonDefault;
-    this.Objparma.sortJson = this.cf.sortJsonDefault;
+    this.Objparam.findJson = findJsonDefault;
+    this.Objparam.sortJson = this.cf.sortJsonDefault;
+
+    /****************************拼装selectJson参数-START****************************/
+    let selectJson = {};
+
+    this.cf.columns.forEach(columnEach => {
+      selectJson[columnEach.prop] = 1;
+    });
+
+    this.Objparam.selectJson = selectJson;
+    /****************************拼装selectJson参数-END****************************/
 
     let objState = {
       //列表的vuex初始状态对象
