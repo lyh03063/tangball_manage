@@ -7,7 +7,7 @@
     </el-breadcrumb>
 
     <div class="search-form-box MT12" v-if="cf.isShowSearchForm">
-      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparam.findJson"></dynamicForm>
+      <dynamicForm @submit1="searchList" :cf="cfSearchForm" v-model="Objparma.findJson"></dynamicForm>
     </div>
 
     <el-row size="mini" class="MT10" v-if="cf.isShowToolBar">
@@ -23,12 +23,8 @@
     <space height="10"></space>
     <!--主列表-->
     <debug_list>
-      <debug_item v-model="cf.columns" text="列配置" />
-      <debug_item v-model="cf.formItems" text="新增/修改表单配置" />
-      <debug_item v-model="cf.searchFormItems" text="筛选表单配置" />
-      <debug_item v-model="cf.detailItems" text="详情弹窗字段配置" />
-      <debug_item v-model="cf.dynamicDict" text="动态数据字典配置" />
-      <debug_item v-model="tableData" text="列表数据" />
+      <debug_item v-model="cf.dynamicDict" text="动态数据字典配置"/>
+      <debug_item v-model="tableData" text="列表数据"/>
     </debug_list>
     <el-table
       ref="multipleTable"
@@ -170,7 +166,7 @@ export default {
       //------------------列表的数据总量--------------
       allCount: 20,
       //------------------ajax请求数据列表的传参对象--------------
-      Objparam: {
+      Objparma: {
         findJson: {},
         pageIndex: 1, //第1页
         pageSize: 10 //每页10条
@@ -274,7 +270,7 @@ export default {
 
     //-------------处理分页变动函数--------------
     handleCurrentChange(pageIndex) {
-      this.Objparam.pageIndex = pageIndex; //改变ajax传参的第几页
+      this.Objparma.pageIndex = pageIndex; //改变ajax传参的第几页
       this.getDataList(); //第一次加载此函数，页面才不会空
     },
     //-------------ajax获取数据列表函数--------------
@@ -283,7 +279,7 @@ export default {
         //请求接口
         method: "post",
         url: PUB.domain + this.cf.url.list,
-        data: this.Objparam
+        data: this.Objparma
       });
       let { list, page } = data; //解构赋值
       this.tableData = list;
@@ -339,18 +335,8 @@ export default {
       });
     }
 
-    this.Objparam.findJson = findJsonDefault;
-    this.Objparam.sortJson = this.cf.sortJsonDefault;
-
-    /****************************拼装selectJson参数-START****************************/
-    let selectJson = {};
-
-    this.cf.columns.forEach(columnEach => {
-      selectJson[columnEach.prop] = 1;
-    });
-
-    this.Objparam.selectJson = selectJson;
-    /****************************拼装selectJson参数-END****************************/
+    this.Objparma.findJson = findJsonDefault;
+    this.Objparma.sortJson = this.cf.sortJsonDefault;
 
     let objState = {
       //列表的vuex初始状态对象
