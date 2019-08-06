@@ -2,6 +2,10 @@
   <div class>
     <loading height="200" v-if="!isReadyFormData"></loading>
     <!--isReadyFormData为真时才开始渲染表单，保证里面的组件初始化时，表单初始数据已经准备好-->
+    <debug_list>
+      <debug_item v-model="formDataNeed" text="formDataNeed" />
+      <debug_item v-model="value" text="value" />
+    </debug_list>
     <el-form
       ref="form"
       :model="value"
@@ -19,12 +23,18 @@
             :key="item.prop+'_'+index"
             :class="{clear:spanIndex==index,clearall:clearall}"
           >
-            <!--  -->
+            <div v-if="satisfyTerm(item)&&item.cfForm" class="form-group-box">
+              <div class="FWB FS16">{{item.label}}</div>
+              <!--递归组件-->
+              <dynamicForm :cf="item.cfForm" v-model="formDataNeed[item.prop]" v-if="item.prop"></dynamicForm>
+              <dynamicForm :cf="item.cfForm" v-model="formDataNeed" v-else></dynamicForm>
+            </div>
+
             <el-form-item
               :label="item.label"
               :prop="item.prop"
               :rules="item.rules||[]"
-              v-if="satisfyTerm(item)"
+              v-if="satisfyTerm(item)&&!item.cfForm"
             >
               <!--slot自定义组件-注意是isReadyFormData为真时才开始渲染-->
               <slot :name="item.slot" :formData="value" v-if="item.slot"></slot>
@@ -128,6 +138,7 @@
               ></el-input>
               <!--json字段输入框，根据prop中是否包含点符号来判断-->
               <json_prop v-model="formDataNeed[item.prop]" :prop="item.path" v-else-if="item.path" />
+
               <!-- <json_prop
               v-model="formDataNeed[item.prop.split('.')[0]]"
               :prop="item.prop.split('.')[1]"
@@ -167,6 +178,7 @@ import upload_img from "@/components/form_item/upload_img.vue";
 import time_period from "@/components/form_item/time_period.vue";
 import json_prop from "@/components/form_item/json_prop.vue";
 export default {
+  name: "dynamicForm", //组件名，用于递归
   components: {
     //注册组件
     quillEditor,
@@ -177,14 +189,6 @@ export default {
     upload_img,
     time_period,
     json_prop
-  },
-  mounted() {
-    this.spanIndex = Math.floor(24 / this.cf.col_span);
-    if (!this.cf.col_span && this.cf.inline) {
-      //如果form表单已经启动了行内模式和不进行分块
-      this.clearall = true; //控制是否变为行内块状元素
-      this.cf.col_span = null; //控制不分行
-    }
   },
   props: {
     cf: {
@@ -207,7 +211,7 @@ export default {
       clearall: false, //控制变为行内块状
       spanIndex: null, //控制span属性值
       isReadyFormData: false, //表单初始化数据是否已备好的逻辑标记
-      formDataNeed: this.value,
+      formDataNeed: this.value||{},
       editorOption: {
         //编辑器的配置
         modules: {
@@ -222,11 +226,32 @@ export default {
   watch: {
     formDataNeed: {
       handler(newName, oldName) {
+        console.log("formDataNeed变更");
         this.$emit("input", this.formDataNeed);
-      }
+      },
+      deep: true
+    },
+    value: {
+      handler(newName, oldName) {
+        console.log("form-value变更");
+        this.formDataNeed = this.value||{};
+      },
+      deep: true
     }
   },
   methods: {
+         //给递归表单字段做一层空对象的保障
+    
+initRecursionProp() {
+  console.log("initRecursionProp#######");
+      this.cf.formItems.forEach(itemEach => { //循环：{表单字段配置数组}
+                   if (itemEach.cfForm&&itemEach.prop) {//如果是递归字段
+                     this.formDataNeed[itemEach.prop]=this.formDataNeed[itemEach.prop]||{};
+
+                     }
+
+                })
+    },
     satisfyTerm(item) {
       //函数：{返回是否满足显示条件的函数}-用于字段联动
       let flag = true;
@@ -271,7 +296,7 @@ export default {
     btnClick(eventName, validate) {
       //Q1：需要校验
       if (validate) {
-        //如果{000}000
+
         this.$refs.form.validate(valid => {
           if (valid) {
             this.$emit(eventName);
@@ -292,35 +317,28 @@ export default {
         let jsonData = {};
         this.cf.formItems.forEach(itemEach => {
           //循环：{表单字段配置数组}
+          console.log("this.docGet#######", this.docGet);
           jsonData[itemEach.prop] = this.docGet[itemEach.prop];
-          //遍历：{文档字段}
-          // let valCurr = jsonData[itemEach.prop];
-          // let type=util.type(valCurr);
-
-          //   let arrType=["object","array"];
-
-          // console.log("type#####", type);
-          //   if (arrType.includes(type)) {
-          //     //如果是json类型
-          //     var t_json = JSON.stringify(valCurr); //json转字符串
-          //   }
+         
         });
 
         //让初始传入的formData但在formItems中未定义的数据也要保留！！
         let json1 = Object.assign(this.docGet, jsonData); //合并对象
 
         this.formDataNeed = util.deepCopy(json1); //深拷贝，触发完整的双向绑定！！！
-        console.log("formDataNeed####", this.formDataNeed);
+        this.initRecursionProp();//给递归表单字段做一层空对象的保障
       }
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
   },
   async created() {
     this.docGet = this.value || {}; //**** */
+     this.initRecursionProp();//给递归表单字段做一层空对象的保障       
     this.cf.formItems.forEach(itemEach => {
-      //循环：{表单字段配置数组}c处理默认值
+      //循环：{表单字段配置数组}处理默认值
       this.docGet[itemEach.prop] =
         this.value[itemEach.prop] || itemEach.default;
+
     });
 
     //如果初始化的ajax地址存在
@@ -336,6 +354,14 @@ export default {
       this.docGet = data.Doc; //这里要使用大写的Doc
     }
     this.initForm(); //调用：{初始化表单函数}
+  },
+  mounted() {
+    this.spanIndex = Math.floor(24 / this.cf.col_span);
+    if (!this.cf.col_span && this.cf.inline) {
+      //如果form表单已经启动了行内模式和不进行分块
+      this.clearall = true; //控制是否变为行内块状元素
+      this.cf.col_span = null; //控制不分行
+    }
   }
 };
 </script>
@@ -354,5 +380,12 @@ export default {
 .clear ~ .el-form-item {
   /* 查询按钮，按钮浮动 */
   float: left;
+}
+
+.form-group-box{
+  border: 1px #ddd solid;
+border-radius: 5px;
+padding: 10px;
+margin:0 0 20px 0;
 }
 </style>
