@@ -13,7 +13,7 @@
       <i class="el-icon-plus"></i>
       
     </el-upload>
-    <el-button size="mini" type="primary" v-if="!changeOrder" @click="changeOrder=true">排序</el-button>
+    <el-button size="mini" plain v-if="!changeOrder" @click="changeOrder=true">排序</el-button>
         
     
         <draggable v-model="valueNeed" v-if="changeOrder">
@@ -22,7 +22,7 @@
           </div>
         </draggable>
         <div style="clear:both"></div>
-        <el-button size="mini" type="primary" v-if="changeOrder" @click="changeOrder=false" style="margin-top:20px">上传</el-button>
+        <el-button size="mini" plain v-if="changeOrder" @click="changeOrder=false" style="margin-top:20px">上传</el-button>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt>
     </el-dialog>
