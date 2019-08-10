@@ -134,7 +134,7 @@ export default {
           ]
         },
         {
-          index: "3",
+          index: "4",
           icon: "el-icon-setting",
           title: "互动",
           menuItem: [
@@ -151,7 +151,7 @@ export default {
           ]
         },
         {
-          index: "4",
+          index: "5",
           icon: "el-icon-setting",
           title: "系统管理",
           menuItem: [
@@ -159,7 +159,7 @@ export default {
           ]
         },
         {
-          index: "4",
+          index: "6",
           icon: "el-icon-setting",
           title: "demo页面",
           menuItem: [

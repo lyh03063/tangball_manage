@@ -243,7 +243,7 @@ export default {
           {
             label: "地图位置信息",
             prop: "extend",
-            default:{},//默认值必须要有，新增的时候回出问题
+            default:{},//默认值必须要有，否则新增的时候会出问题
             cfForm: {
               formItems: [
                 {
