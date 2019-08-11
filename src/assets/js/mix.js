@@ -145,6 +145,7 @@ MIX.list.list_achievement_simple = {
   data() {
     return {
       cfList: {
+        focusMenu:false,
         isShowSearchForm: false, //隐藏查询表单
         isShowBreadcrumb: false, //隐藏面包屑导航
         isShowPageLink: false, //隐藏分页

@@ -94,7 +94,8 @@ export default {
 
       cfList: {
         isShowSearchForm: false, //隐藏查询表单
-        listIndex: "list_enroll", //vuex对应的字段
+        listIndex: "list_enroll_for_match", //vuex对应的字段
+        focusMenu:false,
         isShowBreadcrumb: false, //隐藏面包屑导航
         isShowOperateColumn: false, //隐藏操作列
         isShowToolBar: false, //隐藏工具栏
