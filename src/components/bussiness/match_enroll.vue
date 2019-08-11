@@ -152,7 +152,7 @@ export default {
             prop: "payStatus",
             width: 70,
             formatter: function (rowData) {
-              if (rowData.payStatus == 1) {
+              if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
                 return "未支付";
@@ -258,8 +258,8 @@ export default {
             prop: "payStatus",
             type: "select",
             options: [
-              { label: "已支付", value: 1 },
-              { label: "未支付", value: 2 }
+              { label: "已支付", value: 2 },
+              { label: "未支付", value: 1 }
             ]
           },
           {

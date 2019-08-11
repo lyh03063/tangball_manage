@@ -343,7 +343,7 @@ export default {
     this.Objparam.sortJson = this.cf.sortJsonDefault;
 
     /****************************拼装selectJson参数-START****************************/
-    let selectJson = {};
+    let selectJson = {P1:1};//P1有时候在列表不显示，但也一定要加上
 
     this.cf.columns.forEach(columnEach => {
       selectJson[columnEach.prop] = 1;

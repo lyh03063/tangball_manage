@@ -36,7 +36,7 @@ export default {
           },
           {
             label: "分类名称",
-            prop: "categoryDoc",
+            prop: "articleCategory",
             width: 150,
             formatter: function(rowData) {
              let name= lodash.get(rowData,"categoryDoc.name");
@@ -98,7 +98,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "文章分类1",
+            label: "文章分类",
             prop: "articleCategory",
             type: "select",
             ajax: {
@@ -121,7 +121,8 @@ export default {
             label: "公众号文章地址",
             prop: "extend",
             path:"wxArticleUrl",
-          }
+          },
+         
         ]
       }
     };

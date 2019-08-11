@@ -137,6 +137,10 @@ export default {
             label: "加盟时间",
             prop: "time",
             type: "time_period"
+          },
+          {
+            label: "地区",
+            prop: "area"
           }
         ],
         //-------详情字段数组-------

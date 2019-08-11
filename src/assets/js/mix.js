@@ -330,7 +330,7 @@ MIX.list.list_enroll = {
             prop: "payStatus",
             width: 70,
             formatter: function (rowData) {
-              if (rowData.payStatus == 1) {
+              if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
                 return "未支付";
@@ -362,7 +362,12 @@ MIX.list.list_enroll = {
           {
             label: "报名会员id",
             prop: "memberId",
-            type: "jsonEditor"
+            type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
           },
           {
             label: "赛事id",
@@ -379,8 +384,8 @@ MIX.list.list_enroll = {
             prop: "payStatus",
             type: "select",
             options: [
-              { label: "已支付", value: 1 },
-              { label: "未支付", value: 2 }
+              { label: "已支付", value: 2 },
+              { label: "未支付", value: 1 }
             ]
           },
           {
@@ -472,7 +477,7 @@ MIX.list.list_enroll = {
             prop: "payStatus",
             width: 100,
             formatter: function (rowData) {
-              if (rowData.payStatus == 1) {
+              if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
                 return "未支付";
@@ -575,8 +580,8 @@ MIX.list.list_enroll = {
             prop: "payStatus",
             type: "select",
             options: [
-              { label: "已支付", value: 1 },
-              { label: "未支付", value: 2 }
+              { label: "已支付", value: 2 },
+              { label: "未支付", value: 1 }
             ]
           },
           {
