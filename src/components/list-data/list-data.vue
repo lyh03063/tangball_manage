@@ -302,12 +302,13 @@ export default {
 
         for await (const populateCFEach of this.cf.dynamicDict) {
           // await   funPopulate(populateCFEach);//调用：{根据填充配置进行一次ajax请求关联数据的函数}
+          let { page, populateColumn, idColumn, idColumn2 } = populateCFEach;
           this.tableData = await util.ajaxPopulate({
             listData: this.tableData,
-            page: "tangball_article_category",
-            populateColumn: "categoryDoc",
-            idColumn: "articleCategory",
-            idColumn2: "P1"
+            page,
+            populateColumn,
+            idColumn,
+            idColumn2
           });
         }
       }
