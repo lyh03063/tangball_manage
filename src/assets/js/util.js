@@ -76,11 +76,19 @@ async function ajaxPopulate(populateConfig) {
   let { listData, page, populateColumn, idColumn, idColumn2, findJson = {} } = populateConfig;
   let arrId = [];
   listData.forEach(itemEach => {//循环：{原数据数组}
-    if (itemEach[idColumn]) {//如果{000}000
-      arrId.push(itemEach[idColumn])
+    let idEach = itemEach[idColumn]
+    if (idEach) {//如果{idEach}存在
+
+      if (util.type(idEach) == "array") {//Q1:idEach是数组
+        arrId = arrId.concat(idEach);//拼接
+      } else {//Q2:idEach不是数组
+        arrId.push(idEach);
+      }
     }
   })
 
+  arrId = Array.from(new Set(arrId))//去重
+  console.log("arrId#####", arrId);
   //变量：{填充查询条件}
   let findJsonNeed = {
     [idColumn2]: {
@@ -102,18 +110,31 @@ async function ajaxPopulate(populateConfig) {
 
 
 
-  // let { data } = await postRequest({
-  //   url: window.PUB.domain + `/crossList?page=${page}`,
-  //   param: {
-  //     findJsonNeed, pageSize: 999
-  //   }
-  // });
 
   var dict = lodash.keyBy(data.list, idColumn2)
+
+
   listData.forEach(itemEach => {//循环：{原数据数组}
-    let key = itemEach[idColumn];//字典key值
-    itemEach[populateColumn] = dict[key]
+
+    let idEach = itemEach[idColumn]
+    if (idEach) {//如果{idEach}存在
+      if (util.type(idEach) == "array") {//Q1:idEach是数组
+        itemEach[populateColumn] = [];
+        idEach.forEach(idOneEach => {//循环：{id数组}
+          itemEach[populateColumn].push(dict[idOneEach])
+        })
+      } else {//Q2:idEach不是数组
+        itemEach[populateColumn] = dict[idEach]
+      }
+    }
+
+
+
+
   })
+
+
+
   return deepCopy(listData);//深拷贝，返回一个全新的对象
 
   //return listData

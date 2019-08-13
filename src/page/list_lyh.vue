@@ -3,9 +3,13 @@
   <div class>
     <space height="10"></space>
     <div class>
+      <el-button plain @click="search(param)" size="mini">查询</el-button>
       <debug_list>
         <!-- <debug_item v-model="name" text="姓名"/>
         -->
+        <debug_item v-model="dataBase" text="数据库"></debug_item>
+        <debug_item v-model="param" text="查询条件"></debug_item>
+        <debug_item v-model="searchResult" text="查询结果"></debug_item>
         <debug_item v-model="msgList" text="消息列表"></debug_item>
         <debug_item v-model="memberId" text="当前会员id"></debug_item>
         <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
@@ -14,13 +18,9 @@
       </debug_list>
     </div>
 
-<el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
-
+    <el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
 
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
-
-
-
 
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
       <div class="FWB">
@@ -57,9 +57,31 @@ export default {
     // ccity_match_achievement_personal
   },
 
+  //  //等值查询的参数
+  //       let paramEqual = {
+  //         age: 1,
+  //         active: true
+  //       };
+  //       //模糊查询的参数
+  //       let paramVague = ;
+
   data() {
     return {
-      
+      param: {
+        paramEqual: {
+          age: 1,
+          active: true
+        },
+        paramVague: { user: "peb" }
+      },
+      dataBase: [
+        { user: "barney", age: 36, active: true },
+        { user: "fred", age: 40, active: false },
+        { user: "aebbles", age: 1, active: true },
+        { user: "pebabc", age: 1, active: true },
+        { user: "pebdef", remark: "备注", age: 1, active: true }
+      ],
+      searchResult: null,
       msgList: null,
       memberId: 17,
       myMsgList: null,
@@ -98,12 +120,33 @@ export default {
       }
     }
   },
-  async created() {
-
-
-  },
+  async created() {},
 
   methods: {
+    search(param = {}) {
+      let { paramVague, paramEqual } = param;
+      //第一步，先处理等值查询
+      let result = lodash.filter(this.dataBase, paramEqual);
+      console.log("result", result);
+
+      //第一步，处理模糊查询
+      this.searchResult = lodash.filter(result, function(doc) {
+        let flag = true;
+        for (var prop in paramVague) {
+          let flagEach;
+          if (doc[prop]) {
+            //如果对象的属性值存在
+            flagEach = doc[prop].includes(paramVague[prop]);
+          } else {
+            flagEach = false;
+          }
+          console.log("flagEach", flagEach);
+          flag = flag && flagEach;
+        }
+        console.log("flag", flag);
+        return flag;
+      });
+    },
     /**
      * 函数：{获取当前会员的消息列表}
      * 难点：或查询条件的配置
@@ -129,37 +172,30 @@ export default {
         idColumn: "P1",
         idColumn2: "msgId",
         page: "tangball_msg_read",
-        findJson:{
+        findJson: {
           memberId: this.memberId
         }
       });
 
       console.log("this.myMsgList2", this.myMsgList);
-
-
-
     },
     async getMyMsgList2(_json) {
-     
-     let  data  = await ajax({
-          //请求接口
-          timeout:11,
-          method: "post",
-          baseURL:"http://localhost:3000",
-          url: `/console_split`,
-          data: {
-            // id: 1
-          } //传递参数
-        });
-        
-     this.msgList =  data
+      let data = await ajax({
+        //请求接口
+        timeout: 11,
+        method: "post",
+        baseURL: "http://localhost:3000",
+        url: `/console_split`,
+        data: {
+          // id: 1
+        } //传递参数
+      });
 
+      this.msgList = data;
 
-// axios.post("http://localhost:3000/console_split", {
-//    body: {}
-//  },{timeout:20}).then(res=>{})
-
-
+      // axios.post("http://localhost:3000/console_split", {
+      //    body: {}
+      //  },{timeout:20}).then(res=>{})
     },
 
     /**
