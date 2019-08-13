@@ -1,8 +1,8 @@
 // window.pub_debug=true;//开启调试模式
 
 window.PUB={}
- //window.PUB.domain="http://120.76.160.41:3000"
- window.PUB.domain="http://localhost:3000"
+ window.PUB.domain="http://120.76.160.41:3000"
+ //window.PUB.domain="http://localhost:3000"
 
 
 
@@ -246,7 +246,7 @@ Vue.use(Vuex)//应用组件
 
 const store = new Vuex.Store({//定义Vuex的存储对象
   state: {
-    debug:true,
+    debug:false,
     activeMenuIndex: "",//当前激活的菜单index
     listState: {//存放列表的共享状态，
 

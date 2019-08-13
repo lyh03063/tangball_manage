@@ -1,7 +1,11 @@
 <template>
   <tr>
-    <td class>{{pathNeed}}</td>
-    <td class>{{text}}</td>
+    <td class>
+      <span class="debug-text" :title="pathNeed">{{pathNeed}}</span>
+    </td>
+    <td class>
+      <span class="debug-text" :title="text">{{text}}</span>
+    </td>
     <td class="PSR" :class="{'changing':isChanging}" @dblclick="isEdit=true">
       <el-tooltip class="item MR6 PSA L3 T2" effect="dark" placement="left">
         <i class="el-icon-view"></i>
@@ -9,7 +13,7 @@
           <pre class="valueShowInTip">{{getValueStr(pathNeed)}}</pre>
         </div>
       </el-tooltip>
-     
+
       <span class="DPIB valueShow" v-if="!isEdit">{{valueNeed}}</span>
       <div class="PL18" v-if="isEdit">
         <input
@@ -100,9 +104,9 @@ export default {
 .valueShow {
   width: 100%;
   overflow-y: auto;
-  max-height: 50px;
+  max-height: 20px;
   padding: 0 0 0 18px;
-  word-break: break-all
+  word-break: break-all;
 }
 
 .valueShowInTip {
@@ -117,5 +121,15 @@ table.n-table.n-table-debug th {
 .changing {
   background: #f60;
   color: #fff;
+}
+
+.debug-text {
+  max-width: 130px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  max-height: 20px;
+  display: inline-block;
+  text-overflow: ellipsis;
 }
 </style>
