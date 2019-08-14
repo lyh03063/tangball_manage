@@ -21,16 +21,6 @@
       <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
         <openPhoto v-model="row.album"></openPhoto>
-        <!-- <div>
-          <img
-            @click.stop="showBigImg(item.url)"
-            :src="item.url"
-            alt
-            v-for="item in row.album"
-            :key="item.url"
-            class="W100 H100"
-          >
-        </div>-->
       </template>
     </listData>
   </div>

@@ -295,11 +295,6 @@ export default {
       if (this.cf.dynamicDict) {
         //如果{填充配置数组}存在.
 
-        // populate.forEach(async populateCFEach => {//循环异步操作：{填充配置数组}
-        //   await funPopulate(populateCFEach);//调用：{根据填充配置进行一次ajax请求关联数据的函数}
-
-        // })
-
         for await (const populateCFEach of this.cf.dynamicDict) {
           // await   funPopulate(populateCFEach);//调用：{根据填充配置进行一次ajax请求关联数据的函数}
           let { page, populateColumn, idColumn, idColumn2 } = populateCFEach;
@@ -312,7 +307,7 @@ export default {
           });
         }
       }
-
+      this.$emit("after-search",this.tableData); //触发外部事件
       console.log("ajaxPopulate-2");
     }
   },
@@ -344,7 +339,7 @@ export default {
     this.Objparam.sortJson = this.cf.sortJsonDefault;
 
     /****************************拼装selectJson参数-START****************************/
-    let selectJson = {P1:1};//P1有时候在列表不显示，但也一定要加上
+    let selectJson = { P1: 1 }; //P1有时候在列表不显示，但也一定要加上
 
     this.cf.columns.forEach(columnEach => {
       selectJson[columnEach.prop] = 1;

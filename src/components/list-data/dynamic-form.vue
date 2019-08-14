@@ -5,6 +5,7 @@
     <debug_list>
       <debug_item v-model="formDataNeed" text="formDataNeed" />
       <debug_item v-model="value" text="value" />
+      <debug_item v-model="cf" text="配置" />
     </debug_list>
     <el-form
       ref="form"
@@ -331,9 +332,9 @@ initRecursionProp() {
       this.isReadyFormData = true; //***表单初始化数据是否已备好的逻辑标记,某些字段需要等待这个标记为true
     }
   },
-  async created() {
+   async created() {
     this.docGet = this.value || {}; //**** */
-     this.initRecursionProp();//给递归表单字段做一层空对象的保障       
+        this.initRecursionProp();//给递归表单字段做一层空对象的保障       
     this.cf.formItems.forEach(itemEach => {
       //循环：{表单字段配置数组}处理默认值
       this.docGet[itemEach.prop] =
@@ -346,8 +347,8 @@ initRecursionProp() {
       let { data } = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain + this.cf.urlInit,
-        data: {
+        url: PUB.domain||"" + this.cf.urlInit,
+         data: this.cf.paramInit || {
           id: this.value.P1
         } //传递参数
       });
