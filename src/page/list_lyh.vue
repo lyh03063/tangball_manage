@@ -1,226 +1,240 @@
 
 <template>
   <div class>
-    <space height="10"></space>
-    <div class>
-      <el-button plain @click="search(param)" size="mini">查询</el-button>
-      <debug_list>
-        <!-- <debug_item v-model="name" text="姓名"/>
-        -->
-        <debug_item v-model="dataBase" text="数据库"></debug_item>
-        <debug_item v-model="param" text="查询条件"></debug_item>
-        <debug_item v-model="searchResult" text="查询结果"></debug_item>
-        <debug_item v-model="msgList" text="消息列表"></debug_item>
-        <debug_item v-model="memberId" text="当前会员id"></debug_item>
-        <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
+    <dm_debug_list>
+      <dm_debug_item v-model="cfForm" text="cfForm" />
+    </dm_debug_list>
 
-        <!-- <debug_item v-model="objTest.big" text="测试对象属性"></debug_item> -->
-      </debug_list>
-    </div>
-
-    <el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
-
-    <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
-
-    <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i">
-      <div class="FWB">
-        {{item.P1}} ： {{item.name}}
-        <span class="C_3a0" v-if="item.readDoc">已读-{{item.readDoc}}</span>
-        <span class="C_f30" v-else>
-          未读-
-          <a
-            href="javascript:;"
-            @click="setReadStatus({'memberId':memberId,'msgId':item.P1})"
-          >设为已读</a>
-        </span>
-      </div>
-      <div class>{{item.detail}}</div>
-    </div>
-
-    <space height="10"></space>
-
-    <!-- <loading height="200"></loading> -->
-
-    <!-- <match_enroll :matchId="matchId"></match_enroll> -->
-    <space height="100"></space>
-    <!-- <match_achievement :matchId="matchId"></match_achievement> -->
+    <dm_dynamic_form :cf="cfForm" v-model="formData"></dm_dynamic_form>
   </div>
 </template>
 <script>
-import match_achievement from "@/components/bussiness/match_achievement.vue";
-import match_enroll from "@/components/bussiness/match_enroll.vue";
-import ccity_match_achievement_personal from "@/components/bussiness/ccity_match_achievement_personal.vue";
-export default {
-  components: {
-    match_achievement,
-    match_enroll
-    // ccity_match_achievement_personal
-  },
+//  import {dm_dynamic_form} from "dm-dynamic-form";
+//  console.log("dm_dynamic_form", dm_dynamic_form);
 
-  //  //等值查询的参数
-  //       let paramEqual = {
-  //         age: 1,
-  //         active: true
-  //       };
-  //       //模糊查询的参数
-  //       let paramVague = ;
+export default {
+  components: {},
 
   data() {
     return {
-      param: {
-        paramEqual: {
-          age: 1,
-          active: true
-        },
-        paramVague: { user: "peb" }
+      formData: {
+        extend: { aaa: 1, name: "lucy" },
+        prop_checkbox: [], //复选框字段的默认数组
+        prop1: "abcd",
+        prop_dateTime: "2019-7-24 14:09",
+        diycheckbox: [1]
       },
-      dataBase: [
-        { user: "barney", age: 36, active: true },
-        { user: "fred", age: 40, active: false },
-        { user: "aebbles", age: 1, active: true },
-        { user: "pebabc", age: 1, active: true },
-        { user: "pebdef", remark: "备注", age: 1, active: true }
-      ],
-      searchResult: null,
-      msgList: null,
-      memberId: 17,
-      myMsgList: null,
-      dictPerson: null,
-      arrPerson: null,
-      arrMatch: null,
-      imgUrl: "",
-      matchTimeEnd: "",
+      cfForm: {
+        labelWidth: "150px",
+        formItems: [
+          //   {
+          //   label: "extend",
+          //   prop: "extend",
+          //   type: "jsonEditor",
 
-      matchId: 37,
-      name: "刘胡兰",
-      sex: "男",
-      objTest: {
-        big: "大大",
-        small: "小小"
+          // },
+          {
+            label: "联系人信息",
+            prop: "extend",
+            default: {},
+            cfForm: {
+              formItems: [
+                {
+                  label: "姓名",
+                  prop: "name",
+                  type: "input"
+                },
+                {
+                  label: "下拉框(select)",
+                  prop: "sex",
+                  type: "select",
+                  default: 2,
+                  options: [
+                    { value: 1, label: "男" },
+                    { value: 2, label: "女" }
+                  ]
+                },
+                {
+                  label: "联系人信息2",
+                  prop: "extend1",
+                  default: {},
 
-        // list: [
-        //   { label: "姓名", prop: "name" },
-        //   { label: "赛事id", prop: "matchId" },
-        //   { label: "测试对象", prop: "objTest.big" }
-        // ],
-        // list2: [
-        //   { label: "姓名", prop: "name" },
-        //   { label: "赛事id", prop: "matchId" },
-        //   { label: "测试对象", prop: "objTest.big" }
-        // ]
+                  cfForm: {
+                    col_span: 12,
+                    formItems: [
+                      {
+                        label: "姓名",
+                        prop: "name",
+                        type: "input",
+                        col_span: 12
+                      },
+                      {
+                        label: "下拉框(select)",
+                        prop: "sex",
+                        type: "select",
+                        default: 2,
+                        options: [
+                          { value: 1, label: "男" },
+                          { value: 2, label: "女" }
+                        ],
+                        col_span: 12
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            label: "负责人信息",
+            // prop: "extend",
+            cfForm: {
+              formItems: [
+                {
+                  label: "姓名",
+                  prop: "name",
+                  type: "input"
+                },
+                {
+                  label: "下拉框(select)",
+                  prop: "sex",
+                  type: "select",
+                  default: 2,
+                  options: [
+                    { value: 1, label: "男" },
+                    { value: 2, label: "女" }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            label: "纬度",
+            prop: "extend",
+            path: "latitude"
+          },
+          {
+            label: "普通文本框(input)",
+            prop: "prop1",
+            type: "input",
+            default: "默认文本",
+            rules: [
+              { required: true, message: "不能为空" },
+
+              {
+                pattern: /^[\u4E00-\u9FA5]+$/,
+                message: "用户名只能为中文"
+              }
+            ]
+          },
+          {
+            label: "密码框2(password)",
+            prop: "prop_password",
+            type: "password"
+          },
+          {
+            label: "用于模糊查询文本框(input_find_vague)",
+            prop: "prop_input_find_vague",
+            type: "input_find_vague"
+          },
+          {
+            label: "文本域(textarea)",
+            prop: "prop_textarea",
+            type: "textarea"
+          },
+          {
+            label: "下拉框(select)",
+            prop: "sex",
+            type: "select",
+            default: 2,
+            options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+          {
+            label: "sex【联动】",
+            prop: "sex_relative",
+            type: "input",
+            //显示条件
+            term: { $or: [{ sex: 2 }, { prop_textarea: 2 }] }
+          },
+          {
+            label: "下拉框(select+ajax)",
+            prop: "prop4",
+            type: "select",
+            ajax: {
+              url: "/crossList?page=mabang-member",
+              param: { a: 1 },
+              keyLabel: "nickName",
+              keyValue: "userName"
+            }
+          },
+
+          {
+            label: "单选框(radio)",
+            prop: "prop_radio",
+            type: "radio",
+            default: 2,
+            options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+          {
+            label: "复选框(checkbox)",
+            prop: "prop_checkbox",
+            type: "checkbox",
+            default: [2],
+            options: [{ value: 1, label: "男" }, { value: 2, label: "女" }]
+          },
+          {
+            label: "日期时间(dateTime)",
+            prop: "prop_dateTime",
+            type: "dateTime"
+          },
+          {
+            label: "日期选择器(date)",
+            prop: "prop_date",
+            type: "date"
+          },
+          {
+            label: "图片上传",
+            prop: "prop_upload",
+            type: "upload"
+          },
+          {
+            label: "json编辑器(jsonEditor)",
+            prop: "prop_jsonEditor",
+            type: "jsonEditor"
+          },
+          {
+            label: "json编辑器(vueJsonEditor)",
+            prop: "prop_vueJsonEditor",
+            type: "vueJsonEditor"
+          },
+          {
+            label: "富文本编辑器(editor)",
+            prop: "prop_editor",
+            type: "editor"
+          },
+          {
+            label: "自定义组件(slot实现)",
+            prop: "description",
+            slot: "slot_form_item_description",
+            rules: [{ required: true, message: "不能为空" }]
+          },
+          {
+            label: "diycheckbox(slot实现)",
+            prop: "diycheckbox",
+            slot: "slot_form_item_diycheckbox",
+            rules: [{ required: true, message: "不能为空" }]
+          }
+        ],
+        btns: [
+          { text: "提交111", event: "submit", type: "primary", validate: true },
+          { text: "取消222", event: "cancel" }
+        ]
       }
     };
   },
-  directives: {
-    focus: {
-      // 指令的定义
-      inserted: function(el) {
-        console.log("arguments", arguments);
-        el.focus();
-      }
-    }
-  },
+
   async created() {},
 
-  methods: {
-    search(param = {}) {
-      let { paramVague, paramEqual } = param;
-      //第一步，先处理等值查询
-      let result = lodash.filter(this.dataBase, paramEqual);
-      console.log("result", result);
-
-      //第一步，处理模糊查询
-      this.searchResult = lodash.filter(result, function(doc) {
-        let flag = true;
-        for (var prop in paramVague) {
-          let flagEach;
-          if (doc[prop]) {
-            //如果对象的属性值存在
-            flagEach = doc[prop].includes(paramVague[prop]);
-          } else {
-            flagEach = false;
-          }
-          console.log("flagEach", flagEach);
-          flag = flag && flagEach;
-        }
-        console.log("flag", flag);
-        return flag;
-      });
-    },
-    /**
-     * 函数：{获取当前会员的消息列表}
-     * 难点：或查询条件的配置
-     *
-     */
-    async getMyMsgList(_json) {
-      let { data } = await axios({
-        //请求接口
-        method: "post",
-        url: `${PUB.domain}/crossList?page=tangball_msg`,
-        data: {
-          findJson: {
-            //或查询条件：range==1或[range==2&&memberIdList包含当前会员id]
-            $or: [{ range: 1 }, { range: 2, memberIdList: this.memberId }]
-          }
-        } //传递参数
-      });
-      this.myMsgList = data.list;
-
-      this.myMsgList = await util.ajaxPopulate({
-        listData: this.myMsgList,
-        populateColumn: "readDoc",
-        idColumn: "P1",
-        idColumn2: "msgId",
-        page: "tangball_msg_read",
-        findJson: {
-          memberId: this.memberId
-        }
-      });
-
-      console.log("this.myMsgList2", this.myMsgList);
-    },
-    async getMyMsgList2(_json) {
-      let data = await ajax({
-        //请求接口
-        timeout: 11,
-        method: "post",
-        baseURL: "http://localhost:3000",
-        url: `/console_split`,
-        data: {
-          // id: 1
-        } //传递参数
-      });
-
-      this.msgList = data;
-
-      // axios.post("http://localhost:3000/console_split", {
-      //    body: {}
-      //  },{timeout:20}).then(res=>{})
-    },
-
-    /**
-     * 函数：{设置消息已读状态的函数}
-     * 往消息已读状态记录表更新一条记录,如果该记录不存在则新增
-     *
-     */
-    async setReadStatus(_json) {
-      console.log("_json", _json);
-      let { memberId, msgId } = _json;
-      await axios({
-        //请求接口
-        method: "post",
-        url: `${PUB.domain}/crossModify?page=tangball_msg_read`,
-        data: {
-          findJson: { msgId, memberId },
-          modifyJson: { msgId, memberId }
-        }
-      });
-    },
-    //接收子组件emit的事件
-    getImgUrl(data) {
-      alert("getImgUrl");
-      //data  得到的就是返回的图片路径的相关参数
-    }
-  }
+  methods: {}
 };
 </script>

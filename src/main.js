@@ -305,6 +305,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 
+import dm_components from "dmagic-components";
+Vue.use(dm_components);
+
+
+
+
 import Main from './main.vue'
 new Vue({
   render: h => h(Main),
