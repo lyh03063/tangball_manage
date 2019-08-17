@@ -1,10 +1,9 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <dm_list_data :cf="cfList"></dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import Mock from "mockjs";
 // 比赛成绩接口
 Mock.mock("/list_achievement", function() {
@@ -70,7 +69,7 @@ Mock.mock("/list_achievement", function() {
 });
 
 export default {
-  components: { listData },
+  components: {  },
   data() {
     return {
       cfList: {

@@ -1,19 +1,19 @@
 <template>
   <div class v-if="matchInfo">
-    <debug_list>
-      <debug_item  v-model="matchInfo"  text="赛事信息"/>
-      <debug_item v-model="matchInfo.matchProgress"  text="赛事阶段"/>
-      <debug_item v-model="cfList.findJsonDefault"  text="成绩列表的默认查询参数"/>
-      <debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
+    <dm_debug_list>
+      <dm_debug_item  v-model="matchInfo"  text="赛事信息"/>
+      <dm_debug_item v-model="matchInfo.matchProgress"  text="赛事阶段"/>
+      <dm_debug_item v-model="cfList.findJsonDefault"  text="成绩列表的默认查询参数"/>
+      <dm_debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
       />
-    </debug_list>
+    </dm_debug_list>
     <!-- 赛事进度条 -->
     <match_progress_step v-model="matchInfo.matchProgress"></match_progress_step>
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
     <div class="TAC FS16 LH40">当前赛事进度</div>
 
-    <space height="20"></space>-->
+    <dm_space height="20"></dm_space>-->
     <div class v-if="matchInfo.matchType==2">
       <div class="panel">
         <div class="OFH">
@@ -46,7 +46,7 @@
           </el-radio-group>
         </div>
         <!-- 城市赛阶段：{{cityMatchProgress}} -->
-        <listData
+        <dm_list_data
           :cf="cfList"
           ref="list1"
           @after-add="updateAchievementRanking"
@@ -55,7 +55,7 @@
         >
           <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
           <template v-slot:slot_detail_item_participantsId="{row}">
-            <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
+            <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
               <template v-slot:default="{doc}">
                 <div class v-if="doc && doc.P1">
                   {{doc.P1}}
@@ -63,7 +63,7 @@
                   {{doc.name}})
                 </div>
               </template>
-            </ajax_populate>
+            </dm_ajax_populate>
           </template>
 
           <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
@@ -74,10 +74,10 @@
               :matchId="formData.matchId"
             ></select_match_progress>
           </template>
-        </listData>
+        </dm_list_data>
       </div>
 
-      <space height="20"></space>
+      <dm_space height="20"></dm_space>
 
       <div class="panel">
         <div class="FWB FS16 LH30">城际赛（时间2019-7-5到2019-8-5）</div>
@@ -95,14 +95,14 @@
             </el-radio-group>
           </div>
 
-          <debug_list>
-            <debug_item v-model="crossCityMatchSmallProgress" text="城际赛赛事小阶段"/>
-            <debug_item v-model="arrCrossCityMatchAchievement" text="城际赛团队成绩列表"/>
-            <debug_item v-model="arrCrossCityMatchPersonAchievement" text="城际赛成绩明细总列表"/>
-            <debug_item v-model="showDialogCCityAchievementPersonal" text="显示明细列表弹窗"/>
-            <debug_item v-model="findJsonDefaultCCityAchP" text="城际赛的明细列表的默认查询参数"/>
-            <debug_item v-model="infoDefaultCCityAchP" text="城际赛的明细列表的一些提示信息"/>
-          </debug_list>
+          <dm_debug_list>
+            <dm_debug_item v-model="crossCityMatchSmallProgress" text="城际赛赛事小阶段"/>
+            <dm_debug_item v-model="arrCrossCityMatchAchievement" text="城际赛团队成绩列表"/>
+            <dm_debug_item v-model="arrCrossCityMatchPersonAchievement" text="城际赛成绩明细总列表"/>
+            <dm_debug_item v-model="showDialogCCityAchievementPersonal" text="显示明细列表弹窗"/>
+            <dm_debug_item v-model="findJsonDefaultCCityAchP" text="城际赛的明细列表的默认查询参数"/>
+            <dm_debug_item v-model="infoDefaultCCityAchP" text="城际赛的明细列表的一些提示信息"/>
+          </dm_debug_list>
 
           <el-table :data="arrCrossCityMatchAchievement" border style="width: 100%" class="MT10">
             <el-table-column prop="cityName" label="队名" width="180"></el-table-column>
@@ -138,14 +138,14 @@
 </template>
 
 <script>
-import listData from "@/components/list-data/list-data.vue";
+
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_venue from "@/components/form_item/match_venue.vue";
 import ccity_match_achievement_personal from "@/components/bussiness/ccity_match_achievement_personal.vue";
 import match_progress_step from "./match_progress_step";
 export default {
   components: {
-    listData,
+  
     select_match_progress,
     match_venue,
     ccity_match_achievement_personal,

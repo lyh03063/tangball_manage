@@ -1,23 +1,23 @@
 
 <template>
   <div class>
-    <space height="10"></space>
+    <dm_space height="10"></dm_space>
     <div class>
-      <debug_list>
-        <!-- <debug_item v-model="name" text="姓名"/>
+      <dm_debug_list>
+        <!-- <dm_debug_item v-model="name" text="姓名"/>
         -->
 
-        <debug_item v-model="memberId" text="当前会员id"></debug_item>
-        <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
-        <debug_item v-model="myMsgRead" text="我的消息已读记录列表"></debug_item>
-        <debug_item v-model="dictMsgRead" text="我的消息已读数据字典"></debug_item>
+        <dm_debug_item v-model="memberId" text="当前会员id"></dm_debug_item>
+        <dm_debug_item v-model="myMsgList" text="我的消息列表"></dm_debug_item>
+        <dm_debug_item v-model="myMsgRead" text="我的消息已读记录列表"></dm_debug_item>
+        <dm_debug_item v-model="dictMsgRead" text="我的消息已读数据字典"></dm_debug_item>
 
-        <!-- <debug_item v-model="objTest.big" text="测试对象属性"></debug_item> -->
-      </debug_list>
+        <!-- <dm_debug_item v-model="objTest.big" text="测试对象属性"></dm_debug_item> -->
+      </dm_debug_list>
     </div>
 
     <el-button plain @click="getMyMsgList" size="mini">获取消息列表</el-button>
-    <space height="10"></space>
+    <dm_space height="10"></dm_space>
 
 已读
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="item.isRead">
@@ -35,7 +35,7 @@
       <div class>{{item.detail}}</div>
     </div>
 
-    <space height="10"></space>
+    <dm_space height="10"></dm_space>
 未读
     <div class="n-list-group" v-for="(item,i) in myMsgList" :key="i" v-if="!item.isRead">
       <div class="FWB">
@@ -51,10 +51,10 @@
       </div>
       <div class>{{item.detail}}</div>
     </div>
-    <!-- <loading height="200"></loading> -->
+    <!-- <dm_loading height="200"></dm_loading> -->
 
     <!-- <match_enroll :matchId="matchId"></match_enroll> -->
-    <space height="100"></space>
+    <dm_space height="100"></dm_space>
     <!-- <match_achievement :matchId="matchId"></match_achievement> -->
   </div>
 </template>

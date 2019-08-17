@@ -30,7 +30,7 @@
         <match_enroll :matchId="matchId" :debug111="true"></match_enroll>
       </div>
     </el-dialog>
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_enroll="{row}">
         <a href="javascript:;" class="link-blue" @click="dialogEnroll(row)">报名表</a>
@@ -45,9 +45,9 @@
       </template>
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
-        <debug_list level-up="2">
-          <debug_item  v-model="row.cityVenueList" text="场馆列表"/>
-        </debug_list>
+        <dm_debug_list level-up="2">
+          <dm_debug_item  v-model="row.cityVenueList" text="场馆列表"/>
+        </dm_debug_list>
         
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
@@ -55,18 +55,16 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import city_venue_list from "@/components/form_item/city_venue_list.vue";
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
 export default {
   components: {
-    listData,
     city_venue_list,
     select_match_progress,
     match_achievement,

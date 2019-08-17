@@ -12,7 +12,7 @@
         <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
      
@@ -33,7 +33,7 @@
       </template>
       <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_memberId="{row}">
-        <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
+        <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               {{doc.P1}}
@@ -41,12 +41,12 @@
               {{doc.name}})
             </div>
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
 
       <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_matchId="{row}">
-        <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+        <dm_ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               {{doc.P1}}
@@ -54,16 +54,15 @@
               {{doc.matchName}})
             </div>
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: { listData, match_venue },
+  components: {  match_venue },
   mixins: [MIX.list.list_enroll],
   methods: {
     showBigImg(url) {

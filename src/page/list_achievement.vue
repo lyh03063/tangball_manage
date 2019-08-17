@@ -1,6 +1,6 @@
 <template>
   <div class>
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <!-- 城市赛场馆(新增/修改表单) -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
         <member_enroll
@@ -11,33 +11,33 @@
       </template>
       <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_participantsId="{row}">
-        <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
+        <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.name}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
       <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_matchId="{row}">
-        <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+        <dm_ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.matchName}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
       <!--详情弹窗的 cityVenueId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_cityVenueId="{row}">
-        <ajax_populate :id="row.cityVenueId" populateKey="name" page="tangball_venue">
+        <dm_ajax_populate :id="row.cityVenueId" populateKey="name" page="tangball_venue">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.name}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
@@ -55,17 +55,17 @@
         <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
       </template>
       
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
+
 
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import member_enroll from "@/components/form_item/member_enroll.vue";
 import achievement_matchProgress from "@/components/form_item/achievement_matchProgress.vue";
 export default {
-  components: { listData, select_match_progress, member_enroll,achievement_matchProgress },
+  components: { select_match_progress, member_enroll,achievement_matchProgress },
   mixins: [MIX.list.list_achievement],
   data() {
     

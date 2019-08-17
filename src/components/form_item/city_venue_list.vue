@@ -13,7 +13,7 @@
     >
       <!-- 绑定数据 {{objCityVanue}} -->
       <select_city_venue v-model="objCityVanue"></select_city_venue>
-      <space height="20"></space>
+      <dm_space height="20"></dm_space>
       <div class="TAC">
         <el-button type="primary" @click="addCityVanue">添加</el-button>
       </div>

@@ -14,7 +14,7 @@
       </div>
     </el-dialog>
 
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <!--详情弹窗的album字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
@@ -34,11 +34,11 @@
       </template>
       <!--详情弹窗的category字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_category="{row}">
-        <ajax_populate :id="row.category" populateKey="name" page="mabang-category">
+        <dm_ajax_populate :id="row.category" populateKey="name" page="mabang-category">
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1"><b>{{doc.name}}</b>(分类id:{{doc.P1}})</div>
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
 
       <!--弹窗表单的description字段插槽组件-->
@@ -48,18 +48,17 @@
 
 <!--列表的category字段插槽组件-->
       <template v-slot:slot_list_column_category="{row}">
-        <ajax_populate :id="row.category" populateKey="name" page="mabang-category"></ajax_populate>
+        <dm_ajax_populate :id="row.category" populateKey="name" page="mabang-category"></dm_ajax_populate>
      
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import form_item_test from "@/components/form_item_test.vue";
 
 export default {
-  components: { listData, form_item_test },
+  components: {  form_item_test },
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;

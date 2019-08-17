@@ -3,13 +3,13 @@
     <div class v-if="enrollInfo">
       城市赛场馆Id:
       <span class="C_f30">
-        <ajax_populate :id="enrollInfo.cityVenueId" page="tangball_venue">
+        <dm_ajax_populate :id="enrollInfo.cityVenueId" page="tangball_venue">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.name}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </span>
     </div>
     <div class v-else>没有对应的城市赛场馆</div>

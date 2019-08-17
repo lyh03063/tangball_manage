@@ -12,13 +12,13 @@
       v-if="showDialog"
     >
       <div class>
-        <debug_list level-up="1">
-          <debug_item v-model="findJsonDefault"  text="成绩列表的默认查询参数"/>
-          <debug_item v-model="cfList.formDataAddInit"  text="新增表单的初始数据"/>
-          <debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
+        <dm_debug_list level-up="1">
+          <dm_debug_item v-model="findJsonDefault"  text="成绩列表的默认查询参数"/>
+          <dm_debug_item v-model="cfList.formDataAddInit"  text="新增表单的初始数据"/>
+          <dm_debug_item v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson" text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
           />
-          <debug_item v-model="info" text="展示的一些信息"/>
-        </debug_list>
+          <dm_debug_item v-model="info" text="展示的一些信息"/>
+        </dm_debug_list>
 
         <div class="OFH">
           <div class="FL FWB FS16 LH30">【{{info.cityName}}】代表队的【{{info.progressName}}】成绩明细表</div>
@@ -28,14 +28,14 @@
             <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
           </div>
         </div>
-        <listData
+        <dm_list_data
           :cf="cfList"
           @after-add="$emit('after-add')"
           @after-modify="$emit('after-modify')"
         >
           <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
           <template v-slot:slot_detail_item_participantsId="{row}">
-            <ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
+            <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
               <template v-slot:default="{doc}">
                 <div class v-if="doc && doc.P1">
                   {{doc.P1}}
@@ -43,11 +43,11 @@
                   {{doc.name}})
                 </div>
               </template>
-            </ajax_populate>
+            </dm_ajax_populate>
           </template>
           <!--详情弹窗的 matchId 字段组件，注意插槽命名-->
           <template v-slot:slot_detail_item_matchId="{row}">
-            <ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
+            <dm_ajax_populate :id="row.matchId" populateKey="matchName" page="tangball_match">
               <template v-slot:default="{doc}">
                 <div class v-if="doc && doc.P1">
                   {{doc.P1}}
@@ -55,7 +55,7 @@
                   {{doc.matchName}})
                 </div>
               </template>
-            </ajax_populate>
+            </dm_ajax_populate>
           </template>
 
           <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
@@ -66,19 +66,18 @@
               :matchId="formData.matchId"
             ></select_match_progress>
           </template>
-        </listData>
+        </dm_list_data> 
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
-// import listData from "../list-data/list-data.vue";
+
 
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: { listData, select_match_progress, match_venue },
+  components: { select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
     findJsonDefault: [Object],

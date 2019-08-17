@@ -9,8 +9,7 @@
   </div>
 </template>
 <script>
-//  import {dm_dynamic_form} from "dm-dynamic-form";
-//  console.log("dm_dynamic_form", dm_dynamic_form);
+
 
 export default {
   components: {},

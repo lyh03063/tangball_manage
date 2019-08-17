@@ -14,7 +14,7 @@
       </div>
     </el-dialog>-->
 
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <template v-slot:slot_area="{formData}">
         <select_city v-model="formData.area" value-type="cityId"></select_city>
       </template>
@@ -22,15 +22,14 @@
       <template v-slot:slot_detail_item_album="{row}">
         <openPhoto v-model="row.album"></openPhoto>
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import select_city from "@/components/form_item/select_city.vue";
 import openPhoto from "@/components/common/openPhoto/openPhoto.vue";
 export default {
-  components: { listData, select_city, openPhoto },
+  components: { select_city, openPhoto },
   methods: {
     // showBigImg(url) {
     //   this.showDialogBigImg = true;

@@ -1,15 +1,14 @@
 <template>
   <div class>
    
-    <listData :cf="cfList">
-    </listData>
+    <dm_list_data :cf="cfList">
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 
 export default {
-  components: { listData },
+  components: {  },
   methods: {
     filterActicle(categoryId) {
       //函数：{筛选文章函数}

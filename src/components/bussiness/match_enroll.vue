@@ -1,13 +1,13 @@
 <template>
   <div class v-if="matchInfo">
-    <debug_list>
-      <debug_item  v-model="matchInfo"  text="赛事信息-"/>
-      <debug_item  v-model="matchInfo.matchProgress"  text="赛事阶段"/>
-      <debug_item  v-model="cityVenuIdForEnroll"  text="报名表的城市场馆id"/>
-      <debug_item  v-model="cfList.findJsonDefault" text="列表的默认查询参数"/>
-      <debug_item  v-model="cfList.formDataAddInit"  text="新增报名数据的初始值"/>
-      <debug_item  v-model="cfList.isShowSearchForm"  text="是否显示搜索表单"/>
-    </debug_list>
+    <dm_debug_list>
+      <dm_debug_item  v-model="matchInfo"  text="赛事信息-"/>
+      <dm_debug_item  v-model="matchInfo.matchProgress"  text="赛事阶段"/>
+      <dm_debug_item  v-model="cityVenuIdForEnroll"  text="报名表的城市场馆id"/>
+      <dm_debug_item  v-model="cfList.findJsonDefault" text="列表的默认查询参数"/>
+      <dm_debug_item  v-model="cfList.formDataAddInit"  text="新增报名数据的初始值"/>
+      <dm_debug_item  v-model="cfList.isShowSearchForm"  text="是否显示搜索表单"/>
+    </dm_debug_list>
 
     <!-- {{matchInfo}} -->
     <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
@@ -36,7 +36,7 @@
           >{{item.cityName}}</el-radio-button>
         </el-radio-group>
       </div>
-      <listData :cf="cfList" ref="listForEnroll">
+      <dm_list_data :cf="cfList" ref="listForEnroll">
         <!-- 选择赛事和场馆 -->
         <template v-slot:slot_form_item_matchInfo="{formData}">
           <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
@@ -56,7 +56,7 @@
         </template>
         <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_memberId="{row}">
-          <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
+          <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
             <template v-slot:default="{doc}">
               <div class v-if="doc && doc.P1">
                 {{doc.P1}}
@@ -64,20 +64,20 @@
                 {{doc.name}})
               </div>
             </template>
-          </ajax_populate>
+          </dm_ajax_populate>
         </template>
-      </listData>
+      </dm_list_data>
     </div>
   </div>
 </template>
 
 <script>
-import listData from "@/components/list-data/list-data.vue";
+
 
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: { listData, select_match_progress, match_venue },
+  components: { select_match_progress, match_venue },
   props: {
     matchId: [String, Number],
 

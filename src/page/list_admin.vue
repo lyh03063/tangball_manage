@@ -1,10 +1,9 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <dm_list_data :cf="cfList"></dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 // import Mock from 'mockjs'
 // Mock.mock('/login', function () {
 // let loginList=[
@@ -15,7 +14,7 @@ import listData from "@/components/list-data/list-data.vue";
 // })
 
 export default {
-  components: { listData },
+  components: {  },
   data() {
     return {
       cfList: {

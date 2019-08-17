@@ -1,10 +1,10 @@
 <template>
   <div class>
-    <!-- <debug_list level-up="0">
+    <!-- <dm_debug_list level-up="0">
 
-      <debug_item v-model="valueNeed" text="同步的数据"/>
-      <debug_item v-model="value" text="外部同步的数据"/>
-    </debug_list> -->
+      <dm_debug_item v-model="valueNeed" text="同步的数据"/>
+      <dm_debug_item v-model="value" text="外部同步的数据"/>
+    </dm_debug_list> -->
 
     <el-input @input="change" v-model="dataIn" class="W70"></el-input>
   </div>

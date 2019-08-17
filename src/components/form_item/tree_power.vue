@@ -1,11 +1,11 @@
 
 <template>
   <div class>
-    <debug_list level-up="0">
-      <debug_item v-model="arrNeedCheck" text="初始选中的节点"/>
-      <debug_item v-model="data" text="选项数据"/>
-      <debug_item v-model="valueNeed" text="已有权限valueNeed"/>
-    </debug_list>
+    <dm_debug_list level-up="0">
+      <dm_debug_item v-model="arrNeedCheck" text="初始选中的节点"/>
+      <dm_debug_item v-model="data" text="选项数据"/>
+      <dm_debug_item v-model="valueNeed" text="已有权限valueNeed"/>
+    </dm_debug_list>
     <div class="buttons">
       <el-button @click="getCheckedNodes">保存权限</el-button>
 

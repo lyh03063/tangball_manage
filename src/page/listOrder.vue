@@ -1,13 +1,12 @@
 <template>
   <div class>
-    <listData :cf="cfList"></listData>
+    <dm_list_data :cf="cfList"></dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-order-data.vue";
 
 export default {
-  components: { listData },
+  components: {  },
   data() {
     return {
       cfList: {
@@ -69,7 +68,7 @@ export default {
               { label: "已付款,未发货", value: "2" },
               { label: "已发货", value: "3" },
               { label: "已完成", value: "4" },
-              { label: "已取消", value: "5" },             
+              { label: "已取消", value: "5" },
             ]
           }
         ],
@@ -104,11 +103,11 @@ export default {
             prop: "remark",
             type: "textarea"
           }
-        ],    
+        ],
       }
     };
   },
- 
+
 };
 </script>
 

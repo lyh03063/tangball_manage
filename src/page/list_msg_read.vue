@@ -1,34 +1,33 @@
 <template>
   <div class>
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
  <!--列表 memberId 字段插槽，注意插槽命名-->
       <template v-slot:slot_column_memberId="{row}">
-        <ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
+        <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.name}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
  <!--列表 msgId 字段插槽，注意插槽命名-->
       <template v-slot:slot_column_msgId="{row}">
-        <ajax_populate :id="row.msgId" populateKey="name" page="tangball_msg">
+        <dm_ajax_populate :id="row.msgId" populateKey="name" page="tangball_msg">
           <template v-slot:default="{doc}">
             {{doc.P1}}
             (
             {{doc.name}})
           </template>
-        </ajax_populate>
+        </dm_ajax_populate>
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 
 export default {
-  components: { listData },
+  components: {  },
   data() {
     return {
       cfList: {

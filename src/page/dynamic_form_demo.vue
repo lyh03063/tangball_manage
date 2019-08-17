@@ -8,13 +8,13 @@
 
     <time_period v-model="timePeriod"></time_period>
     <div class="PT10 PB10 C_f30 PL10">dynamic-form组件的内置表单字段类型--</div>
-    <debug_list level-up="0">
+    <dm_debug_list level-up="0">
   
-      <debug_item v-model="obj" text="测试的对象" />
-      <debug_item v-model="formData" text="表单数据" />
-      <debug_item v-model="power" text="外部的权限" />
-    </debug_list>
-    <dynamicForm :cf="cfForm" v-model="formData">
+      <dm_debug_item v-model="obj" text="测试的对象" />
+      <dm_debug_item v-model="formData" text="表单数据" />
+      <dm_debug_item v-model="power" text="外部的权限" />
+    </dm_debug_list>
+    <dm_dynamic_form :cf="cfForm" v-model="formData">
       <!--description字段插槽组件-->
       <template v-slot:slot_form_item_description="{formData}">
         <form_item_test class v-model="formData.description"></form_item_test>
@@ -23,11 +23,11 @@
       <template v-slot:slot_form_item_diycheckbox="{formData}">
         <checkbox_diy v-model="formData.diycheckbox" :options="options"></checkbox_diy>
       </template>
-    </dynamicForm>
+    </dm_dynamic_form>
   </div>
 </template>
 <script>
-import dynamicForm from "@/components/list-data/dynamic-form";
+
 import form_item_test from "@/components/form_item_test.vue";
 import checkbox_diy from "@/components/form_item/checkbox_diy.vue";
 import time_period from "@/components/form_item/time_period.vue";
@@ -36,7 +36,7 @@ import json_prop from "@/components/form_item/json_prop.vue";
 
 export default {
   components: {
-    dynamicForm,
+
     form_item_test,
     checkbox_diy,
     time_period,

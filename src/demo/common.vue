@@ -31,18 +31,18 @@
 
     <div class="group">
       <div class="title-bar">ajax_populate读取单个字段</div>
-      <ajax_populate id="17" populateKey="matchName" page="tangball_match"></ajax_populate>
+      <dm_ajax_populate id="17" populateKey="matchName" page="tangball_match"></dm_ajax_populate>
     </div>
     <div class="group">
       <div class="title-bar">ajax_populate配置插槽</div>
-      <ajax_populate :id="id"  page="mabang-category">
+      <dm_ajax_populate :id="id"  page="mabang-category">
         <template v-slot:default="{doc}">
           <div class v-if="doc && doc.P1">
             <b>{{doc.name}}</b>
             (分类id:{{doc.P1}})
           </div>
         </template>
-      </ajax_populate>
+      </dm_ajax_populate>
     </div>
   </div>
 </template>

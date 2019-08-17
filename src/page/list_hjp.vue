@@ -4,21 +4,21 @@
     <dm_dynamic_form class="" ></dm_dynamic_form>
 
 
-    <space height="10"></space>
+    <dm_space height="10"></dm_space>
     <div class>
       <el-button plain @click="search(param)" size="mini">查询2</el-button>
-      <debug_list>
-        <!-- <debug_item v-model="name" text="姓名"/>
+      <dm_debug_list>
+        <!-- <dm_debug_item v-model="name" text="姓名"/>
         -->
-        <debug_item v-model="dataBase" text="数据库"></debug_item>
-        <debug_item v-model="param" text="查询条件"></debug_item>
-        <debug_item v-model="searchResult" text="查询结果"></debug_item>
-        <debug_item v-model="msgList" text="消息列表"></debug_item>
-        <debug_item v-model="memberId" text="当前会员id"></debug_item>
-        <debug_item v-model="myMsgList" text="我的消息列表"></debug_item>
+        <dm_debug_item v-model="dataBase" text="数据库"></dm_debug_item>
+        <dm_debug_item v-model="param" text="查询条件"></dm_debug_item>
+        <dm_debug_item v-model="searchResult" text="查询结果"></dm_debug_item>
+        <dm_debug_item v-model="msgList" text="消息列表"></dm_debug_item>
+        <dm_debug_item v-model="memberId" text="当前会员id"></dm_debug_item>
+        <dm_debug_item v-model="myMsgList" text="我的消息列表"></dm_debug_item>
 
-        <!-- <debug_item v-model="objTest.big" text="测试对象属性"></debug_item> -->
-      </debug_list>
+        <!-- <dm_debug_item v-model="objTest.big" text="测试对象属性"></dm_debug_item> -->
+      </dm_debug_list>
     </div>
 
     <el-button plain @click="getMyMsgList2" size="mini">使用新的ajax获取消息列表</el-button>
@@ -40,12 +40,12 @@
       <div class>{{item.detail}}</div>
     </div>
 
-    <space height="10"></space>
+    <dm_space height="10"></dm_space>
 
-    <!-- <loading height="200"></loading> -->
+    <!-- <dm_loading height="200"></dm_loading> -->
 
     <!-- <match_enroll :matchId="matchId"></match_enroll> -->
-    <space height="100"></space>
+    <dm_space height="100"></dm_space>
     <!-- <match_achievement :matchId="matchId"></match_achievement> -->
   </div>
 </template>

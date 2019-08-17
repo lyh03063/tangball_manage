@@ -11,7 +11,6 @@ Vue.use(BaiduMap, {
   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
   ak: "DKhqcI7PA5nHcKZIlfA66DFAfpr2W440"
 });
-import listData from "@/components/list-data/list-data.vue";
 
 export default {
   data() {

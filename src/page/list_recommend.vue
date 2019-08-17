@@ -1,6 +1,6 @@
 <template>
   <div class>
-    <listData :cf="cfList">
+    <dm_list_data :cf="cfList">
       <template v-slot:slot_detail_item_album="{row}">
         <openPhoto v-model="row.album"></openPhoto>
         <!-- <div>
@@ -14,14 +14,13 @@
           >
         </div>-->
       </template>
-    </listData>
+    </dm_list_data>
   </div>
 </template>
 <script>
-import listData from "@/components/list-data/list-data.vue";
 import openPhoto from "@/components/common/openPhoto/openPhoto.vue";
 export default {
-  components: { listData, openPhoto },
+  components: { openPhoto },
   data() {
     return {
       cfList: {
