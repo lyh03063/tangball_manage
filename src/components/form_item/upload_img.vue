@@ -1,7 +1,9 @@
 <template>
   <div class>
+     <!-- action="http://www.dmagic.cn/ServiceItem36" -->
     <el-upload
-      action="http://www.dmagic.cn/ServiceItem36"
+     
+       action="http://localhost:3000/api_third_part/qiniu_upload"
       list-type="picture-card"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"

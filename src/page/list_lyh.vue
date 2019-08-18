@@ -1,6 +1,7 @@
 
 <template>
   <div class>
+    <upload_img v-model="arr1" ></upload_img>
     <dm_debug_list>
       <dm_debug_item v-model="cfForm" text="cfForm" />
     </dm_debug_list>
@@ -9,13 +10,14 @@
   </div>
 </template>
 <script>
-
+import upload_img from "@/components/form_item/upload_img.vue";
 
 export default {
-  components: {},
+  components: {upload_img},
 
   data() {
     return {
+      arr1:[],
       formData: {
         extend: { aaa: 1, name: "lucy" },
         prop_checkbox: [], //复选框字段的默认数组

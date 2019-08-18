@@ -13,7 +13,7 @@
     "core-js": "^2.6.5",
     "dm-components": "file:../dm-components/dm-components-1.0.0.tgz",
     "dm-dynamic-form": "file:../dm-dynamic-form/dm-dynamic-form-1.0.0.tgz",
-    "dmagic-components": "^1.0.0",
+    "dmagic-components": "^1.0.5",
     "element-ui": "^2.8.2",
     "lodash": "^4.17.13",
     "moment": "^2.24.0",
