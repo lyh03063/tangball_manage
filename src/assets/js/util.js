@@ -2,10 +2,10 @@
 
 window.PUB={}
 
-window.PUB.domain="http://localhost:3000"
+//window.PUB.domain="http://localhost:3000"
 //window.PUB.domain='http://test.dmagic.cn'
 // window.PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-// window.PUB.domain="http://120.76.160.41:3000"
+ window.PUB.domain="http://120.76.160.41:3000"
 window.PUB.urlUpload=`${PUB.domain}/api_third_part/qiniu_upload?scope=tangball`
 
 let deepCopy = function (obj) {//深拷贝一个Json对象的函数
@@ -82,6 +82,7 @@ function getTimeStatus(param) {//
 
 async function ajaxPopulate(populateConfig) {
   let { listData, page, populateColumn, idColumn, idColumn2, findJson = {} } = populateConfig;
+  
   let arrId = [];
   listData.forEach(itemEach => {//循环：{原数据数组}
     let idEach = itemEach[idColumn]
