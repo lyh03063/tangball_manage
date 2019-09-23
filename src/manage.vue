@@ -77,9 +77,10 @@ export default {
             },
             { index: "list_match", route: "/list_match", title: "赛事" },
             {
-              index: "list_enroll",
-              route: "/list_enroll",
-              title: "报名(订单)"
+              index: "list_enroll",route: "/list_enroll",title: "报名(订单)"
+            },
+            {
+              index: "list_team",route: "/list_team",title: "球队"
             },
             {
               index: "list_achievement",
