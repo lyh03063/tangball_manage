@@ -46,9 +46,9 @@
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
-          <dm_debug_item  v-model="row.cityVenueList" text="场馆列表"/>
+          <dm_debug_item v-model="row.cityVenueList" text="场馆列表" />
         </dm_debug_list>
-        
+
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
       </template>
       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
@@ -83,6 +83,9 @@ export default {
         twoTitle: "赛事",
         threeTitle: "赛事数据",
         flag: true,
+        cfForm: {
+          col_span: 12 //控制显示一行多列
+        },
         url: {
           list: "/crossList?page=tangball_match", //列表接口
           add: "/crossAdd?page=tangball_match", //新增接口
@@ -128,7 +131,7 @@ export default {
             label: "发布",
             prop: "publicationStatus",
             width: 75,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
             }
           },
@@ -136,16 +139,15 @@ export default {
             label: "状态",
             prop: "matchStatus",
             width: 75,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               return "赛事状态需对比开始和结束时间";
-
             }
           },
           {
             label: "类型",
             prop: "matchType",
             width: 75,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
@@ -204,25 +206,31 @@ export default {
           {
             label: "报名状态",
             prop: "matchErollStatus",
-            formatter: function (rowData) {
-              let obj = util.getTimeStatus({ start: rowData.enrollTime, end: rowData.enrollTimeEnd })
-              let htmlResult = `报名时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：报名${obj.msg}`
+            formatter: function(rowData) {
+              let obj = util.getTimeStatus({
+                start: rowData.enrollTime,
+                end: rowData.enrollTimeEnd
+              });
+              let htmlResult = `报名时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：报名${obj.msg}`;
               return htmlResult;
             }
           },
           {
             label: "赛事状态",
             prop: "matchStatus",
-            formatter: function (rowData) {
-              let obj = util.getTimeStatus({ start: rowData.matchTime, end: rowData.matchTimeEnd })
-              let htmlResult = `比赛时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：比赛${obj.msg}`
+            formatter: function(rowData) {
+              let obj = util.getTimeStatus({
+                start: rowData.matchTime,
+                end: rowData.matchTimeEnd
+              });
+              let htmlResult = `比赛时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：比赛${obj.msg}`;
               return htmlResult;
             }
           },
           {
             label: "发布状态",
             prop: "publicationStatus",
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
             }
           },
@@ -242,7 +250,7 @@ export default {
           {
             label: "赛事类型",
             prop: "matchType",
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
             }
           },
@@ -284,15 +292,32 @@ export default {
           {
             label: "赛事名称",
             prop: "matchName",
-            rules: [{ required: true, message: "赛事名称不能为空" }]
+            rules: [{ required: true, message: "赛事名称不能为空" }],
           },
-
-
+          {
+            label: "赛事规则",
+            prop: "ruleId",
+            type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_rule",
+              keyLabel: "name",
+              keyValue: "P1"
+            },
+          },
+          {
+            label: "赛事类型",
+            prop: "matchForm",
+            type: "select",
+            options: [
+              { label: "个人赛", value: 1 },
+              { label: "团体赛", value: 2 }
+            ],
+          },
           {
             label: "发布状态",
             prop: "publicationStatus",
             type: "select",
-            options: [{ label: "是", value: 1 }, { label: "否", value: 2 }]
+            options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
           },
 
           {
@@ -303,77 +328,80 @@ export default {
               url: "/crossList?page=tangball_venue",
               keyLabel: "name",
               keyValue: "P1"
-            }
+            },
           },
           {
             label: "报名开始时间",
             prop: "enrollTime",
             type: "dateTime",
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "不能为空" }],
           },
           {
             label: "报名结束时间",
             prop: "enrollTimeEnd",
             type: "dateTime",
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "不能为空" }],
           },
           {
             label: "赛事开始时间",
             prop: "matchTime",
             type: "dateTime",
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "不能为空" }],
           },
           {
             label: "赛事结束时间",
             prop: "matchTimeEnd",
             type: "dateTime",
-            rules: [{ required: true, message: "不能为空" }]
+            rules: [{ required: true, message: "不能为空" }],
           },
-          {
-            label: "赛事类型",
-            prop: "matchType",
-            type: "select",
-            options: [
-              { label: "普通赛", value: 1 },
-              { label: "全国赛", value: 2 }
-            ]
-          },
-          {
-            label: "全国赛城市场馆",
-            prop: "cityVenueList",
-            type: "select",
-            slot: "slot_form_item_cityVenueList",
-            term: { matchType: 2 }
-          },
+          // {
+          //   label: "赛事类型",
+          //   prop: "matchType",
+          //   type: "select",
+          //   options: [
+          //     { label: "普通赛", value: 1 },
+          //     { label: "全国赛", value: 2 }
+          //   ]
+          // },
+          // {
+          //   label: "全国赛城市场馆",
+          //   prop: "cityVenueList",
+          //   type: "select",
+          //   slot: "slot_form_item_cityVenueList",
+          //   term: { matchType: 2 }
+          // },
           {
             label: "赛事阶段",
             prop: "matchProgress",
             type: "select",
-            slot: "slot_modify_item_matchProgress"
+            slot: "slot_modify_item_matchProgress",
           },
           {
             label: "相册",
             prop: "album",
-            type: "upload"
+            type: "upload",
+            col_span: 24 //控制显示一行多列
           },
 
           {
             label: "报名费用",
-            prop: "registrationFee"
+            prop: "registrationFee",
           },
 
           {
             label: "赛事介绍",
-            prop: "matchIntroduce"
-          },
-          {
-            label: "赛事手册",
-            prop: "matchManual",
-            type: "textarea"
+            prop: "matchIntroduce",
+            type: "textarea",
           },
           {
             label: "路线地图",
-            prop: "routeMap"
+            prop: "routeMap",
+          },
+          {
+            label: "赛事规程",
+            prop: "matchManual",
+            type: "editorTM",
+            col_span: 24 //控制显示一行多列
           }
         ]
       }

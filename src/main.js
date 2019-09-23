@@ -47,6 +47,7 @@ import list_msg from "@/page/list_msg";
 import list_msg_read from "@/page/list_msg_read";
 import list_recommend from "@/page/list_recommend";
 import list_team from "@/page/list_team";
+import list_rule from "@/page/list_rule";
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
 // window.util=util;
@@ -135,6 +136,10 @@ const router = new VueRouter({
         {
           path: '/list_team',
           component: list_team
+        },
+        {
+          path: '/list_rule',
+          component: list_rule
         },
         {
           path: '/list_lyh',

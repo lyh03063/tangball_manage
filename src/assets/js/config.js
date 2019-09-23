@@ -201,6 +201,83 @@ PUB.listCF.tangball_team = {
   ]
 };
 //#endregion
+
+//#region tangball_rule
+PUB.listCF.tangball_rule = {
+  listIndex: "tangball_team", //vuex对应的字段
+  focusMenu: true, //进行菜单聚焦
+  twoTitle: "赛事",
+  threeTitle: "规则库",
+  flag: true,
+  objParamAddon: {},//附加参数-----这里一定要加上，否则监听不到
+  url: {
+    list: "/crossList?page=tangball_rule", //列表接口
+    add: "/crossAdd?page=tangball_rule", //新增接口
+    modify: "/crossModify?page=tangball_rule", //修改接口
+    detail: "/crossDetail?page=tangball_rule", //详情接口
+    delete: "/crossDelete?page=tangball_rule" //删除接口
+  },
+  //-------列配置数组-------
+  columns: [
+    {
+      label: "编号",
+      prop: "P1",
+      width: 70
+    },
+    {
+      label: "规则名",
+      prop: "name",
+      width: 100
+    },{
+      label: "简介",
+      prop: "remark",
+      width: 100
+    },
+  ],
+  //-------筛选表单字段数组-------
+  searchFormItems: [
+    {
+      label: "编号",
+      prop: "P1",
+      type: "input"
+    },
+
+    {
+      label: "规则名",
+      prop: "name",
+    }
+   
+  ],
+  //-------详情字段数组-------
+  detailItems: [
+    {
+      label: "编号",
+      prop: "P1",
+    },
+    {
+      label: "规则名",
+      prop: "name",
+    } ,{
+      label: "简介",
+      prop: "remark",
+    },
+  ],
+  //-------新增、修改表单字段数组-------
+  formItems: [
+  
+    {
+      label: "规则名",
+      prop: "name",
+  
+    },{
+      label: "简介",
+      prop: "remark",
+      type: "textarea"
+    },
+  ]
+};
+//#endregion
+
 //#region 批量拼装简化版的列表配置，用于collection
 arrPageName.forEach(page => {//循环：{页面数组}
   PUB.listCF[page].pageSize = 100;//每页显示100条

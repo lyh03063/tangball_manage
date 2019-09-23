@@ -80,6 +80,9 @@ export default {
               index: "list_enroll",route: "/list_enroll",title: "报名(订单)"
             },
             {
+              index: "list_rule",route: "/list_rule",title: "规则库"
+            },
+            {
               index: "list_team",route: "/list_team",title: "球队"
             },
             {
