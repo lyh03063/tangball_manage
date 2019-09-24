@@ -233,6 +233,35 @@ export default {
           //   prop: "extend",
           //   path:"latitude",
           // },
+           {
+            label: "场馆其他信息",
+            prop: "extend",
+            default:{},//默认值必须要有，否则新增的时候会出问题
+            cfForm: {
+              formItems: [
+                {
+                  label: "场馆长宽",
+                  prop: "venueSize"
+                },
+                {
+                  label: "场馆层数",
+                  prop: "floorCount"
+                },
+                {
+                  label: "洞数",
+                  prop: "holeCount"
+                },
+                {
+                  label: "打位数",
+                  prop: "placesCount"
+                },
+                {
+                  label: "联系人",
+                  prop: "contacts"
+                }
+              ]
+            }
+          },
           {
             label: "地图位置信息",
             prop: "extend",
