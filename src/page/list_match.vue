@@ -314,6 +314,19 @@ export default {
             ],
           },
           {
+            label: "每队人数下限",
+            prop: "teamMemberMin",
+            term: { matchForm: 2 }
+         
+          },
+          {
+            label: "每队人数上限",
+            prop: "teamMemberMax",
+            term: { matchForm: 2 }
+         
+          },
+           
+          {
             label: "发布状态",
             prop: "publicationStatus",
             type: "select",
