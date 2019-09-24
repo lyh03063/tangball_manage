@@ -55,6 +55,19 @@
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
+      <!-- 自定义组队修改表单插槽 -->
+      <template v-slot:slot_form_item_progress="{formData}">
+        <custom_progress v-model="formData.progress"></custom_progress>
+      </template>
+      <!-- 自定义组队详情表单插槽 -->
+      <template v-slot:slot_detail_item_progress="{row}">
+        <div>
+          <div v-for="(item,index) in row.progress" :key="index">
+            赛程{{index+1}}：{{item.name}}，参与人数：{{item.joinPerson}}，决出人数：{{item.remainPersom}}
+          </div>
+          <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in row.progress" :key="index">{{item.name}}{{index==row.progress.length-1?'':'→'}}</span></div>
+        </div>
+      </template>
     </dm_list_data>
   </div>
 </template>
@@ -63,12 +76,14 @@ import city_venue_list from "@/components/form_item/city_venue_list.vue";
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
+import custom_progress from '../components/custom_progress'
 export default {
   components: {
     city_venue_list,
     select_match_progress,
     match_achievement,
-    match_enroll
+    match_enroll,
+    custom_progress
   },
   data() {
     return {
@@ -255,6 +270,12 @@ export default {
             }
           },
           {
+            label: "类型2",
+            prop: "progress",
+            slot:'slot_detail_item_progress'
+          },
+          {
+            
             label: "全国性赛事",
             prop: "cityVenueList",
             type: "select",
@@ -304,6 +325,7 @@ export default {
               keyValue: "P1"
             },
           },
+         
           {
             label: "赛事类型",
             prop: "matchForm",
@@ -388,6 +410,12 @@ export default {
             prop: "matchProgress",
             type: "select",
             slot: "slot_modify_item_matchProgress",
+          },
+           {
+            label: "类型2",
+            prop: "progress",
+            slot:'slot_form_item_progress',
+            col_span: 24
           },
           {
             label: "相册",

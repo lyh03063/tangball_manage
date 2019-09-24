@@ -78,6 +78,8 @@ PUB.listCF.tangball_team = {
   threeTitle: "球队",
   flag: true,
   objParamAddon: {},//附加参数-----这里一定要加上，否则监听不到
+  dynamicDict: [{ page: "tangball_member",populateColumn: "memberName", idColumn: "createMemberId", idColumn2: "P1" },
+  { page: "tangball_match",populateColumn: "matchName", idColumn: "matchId", idColumn2: "P1" }],
   url: {
     list: "/crossList?page=tangball_team", //列表接口
     add: "/crossAdd?page=tangball_team", //新增接口
@@ -100,21 +102,26 @@ PUB.listCF.tangball_team = {
     {
       label: "创建人",
       prop: "createMemberId",
-      width: 100
+      width: 100,
+      formatter:(data)=>{
+        if (data.memberName) {
+          return data.memberName.name
+        }
+      }
     },
     {
-      label: "赛事id",
+      label: "赛事",
       prop: "matchId",
-      width: 100
+      width: 100,
+      formatter:(data)=>{
+        if (data.matchName) {
+          return data.matchName.matchName
+        }
+      }
     },
     {
       label: "订单id",
       prop: "orderId",
-      width: 100
-    },
-    {
-      label: "成员列表",
-      prop: "member",
       width: 100
     }
   ],
@@ -134,14 +141,22 @@ PUB.listCF.tangball_team = {
     {
       label: "创建人",
       prop: "createMemberId",
+      type:'select',
+      ajax: {
+        url: "/crossList?page=tangball_member",
+        keyLabel: "name",
+        keyValue: "P1"
+      },
     },
     {
-      label: "赛事id",
+      label: "赛事",
       prop: "matchId",
-    },
-    {
-      label: "订单id",
-      prop: "orderId",
+      type:'select',
+      ajax: {
+        url: "/crossList?page=tangball_match",
+        keyLabel: "matchName",
+        keyValue: "P1"
+      },
     },
   ],
   //-------详情字段数组-------
@@ -157,10 +172,12 @@ PUB.listCF.tangball_team = {
     {
       label: "创建人",
       prop: "createMemberId",
+      slot:'slot_detail_item_memberName'
     },
     {
-      label: "赛事id",
+      label: "赛事",
       prop: "matchId",
+      slot:'slot_detail_item_matchName'
     },
     {
       label: "订单id",
@@ -169,14 +186,11 @@ PUB.listCF.tangball_team = {
     {
       label: "成员列表",
       prop: "member",
+      slot:'slot_detail_item_memberList'
     }
   ],
   //-------新增、修改表单字段数组-------
   formItems: [
-    {
-      label: "编号",
-      prop: "P1",
-    },
     {
       label: "队名",
       prop: "name",
@@ -184,10 +198,22 @@ PUB.listCF.tangball_team = {
     {
       label: "创建人",
       prop: "createMemberId",
+      type:'select',
+      ajax: {
+        url: "/crossList?page=tangball_member",
+        keyLabel: "name",
+        keyValue: "P1"
+      },
     },
     {
-      label: "赛事id",
+      label: "赛事",
       prop: "matchId",
+      type:'select',
+      ajax: {
+        url: "/crossList?page=tangball_match",
+        keyLabel: "matchName",
+        keyValue: "P1"
+      },
     },
     {
       label: "订单id",
@@ -196,8 +222,30 @@ PUB.listCF.tangball_team = {
     {
       label: "成员列表",
       prop: "member",
-      type:"jsonEditor"
-    }
+      type: "collection",
+      collectionlistType: "form",
+      collectionCfForm: {
+        col_span: 12,
+        formItems: [
+          {
+            label: "姓名",
+            prop: "name",
+
+          },
+          {
+            label: "性别",
+            prop: "sex",
+            type:'radio',
+            options:[{value:'1',label:'男'},
+            {value:'2',label:'女'}]
+          },
+          {
+            label: "手机号码",
+            prop: "phone"
+          }
+        ]
+      }
+    },
   ]
 };
 //#endregion

@@ -1,7 +1,12 @@
 <template>
+<div >
+  <div v-if="select">
   <el-select v-model="valueNeed" placeholder="请选择" @change="change" clearable filterable>
     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
   </el-select>
+  </div>
+  <div v-if="!select">{{listMsg[keyLabel]}}</div>
+</div>
 </template>
 
 <script>
@@ -17,11 +22,15 @@ export default {
     keyLabel: {
       default: "name"
     },
+    select:{
+      default: true
+    },
     param: [Object],
   },
   data() {
     return {
       valueNeed: this.value,
+      listMsg:{},
       options: [
         {
           value: "选项1",
@@ -45,7 +54,7 @@ export default {
       alert("异常:" + error);
     });
     let list = data.list;
-
+    this.listMsg = data.list[0]
     this.options = list.map(item => {
       //将list数组转换成options的结构
       return {
