@@ -17,7 +17,7 @@ export default {
         listIndex: "list_article", //vuex对应的字段~
         focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
-        threeTitle: "文章管理",
+        threeTitle: "资讯管理",
         flag: true,
         url: {
           list: "/crossList?page=tangball_article", //列表接口
@@ -31,7 +31,7 @@ export default {
         //-------列配置数组-------
         columns: [
        {
-            label: "文章标题",
+            label: "资讯标题",
             prop: "articleTitle",
             width: 260
           },
@@ -63,7 +63,7 @@ export default {
         //-------筛选表单字段数组-------
         searchFormItems: [
           {
-            label: "文章分类",
+            label: "资讯分类",
             prop: "articleCategory",
             type: "select",
             ajax: {
@@ -73,12 +73,12 @@ export default {
             }
           },
           {
-            label: "文章标题",
+            label: "资讯标题",
             prop: "articleTitle",
             type: "input_find_vague"
           }
           // {
-          //   label: "文章标题",
+          //   label: "资讯标题",
           //   prop: "articleTitle",
           //   type: "input"
           // },
@@ -91,7 +91,7 @@ export default {
             width: 200
           },
           {
-            label: "文章详情",
+            label: "资讯详情",
             prop: "articleContent",
             type: "html"
           }
@@ -99,7 +99,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "文章分类",
+            label: "资讯分类",
             prop: "articleCategory",
             type: "select",
             ajax: {
@@ -109,17 +109,17 @@ export default {
             }
           },
           {
-            label: "文章标题",
+            label: "资讯标题",
             prop: "articleTitle",
             width: 200
           },
           {
-            label: "文章详情",
+            label: "资讯详情",
             prop: "articleContent",
             type: "editor"
           },
           {
-            label: "公众号文章地址",
+            label: "公众号资讯地址",
             prop: "extend",
             path:"wxArticleUrl",
           },

@@ -80,7 +80,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .progress-box div{
-    width: 23%;
+    width: 22%;
     margin-right: 20px;
     margin-top: 5px;
 }
