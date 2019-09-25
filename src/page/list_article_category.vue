@@ -11,7 +11,7 @@ export default {
   components: {  },
   methods: {
     filterActicle(categoryId) {
-      //函数：{筛选文章函数}
+      //函数：{筛选资讯函数}
 
       this.$store.commit("setListFindJson", {
         //改变列表的初始状态值
@@ -27,7 +27,7 @@ export default {
         listIndex: "list_article_category", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
-        threeTitle: "文章分类",
+        threeTitle: "资讯分类",
         flag: true,
         url: {
           list:
@@ -58,7 +58,7 @@ export default {
             width: 250,
           },
           {
-            label: "文章数量",
+            label: "资讯数量",
             prop: "acticleNumber",
             width: 90,
             statistics:{listIndex:'list_article', targetIdKey:'articleCategory'}
@@ -92,7 +92,7 @@ export default {
             prop: "remark"
           },
           {
-            label: "该分类下的文章总量",
+            label: "该分类下的资讯总量",
             prop: "articleNumber"
           },
         ],

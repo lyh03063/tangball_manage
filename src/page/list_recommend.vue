@@ -100,7 +100,7 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
           {
-            label: "文章标题",
+            label: "资讯标题",
             prop: "name"
           },
           {

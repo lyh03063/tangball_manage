@@ -106,12 +106,12 @@ export default {
             {
               index: "list_article_category",
               route: "/list_article_category",
-              title: "文章分类"
+              title: "资讯分类"
             },
             {
               index: "list_article",
               route: "/list_article",
-              title: "文章管理"
+              title: "资讯管理"
             },
             {
               index: "list_recommend",
