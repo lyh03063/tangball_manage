@@ -41,7 +41,7 @@
       </template>
       <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
-        <city_venue_list v-model="formData.cityVenueList"></city_venue_list>
+        <city_venue_list v-model="formData.venue"></city_venue_list>
       </template>
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">

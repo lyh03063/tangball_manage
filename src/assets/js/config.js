@@ -591,16 +591,7 @@ PUB.listCF.tangball_match ={
       options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
     },
 
-    {
-      label: "决赛场馆",
-      prop: "venue",
-      type: "select",
-      ajax: {
-        url: "/crossList?page=tangball_venue",
-        keyLabel: "name",
-        keyValue: "P1"
-      },
-    },
+    
     {
       label: "报名开始时间",
       prop: "enrollTime",
@@ -646,6 +637,13 @@ PUB.listCF.tangball_match ={
       prop: "matchProgress",
       type: "select",
       slot: "slot_modify_item_matchProgress",
+    },
+    {
+      label: "决赛场馆",
+      prop: "venue",
+      type: "select",
+      slot: "slot_form_item_cityVenueList",
+      col_span: 24
     },
      {
       label: "赛程设置",
