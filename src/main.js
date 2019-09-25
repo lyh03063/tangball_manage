@@ -2,6 +2,7 @@
 Vue.config.productionTip = false
 import lodash from 'lodash'//导入lodash方法库
 window.lodash=lodash
+Vue.prototype.$lodash = lodash//让vue实例中可访问$store
 import axios from "axios";
 window.axios = axios;
 import ajax from "@/assets/js/ajax.js";
@@ -11,6 +12,9 @@ window.moment = moment;
 // import  "./assets/js/mix.js";//注意位置要提前
 // import util from "@/assets/js/util.js";
 import config from "@/assets/js/config.js";
+
+
+ 
 // import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";

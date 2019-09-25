@@ -63,7 +63,7 @@
 import match_venue from "@/components/form_item/match_venue.vue";
 export default {
   components: {  match_venue },
-  mixins: [MIX.list.list_enroll],
+  mixins: [PUB.listCF.tangball_enroll],
   methods: {
     showBigImg(url) {
       this.showDialogBigImg = true;
