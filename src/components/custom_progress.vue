@@ -11,6 +11,21 @@
             <div style="clear:both"></div>
         </div>
         <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in progress" :key="index">{{item.name}}{{index==progress.length-1?'':'→'}}</span></div>
+        <div>当前赛程：
+            <el-select
+                  v-model="nowProgress"
+                  clearable
+                  collapse-tags
+                  @change="changenowProgress"
+                >
+                  <el-option
+                    :label="option.label"
+                    :value="option.value"
+                    v-for="option in options"
+                    :key="option.value"
+                  ></el-option>
+        </el-select>
+        </div>
     </div>
 </template>
 
@@ -18,24 +33,37 @@
 
 export default {
  props:['value'],
+ 
  watch:{
     progress:{
       handler(){
         this.$emit('input',this.progress)
+        this.options = this.progress.map((item,index)=>{
+        if (item.checked==true) {
+            this.nowProgress = item.name
+            this.nowIndex = index
+        }   
+        let obj = {value:index,label:item.name}
+        return obj
+        })
       },
-      immediate:true
+      immediate:true,
+      deep: true
     }
   },
  data(){
      return {
-         progress:this.value
+         progress:this.value,
+         options:[],
+         nowProgress:'',
+         nowIndex:0
      }
  },
  methods:{
      addprogress(index){
          let joinPerson = this.progress[index].remainPersom
          let remainPersom = this.progress[index+1].joinPerson
-         let obj = {name:'',joinPerson,remainPersom}
+         let obj = {name:'',joinPerson,remainPersom,checked:false}
          this.progress.splice(index+1,0,obj)
          console.log(this.progress);
      },
@@ -61,18 +89,32 @@ export default {
      },
      deleteprogress(index){
          this.progress.splice(index,1)
+     },
+     changenowProgress(event){
+         this.progress[this.nowIndex].checked = false
+         this.nowIndex = event
+         this.progress[this.nowIndex].checked = true
+         console.log(this.progress);
+         
      }
  },
  mounted(){
     if (!this.progress) {
         this.progress = [
-            {name:'海选',joinPerson:'500-1000',remainPersom:100},
-            {name:'淘汰赛',joinPerson:'100',remainPersom:4},
-            {name:'半决赛',joinPerson:'4',remainPersom:2},
-            {name:'决赛',joinPerson:'2',remainPersom:1}]
+            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true},
+            {name:'淘汰赛',joinPerson:'100',remainPersom:4,checked:false},
+            {name:'半决赛',joinPerson:'4',remainPersom:2,checked:false},
+            {name:'决赛',joinPerson:'2',remainPersom:1,checked:false}]
     }
-     console.log('this.progress',this.progress);
-     
+    this.options = this.progress.map((item,index)=>{
+        if (item.checked==true) {
+            this.nowProgress = item.name
+            this.nowIndex = index
+        }   
+        let obj = {value:index,label:item.name}
+        return obj
+    })
+    
  }
 };
 </script>

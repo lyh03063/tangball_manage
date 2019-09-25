@@ -270,7 +270,7 @@ export default {
             }
           },
           {
-            label: "类型2",
+            label: "赛程设置",
             prop: "progress",
             slot:'slot_detail_item_progress'
           },
@@ -338,14 +338,14 @@ export default {
           {
             label: "每队人数下限",
             prop: "teamMemberMin",
-            term: { matchForm: 2 }
-         
+            term: { matchForm: 2 },
+            rules: [{ required: true, message: "不能为空" }]
           },
           {
             label: "每队人数上限",
             prop: "teamMemberMax",
-            term: { matchForm: 2 }
-         
+            term: { matchForm: 2 },
+            rules: [{ required: true, message: "不能为空" }]
           },
            
           {
@@ -412,7 +412,7 @@ export default {
             slot: "slot_modify_item_matchProgress",
           },
            {
-            label: "类型2",
+            label: "赛程设置",
             prop: "progress",
             slot:'slot_form_item_progress',
             col_span: 24
