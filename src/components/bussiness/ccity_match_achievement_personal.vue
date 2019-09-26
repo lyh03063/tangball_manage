@@ -87,8 +87,8 @@ export default {
   //混入成绩列表配置
   mixins: [
 
-    MIX.list.list_achievement,
-    MIX.list.list_achievement_simple
+    PUB.listCF.tangball_achievement,
+    PUB.listCF.tangball_achievement_simple
   ],
   data() {
     return {

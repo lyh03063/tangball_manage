@@ -1,21 +1,18 @@
 <template>
-  <div class v-if="matchInfo">
+  <div class v-if="ready">
     <dm_debug_list>
-      <dm_debug_item  v-model="matchInfo"  text="赛事信息-"/>
-      <dm_debug_item  v-model="matchInfo.matchProgress"  text="赛事阶段"/>
-      <dm_debug_item  v-model="cityVenuIdForEnroll"  text="报名表的城市场馆id"/>
-      <dm_debug_item  v-model="cfList.findJsonDefault" text="列表的默认查询参数"/>
-      <dm_debug_item  v-model="cfList.formDataAddInit"  text="新增报名数据的初始值"/>
-      <dm_debug_item  v-model="cfList.isShowSearchForm"  text="是否显示搜索表单"/>
+      <dm_debug_item v-model="matchInfo" text="赛事信息-" />
+      <dm_debug_item v-model="matchInfo.matchForm" text="赛事类型" />
+      <dm_debug_item v-model="matchInfo.progress" text="赛事阶段" />
+      <dm_debug_item v-model="tipVisibles" text="队员列表弹窗的可见性" />
+      <dm_debug_item v-model="cfList.findJsonDefault" text="列表的默认查询参数" />
+      <dm_debug_item v-model="cfList.formDataAddInit" text="新增报名数据的初始值" />
+      <dm_debug_item v-model="cfList.isShowSearchForm" text="是否显示搜索表单" />
     </dm_debug_list>
 
-    <!-- {{matchInfo}} -->
-    <!-- <div class="TAC FS20 LH40">{{matchInfo.matchName}}</div>
-    <div class="TAC FS16 LH40">当前赛事进度</div>-->
-
     <div class="panel">
-      <div class="OFH">
-        <div class="FL FWB FS16 LH30">城市赛报名信息</div>
+      <div class="OFH MB10">
+        <div class="FL FWB FS16 LH30">{{title}}</div>
 
         <div class="FR">
           <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
@@ -23,25 +20,7 @@
         </div>
       </div>
 
-      <div class>
-        <el-radio-group
-          v-model="cityVenuIdForEnroll"
-          style="margin-bottom: 10px;"
-          @change="changecityVenuIdForEnroll"
-        >
-          <el-radio-button
-            :label="item.venueId"
-            v-for="(item,index) in matchInfo.cityVenueList"
-            :key="index"
-          >{{item.cityName}}</el-radio-button>
-        </el-radio-group>
-      </div>
       <dm_list_data :cf="cfList" ref="listForEnroll">
-        <!-- 选择赛事和场馆 -->
-        <template v-slot:slot_form_item_matchInfo="{formData}">
-          <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
-        </template>
-
         <template v-slot:slot_detail_item_album="{row}">
           <div class v-if="row.album && row.album.length">
             <img
@@ -51,7 +30,7 @@
               v-for="item in row.album"
               :key="item.url"
               class="W100 H100"
-            >
+            />
           </div>
         </template>
         <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
@@ -66,55 +45,61 @@
             </template>
           </dm_ajax_populate>
         </template>
+        <!--队伍名称列配置-->
+        <template v-slot:slot_detail_item_teamName="{row}">
+          <div class v-if="row.teamDoc">
+            <el-popover placement="right" width="160" v-model="tipVisibles[row.P1]">
+              <div>
+                <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name }} ({{item.sex}}|{{item.phone}})</div>
+              </div>
+              <el-link
+                type="primary"
+                slot="reference"
+              >{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
+            </el-popover>
+          </div>
+        </template>
       </dm_list_data>
     </div>
   </div>
 </template>
 
 <script>
-
-
-import select_match_progress from "@/components/form_item/select_match_progress.vue";
-import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: { select_match_progress, match_venue },
+  components: {},
   props: {
-    matchId: [String, Number],
-
+    matchId: [String, Number]
   },
-  mixins: [ MIX.list.list_enroll],
+  mixins: [PUB.listCF.tangball_enroll],
 
   data() {
     return {
-
+      title:"报名球员信息",
+      tipVisibles: {},//队员列表弹窗的可见性,注意是一个对象
+  
       isEdit: false, //是否为可编辑状态
-      cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
-      cityVenuIdForEnroll: null, //城市赛场馆选项卡的聚焦值(用于报名表)
       matchInfo: null, //赛事信息
-
+      ready: false, //赛事信息是否加载完毕
       cfList: {
         isShowSearchForm: false, //隐藏查询表单
         listIndex: "list_enroll_for_match", //vuex对应的字段
-        focusMenu:false,
+        focusMenu: false,
         isShowBreadcrumb: false, //隐藏面包屑导航
         isShowOperateColumn: false, //隐藏操作列
         isShowToolBar: false, //隐藏工具栏
         flag: true, //显示新增按钮
         findJsonDefault: {
           matchId: this.matchId
-          // cityVenueId: 21
         },
         //新增表单初始赋值
         formDataAddInit: {
-          matchId: this.matchId,
-          cityVenueId: 21
+          matchId: this.matchId
         },
-
 
         //-------列配置数组-------
         columns: [
           {
-            label: "报名会员id",
+            label: "报名会员",
             prop: "memberId",
             slot: "slot_detail_item_memberId",
             width: 130
@@ -129,7 +114,7 @@ export default {
             label: "性别",
             prop: "sex",
             width: 65,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               if (rowData.sex == 1) {
                 return "男";
               } else {
@@ -152,7 +137,7 @@ export default {
             label: "支付状态",
             prop: "payStatus",
             width: 70,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
@@ -164,7 +149,7 @@ export default {
             label: "审核状态",
             prop: "auditStatus",
             "min-width": "100",
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               if (rowData.auditStatus == 1) {
                 return "未审核";
               } else if (rowData.auditStatus == 2) {
@@ -201,12 +186,6 @@ export default {
               keyValue: "P1"
             },
             rules: [{ required: true, message: "赛事id" }],
-            hide: true
-          },
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo",
             hide: true
           },
 
@@ -288,8 +267,7 @@ export default {
           this.cfList.isShowToolBar = false;
           this.cfList.isShowOperateColumn = false;
         }
-      },
-
+      }
     },
     valueNeed: {
       handler(newVal, oldVal) {
@@ -307,13 +285,75 @@ export default {
     }
   },
   methods: {
-    //函数：{切换报名表城市场馆函数}
-    changecityVenuIdForEnroll() {
+    /**
+     * @name 处理报名表函数（团体赛和个人赛的区别）
+     */
+    handleCFlist: async function() {
+      if (this.matchInfo.matchForm == 2) {
+        this.title="报名球队信息"
+        //动态数据字典，获取队伍信息
+        this.cfList.dynamicDict = [
+          {
+            page: "tangball_team",
+            populateColumn: "teamDoc",
+            idColumn: "orderId",
+            idColumn2: "orderId"
+          }
+        ];
 
-      this.cfList.findJsonDefault.cityVenueId = this.cityVenuIdForEnroll;
-      this.cfList.formDataAddInit.cityVenueId = this.cityVenuIdForEnroll;
-      if (!this.$refs.listForEnroll) return;
-      this.$refs.listForEnroll.getDataList(); //调用：{列表组件查询函数}
+        //如果是团体赛
+        this.cfList.columns = [
+          {
+            label: "球队名称",
+            prop: "team",
+            slot: "slot_detail_item_teamName",
+            width: 150
+          },
+          {
+            label: "队长",
+            prop: "memberId",
+            slot: "slot_detail_item_memberId",
+            width: 130
+          },
+
+          {
+            label: "订单号",
+            prop: "orderId",
+            width: 145
+          },
+          {
+            label: "报名时间",
+            prop: "time",
+            width: 100
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100,
+            formatter: function(rowData) {
+              if (rowData.payStatus == 2) {
+                return "已支付";
+              } else {
+                return "未支付";
+              }
+            }
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            "min-width": "100",
+            formatter: function(rowData) {
+              if (rowData.auditStatus == 1) {
+                return "未审核";
+              } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+              } else {
+                return "审核通过";
+              }
+            }
+          }
+        ];
+      }
     },
     async getMatchData() {
       if (!this.matchId) return;
@@ -327,14 +367,9 @@ export default {
         } //传递参数
       });
       this.matchInfo = data.Doc;
-      if (this.matchInfo.cityVenueList) {
-        //如果{000}000
-        this.cityMatchVenuId = this.matchInfo.cityVenueList[0].venueId;
-        this.cityVenuIdForEnroll = this.cityMatchVenuId;
-        //对报名表的初始筛选参数进行赋值
-        this.cfList.findJsonDefault.cityVenueId = this.cityVenuIdForEnroll;
-        this.cfList.formDataAddInit.cityVenueId = this.cityVenuIdForEnroll;
-      }
+
+      this.handleCFlist(); //调用：{处理报名表函数（团体赛和个人赛的区别）}
+      this.ready = true;
     }
   }
 };

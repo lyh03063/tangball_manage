@@ -66,7 +66,7 @@ import member_enroll from "@/components/form_item/member_enroll.vue";
 import achievement_matchProgress from "@/components/form_item/achievement_matchProgress.vue";
 export default {
   components: { select_match_progress, member_enroll,achievement_matchProgress },
-  mixins: [MIX.list.list_achievement],
+  mixins: [PUB.listCF.tangball_achievement],
   data() {
     
     return {
