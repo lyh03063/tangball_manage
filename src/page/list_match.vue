@@ -46,10 +46,13 @@
       <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
-          <dm_debug_item v-model="row.cityVenueList" text="场馆列表" />
+          <dm_debug_item v-model="row.venue" text="场馆列表" />
         </dm_debug_list>
 
         <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
+      </template>
+      <template v-slot:slot_detail_item_album="{row}">
+        <img :src='img.url' width="150" height="150" v-for="(img,index) in row.album" :key="index"/>
       </template>
       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
@@ -66,6 +69,12 @@
             赛程{{index+1}}：{{item.name}}，参与人数：{{item.joinPerson}}，决出人数：{{item.remainPersom}}
           </div>
           <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in row.progress" :key="index">{{item.name}}{{index==row.progress.length-1?'':'→'}}</span></div>
+          <div v-for="item in row.progress" :key="item.remainPersom+item.name">
+            <div v-if="item.checked==true">
+              当前赛程：{{item.name}}
+            </div>
+            <div></div>
+          </div>
         </div>
       </template>
     </dm_list_data>

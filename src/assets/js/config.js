@@ -1,7 +1,7 @@
 import lodash from 'lodash'//导入lodash方法库
 window.PUB = {}
 //PUB.domain = "http://localhost:3000"
-// PUB.domain = 'http://test.dmagic.cn'
+PUB.domain = 'http://test.dmagic.cn'
 PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
 //PUB.domain = "http://120.76.160.41:3000"
 PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
@@ -363,11 +363,6 @@ PUB.listCF.tangball_match ={
       width: 100
     },
     {
-      label: "决赛场馆",
-      prop: "venue",
-      width: 90
-    },
-    {
       label: "报名人数",
       prop: "registeredPersons",
       width: 90,
@@ -376,7 +371,7 @@ PUB.listCF.tangball_match ={
     {
       label: "报名费",
       prop: "registrationFee",
-      width: 75
+      width: 85
     },
     {
       label: "发布",
@@ -389,9 +384,24 @@ PUB.listCF.tangball_match ={
     {
       label: "状态",
       prop: "matchStatus",
-      width: 75,
+      width: 150,
       formatter: function(rowData) {
-        return "赛事状态需对比开始和结束时间";
+        let nowDate=new Date().getTime();
+      let enrollTimeDate = new Date(rowData.enrollTime).getTime();
+      let enrollTimeEnd = new Date(rowData.enrollTimeEnd).getTime();
+      let matchTime = new Date(rowData.matchTime).getTime();
+      let matchTimeEnd = new Date(rowData.matchTimeEnd).getTime();
+      if (nowDate>matchTimeEnd) {
+        return '赛事已结束'
+      }else if(nowDate>matchTime){
+        return '赛事已开始'
+      }else if (nowDate>enrollTimeEnd) {
+        return '报名时间已结束'
+      }else if (nowDate>enrollTimeDate) {
+        return '火热报名中'
+      }else{
+        return '报名时间未到'
+      }
       }
     },
     {
@@ -405,13 +415,13 @@ PUB.listCF.tangball_match ={
     {
       label: "报名表",
       // prop: "achievement",
-      width: 75,
+      width:85,
       slot: "slot_column_enroll"
     },
     {
       label: "成绩单",
       // prop: "achievement",
-      width: 75,
+      width: 85,
       slot: "slot_column_achievement"
     }
   ],
@@ -486,10 +496,6 @@ PUB.listCF.tangball_match ={
       }
     },
     {
-      label: "决赛场馆",
-      prop: "venue"
-    },
-    {
       label: "报名开始时间",
       prop: "enrollTime"
     },
@@ -512,8 +518,8 @@ PUB.listCF.tangball_match ={
     },
     {
       
-      label: "全国性赛事",
-      prop: "cityVenueList",
+      label: "决赛场馆",
+      prop: "venue",
       type: "select",
       slot: "slot_detail_item_cityVenueList"
     },
@@ -536,8 +542,14 @@ PUB.listCF.tangball_match ={
       prop: "matchIntroduce"
     },
     {
-      label: "赛事手册",
-      prop: "matchManual"
+      label: "赛事规程",
+      prop: "matchManual",
+      type:'html'
+    },
+    {
+      label: "赛事结果",
+      prop: "matchResult",
+      type:'html'
     },
     {
       label: "路线地图",
@@ -578,29 +590,24 @@ PUB.listCF.tangball_match ={
       rules: [{ required: true, message: "不能为空" }]
     },
     {
+      label: "发布状态",
+      prop: "publicationStatus",
+      type: "select",
+      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
+    },
+    {
       label: "每队人数上限",
       prop: "teamMemberMax",
       term: { matchForm: 2 },
       rules: [{ required: true, message: "不能为空" }]
     },
      
-    {
-      label: "发布状态",
-      prop: "publicationStatus",
-      type: "select",
-      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
-    },
+    
 
     
     {
       label: "报名开始时间",
       prop: "enrollTime",
-      type: "dateTime",
-      rules: [{ required: true, message: "不能为空" }],
-    },
-    {
-      label: "报名结束时间",
-      prop: "enrollTimeEnd",
       type: "dateTime",
       rules: [{ required: true, message: "不能为空" }],
     },
@@ -611,10 +618,34 @@ PUB.listCF.tangball_match ={
       rules: [{ required: true, message: "不能为空" }],
     },
     {
+      label: "报名结束时间",
+      prop: "enrollTimeEnd",
+      type: "dateTime",
+      rules: [{ required: true, message: "不能为空" }],
+    },
+    
+    {
       label: "赛事结束时间",
       prop: "matchTimeEnd",
       type: "dateTime",
       rules: [{ required: true, message: "不能为空" }],
+    },
+    
+    {
+      label: "报名费用",
+      prop: "registrationFee",
+    },
+
+    
+    {
+      label: "路线地图",
+      prop: "routeMap",
+    },
+    {
+      label: "赛事介绍",
+      prop: "matchIntroduce",
+      type: "textarea",
+      col_span: 24
     },
     // {
     //   label: "赛事类型",
@@ -633,6 +664,12 @@ PUB.listCF.tangball_match ={
     //   term: { matchType: 2 }
     // },
     {
+      label: "相册",
+      prop: "album",
+      type: "upload",
+      col_span: 24 //控制显示一行多列
+    },
+    {
       label: "决赛场馆",
       prop: "venue",
       type: "select",
@@ -645,27 +682,8 @@ PUB.listCF.tangball_match ={
       slot:'slot_form_item_progress',
       col_span: 24
     },
-    {
-      label: "相册",
-      prop: "album",
-      type: "upload",
-      col_span: 24 //控制显示一行多列
-    },
+   
 
-    {
-      label: "报名费用",
-      prop: "registrationFee",
-    },
-
-    {
-      label: "赛事介绍",
-      prop: "matchIntroduce",
-      type: "textarea",
-    },
-    {
-      label: "路线地图",
-      prop: "routeMap",
-    },
     {
       label: "赛事规程",
       prop: "matchManual",
