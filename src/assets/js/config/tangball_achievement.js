@@ -63,10 +63,18 @@ export default {
               width: 70
             },
             {
-              label: "成绩记分",
+              label: "总杆数",
               prop: "scoreList",
-
-
+              width:100,
+              formatter: function (rowData) {
+                if(rowData.scoreList){
+                  let index = 0
+                  rowData.scoreList.forEach(doc => {
+                    index += Number(doc.score)
+                  });
+                  return index
+                }
+              }
             },
           ],
           //-------筛选表单字段数组-------
@@ -122,6 +130,11 @@ export default {
             {
               label: "名次",
               prop: "ranking"
+            },
+            {
+              label: "成绩",
+              prop: "scoreList",
+              slot:'slot_detail_item_scoreList'
             }
           ],
           cfForm: {

@@ -35,7 +35,7 @@
         <td>9</td>
         <td>18</td>
       </tr>
-      <tr>
+      <tr v-if="!readOnly">
         <td width class="bgColor">选手一</td>
         <td
           v-for="(item,index) in scoreLeftList"
@@ -61,6 +61,21 @@
         <td>{{rightSum}}</td>
         <td>{{allSum}}</td>
       </tr>
+      <!-- 只读模式 -->
+      <tr v-if="readOnly">
+        <td class="bgColor">选手一</td>
+        <td
+          v-for="(item,index) in scoreLeftList"
+          :key="index"
+        >{{item.score}}</td>
+        <td>{{leftSum}}</td>
+        <td
+          v-for="(item,index) in scoreRightList"
+          :key="index+10"
+        >{{item.score}}</td>
+        <td>{{rightSum}}</td>
+        <td>{{allSum}}</td>
+      </tr>
     </table>
     <el-dialog title="修改选手杆数" :visible.sync="showScoreDialog" width="30%" append-to-body>
         <div class="score-box" v-for="i in 3" :key='i'>
@@ -82,7 +97,7 @@
 
 <script>
 export default {
-  props: ["value"],
+  props: ["value",'readOnly' ],
   computed: {
     leftSum() {
       let index = 0;
@@ -100,7 +115,7 @@ export default {
     },
     allSum() {
       let index = 0;
-      this.scoreLeftList.forEach(item => {
+      this.scoreList.forEach(item => {
         index += Number(item.score);
       });
       return index;
@@ -184,6 +199,7 @@ table tr td {
   height: 40px;
   line-height: 40px;
   border: black solid 1px;
+  padding: 0px
 }
 .bgColor {
   background-color: rgb(202, 230, 206);
