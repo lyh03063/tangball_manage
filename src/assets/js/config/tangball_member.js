@@ -162,9 +162,14 @@ export default {
         prop: "name",
         width: 100
       },
+      // {
+      //   label: "微信openid",
+      //   prop: "openid",
+      //   width: 100
+      // },
       {
-        label: "微信openid",
-        prop: "openid",
+        label: "手机号",
+        prop: "phone",
         width: 100
       },
       {
