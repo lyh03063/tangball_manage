@@ -61,7 +61,13 @@ export default {
               label: "名次",
               prop: "ranking",
               width: 70
-            }
+            },
+            {
+              label: "成绩记分",
+              prop: "scoreList",
+
+
+            },
           ],
           //-------筛选表单字段数组-------
           searchFormItems: [
@@ -195,29 +201,35 @@ export default {
               prop: "remark",
               type: "input"
             },
-            {
-                label: "每洞成绩列表",
-                prop: "scoreList",
-                type: "collection",
-                col_span: 24,
-                collectionlistType: "form",
-                collectionCfForm: {
-                  col_span: 12,
-                  formItems: [
-                    {
-                      label: "洞号",
-                      prop: "holeNum",
+            // {
+            //     label: "每洞成绩列表",
+            //     prop: "scoreList",
+            //     type: "collection",
+            //     col_span: 24,
+            //     collectionlistType: "form",
+            //     collectionCfForm: {
+            //       col_span: 12,
+            //       formItems: [
+            //         {
+            //           label: "洞号",
+            //           prop: "holeNum",
           
-                    },
+            //         },
                    
-                    {
-                      label: "本洞杆数",
-                      prop: "score"
-                    }
-                  ]
-                }
+            //         {
+            //           label: "本洞杆数",
+            //           prop: "score"
+            //         }
+            //       ]
+            //     }
+            //   },
+              {
+                label: "成绩记分",
+                prop: "scoreList",
+                type: "input",
+                slot:'slot_form_item_scoreList',
+                col_span: 24
               },
-  
           ]
         }
       };

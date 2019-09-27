@@ -9,6 +9,10 @@
           :memberId="formData.participantsId"
         ></member_enroll>
       </template>
+      <!-- 记分卡插槽 -->
+      <template v-slot:slot_form_item_scoreList="{formData}">
+        <score_card v-model="formData.scoreList"></score_card>
+      </template>
       <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_participantsId="{row}">
         <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
@@ -50,8 +54,9 @@
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import member_enroll from "@/components/form_item/member_enroll.vue";
 import achievement_matchProgress from "@/components/form_item/achievement_matchProgress.vue";
+import score_card from "@/components/score_card";
 export default {
-  components: { select_match_progress, member_enroll,achievement_matchProgress },
+  components: { select_match_progress, member_enroll,achievement_matchProgress,score_card },
   mixins: [PUB.listCF.tangball_achievement],
   data() {
     

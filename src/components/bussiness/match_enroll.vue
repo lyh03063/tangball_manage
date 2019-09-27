@@ -48,19 +48,52 @@
         <!--队伍名称列配置-->
         <template v-slot:slot_detail_item_teamName="{row}">
           <div class v-if="row.teamDoc">
-            <el-popover placement="right" width="160" v-model="tipVisibles[row.P1]">
+            <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
               <div>
-                <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name }} ({{item.sex}}|{{item.phone}})</div>
+                <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name }} ({{item.sex}}|{{item.phone}})
+                  <span v-if="member.length>0">{{member[i].status}}&nbsp;&nbsp;</span>
+                  <el-link type="primary" v-if="member.length>0&&!member[i].flag" @click="addMerber(item,i)">录入</el-link>
+                  <el-link type="primary" v-else @click="modifyMerber(item,i)">修改</el-link>
+
+                  </div>
               </div>
               <el-link
                 type="primary"
                 slot="reference"
-              >{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
+              @click="showProgress(row.teamDoc.member)">{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
             </el-popover>
           </div>
         </template>
       </dm_list_data>
     </div>
+    <el-dialog
+      title="修改会员"
+      :visible.sync="showModifyDialog"
+      v-if="showModifyDialog"
+      width="70%"
+      append-to-body
+    >
+      <dm_dynamic_form
+        v-model="memberModiy"
+        :cf="cfMemberModiy"
+        @submit="modifyMember"
+        @cancel="showModifyDialog=false"
+      ></dm_dynamic_form>
+    </el-dialog>
+    <el-dialog
+      title="新增会员"
+      :visible.sync="showAddDialog"
+      v-if="showAddDialog"
+      width="70%"
+      append-to-body
+    >
+      <dm_dynamic_form
+        v-model="memberAdd"
+        :cf="cfMemberAdd"
+        @submit="addMember"
+        @cancel="showAddDialog=false"
+      ></dm_dynamic_form>
+    </el-dialog>
   </div>
 </template>
 
@@ -74,9 +107,29 @@ export default {
 
   data() {
     return {
+      checkedIndex:0,
+      showModifyDialog:false,
+      memberModiy:{},
+      cfMemberModiy: {
+        //给动态表单组件传过去的新增进展配置
+        formItems: PUB.listCF.tangball_member.formItems,
+        btns: [
+          { text: "修改", event: "submit", type: "primary", validate: true },
+          { text: "取消", event: "cancel" }
+        ]
+      },
+      showAddDialog:false,
+      cfMemberAdd:{
+        formItems: PUB.listCF.tangball_member.formItems,
+        btns: [
+          { text: "新增", event: "submit", type: "primary", validate: true },
+          { text: "取消", event: "cancel" }
+        ]
+      },
+      memberAdd:{},
       title:"报名球员信息",
       tipVisibles: {},//队员列表弹窗的可见性,注意是一个对象
-  
+      member:[],
       isEdit: false, //是否为可编辑状态
       matchInfo: null, //赛事信息
       ready: false, //赛事信息是否加载完毕
@@ -285,6 +338,76 @@ export default {
     }
   },
   methods: {
+    async addMember(){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossAdd?page=tangball_member",
+          data: {
+            data:this.memberAdd
+          }
+        }).catch(() => {});
+      this.member[this.checkedIndex].status = '球员已录入'
+      this.member[this.checkedIndex].flag = true
+      this.showAddDialog = false
+    },
+    async modifyMember(){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossModify?page=tangball_member",
+          data: {
+            findJson: {
+              P1:this.memberModiy.P1
+            },
+            modifyJson:this.memberModiy
+          }
+        }).catch(() => {});
+        this.showModifyDialog = false
+    },
+    addMerber(item,i){
+      this.memberAdd= item 
+      this.showAddDialog = true
+      this.checkedIndex = i
+      
+    },
+    modifyMerber(item,i){
+      this.memberModiy = this.member[i].member
+      console.log(this.memberModiy);
+      
+      this.showModifyDialog = true
+      this.checkedIndex = i
+    },
+   async showProgress(members){
+      let phones = members.map(item=>{
+        return item.phone
+      })
+    
+	    let { data } = await axios({
+          method: "post",
+          url: PUB.domain + '/crossList?page=tangball_member',
+          data: {
+            findJson: {
+              phone:phones
+            }
+          }
+        }).catch(() => {});
+      this.member= members.map(item=>{
+        let flag = false 
+        let status = '球员未录入'
+        let member = {}
+        data.list.forEach(doc => {
+          if (doc.phone == item.phone) {
+            flag = true
+            status = '球员已录入'
+            member = doc
+          }
+        });
+        let obj = {status,flag,member}
+        return obj
+      })
+      console.log(this.member);
+      
+
+    },
     /**
      * @name 处理报名表函数（团体赛和个人赛的区别）
      */
