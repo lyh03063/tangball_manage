@@ -22,9 +22,27 @@ export default {
             slot: "slot_detail_item_participantsId",
             width: 120
           },
-
-
-
+          {
+            label: "所属球队",
+            prop: "teamId",
+            width: 90
+          },
+          {
+            label: "比赛开始时间",
+            prop: "timeStart",
+            width: 175,
+            formatter: function (row) {
+              return moment(row.timeStart).format("YYYY-MM-DD HH:mm");
+            }
+          },
+          {
+            label: "结束时间",
+            prop: "timeEnd",
+            width: 175,
+            formatter: function (row) {
+              return moment(row.timeEnd).format("YYYY-MM-DD HH:mm");
+            }
+          },
           {
             label: "轮数",
             prop: "roundNum",
@@ -56,6 +74,16 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
+          {
+            label: "所属球队",
+            prop: "teamId",
+            type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_team",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
+          },
           {
             label: "参赛人Id",
             prop: "participantsId",

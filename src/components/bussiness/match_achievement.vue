@@ -105,6 +105,9 @@ export default {
       matchInfo: null, //赛事信息
       cfList: {
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
+        sortJsonDefault:{
+          timeStart:1,
+        },
         //默认查询参数
         findJsonDefault: {
           matchId: this.matchId

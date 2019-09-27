@@ -23,7 +23,10 @@ export default {
               slot: "slot_detail_item_participantsId",
               width: 120
             },
-  
+            {
+              label: "所属球队",
+              prop: "teamId",
+            },
             {
               label: "赛事ID",
               prop: "matchId",
@@ -89,6 +92,10 @@ export default {
               slot: "slot_detail_item_participantsId"
             },
             {
+              label: "所属球队",
+              prop: "teamId",
+            },
+            {
               label: "赛事ID",
               prop: "matchId",
               slot: "slot_detail_item_matchId"
@@ -149,6 +156,16 @@ export default {
           },
           //-------新增、修改表单字段数组-------
           formItems: [
+            {
+              label: "所属球队",
+              prop: "teamId",
+              type: "select",
+              ajax: {
+                url: "/crossList?page=tangball_team",
+                keyLabel: "name",
+                keyValue: "P1"
+              }
+            },
             {
               label: "参赛人Id",
               prop: "participantsId",
