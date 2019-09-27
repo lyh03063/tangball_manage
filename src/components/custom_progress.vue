@@ -39,7 +39,8 @@ export default {
     //  监听赛程数组变化时,对应的下拉框数据也变化
     progress:{
       handler(){
-        this.$emit('input',this.progress)
+          if (this.progress) {
+              this.$emit('input',this.progress)
         this.options = this.progress.map((item,index)=>{
         if (item.checked==true) {
             this.nowProgress = item.name
@@ -48,6 +49,8 @@ export default {
         let obj = {value:index,label:item.name}
         return obj
         })
+          }
+        
       },
       immediate:true,
       deep: true
@@ -109,7 +112,7 @@ export default {
     //  如果赛程不存在，给他设定初始值
     if (!this.progress) {
         this.progress = [
-            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true}]
+            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true,roundCount:''}]
     }
     this.options = this.progress.map((item,index)=>{
         if (item.checked==true) {
