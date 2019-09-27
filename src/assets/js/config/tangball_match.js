@@ -55,6 +55,7 @@ export default {
       {
         label: "状态",
         prop: "matchStatus",
+        requireProp:["enrollTime",'enrollTimeEnd','matchTime','matchTimeEnd'],
         width: 150,
         formatter: function(rowData) {
           let nowDate=new Date().getTime();

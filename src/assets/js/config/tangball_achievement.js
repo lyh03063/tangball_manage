@@ -64,17 +64,9 @@ export default {
             },
             {
               label: "总杆数",
-              prop: "scoreList",
+              prop: "matchScore",
               width:100,
-              formatter: function (rowData) {
-                if(rowData.scoreList){
-                  let index = 0
-                  rowData.scoreList.forEach(doc => {
-                    index += Number(doc.score)
-                  });
-                  return index
-                }
-              }
+              
             },
           ],
           //-------筛选表单字段数组-------
@@ -138,7 +130,22 @@ export default {
             }
           ],
           cfForm: {
-            col_span: 12 //控制显示一行多列
+            col_span: 12, //控制显示一行多列
+            watch:{
+              scoreList:{
+                handler(){
+                  if (this.value.scoreList) {
+                    this.value.matchScore = 0
+                  this.value.scoreList.forEach(item => {
+                    this.value.matchScore += Number(item.score);
+                  });
+                  }
+                  
+                },
+                immediate:true,
+                deep: true
+              }
+            },
           },
           //-------新增、修改表单字段数组-------
           formItems: [
