@@ -71,7 +71,7 @@
       title="修改会员"
       :visible.sync="showModifyDialog"
       v-if="showModifyDialog"
-      width="70%"
+      width="95%"
       append-to-body
     >
       <dm_dynamic_form
@@ -86,7 +86,7 @@
       title="新增会员"
       :visible.sync="showAddDialog"
       v-if="showAddDialog"
-      width="70%"
+      width="95%"
       append-to-body
     >
       <dm_dynamic_form

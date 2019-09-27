@@ -50,22 +50,9 @@ export default {
           {
             label: "名次",
             prop: "ranking",
-            width: 70
+            "min-width": 70
           },
-          {
-            label: "总杆数",
-            prop: "scoreList",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.scoreList) {
-                let index = 0
-                rowData.scoreList.forEach(doc => {
-                  index += Number(doc.score)
-                });
-                return index
-              }
-            }
-          },
+         
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
@@ -103,11 +90,11 @@ export default {
             prop: "tee",
             type: "input"
           },
-          {
-            label: "总杆数",
-            prop: "matchScore",
-            type: "input"
-          },
+          // {
+          //   label: "总杆数",
+          //   prop: "matchScore",
+          //   type: "input"
+          // },
           {
             label: "备注",
             prop: "remark",

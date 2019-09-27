@@ -15,14 +15,14 @@
 
     <div class="panel">
       <div class>
-        <div class="OFH">
+        <!-- <div class="OFH">
           <div class="FL FWB FS16 LH30">成绩表</div>
 
           <div class="FR">
             <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
             <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
           </div>
-        </div>
+        </div> -->
         <el-radio-group
           v-model="progressIndex"
           style="margin-bottom: 10px;"
@@ -97,7 +97,7 @@ export default {
   ],
   data() {
     return {
-      isEdit: false,
+      isEdit: true,
 
       progressIndex: 1, //赛段索引
       roundNum: 1, //轮数
@@ -144,7 +144,8 @@ export default {
           this.cfList.isShowToolBar = false;
           this.cfList.isShowOperateColumn = false;
         }
-      }
+      },
+      immediate: true,//组件初始化时立即执行一次变动
     },
 
     valueNeed: {

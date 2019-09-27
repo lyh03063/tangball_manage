@@ -3,7 +3,7 @@
     <!--成绩单弹窗-->
     <el-dialog
       custom-class="n-el-dialog"
-      width="85%"
+      width="95%"
       :title="titleDialogAchievement"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
@@ -18,7 +18,7 @@
     <!--报名表弹窗-->
     <el-dialog
       custom-class="n-el-dialog"
-      width="85%"
+      width="95%"
       :title="titleDialogEnroll"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
