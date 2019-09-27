@@ -77,10 +77,10 @@ export default {
       },
       {
         label: "类型",
-        prop: "matchType",
+        prop: "matchForm",
         width: 75,
         formatter: function(rowData) {
-          return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
+          return rowData.matchForm == 2 ? "团体赛" : "个人赛"; //三元表达式
         }
       },
       {

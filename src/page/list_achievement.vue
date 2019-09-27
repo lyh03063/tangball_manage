@@ -29,31 +29,17 @@
           </template>
         </dm_ajax_populate>
       </template>
-      <!--详情弹窗的 cityVenueId 字段组件，注意插槽命名-->
-      <template v-slot:slot_detail_item_cityVenueId="{row}">
-        <dm_ajax_populate :id="row.cityVenueId" populateKey="name" page="tangball_venue">
-          <template v-slot:default="{doc}">
-            {{doc.P1}}
-            (
-            {{doc.name}})
-          </template>
-        </dm_ajax_populate>
-      </template>
+     
 
       <!-- 赛程联动下拉框 ,通过matchId进行初始化-->
-      <template v-slot:slot_modify_item_matchProgress="{formData}">
+      <!-- <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress
           v-model="formData.matchProgress"
           :matchType="formData.matchType"
           :matchId="formData.matchId"
         ></select_match_progress>
-      </template>
-      <template v-slot:slot_detmember_enrollail_item_matchProgress="row">
-        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
-      </template>
-      <template v-slot:slot_detail_item_matchProgress="row">
-        <achievement_matchProgress :matchProgress="row.row.matchProgress" ></achievement_matchProgress>
-      </template>
+      </template> -->
+    
       
     </dm_list_data>
   </div>

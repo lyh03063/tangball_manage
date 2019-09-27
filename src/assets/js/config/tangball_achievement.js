@@ -31,17 +31,27 @@ export default {
               width: 160
             },
             {
-              label: "城市赛场馆",
-              prop: "cityVenueId",
-              slot: "slot_detail_item_cityVenueId",
-              width: 150
-            },
-            {
-              label: "赛事阶段",
-              prop: "matchProgress",
-              width: 180,
-              slot: "slot_detmember_enrollail_item_matchProgress"
-            },
+                label: "阶段",
+                prop: "progressIndex",
+                width: 75
+              },
+              {	
+                label: "轮数",
+                prop: "roundNum",
+                width: 75
+              },
+              {	
+                label: "组数",
+                prop: "groupNum",
+                width: 75
+              },		
+              {
+                label: "打位",
+                prop: "tee",
+                width: 75
+              },
+             
+           
             {
               label: "杆数",
               prop: "matchScore",
@@ -77,11 +87,28 @@ export default {
               prop: "matchId",
               slot: "slot_detail_item_matchId"
             },
+            // {
+            //   label: "赛事阶段",
+            //   prop: "matchProgress",
+            //   slot: "slot_detail_item_matchProgress"
+            // },
+            // ,
             {
-              label: "赛事阶段",
-              prop: "matchProgress",
-              slot: "slot_detail_item_matchProgress"
-            },
+                label: "阶段",
+                prop: "progressIndex",
+              },
+              {	
+                label: "轮数",
+                prop: "roundNum",
+              },
+              {	
+                label: "组数",
+                prop: "groupNum",
+              },		
+              {
+                label: "打位",
+                prop: "tee",
+              },
             {
               label: "杆数",
               prop: "matchScore"
@@ -91,6 +118,9 @@ export default {
               prop: "ranking"
             }
           ],
+          cfForm: {
+            col_span: 12 //控制显示一行多列
+          },
           //-------新增、修改表单字段数组-------
           formItems: [
             {
@@ -114,11 +144,11 @@ export default {
                 keyValue: "P1"
               }
             },
-            {
-              label: "赛事报名信息",
-              prop: "memberId",
-              slot: "slot_form_item_matchInfo"
-            },
+            // {
+            //   label: "赛事报名信息",
+            //   prop: "memberId",
+            //   slot: "slot_form_item_matchInfo"
+            // },
             // {
             //   label: "赛事阶段",
             //   prop: "matchProgress",
@@ -126,10 +156,67 @@ export default {
             //   slot: "slot_modify_item_matchProgress"
             // },
             {
-              label: "杆数",
+                label: "开始时间",
+                prop: "timeStart",
+                type: "dateTime"
+              },
+            {
+                label: "结束",
+                prop: "timeEnd",
+                type: "dateTime"
+              },
+            {
+                label: "阶段",
+                prop: "progressIndex",
+                type: "input"
+              },
+              {	
+                label: "轮数",
+                prop: "roundNum",
+                type: "input"
+              },
+              {	
+                label: "组数",
+                prop: "groupNum",
+                type: "input"
+              },		
+              {
+                label: "打位",
+                prop: "tee",
+                type: "input"
+              },
+            {
+              label: "总杆数",
               prop: "matchScore",
               type: "input"
-            }
+            },
+            {
+              label: "备注",
+              prop: "remark",
+              type: "input"
+            },
+            {
+                label: "每洞成绩列表",
+                prop: "scoreList",
+                type: "collection",
+                col_span: 24,
+                collectionlistType: "form",
+                collectionCfForm: {
+                  col_span: 12,
+                  formItems: [
+                    {
+                      label: "洞号",
+                      prop: "holeNum",
+          
+                    },
+                   
+                    {
+                      label: "本洞杆数",
+                      prop: "score"
+                    }
+                  ]
+                }
+              },
   
           ]
         }
