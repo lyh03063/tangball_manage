@@ -5,7 +5,8 @@
       <dm_debug_item v-model="matchInfo.matchProgress" text="赛事阶段" />
       <dm_debug_item v-model="cfList.findJsonDefault" text="成绩列表的默认查询参数" />
       <dm_debug_item v-model="cfList.formDataAddInit" text="新增成绩表单默认参数" />
-
+      <dm_debug_item v-model="roundNum" text="轮数" />
+      <dm_debug_item v-model="progressCurr" text="当前选中赛段数据" />
       <dm_debug_item
         v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson"
         text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
@@ -27,20 +28,36 @@
           style="margin-bottom: 10px;"
           @change="changeMatchProgress()"
         >
+          <!-- <el-radio-button label>全部</el-radio-button> -->
           <el-radio-button
             :label="index+1"
             v-for="(item,index) in matchInfo.progress"
             :key="index"
           >{{item.name}}</el-radio-button>
         </el-radio-group>
+        <dm_space height="1"></dm_space>
+
+        <el-radio-group
+          v-model="roundNum"
+          style="margin-bottom: 10px;"
+          @change="changeMatchRound()"
+          v-if="progressCurr"
+        >
+          <!-- <el-radio-button label>全部</el-radio-button> -->
+          <el-radio-button
+            :label="item"
+            v-for="(item,index) in progressCurr.roundCount*1"
+            :key="index"
+          >第{{item}}轮</el-radio-button>
+        </el-radio-group>
       </div>
 
       <dm_list_data
         :cf="cfList"
         ref="list1"
-        @after-add="updateAchievementRanking"
-        @after-modify="updateAchievementRanking"
-        @after-delete="updateAchievementRanking"
+        @after-add="updateList"
+        @after-modify="updateList"
+        @after-delete="updateList"
       >
         <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_participantsId="{row}">
@@ -65,14 +82,18 @@ export default {
   props: {
     matchId: [String, Number]
   },
-  mixins: [PUB.listCF.tangball_achievement, PUB.listCF.tangball_achievement_simple],
+  mixins: [
+    PUB.listCF.tangball_achievement,
+    PUB.listCF.tangball_achievement_simple
+  ],
   data() {
     return {
       matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
 
       isEdit: false,
 
-      progressIndex: null, //赛段索引
+      progressIndex: 1, //赛段索引
+      roundNum: 1, //轮数
 
       matchInfo: null, //赛事信息
       cfList: {
@@ -90,6 +111,20 @@ export default {
         listIndex: "match_achievement" //vuex对应的字段
       }
     };
+  },
+  computed: {
+    progressCurr() {
+      //当前选中赛段数据
+      console.log("progressCurr####");
+      // return this.$lodash.get(this.matchInfo, `progress[this.progressIndex]`)
+      let result;
+      if (this.matchInfo && this.matchInfo.progress) {
+        result = this.matchInfo.progress[this.progressIndex - 1];
+      } else {
+        result = {};
+      }
+      return result;
+    }
   },
   watch: {
     isEdit: {
@@ -122,27 +157,34 @@ export default {
   },
   methods: {
     //函数：{更新小组成绩名次函数}
-    async updateAchievementRanking() {
-      let findJson = this.cfList.findJsonDefault;
-      if (!(findJson.matchId && findJson.cityVenueId)) return;
-      let { data } = await axios({
-        //请求接口
-        method: "post",
-        url: PUB.domain + "/tangball/updateAchievementRanking",
-        data: {
-          findJson
-        } //传递参数
-      });
-      await util.timeout(500); //延迟
+    async updateList() {
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
     },
 
-    //函数：{切换城市赛赛段函数}
-    changeMatchProgress(index) {
-      //修改人员下拉框的ajax参数，不同场馆对应着不同的报名人员
-      this.cfList.findJsonDefault.progressIndex = this.progressIndex;
+    /**
+     * @name 切换赛段函数
+     */
+    changeMatchProgress: async function() {
+        this.roundNum=1;
+        this.changeMatchRound()//调用：{切换轮数函数}
 
-      this.cfList.formDataAddInit.progressIndex = this.progressIndex;
+    },
+    //函数：{切换轮数函数}
+    changeMatchRound() {
+      let dataInit = {
+        progressIndex: this.progressIndex,
+        roundNum: this.roundNum
+      };
+      Object.assign(this.cfList.findJsonDefault, dataInit); //默认查询参数
+
+      this.$set(
+        this.cfList.formDataAddInit,
+        "progressIndex",
+        this.progressIndex
+      );
+      this.$set(this.cfList.formDataAddInit, "roundNum", this.roundNum);
+
+      // Object.assign(this.cfList.formDataAddInit, dataInit);//默认新增参数---这种不会响应
 
       if (!this.$refs.list1) return;
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}

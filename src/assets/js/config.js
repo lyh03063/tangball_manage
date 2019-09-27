@@ -123,20 +123,6 @@ PUB.listCF.tangball_achievement_simple =tangball_achievement_simple
 
 PUB.listCF.tangball_enroll = tangball_enroll
 
-// //#region 批量拼装简化版的列表配置，用于collection
-// arrPageName.forEach(page => {//循环：{页面数组}
-//   PUB.listCF[page].pageSize = 100;//每页显示100条
-//   PUB.listCF[page].findJsonDefault = {};//默认查询参数
-//   let keySimple = `${page}_simple`;
-//   PUB.listCF[keySimple] = lodash.cloneDeep(PUB.listCF[page])//深拷贝常规版配置
-//   Object.assign(PUB.listCF[keySimple], {
-//     "isShowBreadcrumb": false,
-//     "isShowToolBar": true,
-//     "isRefreshAfterCUD": false//住址增删改操作后自动刷新页面，需要手动处理
-//   });//合并对象
-//   //lodash删除查询表单的编号查询数据
-//   lodash.remove(PUB.listCF[keySimple].searchFormItems, (item) => item.prop == "P1");
-// })
-// //#endregion
+
 
 export default {}
