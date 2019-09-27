@@ -35,6 +35,7 @@ export default {
  props:['value'],
  
  watch:{
+    //  监听赛程数组变化时,对应的下拉框数据也变化
     progress:{
       handler(){
         this.$emit('input',this.progress)
@@ -53,13 +54,14 @@ export default {
   },
  data(){
      return {
-         progress:this.value,
-         options:[],
-         nowProgress:'',
-         nowIndex:0
+         progress:this.value,//传进来的赛程数组
+         options:[],//保存下拉款数据的数组
+         nowProgress:'',//当前赛程的key
+         nowIndex:0//当前赛程在数组中的索引
      }
  },
  methods:{
+    //  新增新赛程的方法
      addprogress(index){
          let joinPerson = this.progress[index].remainPersom
          let remainPersom = this.progress[index+1].joinPerson
@@ -67,6 +69,7 @@ export default {
          this.progress.splice(index+1,0,obj)
          console.log(this.progress);
      },
+    //  修改参与人数的方法
      changeJoinPerson(index){
          if (index>0) {
             if(/^\d+$/.test(this.progress[index].joinPerson)){
@@ -77,6 +80,7 @@ export default {
             }  
          }
      },
+    //  修改决出人数的方法
      changeRemainPersom(index){
          if (index<this.progress.length-1) {
             if(/^\d+$/.test(this.progress[index].remainPersom)){
@@ -87,9 +91,11 @@ export default {
             }  
          }
      },
+    //  删除赛程的方法
      deleteprogress(index){
          this.progress.splice(index,1)
      },
+    //  修改当前赛程的方法
      changenowProgress(event){
          this.progress[this.nowIndex].checked = false
          this.nowIndex = event
@@ -99,12 +105,10 @@ export default {
      }
  },
  mounted(){
+    //  如果赛程不存在，给他设定初始值
     if (!this.progress) {
         this.progress = [
-            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true},
-            {name:'淘汰赛',joinPerson:'100',remainPersom:4,checked:false},
-            {name:'半决赛',joinPerson:'4',remainPersom:2,checked:false},
-            {name:'决赛',joinPerson:'2',remainPersom:1,checked:false}]
+            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true}]
     }
     this.options = this.progress.map((item,index)=>{
         if (item.checked==true) {

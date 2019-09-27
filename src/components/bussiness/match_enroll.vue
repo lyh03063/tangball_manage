@@ -66,6 +66,7 @@
         </template>
       </dm_list_data>
     </div>
+    <!-- 修改会员信息的弹窗 -->
     <el-dialog
       title="修改会员"
       :visible.sync="showModifyDialog"
@@ -80,6 +81,7 @@
         @cancel="showModifyDialog=false"
       ></dm_dynamic_form>
     </el-dialog>
+    <!-- 录入会员的弹窗 -->
     <el-dialog
       title="新增会员"
       :visible.sync="showAddDialog"
@@ -107,10 +109,9 @@ export default {
 
   data() {
     return {
-      checkedIndex:0,
-      showModifyDialog:false,
-      memberModiy:{},
-      cfMemberModiy: {
+      showModifyDialog:false,//显示修改弹窗的key
+      memberModiy:{},//保存修改数据
+      cfMemberModiy: {//修改列表的配置
         //给动态表单组件传过去的新增进展配置
         formItems: PUB.listCF.tangball_member.formItems,
         btns: [
@@ -118,15 +119,15 @@ export default {
           { text: "取消", event: "cancel" }
         ]
       },
-      showAddDialog:false,
-      cfMemberAdd:{
+      showAddDialog:false,//显示新增弹窗的key
+      cfMemberAdd:{//新增列表的配置
         formItems: PUB.listCF.tangball_member.formItems,
         btns: [
           { text: "新增", event: "submit", type: "primary", validate: true },
           { text: "取消", event: "cancel" }
         ]
       },
-      memberAdd:{},
+      memberAdd:{},//保存新增数据
       title:"报名球员信息",
       tipVisibles: {},//队员列表弹窗的可见性,注意是一个对象
       member:[],
@@ -338,6 +339,7 @@ export default {
     }
   },
   methods: {
+    // 录入球员的方法
     async addMember(){
       let { data } = await axios({
           method: "post",
@@ -350,6 +352,7 @@ export default {
       this.member[this.checkedIndex].flag = true
       this.showAddDialog = false
     },
+    // 修改球员的方法
     async modifyMember(){
       let { data } = await axios({
           method: "post",
@@ -363,12 +366,14 @@ export default {
         }).catch(() => {});
         this.showModifyDialog = false
     },
+    // 打开新增弹窗的方法
     addMerber(item,i){
       this.memberAdd= item 
       this.showAddDialog = true
       this.checkedIndex = i
       
     },
+    // 打开修改弹窗的方法
     modifyMerber(item,i){
       this.memberModiy = this.member[i].member
       console.log(this.memberModiy);
