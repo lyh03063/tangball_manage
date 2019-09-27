@@ -24,7 +24,7 @@ export default {
           },
 
 
-        
+
           {
             label: "轮数",
             prop: "roundNum",
@@ -120,16 +120,17 @@ export default {
             type: "input",
             slot: 'slot_form_item_scoreList',
             col_span: 24
-          }, {
-            label: "赛段",
-            prop: "progressIndex",
-            type: "input"
           },
-          {
-            label: "轮数",
-            prop: "roundNum",
-            type: "input"
-          },
+          // {
+          //   label: "赛段",
+          //   prop: "progressIndex",
+          //   type: "input"
+          // },
+          // {
+          //   label: "轮数",
+          //   prop: "roundNum",
+          //   type: "input"
+          // },
         ]
 
       }
