@@ -2,9 +2,10 @@
     <div>
         <div v-for="(item,index) in progress" :key="index">
             <div  class="progress-box">
-            赛程：<el-input v-model="item.name" placeholder="请输入赛程名字" ></el-input>
-            参与人数：<el-input v-model="item.joinPerson" placeholder="请输入赛程参与人数" @change="changeJoinPerson(index)"></el-input>
-            决出人数：<el-input v-model="item.remainPersom" placeholder="请输入赛程决出人数" @change="changeRemainPersom(index)" ></el-input>
+            赛程名称：<el-input v-model="item.name" placeholder="请输入赛程名字" style="width:120px" ></el-input>
+            参与人数：<el-input v-model="item.joinPerson" placeholder="请输入赛程参与人数" @change="changeJoinPerson(index)" style="width:80px"></el-input>
+            决出人数：<el-input v-model="item.remainPersom" placeholder="请输入赛程决出人数" @change="changeRemainPersom(index)" style="width:80px"></el-input>
+            轮数：<el-input v-model="item.roundCount" placeholder="请输入比赛轮数" @change="changeRemainPersom(index)" style="width:60px" ></el-input>
             </div>
             <div class="addButton el-icon-circle-plus-outline" @click="addprogress(index)"></div>
             <div class="addButton el-icon-circle-close" @click="deleteprogress(index)"></div>

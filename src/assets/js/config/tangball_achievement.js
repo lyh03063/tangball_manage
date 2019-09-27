@@ -31,7 +31,7 @@ export default {
               width: 160
             },
             {
-                label: "阶段",
+                label: "赛段",
                 prop: "progressIndex",
                 width: 75
               },
@@ -108,7 +108,7 @@ export default {
             // },
             // ,
             {
-                label: "阶段",
+                label: "赛段",
                 prop: "progressIndex",
               },
               {	
@@ -163,17 +163,7 @@ export default {
                 keyValue: "P1"
               }
             },
-            // {
-            //   label: "赛事报名信息",
-            //   prop: "memberId",
-            //   slot: "slot_form_item_matchInfo"
-            // },
-            // {
-            //   label: "赛事阶段",
-            //   prop: "matchProgress",
-            //   type: "select",
-            //   slot: "slot_modify_item_matchProgress"
-            // },
+         
             {
                 label: "开始时间",
                 prop: "timeStart",
@@ -185,7 +175,7 @@ export default {
                 type: "dateTime"
               },
             {
-                label: "阶段",
+                label: "赛段",
                 prop: "progressIndex",
                 type: "input"
               },
@@ -214,28 +204,7 @@ export default {
               prop: "remark",
               type: "input"
             },
-            // {
-            //     label: "每洞成绩列表",
-            //     prop: "scoreList",
-            //     type: "collection",
-            //     col_span: 24,
-            //     collectionlistType: "form",
-            //     collectionCfForm: {
-            //       col_span: 12,
-            //       formItems: [
-            //         {
-            //           label: "洞号",
-            //           prop: "holeNum",
-          
-            //         },
-                   
-            //         {
-            //           label: "本洞杆数",
-            //           prop: "score"
-            //         }
-            //       ]
-            //     }
-            //   },
+           
               {
                 label: "成绩记分",
                 prop: "scoreList",
