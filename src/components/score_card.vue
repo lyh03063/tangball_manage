@@ -186,7 +186,7 @@ table tr td {
   border: black solid 1px;
 }
 .bgColor {
-  background-color: rgb(172, 218, 177);
+  background-color: rgb(202, 230, 206);
   color: #000;
 }
 .active {
