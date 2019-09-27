@@ -2,11 +2,11 @@
   <div class v-if="matchInfo">
     <dm_debug_list>
       <dm_debug_item v-model="matchInfo" text="赛事信息" />
-      <dm_debug_item v-model="matchInfo.matchProgress" text="赛事阶段" />
+
       <dm_debug_item v-model="cfList.findJsonDefault" text="成绩列表的默认查询参数" />
       <dm_debug_item v-model="cfList.formDataAddInit" text="新增成绩表单默认参数" />
       <dm_debug_item v-model="roundNum" text="轮数" />
-      <dm_debug_item v-model="progressCurr" text="当前选中赛段数据" />
+      <!-- <dm_debug_item v-model="progressCurr" text="当前选中赛段数据" /> -->
       <dm_debug_item
         v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson"
         text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
@@ -59,6 +59,14 @@
         @after-modify="updateList"
         @after-delete="updateList"
       >
+      <!-- 记分卡插槽 -->
+      <template v-slot:slot_form_item_scoreList="{formData}">
+        <score_card v-model="formData.scoreList" :readOnly="false"></score_card>
+      </template>
+      <!-- 记分详情弹窗插槽 -->
+      <template v-slot:slot_detail_item_scoreList="{row}">
+        <score_card v-model="row.scoreList" :readOnly="true"></score_card>
+      </template>
         <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_participantsId="{row}">
           <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
@@ -77,8 +85,9 @@
 </template>
 
 <script>
+import score_card from "@/components/score_card";
 export default {
-  components: {},
+  components: {score_card},
   props: {
     matchId: [String, Number]
   },
@@ -88,8 +97,6 @@ export default {
   ],
   data() {
     return {
-      matchProgress: { smallProgress: 11, bigProgress: 1 }, //赛事进度条
-
       isEdit: false,
 
       progressIndex: 1, //赛段索引
@@ -165,9 +172,8 @@ export default {
      * @name 切换赛段函数
      */
     changeMatchProgress: async function() {
-        this.roundNum=1;
-        this.changeMatchRound()//调用：{切换轮数函数}
-
+      this.roundNum = 1;
+      this.changeMatchRound(); //调用：{切换轮数函数}
     },
     //函数：{切换轮数函数}
     changeMatchRound() {
@@ -208,6 +214,9 @@ export default {
         this.matchId
       );
     }
+  },
+  created(){
+    this.changeMatchRound()//调用：{切换轮数函数}
   }
 };
 </script>
