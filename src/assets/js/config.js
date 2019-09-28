@@ -1,7 +1,16 @@
-import lodash from 'lodash'//导入lodash方法库
+window.PUB = {}
+//PUB.domain = "http://localhost:3000"
+PUB.domain = 'http://test.dmagic.cn'
+//PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
+//PUB.domain = "http://120.76.160.41:3000"
+PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
+PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
+
+// import lodash from 'lodash'//导入lodash方法库
 import  "@/assets/js/mix.js";//注意位置要提前
 
 import tangball_enroll from "@/assets/js/config/tangball_enroll.js";
+import tangball_enroll_for_ach from "@/assets/js/config/tangball_enroll_for_ach.js";
 import tangball_team from "@/assets/js/config/tangball_team.js";
 import tangball_rule from "@/assets/js/config/tangball_rule.js";
 import tangball_match from "@/assets/js/config/tangball_match.js";
@@ -17,13 +26,7 @@ import tangball_achievement from "@/assets/js/config/tangball_achievement.js";
 import tangball_achievement_simple from "@/assets/js/config/tangball_achievement_simple.js";
 
 
-window.PUB = {}
-//PUB.domain = "http://localhost:3000"
-PUB.domain = 'http://test.dmagic.cn'
-PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-//PUB.domain = "http://120.76.160.41:3000"
-PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
-PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
+
 //#region PUB.objDictArr/PUB.dict公共字典对象
 PUB.objDictArr = {
   taskType: [
@@ -84,10 +87,10 @@ PUB.formatterDict = function (dictName, value) {
 }
 //#endregion
 PUB.listCF = {}
-let arrPageName = ["tangball_team",]
+
 //页面对应的集合列表类型
-
-
+PUB.listCF.tangball_enroll = tangball_enroll
+PUB.listCF.tangball_enroll_for_ach = tangball_enroll_for_ach
 PUB.listCF.tangball_team = tangball_team;
 
 PUB.listCF.tangball_rule = tangball_rule;
@@ -121,7 +124,7 @@ PUB.listCF.tangball_achievement =tangball_achievement
 
 PUB.listCF.tangball_achievement_simple =tangball_achievement_simple
 
-PUB.listCF.tangball_enroll = tangball_enroll
+
 
 
 
