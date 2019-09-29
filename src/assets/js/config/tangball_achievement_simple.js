@@ -97,7 +97,7 @@ export default {
           {
             label: "分组数",
             prop: "groupNum",
-            type: "input"
+            type: "number"
           },
 
 
@@ -116,7 +116,7 @@ export default {
           {
             label: "打位",
             prop: "tee",
-            type: "input"
+            type: "number"
           },
           // {
           //   label: "总杆数",
@@ -128,7 +128,11 @@ export default {
             prop: "remark",
             type: "input"
           },
-
+          {
+            label: "名次",
+            prop: "ranking",
+            type: "number"
+          },
           {
             label: "成绩记分",
             prop: "scoreList",

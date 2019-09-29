@@ -86,6 +86,9 @@ export default {
               index: "list_team",route: "/list_team",title: "球队"
             },
             {
+              index: "list_group",route: "/list_group",title: "对阵分组"
+            },
+            {
               index: "list_achievement",
               route: "/list_achievement",
               title: "比赛成绩"

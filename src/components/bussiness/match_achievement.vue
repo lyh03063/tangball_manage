@@ -22,11 +22,12 @@
             <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
             <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
           </div>
-        </div> -->
+        </div>-->
         <el-radio-group
           v-model="progressIndex"
           style="margin-bottom: 10px;"
           @change="changeMatchProgress()"
+          v-if="matchInfo.progress"
         >
           <!-- <el-radio-button label>全部</el-radio-button> -->
           <el-radio-button
@@ -41,7 +42,7 @@
           v-model="roundNum"
           style="margin-bottom: 10px;"
           @change="changeMatchRound()"
-          v-if="progressCurr"
+          v-if="progressCurr&&progressCurr.roundCount"
         >
           <!-- <el-radio-button label>全部</el-radio-button> -->
           <el-radio-button
@@ -52,6 +53,50 @@
         </el-radio-group>
       </div>
 
+      <dm_list_data :cf="cfListEnrollTeam" ref="listForEnroll">
+        <template v-slot:slot_detail_item_album="{row}">
+          <div class v-if="row.album && row.album.length">
+            <img
+              @click="showBigImg(item.url)"
+              :src="item.url"
+              alt
+              v-for="item in row.album"
+              :key="item.url"
+              class="W100 H100"
+            />
+          </div>
+        </template>
+        <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
+        <template v-slot:slot_detail_item_memberId="{row}">
+          <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
+            <template v-slot:default="{doc}">
+              <div class v-if="doc && doc.P1">
+                {{doc.P1}}
+                (
+                {{doc.name}})
+              </div>
+            </template>
+          </dm_ajax_populate>
+        </template>
+        <!--队伍名称列配置-->
+        <template v-slot:slot_detail_item_teamName="{row}">
+          <div class v-if="row.teamDoc">
+            <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
+              <div>
+                <div class v-for="(item,i) in row.teamDoc.member" :key="i">
+                  {{item.name }} ({{item.sex}}|{{item.phone}})
+                 
+                </div>
+              </div>
+              <el-link
+                type="primary"
+                slot="reference"
+              >{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
+            </el-popover>
+          </div>
+        </template>
+      </dm_list_data>
+
       <dm_list_data
         :cf="cfList"
         ref="list1"
@@ -59,14 +104,14 @@
         @after-modify="updateList"
         @after-delete="updateList"
       >
-      <!-- 记分卡插槽 -->
-      <template v-slot:slot_form_item_scoreList="{formData}">
-        <score_card v-model="formData.scoreList" :readOnly="false"></score_card>
-      </template>
-      <!-- 记分详情弹窗插槽 -->
-      <template v-slot:slot_detail_item_scoreList="{row}">
-        <score_card v-model="row.scoreList" :readOnly="true"></score_card>
-      </template>
+        <!-- 记分卡插槽 -->
+        <template v-slot:slot_form_item_scoreList="{formData}">
+          <score_card v-model="formData.scoreList" :readOnly="false"></score_card>
+        </template>
+        <!-- 记分详情弹窗插槽 -->
+        <template v-slot:slot_detail_item_scoreList="{row}">
+          <score_card v-model="row.scoreList" :readOnly="true"></score_card>
+        </template>
         <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
         <template v-slot:slot_detail_item_participantsId="{row}">
           <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
@@ -87,7 +132,7 @@
 <script>
 import score_card from "@/components/score_card";
 export default {
-  components: {score_card},
+  components: { score_card },
   props: {
     matchId: [String, Number]
   },
@@ -103,10 +148,13 @@ export default {
       roundNum: 1, //轮数
 
       matchInfo: null, //赛事信息
+      tipVisibles: {},//队员列表弹窗的可见性,注意是一个对象
+      cfListEnrollTeam: PUB.listCF.tangball_enroll_for_ach, //报名球队列表
       cfList: {
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
-        sortJsonDefault:{
-          timeStart:1,
+        sortJsonDefault: {
+          groupNum: 1,
+          timeStart: 1
         },
         //默认查询参数
         findJsonDefault: {
@@ -148,7 +196,7 @@ export default {
           this.cfList.isShowOperateColumn = false;
         }
       },
-      immediate: true,//组件初始化时立即执行一次变动
+      immediate: true //组件初始化时立即执行一次变动
     },
 
     valueNeed: {
@@ -168,7 +216,7 @@ export default {
   },
   methods: {
     //函数：{更新小组成绩名次函数}
-    async updateList() {
+    async updateList(pa) {
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
     },
 
@@ -219,8 +267,10 @@ export default {
       );
     }
   },
-  created(){
-    this.changeMatchRound()//调用：{切换轮数函数}
+  created() {
+    this.changeMatchRound(); //调用：{切换轮数函数}
+    //修改报名队伍列表的默认查询参数
+    this.cfListEnrollTeam.findJsonDefault = { matchId: this.matchId };
   }
 };
 </script>
