@@ -18,6 +18,10 @@
      
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
+      <!-- 报名订单插槽 -->
+      <template v-slot:slot_form_item_orderId="{formData}">
+        <enroll_orderId v-model="formData.orderId"></enroll_orderId>
+      </template>
 
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
@@ -61,8 +65,9 @@
 </template>
 <script>
 import match_venue from "@/components/form_item/match_venue.vue";
+import enroll_orderId from "@/components/enroll_orderId";
 export default {
-  components: {  match_venue },
+  components: {  match_venue ,enroll_orderId},
   mixins: [PUB.listCF.tangball_enroll],
   methods: {
     showBigImg(url) {

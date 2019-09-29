@@ -88,9 +88,9 @@
             style="cursor: pointer;"
             @mouseover="scoreActive=(i==1?index:i==2?index+3:index+6)"
             @mouseleave="scoreActive=-1"
-            @click="modifyScore((i==1?index:i==2?index+3:index+6))"
+            @click="modifyScore((i==1?index==1?-2:index==2?-1:index-2:i==2?index+1:index+4))"
             v-if="index!=3||i!=3">
-            {{i==1?index:i==2?index+3:index+6}}
+            {{i==1?index==1?-2:index==2?-1:index-2:i==2?index+1:index+4}}
             </div>
             <div v-else
             :class="scoreActive==(i==1?index:i==2?index+3:index+6)?'active':''"
@@ -106,10 +106,11 @@
         <el-button @click="showScoreDialog = false" style='margin-left:40%'>关闭</el-button>
     </el-dialog>
     <!-- 其他杆数弹窗 -->
-    <el-dialog title="修改选手杆数" :visible.sync="showElseScoreDialog" width="30%" append-to-body>
-        <el-input v-model="elseScore" placeholder="请输入杆数"></el-input>
+    <el-dialog title="修改选手杆数" :visible.sync="showElseScoreDialog" width="17%" append-to-body>
+       杆数：<el-input-number v-model="elseScore"  label="请输入杆数"></el-input-number>
+        <!-- <el-input v-model="elseScore" placeholder="请输入杆数"></el-input> -->
         <div style="height:20px;"></div>
-        <el-button @click="modifyElseScore" style='margin-left:35%'>修改</el-button>
+        <el-button @click="modifyElseScore" style='margin-left:20 %'>修改</el-button>
         <el-button @click="showElseScoreDialog = false" >关闭</el-button>
     </el-dialog>
   </div>
@@ -204,7 +205,7 @@ export default {
     },
     // 修改其他杆数的方法
     modifyElseScore(){
-      if(/^\d+$/.test(this.elseScore)){
+
         if (this.index<9) {
             this.scoreLeftList[this.index].score = this.elseScore
         }
@@ -215,10 +216,7 @@ export default {
         this.showElseScoreDialog = false
         this.$emit('input',this.scoreList)
         this.elseScore = ''
-      }else{
-        alert('杆数必须是数字')
-        this.elseScore = ''
-      }
+
     }
   },
   mounted() {},

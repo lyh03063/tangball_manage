@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <dm_list_data :cf="cfList" ref="listForEnroll">
+      <dm_list_data :cf="cfList" ref="listForEnroll" @after-modify="modifyEnroll"  @after-add='addEnroll'>
         <template v-slot:slot_detail_item_album="{row}">
           <div class v-if="row.album && row.album.length">
             <img
@@ -34,7 +34,7 @@
           </div>
         </template>
         <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
-        <template v-slot:slot_detail_item_memberId="{row}">
+        <!-- <template v-slot:slot_detail_item_memberId="{row}">
           <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
             <template v-slot:default="{doc}">
               <div class v-if="doc && doc.P1">
@@ -44,17 +44,31 @@
               </div>
             </template>
           </dm_ajax_populate>
-        </template>
+        </template> -->
+        <!-- 报名订单插槽 -->
+        <!-- <template v-slot:slot_form_item_orderId="{formData}">
+        <enroll_orderId v-model="formData.orderId"></enroll_orderId>
+      </template> -->
+        <!-- 新增修改队伍信息插槽 -->
+      <template v-slot:slot_form_item_groups="{formData}">
+        <from_groups v-model="formData.groups" :orderId='formData.orderId' :matchId='formData.matchId'></from_groups>
+      </template>
+        <!-- 队伍信息详情插槽 -->
+      <template v-slot:slot_detail_item__groups="{formData}">
+        <from_groups v-model="formData.orderId" ></from_groups>
+      </template>
         <!--队伍名称列配置-->
         <template v-slot:slot_detail_item_teamName="{row}">
           <div class v-if="row.teamDoc">
             <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
               <div>
-                <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name }} ({{item.sex}}|{{item.phone}})
-                  <span v-if="member.length>0">{{member[i].status}}&nbsp;&nbsp;</span>
+                <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name?item.name:'无' }}
+                   ({{item.sex}}|{{item.phone?item.phone:'无'}})
+                   <span v-if="member[i]">
+                  <span v-if="member.length>0">{{member[i].status?member[i].status:'球员未录入'}}&nbsp;&nbsp;</span>
                   <el-link type="primary" v-if="member.length>0&&!member[i].flag" @click="addMerber(item,i)">录入</el-link>
                   <el-link type="primary" v-else @click="modifyMerber(item,i)">修改</el-link>
-
+                   </span>
                   </div>
               </div>
               <el-link
@@ -100,8 +114,10 @@
 </template>
 
 <script>
+// import enroll_orderId from "@/components/enroll_orderId";
+import from_groups from "@/components/from_groups";
 export default {
-  components: {},
+  components: {from_groups},
   props: {
     matchId: [String, Number]
   },
@@ -155,8 +171,12 @@ export default {
           {
             label: "报名会员",
             prop: "memberId",
-            slot: "slot_detail_item_memberId",
-            width: 130
+            width: 130,
+            formatter: function(rowData) {
+              if (rowData.memberName) {
+                return rowData.memberName.name;
+              } 
+            }
           },
 
           {
@@ -214,10 +234,254 @@ export default {
             }
           }
         ],
+        detailItems: [
+          {
+            label: "报名会员id",
+            prop: "memberId",
+            slot: "slot_detail_item_memberId"
+          },
+          {
+            label: "赛事id",
+            prop: "matchId",
+            slot: "slot_detail_item_matchId"
+          },
+          {
+            label: "手机号",
+            prop: "phone",
+            width: 100
+          },
+          {
+            label: "性别",
+            prop: "sex",
+            width: 50,
+            formatter: function (rowData) {
+              if (rowData.sex == 1) {
+                return "男";
+              } else {
+                return "女";
+              }
+            }
+          },
+          {
+            label: "年龄",
+            prop: "age",
+            width: 50
+          },
+          {
+            label: "职业",
+            prop: "career",
+            width: 50
+          },
+          {
+            label: "球龄",
+            prop: "ballAge",
+            width: 100,
+            formatter: function (rowData) {
+              if (rowData.ballAge == 1) {
+                return "一年以下";
+              } else if (rowData.ballAge == 2) {
+                return "一到三年";
+              } else if (rowData.ballAge == 3) {
+                return "三到五年";
+              } else if (rowData.ballAge == 4) {
+                return "五到十年";
+              } else {
+                return "十年以上";
+              }
+            }
+          },
+          {
+            label: "身份证号",
+            prop: "idCard"
+          },
+
+          {
+            label: "报名时间",
+            prop: "time",
+            formatter: function (row) {
+              return moment(row.time).format("YYYY-MM-DD");
+            }
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100,
+            formatter: function (rowData) {
+              if (rowData.payStatus == 2) {
+                return "已支付";
+              } else {
+                return "未支付";
+              }
+            }
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            width: 100,
+            formatter: function (rowData) {
+              if (rowData.auditStatus == 1) {
+                return "未审核";
+              } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+              } else {
+                return "审核通过";
+              }
+            }
+          }
+        ],
 
         //-------新增、修改表单字段数组-------
         formItems: [
+          
+        ]
+      }
+    };
+  },
+  watch: {
+    isEdit: {
+      handler(newVal, oldVal) {
+        if (this.isEdit) {
+          //如果{000}000
+          this.cfList.isShowToolBar = true;
+          this.cfList.isShowOperateColumn = true;
+        } else {
+          this.cfList.isShowToolBar = false;
+          this.cfList.isShowOperateColumn = false;
+        }
+      }
+    },
+    valueNeed: {
+      handler(newVal, oldVal) {
+        this.$emit("input", this.valueNeed); //同步valueNeed值到value
+      },
+      // immediate: true,//组件初始化时立即执行一次变动
+      deep: true //深度监听
+    },
+    matchId: {
+      handler(newVal, oldVal) {
+        if (!this.matchId) return;
+        this.getMatchData();
+      },
+      immediate: true //组件初始化时立即执行一次变动
+    }
+  },
+  methods: {
+    async addEnroll(newData,oldData){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossAdd?page=tangball_team",
+          data: {
+            data:oldData.groups
+          }
+        }).catch(() => {});
+    },
+    async modifyEnroll(newData,oldData){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossModify?page=tangball_team",
+          data: {
+            findJson:{
+              P1:newData.groups.P1
+            },
+            modifyJson:newData.groups
+          }
+        }).catch(() => {});
+    },
+    // 录入球员的方法
+    async addMember(){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossAdd?page=tangball_member",
+          data: {
+            data:this.memberAdd
+          }
+        }).catch(() => {});
+      this.member[this.checkedIndex].status = '球员已录入'
+      this.member[this.checkedIndex].flag = true
+      this.showAddDialog = false
+    },
+    // 修改球员的方法
+    async modifyMember(){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossModify?page=tangball_member",
+          data: {
+            findJson: {
+              P1:this.memberModiy.P1
+            },
+            modifyJson:this.memberModiy
+          }
+        }).catch(() => {});
+        this.showModifyDialog = false
+    },
+    // 打开新增弹窗的方法
+    addMerber(item,i){
+      if (item.phone) {
+        this.memberAdd= item 
+      this.showAddDialog = true
+      this.checkedIndex = i
+      }else{
+        alert("该球员还没有手机号不能录入")
+      }
+      
+      
+    },
+    // 打开修改弹窗的方法
+    modifyMerber(item,i){
+      this.memberModiy = this.member[i].member
+      console.log(this.memberModiy);
+      
+      this.showModifyDialog = true
+      this.checkedIndex = i
+    },
+   async showProgress(members){
+      let phones = members.map(item=>{
+        return item.phone
+      })
+    
+	    let { data } = await axios({
+          method: "post",
+          url: PUB.domain + '/crossList?page=tangball_member',
+          data: {
+            findJson: {
+              phone:phones
+            }
+          }
+        }).catch(() => {});
+        console.log(members);
+      this.member = []
+      this.member= members.map(item=>{
+        let flag = false 
+        let status = '球员未录入'
+        let member = {}
+        data.list.forEach(doc => {
+          if (doc.phone == item.phone) {
+            flag = true
+            status = '球员已录入'
+            member = doc
+          }
+        });
+        let obj = {status,flag,member}
+        return obj
+      })
+      console.log('this.member',this.member);
+      
+
+    },
+    /**
+     * @name 处理报名表函数（团体赛和个人赛的区别）
+     */
+    handleCFlist: async function() {
+      if (this.matchInfo.matchForm == 1) {
+        this.cfList.dynamicDict = [
           {
+            page: "tangball_member",
+            populateColumn: "memberName",
+            idColumn: "memberId",
+            idColumn2: "P1"
+          }
+        ];
+        this.cfList.formItems=[{
             label: "报名会员id",
             prop: "memberId",
 
@@ -229,19 +493,19 @@ export default {
             },
             rules: [{ required: true, message: "报名会员id" }]
           },
-          {
-            label: "赛事id",
-            prop: "matchId",
+          // {
+          //   label: "赛事id",
+          //   prop: "matchId",
 
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "P1"
-            },
-            rules: [{ required: true, message: "赛事id" }],
-            hide: true
-          },
+          //   type: "select",
+          //   ajax: {
+          //     url: "/crossList?page=tangball_match",
+          //     keyLabel: "matchName",
+          //     keyValue: "P1"
+          //   },
+          //   rules: [{ required: true, message: "赛事id" }],
+          //   hide: true
+          // },
 
           {
             label: "手机号",
@@ -286,6 +550,11 @@ export default {
 
             type: "date"
           },
+          // {
+          //   label: "报名订单id",
+          //   prop: "orderId",
+          //   slot:"slot_form_item_orderId"
+          // },
 
           {
             label: "支付状态",
@@ -305,121 +574,52 @@ export default {
               { label: "审核不通过", value: 2 },
               { label: "审核通过", value: 3 }
             ]
-          }
-        ]
+          }]
       }
-    };
-  },
-  watch: {
-    isEdit: {
-      handler(newVal, oldVal) {
-        if (this.isEdit) {
-          //如果{000}000
-          this.cfList.isShowToolBar = true;
-          this.cfList.isShowOperateColumn = true;
-        } else {
-          this.cfList.isShowToolBar = false;
-          this.cfList.isShowOperateColumn = false;
-        }
-      }
-    },
-    valueNeed: {
-      handler(newVal, oldVal) {
-        this.$emit("input", this.valueNeed); //同步valueNeed值到value
-      },
-      // immediate: true,//组件初始化时立即执行一次变动
-      deep: true //深度监听
-    },
-    matchId: {
-      handler(newVal, oldVal) {
-        if (!this.matchId) return;
-        this.getMatchData();
-      },
-      immediate: true //组件初始化时立即执行一次变动
-    }
-  },
-  methods: {
-    // 录入球员的方法
-    async addMember(){
-      let { data } = await axios({
-          method: "post",
-          url: PUB.domain + "/crossAdd?page=tangball_member",
-          data: {
-            data:this.memberAdd
-          }
-        }).catch(() => {});
-      this.member[this.checkedIndex].status = '球员已录入'
-      this.member[this.checkedIndex].flag = true
-      this.showAddDialog = false
-    },
-    // 修改球员的方法
-    async modifyMember(){
-      let { data } = await axios({
-          method: "post",
-          url: PUB.domain + "/crossModify?page=tangball_member",
-          data: {
-            findJson: {
-              P1:this.memberModiy.P1
-            },
-            modifyJson:this.memberModiy
-          }
-        }).catch(() => {});
-        this.showModifyDialog = false
-    },
-    // 打开新增弹窗的方法
-    addMerber(item,i){
-      this.memberAdd= item 
-      this.showAddDialog = true
-      this.checkedIndex = i
-      
-    },
-    // 打开修改弹窗的方法
-    modifyMerber(item,i){
-      this.memberModiy = this.member[i].member
-      console.log(this.memberModiy);
-      
-      this.showModifyDialog = true
-      this.checkedIndex = i
-    },
-   async showProgress(members){
-      let phones = members.map(item=>{
-        return item.phone
-      })
-    
-	    let { data } = await axios({
-          method: "post",
-          url: PUB.domain + '/crossList?page=tangball_member',
-          data: {
-            findJson: {
-              phone:phones
-            }
-          }
-        }).catch(() => {});
-      this.member= members.map(item=>{
-        let flag = false 
-        let status = '球员未录入'
-        let member = {}
-        data.list.forEach(doc => {
-          if (doc.phone == item.phone) {
-            flag = true
-            status = '球员已录入'
-            member = doc
-          }
-        });
-        let obj = {status,flag,member}
-        return obj
-      })
-      console.log(this.member);
-      
-
-    },
-    /**
-     * @name 处理报名表函数（团体赛和个人赛的区别）
-     */
-    handleCFlist: async function() {
       if (this.matchInfo.matchForm == 2) {
         this.title="报名球队信息"
         //动态数据字典，获取队伍信息
+        this.cfList.detailItems =[
+          {
+            label: "队伍信息",
+            prop: "orderId",
+            slot:''
+          },
+          {
+            label: "报名时间",
+            prop: "time",
+            formatter: function (row) {
+              return moment(row.time).format("YYYY-MM-DD");
+            }
+          },
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            width: 100,
+            formatter: function (rowData) {
+              if (rowData.payStatus == 2) {
+                return "已支付";
+              } else {
+                return "未支付";
+              }
+            }
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            width: 100,
+            formatter: function (rowData) {
+              if (rowData.auditStatus == 1) {
+                return "未审核";
+              } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+              } else {
+                return "审核通过";
+              }
+            }
+          }
+        ],
+
         this.cfList.dynamicDict = [
           {
             page: "tangball_team",
@@ -439,9 +639,14 @@ export default {
           },
           {
             label: "队长",
-            prop: "memberId",
-            slot: "slot_detail_item_memberId",
-            width: 130
+            prop: "teamDoc",
+            // slot: "slot_detail_item_memberId",
+            width: 130,
+            formatter: function(rowData) {
+              if (rowData.teamDoc) {
+                return rowData.teamDoc.member[0].name||"无"
+              }
+            }
           },
 
           {
@@ -481,6 +686,56 @@ export default {
             }
           }
         ];
+        this.cfList.cfForm = {
+            watch:{
+              groups:{
+                handler(){
+                  if (this.value.groups) {
+                    this.value.orderId = this.value.groups.orderId
+                  }
+                  
+                },
+                immediate:true,
+                deep: true
+              }
+            },
+          },
+        this.cfList.formItems.push({
+          label: "队伍信息",
+          prop: "groups",
+          slot:'slot_form_item_groups'
+        },
+        {
+            label: "报名时间",
+            prop: "time",
+
+            type: "date"
+          },
+          // {
+          //   label: "报名订单id",
+          //   prop: "orderId",
+          //   slot:"slot_form_item_orderId"
+          // },
+
+          {
+            label: "支付状态",
+            prop: "payStatus",
+            type: "select",
+            options: [
+              { label: "已支付", value: 2 },
+              { label: "未支付", value: 1 }
+            ]
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            type: "select",
+            options: [
+              { label: "未审核", value: 1 },
+              { label: "审核不通过", value: 2 },
+              { label: "审核通过", value: 3 }
+            ]
+          })
       }
     },
     async getMatchData() {

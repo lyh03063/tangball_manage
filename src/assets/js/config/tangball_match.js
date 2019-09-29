@@ -214,6 +214,10 @@ export default {
         prop: "matchIntroduce"
       },
       {
+        label: "报名要求",
+        prop: "enrollRequirements"
+      },
+      {
         label: "赛事规程",
         prop: "matchManual",
         type:'html'
@@ -316,6 +320,12 @@ export default {
       {
         label: "赛事介绍",
         prop: "matchIntroduce",
+        type: "textarea",
+        col_span: 24
+      },
+      {
+        label: "报名要求",
+        prop: "enrollRequirements",
         type: "textarea",
         col_span: 24
       },
