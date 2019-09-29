@@ -188,11 +188,13 @@ export default {
     },
     // 杆数1-8的修改方法
     modifyScore(index){
+      console.log(this.index);
+      
         if (this.index<9) {
             this.scoreLeftList[this.index].score = index
         }
         if (this.index>=9) {
-            this.scoreLeftList[this.index-9].score= index
+            this.scoreRightList[this.index-9].score= index
         }
         this.scoreList[this.index].score= index
         this.showScoreDialog = false
@@ -210,7 +212,7 @@ export default {
             this.scoreLeftList[this.index].score = this.elseScore
         }
         if (this.index>=9) {
-            this.scoreLeftList[this.index-9].score= this.elseScore
+            this.scoreRightList[this.index-9].score= this.elseScore
         }
         this.scoreList[this.index].score= this.elseScore
         this.showElseScoreDialog = false
