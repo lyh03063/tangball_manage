@@ -2,27 +2,19 @@
   <div class v-if="matchInfo">
     <dm_debug_list>
       <dm_debug_item v-model="matchInfo" text="赛事信息" />
-
       <dm_debug_item v-model="cfList.findJsonDefault" text="成绩列表的默认查询参数" />
       <dm_debug_item v-model="cfList.formDataAddInit" text="新增成绩表单默认参数" />
       <dm_debug_item v-model="roundNum" text="轮数" />
+      <dm_debug_item v-model="dictEnroolTeam" text="报名的队伍数据字典" />
+       <dm_debug_item v-model="dictAchievement" text="成绩数据字典" />
       <!-- <dm_debug_item v-model="progressCurr" text="当前选中赛段数据" /> -->
       <dm_debug_item
         v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson"
         text="弹窗表单的第一个字段的下拉框选项ajax查询参数"
       />
     </dm_debug_list>
-
     <div class="panel">
       <div class>
-        <!-- <div class="OFH">
-          <div class="FL FWB FS16 LH30">成绩表</div>
-
-          <div class="FR">
-            <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
-            <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
-          </div>
-        </div>-->
         <el-radio-group
           v-model="progressIndex"
           style="margin-bottom: 10px;"
@@ -37,7 +29,6 @@
           >{{item.name}}</el-radio-button>
         </el-radio-group>
         <dm_space height="1"></dm_space>
-
         <el-radio-group
           v-model="roundNum"
           style="margin-bottom: 10px;"
@@ -52,57 +43,34 @@
           >第{{item}}轮</el-radio-button>
         </el-radio-group>
       </div>
-
-      <dm_list_data :cf="cfListEnrollTeam" ref="listForEnroll">
-        <template v-slot:slot_detail_item_album="{row}">
-          <div class v-if="row.album && row.album.length">
-            <img
-              @click="showBigImg(item.url)"
-              :src="item.url"
-              alt
-              v-for="item in row.album"
-              :key="item.url"
-              class="W100 H100"
-            />
-          </div>
-        </template>
-        <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
-        <template v-slot:slot_detail_item_memberId="{row}">
-          <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
-            <template v-slot:default="{doc}">
-              <div class v-if="doc && doc.P1">
-                {{doc.P1}}
-                (
-                {{doc.name}})
-              </div>
-            </template>
-          </dm_ajax_populate>
-        </template>
-        <!--队伍名称列配置-->
-        <template v-slot:slot_detail_item_teamName="{row}">
-          <div class v-if="row.teamDoc">
-            <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
-              <div>
-                <div class v-for="(item,i) in row.teamDoc.member" :key="i">
-                  {{item.name }} ({{item.sex}}|{{item.phone}})
-                 
-                </div>
-              </div>
-              <el-link
-                type="primary"
-                slot="reference"
-              >{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
-            </el-popover>
-          </div>
-        </template>
-      </dm_list_data>
-
+      <match_confrontation
+        :matchId="matchId"
+        :progressIndex="progressIndex"
+        :roundNum="roundNum"
+        :dictEnroolTeam="dictEnroolTeam"
+        :dictAchievement="dictAchievement"
+        :listAchievement="listAchievement"
+        v-if="readySearch&&readyAchievement"
+      >
+        <!--比赛对阵列表组件-->
+      </match_confrontation>
+      <dm_space height="10"></dm_space>
+      <match_team
+        :matchId="matchId"
+        :progressIndex="progressIndex"
+        :roundNum="roundNum"
+        
+        @after-search="afterSearchEnroolTeam"
+      >
+        <!--比赛队伍列表组件-->
+      </match_team>
       <dm_list_data
         :cf="cfList"
         ref="list1"
         @after-add="updateList"
         @after-modify="updateList"
         @after-delete="updateList"
+        @after-search="afterSearchAchievement"
       >
         <!-- 记分卡插槽 -->
         <template v-slot:slot_form_item_scoreList="{formData}">
@@ -128,11 +96,12 @@
     </div>
   </div>
 </template>
-
 <script>
 import score_card from "@/components/score_card";
+import match_confrontation from "@/components/bussiness/match_confrontation.vue";
+import match_team from "@/components/bussiness/match_team.vue";
 export default {
-  components: { score_card },
+  components: { score_card, match_confrontation, match_team },
   props: {
     matchId: [String, Number]
   },
@@ -142,15 +111,17 @@ export default {
   ],
   data() {
     return {
+      dictEnroolTeam: null, //报名的队伍数据字典
+      dictAchievement: null, //当前赛段和轮次的成绩数据字典
+      listAchievement: null, //当前赛段和轮次的成绩列表
+      readyAchievement:false,//成绩列表是否加载完成
+      readySearch: false, //是否已经准备查询条件：赛段，轮数,数据字典等
       isEdit: true,
-
       progressIndex: 1, //赛段索引
       roundNum: 1, //轮数
-
       matchInfo: null, //赛事信息
-      tipVisibles: {},//队员列表弹窗的可见性,注意是一个对象
-      cfListEnrollTeam: PUB.listCF.tangball_enroll_for_ach, //报名球队列表
       cfList: {
+        
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
         sortJsonDefault: {
           groupNum: 1,
@@ -160,12 +131,10 @@ export default {
         findJsonDefault: {
           matchId: this.matchId
         },
-
         //新增表单初始赋值
         formDataAddInit: {
           matchId: this.matchId
         },
-
         listIndex: "match_achievement" //vuex对应的字段
       }
     };
@@ -188,7 +157,6 @@ export default {
     isEdit: {
       handler(newVal, oldVal) {
         if (this.isEdit) {
-          //如果{000}000
           this.cfList.isShowToolBar = true;
           this.cfList.isShowOperateColumn = true;
         } else {
@@ -198,7 +166,6 @@ export default {
       },
       immediate: true //组件初始化时立即执行一次变动
     },
-
     valueNeed: {
       handler(newVal, oldVal) {
         this.$emit("input", this.valueNeed); //同步valueNeed值到value
@@ -215,17 +182,42 @@ export default {
     }
   },
   methods: {
+    //成绩列表加载完成后的回调函数
+    afterSearchAchievement(list) {
+      console.log("list:####", list);
+
+     this.listAchievement=list;
+      this.dictAchievement = lodash.keyBy(list, "P1"); //报名的队伍的数据字典
+      this.readyAchievement = true;
+    },
+//队伍列表加载完成后的回调函数
+    afterSearchEnroolTeam(list) {
+      // console.log("list:####", list);
+
+      let listEnroolTeam = list.map(doc => doc.teamDoc); //报名的队伍数组
+      this.dictEnroolTeam = lodash.keyBy(listEnroolTeam, "P1"); //报名的队伍的数据字典
+
+      this.readySearch = true;
+    },
     //函数：{更新小组成绩名次函数}
     async updateList(pa) {
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
     },
-
+    /**
+     * @name 进行一次视图更新的函数
+     */
+    goNextTick: async function() {
+      this.readySearch = false;
+      await this.$nextTick(); //延迟到视图更新
+      this.readySearch = true;
+    },
     /**
      * @name 切换赛段函数
      */
     changeMatchProgress: async function() {
       this.roundNum = 1;
       this.changeMatchRound(); //调用：{切换轮数函数}
+      this.goNextTick(); //调用：{进行一次视图更新的函数}
     },
     //函数：{切换轮数函数}
     changeMatchRound() {
@@ -234,20 +226,17 @@ export default {
         roundNum: this.roundNum
       };
       Object.assign(this.cfList.findJsonDefault, dataInit); //默认查询参数
-
       this.$set(
         this.cfList.formDataAddInit,
         "progressIndex",
         this.progressIndex
       );
       this.$set(this.cfList.formDataAddInit, "roundNum", this.roundNum);
-
       // Object.assign(this.cfList.formDataAddInit, dataInit);//默认新增参数---这种不会响应
-
       if (!this.$refs.list1) return;
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
+      this.goNextTick(); //调用：{进行一次视图更新的函数}
     },
-
     async getMatchData() {
       if (!this.matchId) return;
       //函数：{根据赛事id，ajax获取赛事信息函数}
@@ -269,12 +258,9 @@ export default {
   },
   created() {
     this.changeMatchRound(); //调用：{切换轮数函数}
-    //修改报名队伍列表的默认查询参数
-    this.cfListEnrollTeam.findJsonDefault = { matchId: this.matchId };
   }
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .panel {

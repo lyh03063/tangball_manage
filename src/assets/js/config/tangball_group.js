@@ -1,6 +1,6 @@
 
 export default {
-    listIndex: "list_member", //vuex对应的字段
+    listIndex: "list_group", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",
     threeTitle: "会员列表",
@@ -30,13 +30,13 @@ export default {
         width: 100
       },
       {	
-        label: "matchId",
-        prop: "所属赛事",
+        label: "所属赛事",
+        prop: "matchId",
         width: 100
       },	
       {
-        label: "progressIndex",
-        prop: "所属赛段",
+        label: "所属赛段",
+        prop: "progressIndex",
         width: 100
       },
       {	
@@ -48,15 +48,15 @@ export default {
     //-------筛选表单字段数组-------
     searchFormItems: [
       {	
-        label: "matchId",
-        prop: "所属赛事",
+        label: "所属赛事",
+        prop: "matchId",
      
       },	
     ],
     //-------详情字段数组-------
     detailItems: [
       {
-        label: "会员编号",
+        label: "编号",
         prop: "P1",
       },
       {	
@@ -68,12 +68,12 @@ export default {
         prop: "groupMember",
       },
       {	
-        label: "matchId",
-        prop: "所属赛事",
+        label: "所属赛事",
+        prop: "matchId",
       },	
       {
-        label: "progressIndex",
-        prop: "所属赛段",
+        label: "所属赛段",
+        prop: "progressIndex",
       },
       {	
         label: "所属轮数",
@@ -85,28 +85,52 @@ export default {
       {	
         label: "组号",
         prop: "groupNum",
-        width: 100
+        type:"number"
       },
      
-      {	
-        label: "matchId",
-        prop: "所属赛事",
-        width: 100
+      {
+        label: "赛事id",
+        prop: "matchId",
+        type: "select",
+        ajax: {
+          url: "/crossList?page=tangball_match",
+          keyLabel: "matchName",
+          keyValue: "P1"
+        }
       },	
       {
-        label: "progressIndex",
-        prop: "所属赛段",
-        width: 100
+        label: "所属赛段",
+        prop: "progressIndex",
+        type:"number"
       },
       {	
         label: "所属轮数",
         prop: "roundNum",
-        width: 100
+        type:"number"
       },
+      
       {
         label: "小组成员",
         prop: "groupMember",
-        width: 100
+        type: "collection",
+        collectionlistType: "form",
+        collectionCfForm: {
+          col_span: 12,
+          formItems: [
+          
+            {
+              label: "球队id",
+              prop: "id",
+              type: "select",
+              ajax: {
+                url: "/crossList?page=tangball_team",
+                keyLabel: "name",
+                keyValue: "P1"
+              }
+            },
+           
+          ]
+        }
       },
     ]
   }
