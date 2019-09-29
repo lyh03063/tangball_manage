@@ -88,9 +88,9 @@
             style="cursor: pointer;"
             @mouseover="scoreActive=(i==1?index:i==2?index+3:index+6)"
             @mouseleave="scoreActive=-1"
-            @click="modifyScore((i==1?index:i==2?index+3:index+6))"
+            @click="modifyScore((i==1?index==1?-2:index==2?-1:index-2:i==2?index+1:index+4))"
             v-if="index!=3||i!=3">
-            {{i==1?index:i==2?index+3:index+6}}
+            {{i==1?index==1?-2:index==2?-1:index-2:i==2?index+1:index+4}}
             </div>
             <div v-else
             :class="scoreActive==(i==1?index:i==2?index+3:index+6)?'active':''"
@@ -205,7 +205,7 @@ export default {
     },
     // 修改其他杆数的方法
     modifyElseScore(){
-      if(/^\d+$/.test(this.elseScore)){
+
         if (this.index<9) {
             this.scoreLeftList[this.index].score = this.elseScore
         }
@@ -216,10 +216,7 @@ export default {
         this.showElseScoreDialog = false
         this.$emit('input',this.scoreList)
         this.elseScore = ''
-      }else{
-        alert('杆数必须是数字')
-        this.elseScore = ''
-      }
+
     }
   },
   mounted() {},
