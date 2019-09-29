@@ -34,17 +34,16 @@
           </div>
         </template>
         <!--详情弹窗的 memberId 字段组件，注意插槽命名-->
-        <!-- <template v-slot:slot_detail_item_memberId="{row}">
-          <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member">
-            <template v-slot:default="{doc}">
-              <div class v-if="doc && doc.P1">
-                {{doc.P1}}
-                (
-                {{doc.name}})
-              </div>
-            </template>
+        <template v-slot:slot_detail_item_memberId="{row}">
+          <dm_ajax_populate :id="row.memberId" populateKey="name" page="tangball_member" idKey="P1">
+            
           </dm_ajax_populate>
-        </template> -->
+        </template>
+        <template v-slot:slot_detail_item_matchId="{row}">
+          <dm_ajax_populate :id="row.memberId" populateKey="matchName" page="tangball_match" idKey="P1">
+            
+          </dm_ajax_populate>
+        </template>
         <!-- 报名订单插槽 -->
         <!-- <template v-slot:slot_form_item_orderId="{formData}">
         <enroll_orderId v-model="formData.orderId"></enroll_orderId>
@@ -54,8 +53,8 @@
         <from_groups v-model="formData.groups" :orderId='formData.orderId' :matchId='formData.matchId'></from_groups>
       </template>
         <!-- 队伍信息详情插槽 -->
-      <template v-slot:slot_detail_item__groups="{formData}">
-        <from_groups v-model="formData.orderId" ></from_groups>
+      <template v-slot:slot_detail_item_groups="{row}">
+        <groups_detail v-model="row.orderId" ></groups_detail>
       </template>
         <!--队伍名称列配置-->
         <template v-slot:slot_detail_item_teamName="{row}">
@@ -116,8 +115,9 @@
 <script>
 // import enroll_orderId from "@/components/enroll_orderId";
 import from_groups from "@/components/from_groups";
+import groups_detail from '@/components/groups_detail'
 export default {
-  components: {from_groups},
+  components: {from_groups,groups_detail},
   props: {
     matchId: [String, Number]
   },
@@ -583,7 +583,7 @@ export default {
           {
             label: "队伍信息",
             prop: "orderId",
-            slot:''
+            slot:'slot_detail_item_groups'
           },
           {
             label: "报名时间",
