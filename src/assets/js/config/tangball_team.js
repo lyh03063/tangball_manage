@@ -164,8 +164,8 @@ export default {
               label: "性别",
               prop: "sex",
               type:'radio',
-              options:[{value:'1',label:'男'},
-              {value:'2',label:'女'}]
+              options:[{value:1,label:'男'},
+              {value:2,label:'女'}]
             },
             {
               label: "手机号码",

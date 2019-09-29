@@ -334,6 +334,11 @@ export default {
 
             type: "date"
           },
+          // {
+          //   label: "报名订单id",
+          //   prop: "orderId",
+          //   slot:"slot_form_item_orderId"
+          // },
 
           {
             label: "支付状态",

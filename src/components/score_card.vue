@@ -106,10 +106,11 @@
         <el-button @click="showScoreDialog = false" style='margin-left:40%'>关闭</el-button>
     </el-dialog>
     <!-- 其他杆数弹窗 -->
-    <el-dialog title="修改选手杆数" :visible.sync="showElseScoreDialog" width="30%" append-to-body>
-        <el-input v-model="elseScore" placeholder="请输入杆数"></el-input>
+    <el-dialog title="修改选手杆数" :visible.sync="showElseScoreDialog" width="17%" append-to-body>
+       杆数：<el-input-number v-model="elseScore"  label="请输入杆数"></el-input-number>
+        <!-- <el-input v-model="elseScore" placeholder="请输入杆数"></el-input> -->
         <div style="height:20px;"></div>
-        <el-button @click="modifyElseScore" style='margin-left:35%'>修改</el-button>
+        <el-button @click="modifyElseScore" style='margin-left:20 %'>修改</el-button>
         <el-button @click="showElseScoreDialog = false" >关闭</el-button>
     </el-dialog>
   </div>

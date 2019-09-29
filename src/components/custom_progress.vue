@@ -67,9 +67,16 @@ export default {
  methods:{
     //  新增新赛程的方法
      addprogress(index){
+         console.log(index);
+         console.log(this.progress);
+         
          let joinPerson = this.progress[index].remainPersom
-         let remainPersom = this.progress[index+1].joinPerson
-         let obj = {name:'',joinPerson,remainPersom,checked:false}
+         let remainPersom = ''
+         let roundCount = this.progress[index].roundCount
+         if (index+1!=this.progress.length) {
+     
+         remainPersom = this.progress[index+1].joinPerson}
+         let obj = {name:'',joinPerson,remainPersom,checked:false,roundCount}
          this.progress.splice(index+1,0,obj)
          console.log(this.progress);
      },
@@ -112,7 +119,7 @@ export default {
     //  如果赛程不存在，给他设定初始值
     if (!this.progress) {
         this.progress = [
-            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true,roundCount:''}]
+            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true,roundCount:1}]
     }
     this.options = this.progress.map((item,index)=>{
         if (item.checked==true) {
