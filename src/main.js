@@ -24,17 +24,7 @@ import listHome from "@/page/listHome";
 import listCategory from "@/page/listCategory";
 import listCommodity from "@/page/listCommodity";
 import list_lyh from "@/page/list_lyh";
-import list_cdc from "@/page/list_cdc";
-import list_cdx from "@/page/list_cdx";
-import list_dgx from "@/page/list_dgx";
-import list_dgz from "@/page/list_dgz";
-import list_hjp from "@/page/list_hjp";
-import list_lfh from "@/page/list_lfh";
-import list_lxc from "@/page/list_lxc";
-import list_wxd from "@/page/list_wxd";
-import list_xql from "@/page/list_xql";
-import list_zjw from "@/page/list_zjw";
-import list_zsr from "@/page/list_zsr";
+
 import list_venue from "@/page/list_venue";
 import list_franchisee from "@/page/list_franchisee";
 import list_match from "@/page/list_match";
@@ -52,6 +42,7 @@ import list_msg_read from "@/page/list_msg_read";
 import list_recommend from "@/page/list_recommend";
 import list_team from "@/page/list_team";
 import list_rule from "@/page/list_rule";
+import list_group from "@/page/list_group";
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
 // window.util=util;
@@ -146,53 +137,14 @@ const router = new VueRouter({
           component: list_rule
         },
         {
+          path: '/list_group',
+          component: list_group
+        },
+        {
           path: '/list_lyh',
           component: list_lyh
         },
-        {
-          path: '/list_cdc',
-          component: list_cdc
-        },
-        {
-          path: '/list_cdx',
-          component: list_cdx
-        },
-        {
-          path: '/list_dgx',
-          component: list_dgx
-        },
-        {
-          path: '/list_dgz',
-          component: list_dgz
-        },
-        {
-          path: '/list_hjp',
-          component: list_hjp
-        },
-        {
-          path: '/list_lfh',
-          component: list_lfh
-        },
-        {
-          path: '/list_lxc',
-          component: list_lxc
-        },
-        {
-          path: '/list_wxd',
-          component: list_wxd
-        },
-        {
-          path: '/list_xql',
-          component: list_xql
-        },
-        {
-          path: '/list_zjw',
-          component: list_zjw
-        },
-        {
-          path: '/list_zsr',
-          component: list_zsr
-        },
+        
         {
           path: '/dynamic_form_demo',
           component: dynamic_form_demo

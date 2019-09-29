@@ -153,6 +153,7 @@ export default {
       cfList: {
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
         sortJsonDefault: {
+          groupNum: 1,
           timeStart: 1
         },
         //默认查询参数
