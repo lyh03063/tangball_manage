@@ -66,6 +66,11 @@ export default {
             width: 90
           },
           {
+            label: "成绩记分",
+            prop: "scoreList",
+           
+          },
+          {
             label: "名次",
             prop: "ranking",
             "min-width": 70
