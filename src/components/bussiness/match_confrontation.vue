@@ -15,14 +15,18 @@
 
       <!--队伍名称列配置-->
       <template v-slot:slot_column_matchResult="{row}">
+        {{row.groupMember}}
         <div class v-if="true">
           <el-popover placement="right" width="1000" v-model="tipVisibles[row.P1]">
-            <div>
+            <!--下面要判断否则会不断计算-->
+            <div v-if="tipVisibles[row.P1]">
+              <!--小组对阵记分卡-->
               <score_card_confront
-                v-model="scoreList"
-                :readOnly="false"
+                :value="getGroupAch(row.groupNum)"
+                :dictMember="getDictMember()"
                 :isTeam="true"
-                :multiple="true"
+                :arrTeam="getArrTeam(row)"
+             
               ></score_card_confront>
             </div>
             <el-link type="primary" slot="reference">{{getMatchResult(row)}}</el-link>
@@ -394,6 +398,32 @@ export default {
     };
   },
   methods: {
+    //函数：{获取指定组的个人成绩列表}
+    getGroupAch(groupNum) {
+     return  this.listAchievement.filter(item=>item.groupNum==groupNum)
+     
+    },
+    //函数：{获取小组对阵队伍数组}
+    getDictMember(row) {
+     return {
+        91: "孙悟空",
+        98: "白骨精",
+        92: "路飞",
+        93: "乔巴",
+        94: "娜美",
+        97: "唐僧",
+        98: "白骨精"
+      }
+    },
+     //函数：{获取小组对阵队伍数组}
+    getArrTeam(row) {
+      let teamId1 = lodash.get(row, `groupMember[0].id`);
+      let teamId2 = lodash.get(row, `groupMember[1].id`);
+      let teamName1 = lodash.get(this.dictEnroolTeam, `[${teamId1}].name`);
+      let teamName2 = lodash.get(this.dictEnroolTeam, `[${teamId2}].name`);
+      return [{id:teamId1,name:teamName1,a:1},{id:teamId2,name:teamName2}];
+      // return [{ id: 19, name: "AA11" }, { id: 20, name: "BB队" }]
+    },
     //函数：{获取当前分组的对阵文本说明函数}
     getConfrontText(row) {
       let teamId1 = lodash.get(row, `groupMember[0].id`);

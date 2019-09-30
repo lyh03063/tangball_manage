@@ -2,10 +2,9 @@
   <div>
     <dm_debug_list>
       <dm_debug_item v-model="achievementList" text="achievementList" />
-      <dm_debug_item v-model="arrTeam" text="arrTeam" />
+      <dm_debug_item v-model="arrTeamNeed" text="arrTeamNeed" />
     </dm_debug_list>
 
-    <div v-if="!readOnly">点击白色/蓝色小格子修改选手成绩</div>
     <table border="1" cellspacing="0">
       <tr>
         <td width="80px" class="bgColor">洞号</td>
@@ -14,8 +13,10 @@
         <td v-for="index in 9" :key="index+10" width="40px" class="bgColor">{{index+9}}</td>
         <td rowspan="3" class="bgColor">右九</td>
         <td rowspan="3" class="bgColor">总杆数</td>
-        <td rowspan="3" class="bgColor">比洞成绩<br>（按最优）</td>
-      
+        <td rowspan="3" class="bgColor">
+          比洞成绩
+          <br />（按最优）
+        </td>
       </tr>
       <tr>
         <td width class="bgColor">距离</td>
@@ -35,20 +36,21 @@
         <td class="bgColor">18</td>
       </tr>
 
-      <template class v-for="(teamEach) in arrTeam">
-        <tr class :key="teamEach.P1">
+      <template class v-for="(teamEach) in arrTeamNeed">
+        <tr class :key="teamEach.id">
           <td width class="bgColor FWB">{{teamEach.name}}</td>
-          <td class="PSR td-holeScore" v-for="index in 9" :key="index">{{$lodash.get(teamEach, `dictScore[${index}].score`)}}
-            <i class="holeScore " >{{$lodash.get(teamEach, `dictScore[${index}].teamHoleScore`)}}</i>
+          <td class="PSR td-holeScore" v-for="index in 9" :key="index">
+            {{$lodash.get(teamEach, `dictScore[${index}].score`)}}
+            <i
+              class="holeScore"
+            >{{$lodash.get(teamEach, `dictScore[${index}].teamHoleScore`)}}</i>
           </td>
           <td class="allScore">{{sumLeft(teamEach)}}</td>
-          <td
-          class="PSR td-holeScore"
-            v-for="index in 9"
-            :key="index+10"
-          >{{$lodash.get(teamEach, `dictScore[${index+9}].score`)}}
-          
-          <i class="holeScore" >{{$lodash.get(teamEach, `dictScore[${index+9}].teamHoleScore`)}}</i>
+          <td class="PSR td-holeScore" v-for="index in 9" :key="index+10">
+            {{$lodash.get(teamEach, `dictScore[${index+9}].score`)}}
+            <i
+              class="holeScore"
+            >{{$lodash.get(teamEach, `dictScore[${index+9}].teamHoleScore`)}}</i>
           </td>
           <td class="allScore">{{sumRight(teamEach)}}</td>
           <td class="allScore">{{sumLeft(teamEach)+sumRight(teamEach)}}</td>
@@ -78,19 +80,31 @@
 <script>
 export default {
   //isTeam为true时启用团体模式，multiple为true时启用多人模式
-  props: ["value", "readOnly", "isTeam", "multiple"], //readOnly  为是否是只读模式
+  props: {
+    value: {},
+    readOnly: {},
+    isTeam: {},
+    arrTeam: {
+      type: Array,
+      default() {
+        return [{ id: 19, name: "西游队11" }, { id: 20, name: "海贼队" }];
+      }
+    },
+    dictMember: {
+      type: Object,
+      default() {
+        return {
+        91: "孙悟空",
+        98: "白骨精"
+      };
+      }
+    }
+  }, //readOnly  为是否是只读模式
+  // props: ["value", "readOnly", "isTeam", "arrTeamNeed"], //readOnly  为是否是只读模式
   computed: {},
   data() {
     return {
-      dictMember: {
-        91: "孙悟空",
-        98: "白骨精"
-      },
-
-      arrTeam: [
-        { P1: 19, name: "西游队" },
-        { P1: 20, name: "海贼队" }
-      ],
+      arrTeamNeed:this.arrTeam,
       elseScore: "", //其他杆数
       showElseScoreDialog: false, //设置其他杆数key
       showScoreDialog: false, //设置1-8杆数key
@@ -127,7 +141,7 @@ export default {
   methods: {
     // 计算左九洞总杆数
     sumLeft(docAch) {
-      console.log("docAch:", docAch);
+      console.log("docAch:111", docAch);
       let score = 0;
       for (var i = 1; i <= 9; i++) {
         score += lodash.get(docAch, `dictScore[${i}].score`, 0);
@@ -196,9 +210,10 @@ export default {
       itemEach.dictScore = lodash.keyBy(itemEach.scoreList, "holeNum");
     });
 
+
     //循环：{队伍数组}
-    this.arrTeam.forEach(teamEach => {
-      teamEach.memberList = this.value.filter(doc => doc.teamId == teamEach.P1);
+    this.arrTeamNeed.forEach(teamEach => {
+      teamEach.memberList = this.value.filter(doc => doc.teamId == teamEach.id);
       teamEach.dictScore = {}; //团体的分数数据字典
       teamEach.teamHoleScoreTotal = 0; //团体的洞数总分初始化
       for (var i = 1; i <= 18; i++) {
@@ -221,8 +236,8 @@ export default {
 
     //按最优成绩计算团队每洞得分
     for (var i = 1; i <= 18; i++) {
-      let arrAch1 = lodash.get(this.arrTeam, `[0].dictScore[${i}].arrAch`, 0);
-      let arrAch2 = lodash.get(this.arrTeam, `[1].dictScore[${i}].arrAch`, 0);
+      let arrAch1 = lodash.get(this.arrTeamNeed, `[0].dictScore[${i}].arrAch`, 0);
+      let arrAch2 = lodash.get(this.arrTeamNeed, `[1].dictScore[${i}].arrAch`, 0);
 
       console.log("arrAch1:##########", arrAch1);
       console.log("arrAch2:#", arrAch2);
@@ -230,19 +245,19 @@ export default {
       console.log("arrResult:#", arrResult);
 
       lodash.set(
-        this.arrTeam,
+        this.arrTeamNeed,
         `[0].dictScore[${i}].teamHoleScore`,
         arrResult[0]
       );
 
-      this.arrTeam[0].teamHoleScoreTotal+=arrResult[0];//第1队洞数总分更新
-    
+      this.arrTeamNeed[0].teamHoleScoreTotal += arrResult[0]; //第1队洞数总分更新
+
       lodash.set(
-        this.arrTeam,
+        this.arrTeamNeed,
         `[1].dictScore[${i}].teamHoleScore`,
         arrResult[1]
       );
-      this.arrTeam[1].teamHoleScoreTotal+=arrResult[1];//第1队洞数总分更新
+      this.arrTeamNeed[1].teamHoleScoreTotal += arrResult[1]; //第1队洞数总分更新
     }
   }
 };
@@ -283,26 +298,24 @@ table tr td {
   font-size: 18px;
   font-weight: 700;
 }
-.td-holeScore{
-  height:50px;
+.td-holeScore {
+  height: 50px;
   line-height: 30px;
   vertical-align: top;
   font-weight: 700;
-  
 }
-.holeScore{
+.holeScore {
   display: block;
   background: #3a0;
   opacity: 0.7;
   color: #ffffff;
-  position:absolute;
+  position: absolute;
   bottom: 0;
-  left:0;
-  right:0;
-  height:18px;
+  left: 0;
+  right: 0;
+  height: 18px;
   line-height: 18px;
-   font-weight: 300;
-  font-style: normal
-
+  font-weight: 300;
+  font-style: normal;
 }
 </style>
