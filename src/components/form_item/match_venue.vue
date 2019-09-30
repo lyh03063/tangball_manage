@@ -5,21 +5,24 @@
       赛事类型:
       <span
         class="C_f30"
-        v-if="matchInfo&&matchInfo.matchType"
-      >{{matchInfo.matchType==2?"全国赛":"普通赛"}}</span>
-，
-<span  v-if="matchInfo&&matchInfo.matchType==2">选择场馆:</span>
+        v-if="matchInfo&&matchInfo.matchForm"
+      >{{matchInfo.matchForm==2?"团队赛":"个人赛"}}</span>，
+<span  v-if="matchInfo&&!readOnly">选择场馆:</span>
     </div>
-    <div class v-if="matchInfo&&matchInfo.matchType==2">
+    <div class v-if="matchInfo&&!readOnly">
   <el-radio
       class="MB10"
         v-model="valueNeed"
         :label="doc.venueId"
         border
-        v-for="(doc,index) in matchInfo.cityVenueList"
+        v-for="(doc,index) in matchInfo.venue"
         :key="index"
         @change="$emit('input', doc.venueId)"
       >{{doc.cityName}}--{{doc.venueName}}</el-radio>
+      <div v-if="matchInfo.venue.length<=0">当前赛事暂无指定场馆</div>
+    </div>
+    <div v-else-if="matchInfo">
+      参赛场馆：{{nowVenue!={}?nowVenue.cityName:'暂未选择场馆--'}}{{nowVenue!={}?nowVenue.venueName:''}}
     </div>
   </div>
 </template>
@@ -33,11 +36,15 @@ export default {
       type: [Number, String],
       default: null
     }, //赛事ID
-   
+    readOnly:{
+      type:[Boolean],
+      default: false
+    }
   },
   data() {
     return {
       matchInfo: null, //赛事信息
+      nowVenue:{},
       url: {
         detail: "/crossDetail?page=tangball_match"
       },
@@ -74,6 +81,15 @@ export default {
       });
 
       this.matchInfo = data.Doc;
+      console.log(this.matchInfo);
+      if (this.valueNeed) {
+           this.matchInfo.venue.forEach(item => {
+            if(this.valueNeed ==item.venueId ){
+              this.nowVenue = item
+            }
+         });
+        }
+     
     }
     // changeVanue(doc) {
 

@@ -169,7 +169,7 @@ export default {
             type: "input"
           },
           {
-            label: "报名会员id",
+            label: "报名会员",
             prop: "memberId",
             type: "select",
             ajax: {
@@ -179,7 +179,7 @@ export default {
             }
           },
           {
-            label: "赛事id",
+            label: "赛事",
             prop: "matchId",
             type: "select",
             ajax: {
@@ -211,12 +211,12 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "报名会员id",
+            label: "报名会员",
             prop: "memberId",
             slot: "slot_detail_item_memberId"
           },
           {
-            label: "赛事id",
+            label: "赛事",
             prop: "matchId",
             slot: "slot_detail_item_matchId"
           },
@@ -226,8 +226,9 @@ export default {
             width: 100
           },
           {
-            label: "城市场馆id",
-            prop: "cityVenueId"
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot:'slot_detail_item_matchInfo'
           },
           {
             label: "性别",

@@ -15,15 +15,30 @@
     <dm_list_data :cf="cfList" 
     @after-show-Dialog-Add="showAdd" 
      @after-show-Dialog-Modify='showModify'
-     @after-show-Dialog-Detail='showDetail'>
+     @after-show-Dialog-Detail='showDetail'
+     @after-modify="modifyEnroll" 
+      @after-add='addEnroll'>
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
      
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
+      <!-- 赛事场馆详情 -->
+      <template v-slot:slot_detail_item_matchInfo="{row}">
+     
+        <match_venue v-model="row.cityVenueId" :matchId="row.matchId" :readOnly='true'></match_venue>
+      </template>
       <!-- 报名订单插槽 -->
       <template v-slot:slot_form_item_orderId="{formData}">
         <enroll_orderId v-model="formData.orderId"></enroll_orderId>
+      </template>
+       <!-- 新增修改队伍信息插槽 -->
+      <template v-slot:slot_form_item_groups="{formData}">
+        <from_groups v-model="formData.groups" :orderId='formData.orderId' :matchId='formData.matchId'></from_groups>
+      </template>
+        <!-- 队伍信息详情插槽 -->
+      <template v-slot:slot_detail_item_groups="{row}">
+        <groups_detail v-model="row.orderId" ></groups_detail>
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -69,36 +84,58 @@
 <script>
 import match_venue from "@/components/form_item/match_venue.vue";
 import enroll_orderId from "@/components/enroll_orderId";
+import from_groups from "@/components/from_groups";
+import groups_detail from '@/components/groups_detail'
 export default {
-  components: {  match_venue ,enroll_orderId},
+  components: {  match_venue ,enroll_orderId,from_groups,groups_detail},
   mixins: [PUB.listCF.tangball_enroll],
   methods: {
+    async addEnroll(newData,oldData){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossAdd?page=tangball_team",
+          data: {
+            data:oldData.groups
+          }
+        }).catch(() => {});
+    },
+    async modifyEnroll(newData,oldData){
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + "/crossModify?page=tangball_team",
+          data: {
+            findJson:{
+              P1:newData.groups.P1
+            },
+            modifyJson:newData.groups
+          }
+        }).catch(() => {});
+    },
     showBigImg(url) {
       this.showDialogBigImg = true;
       this.urlBigImg = url;
     },
     showDetail(row){
-      console.log(row);
-      
       if (row.matchMsg.matchForm==2) {
         this.cfList.detailItems = [
           {
-            label: "报名会员id",
+            label: "报名会员",
             prop: "memberId",
             slot: "slot_detail_item_memberId"
           },
           {
-            label: "赛事id",
+            label: "赛事",
             prop: "matchId",
             slot: "slot_detail_item_matchId"
           },
           {
-            label: "城市场馆id",
-            prop: "cityVenueId"
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot:'slot_detail_item_matchInfo'
           },
           {
             label: "队伍信息",
-            prop: "cityVenueId"
+            prop: "slot_detail_item_groups"
           },
           {
             label: "报名时间",
@@ -182,8 +219,8 @@ export default {
           },
           {
             label: "队伍信息",
-            prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo"
+            prop: "groups",
+            slot: "slot_form_item_groups"
           },
           {
             label: "报名时间",
