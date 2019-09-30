@@ -581,6 +581,12 @@ export default {
         //动态数据字典，获取队伍信息
         this.cfList.detailItems =[
           {
+            label: "报名会员id",
+            prop: "memberId",
+            slot: "slot_detail_item_memberId"
+          },
+          
+          {
             label: "队伍信息",
             prop: "orderId",
             slot:'slot_detail_item_groups'
@@ -700,7 +706,19 @@ export default {
               }
             },
           },
-        this.cfList.formItems.push({
+        this.cfList.formItems.push(
+          {
+            label: "报名会员id",
+            prop: "memberId",
+
+            type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "P1"
+            },
+            rules: [{ required: true, message: "报名会员id" }]
+          },{
           label: "队伍信息",
           prop: "groups",
           slot:'slot_form_item_groups'
