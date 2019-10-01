@@ -48,6 +48,16 @@
         <!-- <template v-slot:slot_form_item_orderId="{formData}">
         <enroll_orderId v-model="formData.orderId"></enroll_orderId>
       </template> -->
+      <!-- 选择赛事和场馆 -->
+      <template v-slot:slot_form_item_matchInfo="{formData}">
+     
+        <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
+      </template>
+      <!-- 赛事场馆详情 -->
+      <template v-slot:slot_detail_item_matchInfo="{row}">
+     
+        <match_venue v-model="row.cityVenueId" :matchId="row.matchId" :readOnly='true'></match_venue>
+      </template>
         <!-- 新增修改队伍信息插槽 -->
       <template v-slot:slot_form_item_groups="{formData}">
         <from_groups v-model="formData.groups" :orderId='formData.orderId' :matchId='formData.matchId'></from_groups>
@@ -116,8 +126,9 @@
 // import enroll_orderId from "@/components/enroll_orderId";
 import from_groups from "@/components/from_groups";
 import groups_detail from '@/components/groups_detail'
+import match_venue from "@/components/form_item/match_venue.vue";
 export default {
-  components: {from_groups,groups_detail},
+  components: {from_groups,groups_detail,match_venue},
   props: {
     matchId: [String, Number]
   },
@@ -205,7 +216,16 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            width: 75
+            width: 180,
+            formatter:function (rowData){
+              if (rowData.time) {
+                var dt=new Date(rowData.time);
+              return dt.toLocaleDateString()+dt.toLocaleTimeString()
+              }else{
+                return '暂无报名时间'
+              }
+              
+            }
           },
           {
             label: "支付状态",
@@ -298,9 +318,21 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            formatter: function (row) {
-              return moment(row.time).format("YYYY-MM-DD");
+            width:180,
+            formatter:function (rowData){
+              if (rowData.time) {
+                var dt=new Date(rowData.time);
+              return dt.toLocaleDateString()+dt.toLocaleTimeString()
+              }else{
+                return '暂无报名时间'
+              }
+              
             }
+          },
+          {
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot:'slot_detail_item_matchInfo'
           },
           {
             label: "支付状态",
@@ -550,6 +582,11 @@ export default {
 
             type: "date"
           },
+          {
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot: "slot_form_item_matchInfo"
+          },
           // {
           //   label: "报名订单id",
           //   prop: "orderId",
@@ -581,6 +618,12 @@ export default {
         //动态数据字典，获取队伍信息
         this.cfList.detailItems =[
           {
+            label: "报名会员id",
+            prop: "memberId",
+            slot: "slot_detail_item_memberId"
+          },
+          
+          {
             label: "队伍信息",
             prop: "orderId",
             slot:'slot_detail_item_groups'
@@ -588,9 +631,20 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            formatter: function (row) {
-              return moment(row.time).format("YYYY-MM-DD");
+            formatter:function (rowData){
+              if (rowData.time) {
+                var dt=new Date(rowData.time);
+              return dt.toLocaleDateString()+dt.toLocaleTimeString()
+              }else{
+                return '暂无报名时间'
+              }
+              
             }
+          },
+          {
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot:'slot_detail_item_matchInfo'
           },
           {
             label: "支付状态",
@@ -639,7 +693,7 @@ export default {
           },
           {
             label: "队长",
-            prop: "teamDoc",
+            prop: "orderId",
             // slot: "slot_detail_item_memberId",
             width: 130,
             formatter: function(rowData) {
@@ -649,15 +703,23 @@ export default {
             }
           },
 
-          {
-            label: "订单号",
-            prop: "orderId",
-            width: 145
-          },
+          // {
+          //   label: "订单号",
+          //   prop: "orderId",
+          //   width: 145
+          // },
           {
             label: "报名时间",
             prop: "time",
-            width: 100
+            width: 180,formatter:function (rowData){
+              if (rowData.time) {
+                var dt=new Date(rowData.time);
+              return dt.toLocaleDateString()+dt.toLocaleTimeString()
+              }else{
+                return '暂无报名时间'
+              }
+              
+            }
           },
           {
             label: "支付状态",
@@ -700,7 +762,19 @@ export default {
               }
             },
           },
-        this.cfList.formItems.push({
+        this.cfList.formItems.push(
+          {
+            label: "报名会员id",
+            prop: "memberId",
+
+            type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_member",
+              keyLabel: "name",
+              keyValue: "P1"
+            },
+            rules: [{ required: true, message: "报名会员id" }]
+          },{
           label: "队伍信息",
           prop: "groups",
           slot:'slot_form_item_groups'
@@ -710,6 +784,11 @@ export default {
             prop: "time",
 
             type: "date"
+          },
+          {
+            label: "赛事信息",
+            prop: "cityVenueId",
+            slot: "slot_form_item_matchInfo"
           },
           // {
           //   label: "报名订单id",

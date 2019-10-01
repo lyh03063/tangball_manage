@@ -74,7 +74,8 @@ export default {
             matchId:this.matchId,
             name:'',
             member:[{name: "", sex: 1, phone: ''}],
-            orderId:'EO'+new Date().valueOf()
+            orderId:'EO'+new Date().valueOf(),
+            memberId:100
         }
       }
   }
@@ -93,7 +94,7 @@ export default {
     border:1px solid gray;
     padding-left: 20px;
     margin-bottom: 10px;
-    width: 60%;
+    width: 70%;
     border-radius: 10px;
 }
 .addButton{
