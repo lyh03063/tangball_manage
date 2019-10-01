@@ -15,7 +15,7 @@
 
       <!--队伍名称列配置-->
       <template v-slot:slot_column_matchResult="{row}">
-        {{row.groupMember}}
+
         <div class v-if="true">
           <el-popover placement="right" width="1000" v-model="tipVisibles[row.P1]">
             <!--下面要判断否则会不断计算-->
@@ -496,13 +496,13 @@ export default {
           label: "小组成员对阵",
           prop: "groupMember",
           slot: "slot_column_groupMember",
-          width: 100
+          width: 170
         },
         {
           label: "结果",
           prop: "matchResult",
           slot: "slot_column_matchResult",
-          width: 100
+          width: 180
         }
       ],
       //-------新增、修改表单字段数组-------
