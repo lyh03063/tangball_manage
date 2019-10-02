@@ -73,10 +73,10 @@
         <el-tab-pane label="成绩明细" name="third">
           <dm_list_data
             :cf="cfList"
-            ref="list1"
-            @after-add="updateAchList"
-            @after-modify="updateAchList"
-            @after-delete="updateAchList"
+            ref="listPersonAch"
+            @after-add="afterAddOrModify"
+            @after-modify="afterAddOrModify"
+            @after-delete="afterDelete"
             @after-search="afterSearchAchievement"
           >
             <!-- 记分卡插槽 -->
@@ -112,6 +112,7 @@ import score_card from "@/components/score_card";
 import match_confrontation from "@/components/bussiness/match_confrontation.vue";
 import match_team from "@/components/bussiness/match_team.vue";
 export default {
+  name: "match_achievement",
   components: { score_card, match_confrontation, match_team },
   props: {
     matchId: [String, Number]
@@ -223,21 +224,40 @@ export default {
       this.readySearch = true;
     },
     //函数：{更新小组成绩名次函数}
-    async updateAchList(data) {
-      if (data && data.groupNum) {
-        //如果{000}000
-        axios({
-          //请求接口
-          method: "post",
-          url: `${PUB.domain}/tangball/updateConfrontGroupScore`,
-          data: {
-            groupId: data.groupNum
-          } //传递参数
-        });
-        console.log("updateConfrontGroupScore###");
+    async afterDelete(arrData) {
+      let arrGroupNum = arrData.map(doc => doc.groupNum);//获取所有文档的组号
+      arrGroupNum = Array.from(new Set(arrGroupNum)); //去重
+
+      //循环异步
+      for await (const gn of arrGroupNum) {
+        await this.ajaxUpdateCGScore(gn); //调用：{ajax更新小组成绩名次函数}
       }
 
-      this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
+      this.$refs.listPersonAch.getDataList(); //调用：{列表组件查询函数}
+    },
+    /**
+     * @name ajax更新小组成绩名次函数
+     */
+    ajaxUpdateCGScore: function(groupNum) {
+      return axios({
+        //请求接口
+        method: "post",
+        url: `${PUB.domain}/tangball/updateConfrontGroupScore`,
+        data: {
+          matchId: this.matchId,
+          progressIndex: this.progressIndex,
+          roundNum: this.roundNum,
+          groupNum: groupNum
+        } //传递参数
+      });
+    },
+    //函数：新增或修改后的回调函数
+    async afterAddOrModify(data) {
+      console.log("afterAddOrModify");
+      if (data && data.groupNum) {
+        await this.ajaxUpdateCGScore(data.groupNum); //调用：{ajax更新小组成绩名次函数}
+      }
+      this.$refs.listPersonAch.getDataList(); //调用：{列表组件查询函数}
     },
     /**
      * @name 进行一次视图更新的函数
@@ -269,8 +289,8 @@ export default {
       );
       this.$set(this.cfList.formDataAddInit, "roundNum", this.roundNum);
       // Object.assign(this.cfList.formDataAddInit, dataInit);//默认新增参数---这种不会响应
-      if (!this.$refs.list1) return;
-      this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
+      if (!this.$refs.listPersonAch) return;
+      this.$refs.listPersonAch.getDataList(); //调用：{列表组件查询函数}
       this.goNextTick(); //调用：{进行一次视图更新的函数}
     },
     async getMatchData() {
@@ -286,12 +306,6 @@ export default {
         } //传递参数
       });
       this.matchInfo = data.Doc;
-
-      // lodash.set(
-      //   this.cfList,
-      //   `formItems[0].ajax.param.sheetRelation.findJson.matchId`,
-      //   this.matchId
-      // );
 
       //***修改teamId下拉框字段的ajax配置
       let itemIeamId = this.cfList.formItems.find(
@@ -325,9 +339,9 @@ export default {
         item => item.prop == "participantsId"
       );
 
-      itemParticipantsId.ajax.param = {
-        findJson: { phone: { $in: ["13100000001"] } }
-      };
+      // itemParticipantsId.ajax.param = {
+      //   findJson: { phone: { $in: ["13100000001"] } }
+      // };
 
       this.cfList.cfForm = {
         col_span: 12, //控制显示一行多列
