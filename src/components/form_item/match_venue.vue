@@ -22,7 +22,7 @@
       <div v-if="matchInfo.venue.length<=0">当前赛事暂无指定场馆</div>
     </div>
     <div v-else-if="matchInfo">
-      参赛场馆：{{nowVenue!={}?nowVenue.cityName:'暂未选择场馆--'}}{{nowVenue!={}?nowVenue.venueName:''}}
+      参赛场馆：{{nowVenue.cityName?nowVenue.cityName+'--':'暂未选择场馆'}}{{nowVenue.venueName?nowVenue.venueName:''}}
     </div>
   </div>
 </template>

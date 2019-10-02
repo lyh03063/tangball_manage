@@ -2,7 +2,7 @@
   <div >
       <div>队名：{{groups.name}}</div>
       <div v-for="(player,index) in groups.member" :key="index">
-          {{index==0?'队长：':'队员'+index+'：'}}{{player.name}}     ({{player.sex=='1'?'男':'女'}}/{{player.phone}})
+          {{index==0?'队长：':'队员'+index+'：'}}{{player.name}}     ({{player.sex=='1'?'男':'女'}}/{{player.phone?player.phone:'无'}})
         </div>
   </div>
 </template>
