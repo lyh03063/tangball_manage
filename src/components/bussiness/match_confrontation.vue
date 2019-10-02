@@ -9,36 +9,31 @@
       <dm_debug_item v-model="listAchievement" text="confrontation中的listAchievement" />
     </dm_debug_list>
 
-    <dm_list_data :cf="cfListMatchGroup">
+    <dm_list_data :cf="cfListMatchGroup" ref="listConfront">
       <template v-slot:slot_column_groupMember="{row}">{{getConfrontText(row)}}</template>
       <!-- <template v-slot:slot_column_matchResult="{row}"></template> -->
 
-      <!--队伍名称列配置-->
-      <template v-slot:slot_column_matchResult="{row}">
-
-        
-
+      <!--比赛结果列配置-->
+      <template v-slot:slot_column_matchResult2="{row}">
         <div class v-if="true">
-          <el-popover placement="right" width="1000" v-model="tipVisibles[row.P1]">
-            <!--下面要判断否则会不断计算-->
-            <div v-if="tipVisibles[row.P1]">
-              <!--小组对阵记分卡-->
-              <score_card_confront
-                :value="getGroupAch(row.groupNum)"
-                :dictMember="dictMember"
-                :isTeam="true"
-                :arrTeam="getArrConfrontTeam(row)"
-             
-              ></score_card_confront>
-            </div>
-            <el-link type="primary" slot="reference">{{getMatchResult(row)}}</el-link>
-          </el-popover>
+          <score_card_confront
+            :value="getGroupAch(row.groupNum)"
+            :dictMember="dictMember"
+            :isTeam="true"
+            :arrTeam="getArrConfrontTeam(row)"
+          ></score_card_confront>
         </div>
+      </template>
+
+      <!--比赛结果列配置-->
+      <template v-slot:slot_column_matchResult="{row}">
+        <el-link type="primary" @click="toggleFold(row)">{{getMatchResult(row)}}</el-link>
       </template>
     </dm_list_data>
   </div>
 </template>
 <script>
+let T;
 import score_card_confront from "@/components/bussiness/score_card_confront";
 export default {
   components: { score_card_confront },
@@ -401,20 +396,25 @@ export default {
     };
   },
   methods: {
+    //函数：{切换行展开的函数}}
+    toggleFold(row) {
+      T.$refs.listConfront.$refs.table.toggleRowExpansion(row);
+    },
     //函数：{获取指定组的个人成绩列表}
     getGroupAch(groupNum) {
-     return  this.listAchievement.filter(item=>item.groupNum==groupNum)
-     
+      return this.listAchievement.filter(item => item.groupNum == groupNum);
     },
-   
-     //函数：{获取小组对阵队伍数组}
+
+    //函数：{获取小组对阵队伍数组}
     getArrConfrontTeam(row) {
-      
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
       let teamName1 = lodash.get(this.dictEnroolTeam, `[${teamId1}].name`);
       let teamName2 = lodash.get(this.dictEnroolTeam, `[${teamId2}].name`);
-      return [{id:teamId1,name:teamName1,...row.groupMember[0]},{id:teamId2,name:teamName2,...row.groupMember[1]}];
+      return [
+        { id: teamId1, name: teamName1, ...row.groupMember[0] },
+        { id: teamId2, name: teamName2, ...row.groupMember[1] }
+      ];
       // return [{ id: 19, name: "AA11" }, { id: 20, name: "BB队" }]
     },
     //函数：{获取当前分组的对阵文本说明函数}
@@ -427,9 +427,8 @@ export default {
     },
     //函数：{获取当前分组的比赛结果函数}
     getMatchResult(row) {
-       let score1 = lodash.get(row, `groupMember[0].teamHoleScoreTotal`);
-let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
-
+      let score1 = lodash.get(row, `groupMember[0].teamHoleScoreTotal`);
+      let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
 
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
@@ -462,6 +461,7 @@ let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
   },
 
   created() {
+    T = this;
     //合并对象
 
     Object.assign(this.cfListMatchGroup, {
@@ -469,6 +469,7 @@ let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
       isShowSearchForm: false, //隐藏查询表单
       isShowBreadcrumb: false, //隐藏面包屑导航
       isShowPageLink: false, //隐藏分页
+      expand: true, //展开行
       sortJsonDefault: {
         groupNum: 1
       },
@@ -485,6 +486,14 @@ let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
         progressIndex: this.progressIndex,
         roundNum: this.roundNum
       },
+      //展开行配置
+      expands: [
+        {
+          label: "比赛结果",
+          prop: "matchResult",
+          slot: "slot_column_matchResult2"
+        }
+      ],
       columns: [
         {
           label: "组号",

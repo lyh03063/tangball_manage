@@ -93,6 +93,7 @@
 
 <script>
 export default {
+  name:"match_card_confront",
   //isTeam为true时启用团体模式，multiple为true时启用多人模式
   props: {
     value: {},

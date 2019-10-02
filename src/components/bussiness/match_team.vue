@@ -49,6 +49,7 @@
 </template>
 <script>
 export default {
+  name:"match_team",
   components: {},
   props: ["matchId", "progressIndex", "roundNum"], //（需要确定赛事，赛段，第几轮）
 
