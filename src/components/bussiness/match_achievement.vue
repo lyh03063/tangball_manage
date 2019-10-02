@@ -49,6 +49,7 @@
         <el-tab-pane label="领先榜" name="first">
           <match_team
             :matchId="matchId"
+             :matchInfo="matchInfo"
             :progressIndex="progressIndex"
             :roundNum="roundNum"
             @after-search="afterSearchEnroolTeam"
@@ -59,6 +60,7 @@
         <el-tab-pane label="对阵分组" name="second">
           <match_confrontation
             :matchId="matchId"
+            :matchInfo="matchInfo"
             :progressIndex="progressIndex"
             :roundNum="roundNum"
             :dictMember="dictMember"

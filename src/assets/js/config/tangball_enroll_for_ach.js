@@ -51,10 +51,8 @@ Object.assign(objConfig,{
     {
       label: "总分",
       prop: "score",
-      formatter:function(row){
-        return lodash.get(row, `score.teamHoleScoreTotal`,"---");
-
-      },
+      slot:"slot_column_scoreTotal",
+     
 
       "min-width": "100",
     },

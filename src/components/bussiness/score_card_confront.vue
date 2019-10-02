@@ -3,8 +3,10 @@
     <dm_debug_list>
       <dm_debug_item v-model="achievementList" text="achievementList" />
       <dm_debug_item v-model="arrTeamNeed" text="arrTeamNeed" />
+      <dm_debug_item v-model="matchInfo.ruleId" text="赛事规则" />
     </dm_debug_list>
 
+    <div class>当前计分规则：{{scoreRuleName}}</div>
     <table class="n-table">
       <tr>
         <td width="80px" class="bgColor">洞号</td>
@@ -13,7 +15,6 @@
         <td v-for="index in 9" :key="index+10" width="40px" class="bgColor">{{index+9}}</td>
         <td rowspan="3" class="bgColor">右九</td>
         <td rowspan="3" class="bgColor">总杆数</td>
-      
       </tr>
       <tr>
         <td width class="bgColor">距离</td>
@@ -30,47 +31,45 @@
         <td v-for="index in 9" :key="index+9" class="bgColor">1</td>
         <td class="bgColor">9</td>
         <td class="bgColor">18</td>
-   
       </tr>
 
       <template class v-for="(teamEach) in arrTeamNeed">
         <tr class :key="teamEach.id">
-          <td width class="bgColor FWB allScore td-holeScore">{{teamEach.name}}
-             <i
-              class="holeScore"
-            >比洞积分</i>
+          <td width class="bgColor FWB allScore td-holeScore">
+            {{teamEach.name}}
+            <i class="holeScore">积分</i>
           </td>
-          <td class=" td-holeScore" v-for="index in 9" :key="index">
+          <td class="td-holeScore" v-for="index in 9" :key="index">
             {{$lodash.get(teamEach, `dictScore[${index}].score`)}}
             <i
               class="holeScore"
-            >{{$lodash.get(teamEach, `dictScore[${index}].teamHoleScore`)}}</i>
+            >
+            {{getTeamHoleSingle(teamEach,index) }}
+            </i>
           </td>
-          <td class="allScore td-holeScore">{{sumLeftPoles(teamEach)}}
-            <i
-              class="holeScore"
-            >{{sumLeftTeamHole(teamEach)}}</i>
+          <td class="allScore td-holeScore">
+            {{sumLeftPoles(teamEach)}}
+            <i class="holeScore">{{sumLeftTeamHole(teamEach)}}</i>
           </td>
-          <td class=" td-holeScore" v-for="index in 9" :key="index+10">
+          <td class="td-holeScore" v-for="index in 9" :key="index+10">
             {{$lodash.get(teamEach, `dictScore[${index+9}].score`)}}
             <i
               class="holeScore"
-            >{{$lodash.get(teamEach, `dictScore[${index+9}].teamHoleScore`)}}</i>
+            >
+            {{getTeamHoleSingle(teamEach,index+9) }}
+            </i>
           </td>
-          <td class="allScore td-holeScore">{{sumRightPoles(teamEach)}}
-
-             <i
+          <td class="allScore td-holeScore">
+            {{sumRightPoles(teamEach)}}
+            <i class="holeScore">{{sumRightTeamHole(teamEach)}}</i>
+          </td>
+          <td class="allScore td-holeScore">
+            {{sumLeftPoles(teamEach)+sumRightPoles(teamEach)}}
+            <i
               class="holeScore"
-            >{{sumRightTeamHole(teamEach)}}</i>
+            >{{getTeamHoleTotal(teamEach)}}</i>
           </td>
-          <td class="allScore td-holeScore">{{sumLeftPoles(teamEach)+sumRightPoles(teamEach)}}
-             <i
-              class="holeScore"
-            >{{teamEach.teamHoleScoreTotal}}</i>
-          </td>
-          
         </tr>
-
 
         <tr v-for="(docAch) in teamEach.personAchList" :key="docAch.P1">
           <td width class="bgColor">&nbsp;&nbsp;{{dictMember[docAch.participantsId]||"未获取"}}</td>
@@ -83,7 +82,6 @@
           >{{$lodash.get(docAch, `dictScore[${index+9}].score`)}}</td>
           <td class="allScore">{{sumRightPoles(docAch)}}</td>
           <td class="allScore">{{sumLeftPoles(docAch)+sumRightPoles(docAch)}}</td>
-          
         </tr>
       </template>
     </table>
@@ -92,11 +90,18 @@
 
 
 <script>
+let T;
 export default {
-  name:"match_card_confront",
+  name: "match_card_confront",
   //isTeam为true时启用团体模式，multiple为true时启用多人模式
   props: {
     value: {},
+    matchInfo: {
+      //赛事信息
+      default() {
+        return {};
+      }
+    },
     readOnly: {},
     isTeam: {},
     arrTeam: {
@@ -116,7 +121,16 @@ export default {
     }
   }, //readOnly  为是否是只读模式
   // props: ["value", "readOnly", "isTeam", "arrTeamNeed"], //readOnly  为是否是只读模式
-  computed: {},
+  computed: {
+    //规则名称
+    scoreRuleName() {
+      let dict = {
+        1: "比洞积分赛（最佳成绩法）",
+        2: "比洞积分赛（成绩加和法）"
+      };
+      return dict[T.matchInfo.ruleId];
+    }
+  },
   data() {
     return {
       arrTeamNeed: this.arrTeam,
@@ -154,9 +168,27 @@ export default {
     };
   },
   methods: {
-     // 计算左九洞比洞分数
+    // 获取单洞积分
+    getTeamHoleSingle(teamDoc,index) {
+      let dict = {
+        1: "teamHoleScore",
+        2: "teamHoleScoreForAdd"
+      };
+
+      let key = dict[T.matchInfo.ruleId];
+      return lodash.get(teamDoc, `dictScore[${index}].${key}`)
+    },
+    // 获取比洞总积分
+    getTeamHoleTotal(teamDoc) {
+      let dict = {
+        1: "teamHoleScoreTotal",
+        2: "teamHoleScoreForAddTotal"
+      };
+      let key = dict[T.matchInfo.ruleId];
+      return teamDoc[key];
+    },
+    // 计算左九洞比洞分数
     sumLeftTeamHole(teamDoc) {
-      
       let score = 0;
       for (var i = 1; i <= 9; i++) {
         score += lodash.get(teamDoc, `dictScore[${i}].teamHoleScore`, 0);
@@ -165,10 +197,9 @@ export default {
     },
     // 计算右九洞比洞分数
     sumRightTeamHole(teamDoc) {
-      
       let score = 0;
       for (var i = 1; i <= 9; i++) {
-        score += lodash.get(teamDoc, `dictScore[${i+9}].teamHoleScore`, 0);
+        score += lodash.get(teamDoc, `dictScore[${i + 9}].teamHoleScore`, 0);
       }
       return score;
     },
@@ -191,7 +222,9 @@ export default {
     }
   },
   mounted() {},
-  created() {}
+  created() {
+    T = this;
+  }
 };
 </script>
 
@@ -200,12 +233,11 @@ table tr td {
   text-align: center;
   height: 40px;
   line-height: 40px;
-  
+
   padding: 0px;
 }
 .bgColor {
   background-color: #f8f8f8;
- 
 }
 
 .score-box {
@@ -225,7 +257,7 @@ table tr td {
   font-weight: 700;
 }
 .allScore {
-  background-color: #f8f8f8;;
+  background-color: #f8f8f8;
 
   font-size: 14px;
   font-weight: 700;

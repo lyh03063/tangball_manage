@@ -18,6 +18,7 @@
         <div class v-if="true">
           <score_card_confront
             :value="getGroupAch(row.groupNum)"
+            :matchInfo="matchInfo"
             :dictMember="dictMember"
             :isTeam="true"
             :arrTeam="getArrConfrontTeam(row)"
@@ -29,6 +30,10 @@
       <template v-slot:slot_column_matchResult="{row}">
         <el-link type="primary" @click="toggleFold(row)">{{getMatchResult(row)}}</el-link>
       </template>
+      <!--总杆数结果列配置-->
+      <template v-slot:slot_column_matchPolesResult="{row}">
+        {{getMatchPolesResult(row)}}
+      </template>
     </dm_list_data>
   </div>
 </template>
@@ -39,6 +44,7 @@ export default {
   components: { score_card_confront },
   props: [
     "matchId",
+    "matchInfo",
     "progressIndex",
     "roundNum",
     "dictEnroolTeam",
@@ -402,15 +408,15 @@ export default {
     },
     //函数：{获取指定组的个人成绩列表}
     getGroupAch(groupNum) {
-      return this.listAchievement.filter(item => item.groupNum == groupNum);
+      return T.listAchievement.filter(item => item.groupNum == groupNum);
     },
 
     //函数：{获取小组对阵队伍数组}
     getArrConfrontTeam(row) {
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
-      let teamName1 = lodash.get(this.dictEnroolTeam, `[${teamId1}].name`);
-      let teamName2 = lodash.get(this.dictEnroolTeam, `[${teamId2}].name`);
+      let teamName1 = lodash.get(T.dictEnroolTeam, `[${teamId1}].name`);
+      let teamName2 = lodash.get(T.dictEnroolTeam, `[${teamId2}].name`);
       return [
         { id: teamId1, name: teamName1, ...row.groupMember[0] },
         { id: teamId2, name: teamName2, ...row.groupMember[1] }
@@ -421,27 +427,25 @@ export default {
     getConfrontText(row) {
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
-      let teamName1 = lodash.get(this.dictEnroolTeam, `[${teamId1}].name`);
-      let teamName2 = lodash.get(this.dictEnroolTeam, `[${teamId2}].name`);
+      let teamName1 = lodash.get(T.dictEnroolTeam, `[${teamId1}].name`);
+      let teamName2 = lodash.get(T.dictEnroolTeam, `[${teamId2}].name`);
       return `${teamName1} VS ${teamName2}`;
     },
-    //函数：{获取当前分组的比赛结果函数}
-    getMatchResult(row) {
-      let score1 = lodash.get(row, `groupMember[0].teamHoleScoreTotal`);
-      let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
+    //函数：{获取当前分组的总杆数结果函数}
+    getMatchPolesResult(row) {
+     
 
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
       //第1队的个人成绩列表
-      let arrAchievement1 = this.listAchievement.filter(
+      let arrAchievement1 = T.listAchievement.filter(
         doc => doc.teamId == teamId1 && doc.groupNum == row.groupNum
       );
       //第2队的个人成绩列表
-      let arrAchievement2 = this.listAchievement.filter(
+      let arrAchievement2 = T.listAchievement.filter(
         doc => doc.teamId == teamId2 && doc.groupNum == row.groupNum
       );
-      console.log("arrAchievement1:", arrAchievement1);
-      console.log("arrAchievement2:", arrAchievement2);
+  
 
       //总杆数reduce求和，指定初始n值为0
 
@@ -454,7 +458,21 @@ export default {
         0
       );
 
-      return `比洞分${score1} : ${score2} - 总杆数 ${matchScoreTeam1} : ${matchScoreTeam2}`;
+      return `${matchScoreTeam1} : ${matchScoreTeam2}`;
+
+      // return `${matchScoreTeam1} : ${matchScoreTeam2}`;
+    },
+    //函数：{获取当前分组的比赛结果函数}
+    getMatchResult(row) {
+      let dict = {
+        1: "teamHoleScoreTotal",
+        2: "teamHoleScoreForAddTotal"
+      };
+      let key = dict[T.matchInfo.ruleId];
+
+      let score1 = lodash.get(row, `groupMember[0].${key}`);
+      let score2 = lodash.get(row, `groupMember[1].${key}`);
+      return `${score1} : ${score2} `;
 
       // return `${matchScoreTeam1} : ${matchScoreTeam2}`;
     }
@@ -464,7 +482,7 @@ export default {
     T = this;
     //合并对象
 
-    Object.assign(this.cfListMatchGroup, {
+    Object.assign(T.cfListMatchGroup, {
       focusMenu: false,
       isShowSearchForm: false, //隐藏查询表单
       isShowBreadcrumb: false, //隐藏面包屑导航
@@ -475,16 +493,16 @@ export default {
       },
       //默认查询参数
       findJsonDefault: {
-        matchId: this.matchId,
-        progressIndex: this.progressIndex,
-        roundNum: this.roundNum
+        matchId: T.matchId,
+        progressIndex: T.progressIndex,
+        roundNum: T.roundNum
       },
 
       //新增表单初始赋值
       formDataAddInit: {
-        matchId: this.matchId,
-        progressIndex: this.progressIndex,
-        roundNum: this.roundNum
+        matchId: T.matchId,
+        progressIndex: T.progressIndex,
+        roundNum: T.roundNum
       },
       //展开行配置
       expands: [
@@ -507,10 +525,16 @@ export default {
           width: 170
         },
         {
-          label: "比赛结果",
+          label: "积分结果",
           prop: "matchResult",
           slot: "slot_column_matchResult",
-          width: 280
+          width: 180
+        },
+        {
+          label: "总杆数对比",
+          prop: "matchResult",
+          slot: "slot_column_matchPolesResult",
+          width: 180
         }
       ],
       //-------新增、修改表单字段数组-------
