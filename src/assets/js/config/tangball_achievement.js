@@ -15,13 +15,35 @@ export default {
             detail: "/crossDetail?page=tangball_achievement", //查看单条数据详情接口，在修改表单或详情弹窗用到
             delete: "/crossDelete?page=tangball_achievement" //删除接口
           },
+          dynamicDict: [//动态数据字典-会员
+            {
+              page: "tangball_member",
+              populateColumn: "memberDoc",
+              idColumn: "participantsId",
+              idColumn2: "P1",
+            },
+            {
+              page: "tangball_match",
+              populateColumn: "matchDoc",
+              idColumn: "matchId",
+              idColumn2: "P1",
+            }
+          ],
           //-------列配置数组-------
           columns: [
+            // {
+            //   label: "参赛人Id",
+            //   prop: "participantsId",
+            //   slot: "slot_detail_item_participantsId",
+            //   width: 120
+            // },
             {
-              label: "参赛人Id",
+              label: "参赛人",
               prop: "participantsId",
-              slot: "slot_detail_item_participantsId",
-              width: 120
+              width: 120,
+              formatter: function(rowData) {
+                 return lodash.get(rowData,"memberDoc.name","")+`(${rowData.participantsId})`
+               }
             },
             {
               label: "所属球队",
@@ -30,8 +52,11 @@ export default {
             {
               label: "赛事ID",
               prop: "matchId",
-              slot: "slot_detail_item_matchId",
-              width: 160
+              // slot: "slot_detail_item_matchId",
+              width: 160,
+              formatter: function(rowData) {
+                return lodash.get(rowData,"matchDoc.matchName","")+`(${rowData.matchId})`
+              }
             },
             {
                 label: "赛段",

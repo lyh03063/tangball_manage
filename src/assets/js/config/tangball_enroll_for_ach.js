@@ -25,9 +25,9 @@ Object.assign(objConfig,{
     }
   ], //隐藏工具栏
  
-  // findJsonDefault: {
-  //   matchId: this.matchId
-  // },
+  sortJsonDefault: {
+    "score.teamHoleScoreTotal": -1
+  },
   // //新增表单初始赋值
   // formDataAddInit: {
   //   matchId: this.matchId
@@ -36,7 +36,7 @@ Object.assign(objConfig,{
   //-------列配置数组-------
   columns: [
     {
-      label: "球队名称1",
+      label: "球队名称",
       prop: "team",
       requireProp: ["orderId"], //依赖订单号
       slot: "slot_detail_item_teamName",
@@ -49,8 +49,12 @@ Object.assign(objConfig,{
       width: 130
     },
     {
-      label: "成绩",
-      prop: "aaa",
+      label: "总分",
+      prop: "score",
+      formatter:function(row){
+        return lodash.get(row, `score.teamHoleScoreTotal`,"---");
+
+      },
 
       "min-width": "100",
     },

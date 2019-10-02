@@ -10,6 +10,15 @@ export default {
         isShowOperateColumn: false, //隐藏操作列
         isShowToolBar: false, //隐藏工具栏
         formDataAddInit: {},//表单默认新增数据注册
+
+        dynamicDict: [//动态数据字典-会员
+          {
+            page: "tangball_member",
+            populateColumn: "memberDoc",
+            idColumn: "participantsId",
+            idColumn2: "P1",
+          }
+        ],
         //默认排序参数
         sortJsonDefault: {
           matchScore: 1//按比分降序
@@ -17,10 +26,13 @@ export default {
         //-------列配置数组-------
         columns: [
           {
-            label: "参赛人Id",
+            label: "参赛人",
             prop: "participantsId",
-            slot: "slot_detail_item_participantsId",
-            width: 120
+            // slot: "slot_detail_c_participantsId",
+            width: 120,
+            formatter: function(rowData) {
+               return lodash.get(rowData,"memberDoc.name","")+`(${rowData.participantsId})`
+             }
           },
           {
             label: "所属球队",
@@ -30,7 +42,7 @@ export default {
           {
             label: "比赛开始时间",
             prop: "timeStart",
-            width: 175,
+            width: 155,
             formatter: function (row) {
               return moment(row.timeStart).format("YYYY-MM-DD HH:mm");
             }
@@ -65,17 +77,17 @@ export default {
             prop: "matchScore",
             width: 90
           },
-          {
-            label: "成绩记分",
-            prop: "scoreList",
-           
-          },
+          // {
+          //   label: "成绩记分",
+          //   prop: "scoreList",
+          //   width: 90
+          // },
           {
             label: "名次",
             prop: "ranking",
             "min-width": 70
           },
-         
+
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
@@ -84,6 +96,7 @@ export default {
             prop: "teamId",
             type: "select",
             ajax: {
+              param:{aaa:123},
               url: "/crossList?page=tangball_team",
               keyLabel: "name",
               keyValue: "P1"

@@ -6,7 +6,8 @@
       <dm_debug_item v-model="cfList.formDataAddInit" text="新增成绩表单默认参数" />
       <dm_debug_item v-model="roundNum" text="轮数" />
       <dm_debug_item v-model="dictEnroolTeam" text="报名的队伍数据字典" />
-       <dm_debug_item v-model="dictAchievement" text="成绩数据字典" />
+      <dm_debug_item v-model="dictAchievement" text="成绩数据字典" />
+      <dm_debug_item v-model="dictMember" text="当前轮次比赛的球员数据字典" />
       <!-- <dm_debug_item v-model="progressCurr" text="当前选中赛段数据" /> -->
       <dm_debug_item
         v-model="cfList.formItems[0].ajax.param.sheetRelation.findJson"
@@ -43,56 +44,66 @@
           >第{{item}}轮</el-radio-button>
         </el-radio-group>
       </div>
-      <match_confrontation
-        :matchId="matchId"
-        :progressIndex="progressIndex"
-        :roundNum="roundNum"
-        :dictEnroolTeam="dictEnroolTeam"
-        :dictAchievement="dictAchievement"
-        :listAchievement="listAchievement"
-        v-if="readySearch&&readyAchievement"
-      >
-        <!--比赛对阵列表组件-->
-      </match_confrontation>
-      <dm_space height="10"></dm_space>
-      <match_team
-        :matchId="matchId"
-        :progressIndex="progressIndex"
-        :roundNum="roundNum"
-        
-        @after-search="afterSearchEnroolTeam"
-      >
-        <!--比赛队伍列表组件-->
-      </match_team>
-      <dm_list_data
-        :cf="cfList"
-        ref="list1"
-        @after-add="updateList"
-        @after-modify="updateList"
-        @after-delete="updateList"
-        @after-search="afterSearchAchievement"
-      >
-        <!-- 记分卡插槽 -->
-        <template v-slot:slot_form_item_scoreList="{formData}">
-          <score_card v-model="formData.scoreList" :readOnly="false"></score_card>
-        </template>
-        <!-- 记分详情弹窗插槽 -->
-        <template v-slot:slot_detail_item_scoreList="{row}">
-          <score_card v-model="row.scoreList" :readOnly="true"></score_card>
-        </template>
-        <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
-        <template v-slot:slot_detail_item_participantsId="{row}">
-          <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
-            <template v-slot:default="{doc}">
-              <div class v-if="doc && doc.P1">
-                {{doc.P1}}
-                (
-                {{doc.name}})
-              </div>
+
+      <el-tabs v-model="activeName" type="card">
+        <el-tab-pane label="领先榜" name="first">
+          <match_team
+            :matchId="matchId"
+            :progressIndex="progressIndex"
+            :roundNum="roundNum"
+            @after-search="afterSearchEnroolTeam"
+          >
+            <!--比赛队伍列表组件-->
+          </match_team>
+        </el-tab-pane>
+        <el-tab-pane label="对阵分组" name="second">
+          <match_confrontation
+            :matchId="matchId"
+            :progressIndex="progressIndex"
+            :roundNum="roundNum"
+            :dictMember="dictMember"
+            :dictEnroolTeam="dictEnroolTeam"
+            :dictAchievement="dictAchievement"
+            :listAchievement="listAchievement"
+            v-if="readySearch&&readyAchievement"
+          >
+            <!--比赛对阵列表组件-->
+          </match_confrontation>
+        </el-tab-pane>
+        <el-tab-pane label="成绩明细" name="third">
+          <dm_list_data
+            :cf="cfList"
+            ref="list1"
+            @after-add="updateAchList"
+            @after-modify="updateAchList"
+            @after-delete="updateAchList"
+            @after-search="afterSearchAchievement"
+          >
+            <!-- 记分卡插槽 -->
+            <template v-slot:slot_form_item_scoreList="{formData}">
+              <score_card v-model="formData.scoreList" :readOnly="false"></score_card>
             </template>
-          </dm_ajax_populate>
-        </template>
-      </dm_list_data>
+            <!-- 记分详情弹窗插槽 -->
+            <template v-slot:slot_detail_item_scoreList="{row}">
+              <score_card v-model="row.scoreList" :readOnly="true"></score_card>
+            </template>
+            <!--详情弹窗的 participantsId 字段组件，注意插槽命名-->
+            <template v-slot:slot_detail_item_participantsId="{row}">
+              <dm_ajax_populate :id="row.participantsId" populateKey="name" page="tangball_member">
+                <template v-slot:default="{doc}">
+                  <div class v-if="doc && doc.P1">
+                    {{doc.P1}}
+                    (
+                    {{doc.name}})
+                  </div>
+                </template>
+              </dm_ajax_populate>
+            </template>
+          </dm_list_data>
+        </el-tab-pane>
+      </el-tabs>
+
+      <dm_space height="10"></dm_space>
     </div>
   </div>
 </template>
@@ -111,17 +122,18 @@ export default {
   ],
   data() {
     return {
+      activeName: "first", //选项卡激活的名称
+      dictMember: null, //当前轮次比赛的球员数据字典
       dictEnroolTeam: null, //报名的队伍数据字典
       dictAchievement: null, //当前赛段和轮次的成绩数据字典
       listAchievement: null, //当前赛段和轮次的成绩列表
-      readyAchievement:false,//成绩列表是否加载完成
+      readyAchievement: false, //成绩列表是否加载完成
       readySearch: false, //是否已经准备查询条件：赛段，轮数,数据字典等
       isEdit: true,
       progressIndex: 1, //赛段索引
       roundNum: 1, //轮数
       matchInfo: null, //赛事信息
       cfList: {
-        
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
         sortJsonDefault: {
           groupNum: 1,
@@ -186,11 +198,22 @@ export default {
     afterSearchAchievement(list) {
       console.log("list:####", list);
 
-     this.listAchievement=list;
+      this.listAchievement = list;
       this.dictAchievement = lodash.keyBy(list, "P1"); //报名的队伍的数据字典
       this.readyAchievement = true;
+
+      //当前轮次比赛的球员数据字典
+      let dictMember = {};
+      list.forEach(achEach => {
+        //循环：{000数组}
+        dictMember[achEach.participantsId] = lodash.get(
+          achEach,
+          `memberDoc.name`
+        );
+      });
+      this.dictMember = dictMember;
     },
-//队伍列表加载完成后的回调函数
+    //队伍列表加载完成后的回调函数
     afterSearchEnroolTeam(list) {
       // console.log("list:####", list);
 
@@ -200,7 +223,20 @@ export default {
       this.readySearch = true;
     },
     //函数：{更新小组成绩名次函数}
-    async updateList(pa) {
+    async updateAchList(data) {
+      if (data && data.groupNum) {
+        //如果{000}000
+        axios({
+          //请求接口
+          method: "post",
+          url: `${PUB.domain}/tangball/updateConfrontGroupScore`,
+          data: {
+            groupId: data.groupNum
+          } //传递参数
+        });
+        console.log("updateConfrontGroupScore###");
+      }
+
       this.$refs.list1.getDataList(); //调用：{列表组件查询函数}
     },
     /**
@@ -238,6 +274,7 @@ export default {
       this.goNextTick(); //调用：{进行一次视图更新的函数}
     },
     async getMatchData() {
+      let T = this;
       if (!this.matchId) return;
       //函数：{根据赛事id，ajax获取赛事信息函数}
       let { data } = await axios({
@@ -249,11 +286,71 @@ export default {
         } //传递参数
       });
       this.matchInfo = data.Doc;
-      lodash.set(
-        this.cfList,
-        `formItems[0].ajax.param.sheetRelation.findJson.matchId`,
-        this.matchId
+
+      // lodash.set(
+      //   this.cfList,
+      //   `formItems[0].ajax.param.sheetRelation.findJson.matchId`,
+      //   this.matchId
+      // );
+
+      //***修改teamId下拉框字段的ajax配置
+      let itemIeamId = this.cfList.formItems.find(
+        item => item.prop == "teamId"
       );
+      itemIeamId.ajax = {
+        url: "/crossListRelation",
+        keyLabel: "name",
+        keyValue: "P1",
+        param: {
+          needRelation: "1",
+          columnItem: "orderId",
+          columnTarget: "orderId",
+          sheetRelation: {
+            page: "tangball_enroll",
+            findJson: {
+              //这两个参数在实际使用时需要改造
+              matchId: this.matchId
+            }
+          },
+          sheetTarget: {
+            page: "tangball_team",
+            pageSize: "2000",
+            findJson: {}
+          }
+        }
+      };
+
+      //***修改participantsId下拉框字段的ajax配置
+      let itemParticipantsId = this.cfList.formItems.find(
+        item => item.prop == "participantsId"
+      );
+
+      itemParticipantsId.ajax.param = {
+        findJson: { phone: { $in: ["13100000001"] } }
+      };
+
+      this.cfList.cfForm = {
+        col_span: 12, //控制显示一行多列
+        watch: {
+          //传入监听器
+          async teamId(newVal, oldName) {
+            console.log("watch-teamId变化####");
+
+            let { member } = T.dictEnroolTeam[newVal];
+
+            let arrPhone = member.map(doc => doc.phone);
+            console.log("arrPhone:", arrPhone);
+            // delete itemParticipantsId.ajax;
+            // itemParticipantsId.options = [];
+
+            itemParticipantsId.ajax.param = {
+              findJson: { phone: { $in: arrPhone } }
+            };
+            console.log("this.$forceUpdate####");
+            this.$forceUpdate(); //***vue 数据层级有点深的时候，会出现无法渲染的问题
+          }
+        }
+      };
     }
   },
   created() {

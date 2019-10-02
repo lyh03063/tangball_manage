@@ -5,7 +5,7 @@
       <dm_debug_item v-model="arrTeamNeed" text="arrTeamNeed" />
     </dm_debug_list>
 
-    <table border="1" cellspacing="0">
+    <table class="n-table">
       <tr>
         <td width="80px" class="bgColor">洞号</td>
         <td v-for="index in 9" :key="index" width="40px" class="bgColor">{{index}}</td>
@@ -13,10 +13,7 @@
         <td v-for="index in 9" :key="index+10" width="40px" class="bgColor">{{index+9}}</td>
         <td rowspan="3" class="bgColor">右九</td>
         <td rowspan="3" class="bgColor">总杆数</td>
-        <td rowspan="3" class="bgColor">
-          比洞成绩
-          <br />（按最优）
-        </td>
+      
       </tr>
       <tr>
         <td width class="bgColor">距离</td>
@@ -33,43 +30,60 @@
         <td v-for="index in 9" :key="index+9" class="bgColor">1</td>
         <td class="bgColor">9</td>
         <td class="bgColor">18</td>
-        <td class="bgColor">18</td>
+   
       </tr>
 
       <template class v-for="(teamEach) in arrTeamNeed">
         <tr class :key="teamEach.id">
-          <td width class="bgColor FWB">{{teamEach.name}}</td>
-          <td class="PSR td-holeScore" v-for="index in 9" :key="index">
+          <td width class="bgColor FWB allScore td-holeScore">{{teamEach.name}}
+             <i
+              class="holeScore"
+            >比洞积分</i>
+          </td>
+          <td class=" td-holeScore" v-for="index in 9" :key="index">
             {{$lodash.get(teamEach, `dictScore[${index}].score`)}}
             <i
               class="holeScore"
             >{{$lodash.get(teamEach, `dictScore[${index}].teamHoleScore`)}}</i>
           </td>
-          <td class="allScore">{{sumLeft(teamEach)}}</td>
-          <td class="PSR td-holeScore" v-for="index in 9" :key="index+10">
+          <td class="allScore td-holeScore">{{sumLeftPoles(teamEach)}}
+            <i
+              class="holeScore"
+            >{{sumLeftTeamHole(teamEach)}}</i>
+          </td>
+          <td class=" td-holeScore" v-for="index in 9" :key="index+10">
             {{$lodash.get(teamEach, `dictScore[${index+9}].score`)}}
             <i
               class="holeScore"
             >{{$lodash.get(teamEach, `dictScore[${index+9}].teamHoleScore`)}}</i>
           </td>
-          <td class="allScore">{{sumRight(teamEach)}}</td>
-          <td class="allScore">{{sumLeft(teamEach)+sumRight(teamEach)}}</td>
-          <td class="allScore">{{teamEach.teamHoleScoreTotal}}</td>
+          <td class="allScore td-holeScore">{{sumRightPoles(teamEach)}}
+
+             <i
+              class="holeScore"
+            >{{sumRightTeamHole(teamEach)}}</i>
+          </td>
+          <td class="allScore td-holeScore">{{sumLeftPoles(teamEach)+sumRightPoles(teamEach)}}
+             <i
+              class="holeScore"
+            >{{teamEach.teamHoleScoreTotal}}</i>
+          </td>
+          
         </tr>
 
-        <!-- 不是只读模式 v-if="!readOnly"  -->
-        <tr v-for="(docAch) in teamEach.memberList" :key="docAch.P1">
+
+        <tr v-for="(docAch) in teamEach.personAchList" :key="docAch.P1">
           <td width class="bgColor">&nbsp;&nbsp;{{dictMember[docAch.participantsId]||"未获取"}}</td>
           <td v-for="index in 9" :key="index">{{$lodash.get(docAch, `dictScore[${index}].score`)}}</td>
-          <td class="allScore">{{sumLeft(docAch)}}</td>
+          <td class="allScore">{{sumLeftPoles(docAch)}}</td>
 
           <td
             v-for="index in 9"
             :key="index+10"
           >{{$lodash.get(docAch, `dictScore[${index+9}].score`)}}</td>
-          <td class="allScore">{{sumRight(docAch)}}</td>
-          <td class="allScore">{{sumLeft(docAch)+sumRight(docAch)}}</td>
-          <td class="allScore"></td>
+          <td class="allScore">{{sumRightPoles(docAch)}}</td>
+          <td class="allScore">{{sumLeftPoles(docAch)+sumRightPoles(docAch)}}</td>
+          
         </tr>
       </template>
     </table>
@@ -94,9 +108,9 @@ export default {
       type: Object,
       default() {
         return {
-        91: "孙悟空",
-        98: "白骨精"
-      };
+          91: "孙悟空",
+          98: "白骨精"
+        };
       }
     }
   }, //readOnly  为是否是只读模式
@@ -104,7 +118,7 @@ export default {
   computed: {},
   data() {
     return {
-      arrTeamNeed:this.arrTeam,
+      arrTeamNeed: this.arrTeam,
       elseScore: "", //其他杆数
       showElseScoreDialog: false, //设置其他杆数key
       showScoreDialog: false, //设置1-8杆数key
@@ -139,8 +153,26 @@ export default {
     };
   },
   methods: {
+     // 计算左九洞比洞分数
+    sumLeftTeamHole(teamDoc) {
+      
+      let score = 0;
+      for (var i = 1; i <= 9; i++) {
+        score += lodash.get(teamDoc, `dictScore[${i}].teamHoleScore`, 0);
+      }
+      return score;
+    },
+    // 计算右九洞比洞分数
+    sumRightTeamHole(teamDoc) {
+      
+      let score = 0;
+      for (var i = 1; i <= 9; i++) {
+        score += lodash.get(teamDoc, `dictScore[${i+9}].teamHoleScore`, 0);
+      }
+      return score;
+    },
     // 计算左九洞总杆数
-    sumLeft(docAch) {
+    sumLeftPoles(docAch) {
       console.log("docAch:111", docAch);
       let score = 0;
       for (var i = 1; i <= 9; i++) {
@@ -149,117 +181,16 @@ export default {
       return score;
     },
     // 计算右九洞总杆数
-    sumRight(docAch) {
+    sumRightPoles(docAch) {
       let score = 0;
       for (var i = 10; i <= 18; i++) {
         score += lodash.get(docAch, `dictScore[${i}].score`, 0);
       }
       return score;
-    },
-
-    // 传入单洞的两队成绩并返回两队得分函数
-    getTeamHoleAch(arrAch1, arrAch2) {
-      let arrResult = [0, 0];
-      //两个数字按杆数从低到高排序
-      arrAch1.sort(function(a, b) {
-        return a - b;
-      });
-      arrAch2.sort(function(a, b) {
-        return a - b;
-      });
-
-      let max = 3; //最高杆数，大于该杆数即使赢了也不得分
-
-      //for循环
-      var n = arrAch1.length;
-      let flagEqual = true; //两队是否同分
-      for (var i = 0; i < n; i++) {
-        let result = arrAch1[i] - arrAch2[i];
-        if (result > 0 && arrAch2[i] <= max) {
-          //第1队胜且分数没有超限
-          arrResult[1] += 1;
-          flagEqual = false;
-          break;
-        } else if (result < 0 && arrAch1[i] <= max) {
-          //第2队胜且分数没有超限
-          arrResult[0] += 1;
-          flagEqual = false;
-          break;
-        }
-      }
-
-      if (flagEqual) {
-        //如果两队同分
-        for (var i = 0; i < n; i++) {
-          //如果分数没有超限
-          if (arrAch1[i] <= max) {
-            arrResult = [0.5, 0.5];
-            break;
-          }
-        }
-      }
-
-      return arrResult;
     }
   },
   mounted() {},
-  created() {
-    this.value.forEach(itemEach => {
-      //循环：{value数组}
-      //补充数据字典
-      itemEach.dictScore = lodash.keyBy(itemEach.scoreList, "holeNum");
-    });
-
-
-    //循环：{队伍数组}
-    this.arrTeamNeed.forEach(teamEach => {
-      teamEach.memberList = this.value.filter(doc => doc.teamId == teamEach.id);
-      teamEach.dictScore = {}; //团体的分数数据字典
-      teamEach.teamHoleScoreTotal = 0; //团体的洞数总分初始化
-      for (var i = 1; i <= 18; i++) {
-        let scoreHoleTeam = 0;
-
-        let arrAch = []; //团体的个人单洞成绩数组
-        //循环：{每队的个人成绩数组}
-        teamEach.memberList.forEach(memberEach => {
-          let scoreEach = lodash.get(memberEach, `dictScore[${i}].score`, 0);
-          arrAch.push(scoreEach); //团体的个人单洞成绩数组
-          scoreHoleTeam += scoreEach;
-        });
-        teamEach.dictScore[i] = {
-          holeNum: i,
-          score: scoreHoleTeam,
-          arrAch
-        };
-      }
-    });
-
-    //按最优成绩计算团队每洞得分
-    for (var i = 1; i <= 18; i++) {
-      let arrAch1 = lodash.get(this.arrTeamNeed, `[0].dictScore[${i}].arrAch`, 0);
-      let arrAch2 = lodash.get(this.arrTeamNeed, `[1].dictScore[${i}].arrAch`, 0);
-
-      console.log("arrAch1:##########", arrAch1);
-      console.log("arrAch2:#", arrAch2);
-      let arrResult = this.getTeamHoleAch(arrAch1, arrAch2); //调用：{传入单洞的两队成绩并返回两队得分函数}
-      console.log("arrResult:#", arrResult);
-
-      lodash.set(
-        this.arrTeamNeed,
-        `[0].dictScore[${i}].teamHoleScore`,
-        arrResult[0]
-      );
-
-      this.arrTeamNeed[0].teamHoleScoreTotal += arrResult[0]; //第1队洞数总分更新
-
-      lodash.set(
-        this.arrTeamNeed,
-        `[1].dictScore[${i}].teamHoleScore`,
-        arrResult[1]
-      );
-      this.arrTeamNeed[1].teamHoleScoreTotal += arrResult[1]; //第1队洞数总分更新
-    }
-  }
+  created() {}
 };
 </script>
 
@@ -268,12 +199,12 @@ table tr td {
   text-align: center;
   height: 40px;
   line-height: 40px;
-  border: black solid 1px;
+  
   padding: 0px;
 }
 .bgColor {
-  background-color: rgb(202, 230, 206);
-  color: #000;
+  background-color: #f8f8f8;
+ 
 }
 
 .score-box {
@@ -293,9 +224,9 @@ table tr td {
   font-weight: 700;
 }
 .allScore {
-  background-color: rgb(202, 230, 206);
+  background-color: #f8f8f8;;
 
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
 }
 .td-holeScore {
@@ -303,6 +234,7 @@ table tr td {
   line-height: 30px;
   vertical-align: top;
   font-weight: 700;
+  position: relative;
 }
 .holeScore {
   display: block;

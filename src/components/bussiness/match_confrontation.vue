@@ -16,6 +16,8 @@
       <!--队伍名称列配置-->
       <template v-slot:slot_column_matchResult="{row}">
 
+        
+
         <div class v-if="true">
           <el-popover placement="right" width="1000" v-model="tipVisibles[row.P1]">
             <!--下面要判断否则会不断计算-->
@@ -23,9 +25,9 @@
               <!--小组对阵记分卡-->
               <score_card_confront
                 :value="getGroupAch(row.groupNum)"
-                :dictMember="getDictMember()"
+                :dictMember="dictMember"
                 :isTeam="true"
-                :arrTeam="getArrTeam(row)"
+                :arrTeam="getArrConfrontTeam(row)"
              
               ></score_card_confront>
             </div>
@@ -46,7 +48,8 @@ export default {
     "roundNum",
     "dictEnroolTeam",
     "dictAchievement",
-    "listAchievement"
+    "listAchievement",
+    "dictMember"
   ], //（需要确定赛事，赛段，第几轮）
 
   data() {
@@ -403,25 +406,15 @@ export default {
      return  this.listAchievement.filter(item=>item.groupNum==groupNum)
      
     },
-    //函数：{获取小组对阵队伍数组}
-    getDictMember(row) {
-     return {
-        91: "孙悟空",
-        98: "白骨精",
-        92: "路飞",
-        93: "乔巴",
-        94: "娜美",
-        97: "唐僧",
-        98: "白骨精"
-      }
-    },
+   
      //函数：{获取小组对阵队伍数组}
-    getArrTeam(row) {
+    getArrConfrontTeam(row) {
+      
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
       let teamName1 = lodash.get(this.dictEnroolTeam, `[${teamId1}].name`);
       let teamName2 = lodash.get(this.dictEnroolTeam, `[${teamId2}].name`);
-      return [{id:teamId1,name:teamName1,a:1},{id:teamId2,name:teamName2}];
+      return [{id:teamId1,name:teamName1,...row.groupMember[0]},{id:teamId2,name:teamName2,...row.groupMember[1]}];
       // return [{ id: 19, name: "AA11" }, { id: 20, name: "BB队" }]
     },
     //函数：{获取当前分组的对阵文本说明函数}
@@ -434,6 +427,10 @@ export default {
     },
     //函数：{获取当前分组的比赛结果函数}
     getMatchResult(row) {
+       let score1 = lodash.get(row, `groupMember[0].teamHoleScoreTotal`);
+let score2 = lodash.get(row, `groupMember[1].teamHoleScoreTotal`);
+
+
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
       //第1队的个人成绩列表
@@ -458,7 +455,9 @@ export default {
         0
       );
 
-      return `${matchScoreTeam1} VS ${matchScoreTeam2}`;
+      return `比洞分${score1} : ${score2} - 总杆数 ${matchScoreTeam1} : ${matchScoreTeam2}`;
+
+      // return `${matchScoreTeam1} : ${matchScoreTeam2}`;
     }
   },
 
@@ -490,7 +489,7 @@ export default {
         {
           label: "组号",
           prop: "groupNum",
-          width: 60
+          width: 90
         },
         {
           label: "小组成员对阵",
@@ -499,10 +498,10 @@ export default {
           width: 170
         },
         {
-          label: "结果",
+          label: "比赛结果",
           prop: "matchResult",
           slot: "slot_column_matchResult",
-          width: 180
+          width: 280
         }
       ],
       //-------新增、修改表单字段数组-------
