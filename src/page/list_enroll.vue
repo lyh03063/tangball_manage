@@ -135,7 +135,8 @@ export default {
           },
           {
             label: "队伍信息",
-            prop: "slot_detail_item_groups"
+            prop: "groups",
+            slot:'slot_detail_item_groups'
           },
           {
             label: "报名时间",
