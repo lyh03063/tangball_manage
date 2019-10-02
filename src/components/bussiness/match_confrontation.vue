@@ -464,11 +464,8 @@ export default {
     },
     //函数：{获取当前分组的比赛结果函数}
     getMatchResult(row) {
-      let dict = {
-        1: "teamHoleScoreTotal",
-        2: "teamHoleScoreForAddTotal"
-      };
-      let key = dict[T.matchInfo.ruleId];
+     
+      let key = "teamHoleScoreTotal";
 
       let score1 = lodash.get(row, `groupMember[0].${key}`);
       let score2 = lodash.get(row, `groupMember[1].${key}`);

@@ -6,7 +6,7 @@
       <dm_debug_item v-model="matchInfo.ruleId" text="赛事规则" />
     </dm_debug_list>
 
-    <div class>当前计分规则：{{scoreRuleName}}</div>
+   
     <table class="n-table">
       <tr>
         <td width="80px" class="bgColor">洞号</td>
@@ -122,14 +122,7 @@ export default {
   }, //readOnly  为是否是只读模式
   // props: ["value", "readOnly", "isTeam", "arrTeamNeed"], //readOnly  为是否是只读模式
   computed: {
-    //规则名称
-    scoreRuleName() {
-      let dict = {
-        1: "比洞积分赛（最佳成绩法）",
-        2: "比洞积分赛（成绩加和法）"
-      };
-      return dict[T.matchInfo.ruleId];
-    }
+    
   },
   data() {
     return {
@@ -170,22 +163,13 @@ export default {
   methods: {
     // 获取单洞积分
     getTeamHoleSingle(teamDoc,index) {
-      let dict = {
-        1: "teamHoleScore",
-        2: "teamHoleScoreForAdd"
-      };
-
-      let key = dict[T.matchInfo.ruleId];
-      return lodash.get(teamDoc, `dictScore[${index}].${key}`)
+     
+      return lodash.get(teamDoc, `dictScore[${index}].teamHoleScore`)
     },
     // 获取比洞总积分
     getTeamHoleTotal(teamDoc) {
-      let dict = {
-        1: "teamHoleScoreTotal",
-        2: "teamHoleScoreForAddTotal"
-      };
-      let key = dict[T.matchInfo.ruleId];
-      return teamDoc[key];
+      
+      return teamDoc["teamHoleScoreTotal"];
     },
     // 计算左九洞比洞分数
     sumLeftTeamHole(teamDoc) {

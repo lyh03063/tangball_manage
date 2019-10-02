@@ -16,6 +16,7 @@
     </dm_debug_list>
     <div class="panel">
       <div class>
+         
         <el-radio-group
           v-model="progressIndex"
           style="margin-bottom: 10px;"
@@ -30,6 +31,10 @@
           >{{item.name}}</el-radio-button>
         </el-radio-group>
         <dm_space height="1"></dm_space>
+        <div class="PSR" >
+             <div class="PSA T50 R0 ">当前比赛计分规则：<span class="C_f60">{{scoreRuleName}}</span></div>
+        </div>
+     
         <el-radio-group
           v-model="roundNum"
           style="margin-bottom: 10px;"
@@ -113,6 +118,7 @@
 import score_card from "@/components/score_card";
 import match_confrontation from "@/components/bussiness/match_confrontation.vue";
 import match_team from "@/components/bussiness/match_team.vue";
+let T;
 export default {
   name: "match_achievement",
   components: { score_card, match_confrontation, match_team },
@@ -155,6 +161,14 @@ export default {
     };
   },
   computed: {
+    //规则名称
+    scoreRuleName() {
+      let dict = {
+        1: "比洞积分赛（最佳成绩法）",
+        2: "比洞积分赛（成绩加和法）"
+      };
+      return dict[T.matchInfo.ruleId];
+    },
     progressCurr() {
       //当前选中赛段数据
       console.log("progressCurr####");
@@ -249,7 +263,8 @@ export default {
           matchId: this.matchId,
           progressIndex: this.progressIndex,
           roundNum: this.roundNum,
-          groupNum: groupNum
+          groupNum: groupNum,
+          ruleId: this.matchInfo.ruleId
         } //传递参数
       });
     },
@@ -370,7 +385,8 @@ export default {
     }
   },
   created() {
-    this.changeMatchRound(); //调用：{切换轮数函数}
+    T=this;
+    T.changeMatchRound(); //调用：{切换轮数函数}
   }
 };
 </script>

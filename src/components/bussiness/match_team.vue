@@ -3,7 +3,6 @@
   <div class>
     <dm_debug_list>
       <dm_debug_item v-model="matchInfo" text="matchInfo" />
-   
     </dm_debug_list>
 
     <dm_list_data
@@ -11,7 +10,7 @@
       ref="listForEnroll"
       @after-search="(data,olddata)=>{$emit('after-search',data)}"
     >
-       <template v-slot:slot_column_scoreTotal="{row}">{{getScoreTotal(row)}}</template>
+      <template v-slot:slot_column_scoreTotal="{row}">{{getScoreTotal(row)}}</template>
       <template v-slot:slot_detail_item_album="{row}">
         <div class v-if="row.album && row.album.length">
           <img
@@ -58,6 +57,7 @@
   </div>
 </template>
 <script>
+let T;
 export default {
   name: "match_team",
   components: {},
@@ -71,12 +71,17 @@ export default {
   },
   methods: {
     getScoreTotal(row) {
-      let dict = {
-        1: "teamHoleScoreTotal",
-        2: "teamHoleScoreForAddTotal"
-      };
-      let key = dict[this.matchInfo.ruleId];
-      return lodash.get(row, `score.${key}`, "---");
+      let path = `score.teamHoleScoreTotal`;
+      //如果有选中赛段
+      if (T.progressIndex) {
+        path += `_p${T.progressIndex}`;
+        //如果有选中轮数
+        if (T.roundNum) {
+          path += `_r${T.roundNum}`;
+        }
+      }
+
+      return lodash.get(row, path, "---");
     },
     afterSearch(param) {
       console.log("param:####", param);
@@ -85,6 +90,7 @@ export default {
   },
 
   created() {
+    T = this;
     //修改报名队伍列表的默认查询参数
     this.cfListEnrollTeam.findJsonDefault = { matchId: this.matchId };
   }
