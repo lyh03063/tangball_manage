@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <div class="dialog-cover"></div>
+  <div class="login-page-box">
+    <div class="login-bgimg-box"></div>
     <div class="login-father-box" v-show="ak47">
       <div class="login-box">
+        <div class="login-user-img-box">
+          <div class="login-user-img el-icon-s-custom"></div>
+        </div>
         <h1>唐球后台管理登录</h1>
         <h2>管理员登录</h2>
         <el-form
@@ -16,7 +19,7 @@
           <el-form-item prop="userName">
             <div class>
               <el-input v-model.number="ruleForm.userName" placeholder="管理账户">
-                <template slot="prepend">管理账户</template>
+                <!-- <template slot="prepend">管理账户</template> -->
               </el-input>
             </div>
           </el-form-item>
@@ -145,18 +148,27 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" >
+<style lang="scss">
+.login-page-box{
+  background-color: rgb(147, 222,254);
+  height: 100%;
+  width:100%;
+}
+body, html {
+    height: 100%;
+    // overflow: hidden;
+}
 .login-box {
   width: 100%;
-  padding: 40px;
+  padding: 0 40px 40px 40px;
 
   h1 {
-    padding: 20px 20px 20px 5px;
-    font-size: 28px;
+    padding: 10px 20px 10px 5px;
+    font-size: 24px;
     font-weight: 400;
   }
   h2 {
-    margin: 20px 20px 20px 5px;
+    margin: 10px 20px 10px 5px;
     padding-left: 5px;
     color: #999999;
     font-size: 16px;
@@ -166,43 +178,44 @@ export default {
 
 .login-father-box {
   /*弹窗绝对居中*/
-  width: 500px;
-  height: 400px;
-  border: 1px solid #000;
+  width: 400px;
+  height: 350px;
+  // border: 1px solid #000;
   background: #ffffff;
   margin-left: -250px;
   margin-top: -200px;
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 75%;
+  box-shadow: 10px #ffffff;
+  border-radius: 10px;
 }
-@media screen and (max-width: 768px) {
-  .login-father-box {
-    border: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin-top: 0;
-    margin-left: 0;
-  }
-  .dialog-cover {
-    display: none;
-  }
+.login-user-img-box{
+  margin-left: 33%;
+  width:120px;
+  height: 120px;
+  background-color: rgb(147, 222,254);
+  margin-top:-60px;
+  border-radius: 50%;
+  padding: 10px;;
 }
-
-.login-form {
-  width: 100%;
-  margin: 20px;
+.login-user-img{
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 50px;
+  background-color: #ffffff;
+  font-size: 50px;
+  color: rgb(147, 222,254);
 }
-/* 遮罩层 */
-.dialog-cover {
-  width: 100%;
-  height: 100%;
+.login-bgimg-box{
   position: fixed;
-  background-color: #f3f9fa;
-  left: 0;
-  top: 0;
-  opacity: 0.5;
-  /* display: none; */
+  top:16%;
+  left: 10%;
+  height: 440px;
+  width: 500px;
+  // background-color: #ffffff;
+  background-image: url('http://demo.demohuo.top/modals/40/4065/demo/images/login-img.png')
 }
 </style>
