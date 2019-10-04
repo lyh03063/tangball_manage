@@ -24,11 +24,11 @@ export default {
         prop: "groupNum",
         width: 100
       },
-      {
-        label: "小组成员",
-        prop: "groupMember",
-        width: 100
-      },
+      // {
+      //   label: "小组成员",
+      //   prop: "groupMember",
+      //   width: 100
+      // },
       {	
         label: "所属赛事",
         prop: "matchId",

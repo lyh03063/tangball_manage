@@ -43,7 +43,8 @@ export default {
   },
   methods: {
     addPlayer(index){
-        this.groups.member.splice(index+1, 0,this.player)
+      let obj = {name: "", sex: 1, phone: ''}
+        this.groups.member.splice(index+1, 0,obj)
     },
     deletePlayer(index){
         this.groups.member.splice(index,1)
