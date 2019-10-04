@@ -4,14 +4,14 @@
     <!--比赛对阵分组列表-->
 
     <dm_debug_list>
-      <dm_debug_item v-model="dictEnroolTeam" text="confrontation中的dictEnroolTeam" />
-      <dm_debug_item v-model="dictAchievement" text="confrontation中的dictAchievement" />
-      <dm_debug_item v-model="listAchievement" text="confrontation中的listAchievement" />
+      <dm_debug_item v-model="dictEnroolTeam" text="dictEnroolTeam" />
+      <dm_debug_item v-model="dictAchievement" text="dictAchievement" />
+      <dm_debug_item v-model="listAchievement" text="listAchievement" />
+      <dm_debug_item v-model="dictMember" text="dictMember" />
     </dm_debug_list>
 
-    <dm_list_data :cf="cfListMatchGroup" ref="listConfront">
+    <dm_list_data :cf="cfListMatchGroup" ref="listConfront" @bacth-btn-click="bacthBtnClick">
       <template v-slot:slot_column_groupMember="{row}">{{getConfrontText(row)}}</template>
-      <!-- <template v-slot:slot_column_matchResult="{row}"></template> -->
 
       <!--比赛结果列配置-->
       <template v-slot:slot_column_matchResult2="{row}">
@@ -21,7 +21,7 @@
             :matchInfo="matchInfo"
             :dictMember="dictMember"
             :isTeam="true"
-            :arrTeam="getArrConfrontTeam(row)"
+            :arrConfront="getArrConfront(row)"
           ></score_card_confront>
         </div>
       </template>
@@ -31,9 +31,7 @@
         <el-link type="primary" @click="toggleFold(row)">{{getMatchResult(row)}}</el-link>
       </template>
       <!--总杆数结果列配置-->
-      <template v-slot:slot_column_matchPolesResult="{row}">
-        {{getMatchPolesResult(row)}}
-      </template>
+      <template v-slot:slot_column_matchPolesResult="{row}">{{getMatchPolesResult(row)}}</template>
     </dm_list_data>
   </div>
 </template>
@@ -58,383 +56,140 @@ export default {
       tipVisibles: {},
       active: null, //聚焦的默认状态为0
       //列表配置-深拷贝过来修改，避免影响原列表
-      cfListMatchGroup: util.deepCopy(PUB.listCF.tangball_group),
-      scoreList: [
-        {
-          _id: "5d8f675f3eaaa91a1dbea4cf",
-          P1: 67,
-          roundNum: 1,
-          teamId: 19,
-          participantsId: 91,
-          groupNum: 1,
-          tee: 1,
-          scoreList: [
-            {
-              holeNum: 1,
-              score: 2
-            },
-            {
-              holeNum: 2,
-              score: 2
-            },
-            {
-              holeNum: 3,
-              score: 1
-            },
-            {
-              holeNum: 4,
-              score: 1
-            },
-            {
-              holeNum: 5,
-              score: 1
-            },
-            {
-              holeNum: 6,
-              score: 1
-            },
-            {
-              holeNum: 7,
-              score: 1
-            },
-            {
-              holeNum: 8,
-              score: 1
-            },
-            {
-              holeNum: 9,
-              score: 1
-            },
-            {
-              holeNum: 10,
-              score: 2
-            },
-            {
-              holeNum: 11,
-              score: 2
-            },
-            {
-              holeNum: 12,
-              score: 1
-            },
-            {
-              holeNum: 13,
-              score: 1
-            },
-            {
-              holeNum: 14,
-              score: 1
-            },
-            {
-              holeNum: 15,
-              score: 1
-            },
-            {
-              holeNum: 16,
-              score: 1
-            },
-            {
-              holeNum: 17,
-              score: 1
-            },
-            {
-              holeNum: 18,
-              score: 1
-            }
-          ],
-          matchScore: 22
-        },
-        {
-          _id: "5d8f68303eaaa91a1dbea4d7",
-          P1: 69,
-          roundNum: 1,
-          teamId: 19,
-          participantsId: 98,
-          groupNum: 1,
-          tee: 1,
-          scoreList: [
-            {
-              holeNum: 1,
-              score: 2
-            },
-            {
-              holeNum: 2,
-              score: 1
-            },
-            {
-              holeNum: 3,
-              score: 1
-            },
-            {
-              holeNum: 4,
-              score: 2
-            },
-            {
-              holeNum: 5,
-              score: 2
-            },
-            {
-              holeNum: 6,
-              score: 2
-            },
-            {
-              holeNum: 7,
-              score: 1
-            },
-            {
-              holeNum: 8,
-              score: 1
-            },
-            {
-              holeNum: 9,
-              score: 1
-            },
-            {
-              holeNum: 10,
-              score: 2
-            },
-            {
-              holeNum: 11,
-              score: 1
-            },
-            {
-              holeNum: 12,
-              score: 1
-            },
-            {
-              holeNum: 13,
-              score: 2
-            },
-            {
-              holeNum: 14,
-              score: 2
-            },
-            {
-              holeNum: 15,
-              score: 2
-            },
-            {
-              holeNum: 16,
-              score: 1
-            },
-            {
-              holeNum: 17,
-              score: 1
-            },
-            {
-              holeNum: 18,
-              score: 1
-            }
-          ],
-          matchScore: 26
-        },
-        {
-          _id: "5d8f67f03eaaa91a1dbea4d6",
-          P1: 68,
-          roundNum: 1,
-          teamId: 20,
-          participantsId: 93,
-          groupNum: 1,
-          tee: 1,
-          scoreList: [
-            {
-              holeNum: 1,
-              score: 2
-            },
-            {
-              holeNum: 2,
-              score: 1
-            },
-            {
-              holeNum: 3,
-              score: 2
-            },
-            {
-              holeNum: 4,
-              score: 2
-            },
-            {
-              holeNum: 5,
-              score: 2
-            },
-            {
-              holeNum: 6,
-              score: 1
-            },
-            {
-              holeNum: 7,
-              score: 4
-            },
-            {
-              holeNum: 8,
-              score: 2
-            },
-            {
-              holeNum: 9,
-              score: 2
-            },
-            {
-              holeNum: 10,
-              score: 2
-            },
-            {
-              holeNum: 11,
-              score: 1
-            },
-            {
-              holeNum: 12,
-              score: 2
-            },
-            {
-              holeNum: 13,
-              score: 2
-            },
-            {
-              holeNum: 14,
-              score: 2
-            },
-            {
-              holeNum: 15,
-              score: 1
-            },
-            {
-              holeNum: 16,
-              score: 2
-            },
-            {
-              holeNum: 17,
-              score: 2
-            },
-            {
-              holeNum: 18,
-              score: 2
-            }
-          ],
-          matchScore: 34
-        },
-        {
-          _id: "5d8f66f83eaaa91a1dbea4ce",
-          P1: 66,
-          roundNum: 1,
-          teamId: 20,
-          participantsId: 92,
-          groupNum: 1,
-          timeStart: "2019-09-27T16:00:00.000Z",
-          timeEnd: "2019-09-27T17:00:00.000Z",
-          tee: 1,
-          scoreList: [
-            {
-              holeNum: 1,
-              score: 1
-            },
-            {
-              holeNum: 2,
-              score: 2
-            },
-            {
-              holeNum: 3,
-              score: 1
-            },
-            {
-              holeNum: 4,
-              score: 1
-            },
-            {
-              holeNum: 5,
-              score: 2
-            },
-            {
-              holeNum: 6,
-              score: 1
-            },
-            {
-              holeNum: 7,
-              score: 1
-            },
-            {
-              holeNum: 8,
-              score: 2
-            },
-            {
-              holeNum: 9,
-              score: 1
-            },
-            {
-              holeNum: 10,
-              score: 1
-            },
-            {
-              holeNum: 11,
-              score: 2
-            },
-            {
-              holeNum: 12,
-              score: 1
-            },
-            {
-              holeNum: 13,
-              score: 1
-            },
-            {
-              holeNum: 14,
-              score: 2
-            },
-            {
-              holeNum: 15,
-              score: 1
-            },
-            {
-              holeNum: 16,
-              score: 1
-            },
-            {
-              holeNum: 17,
-              score: 2
-            },
-            {
-              holeNum: 18,
-              score: 1
-            }
-          ],
-          matchScore: 24
-        }
-      ]
+      cfListMatchGroup: util.deepCopy(PUB.listCF.tangball_group)
     };
   },
   methods: {
+    /**
+     * @name 自定义批量操作按钮点击函数
+     */
+    bacthBtnClick: async function(eventType, selection) {
+      console.log("bacthBtnClick-eventType:", eventType);
+      if (eventType == "bacthUpdateScore") {
+        //如果{000}000
+
+        let clickStatus = await T.$confirm(
+          "该操作用于切换了计分规则时的分数更新，耗费较大性能，确认操作？"
+        ).catch(() => {});
+
+        if (clickStatus == "confirm") {
+          let tableData = T.$refs.listConfront.tableData;
+
+          let arrCofrontGroup = tableData.map((doc, index) => {
+            return {
+              matchId: T.matchId,
+              progressIndex: T.progressIndex,
+              roundNum: T.roundNum,
+              groupNum: doc.groupNum,
+              ruleId: T.matchInfo.ruleId
+            };
+          });
+          console.log("arrCofrontGroup:", arrCofrontGroup);
+
+          // 请求新增附件的接口
+          let { data } = await axios({
+            method: "post",
+            url: `${PUB.domain}/tangball/batchUpdateConfrontGroupScore`,
+            data: { arrCofrontGroup } //将新增数据传进接口中
+          });
+
+          //如果点击了确定
+          T.$message({
+            type: "success",
+            message: "批量更新分数操作成功!"
+          });
+        }
+      }
+    },
     //函数：{切换行展开的函数}}
     toggleFold(row) {
+      //切换展开
       T.$refs.listConfront.$refs.table.toggleRowExpansion(row);
     },
     //函数：{获取指定组的个人成绩列表}
     getGroupAch(groupNum) {
       return T.listAchievement.filter(item => item.groupNum == groupNum);
     },
+    //函数：{获取小组对阵队伍数组}
+    getArrConfront(row) {
+      //Q1：团体赛-配置
+      if (T.matchInfo.matchForm == "2") {
+        return T.getArrConfrontTeam(row);
+        //Q2：个人赛-配置
+      } else {
+        return T.getArrConfrontPerson(row);
+      }
+    },
 
     //函数：{获取小组对阵队伍数组}
     getArrConfrontTeam(row) {
-      let teamId1 = lodash.get(row, `groupMember[0].id`);
-      let teamId2 = lodash.get(row, `groupMember[1].id`);
-      let teamName1 = lodash.get(T.dictEnroolTeam, `[${teamId1}].name`);
-      let teamName2 = lodash.get(T.dictEnroolTeam, `[${teamId2}].name`);
+      let id1 = lodash.get(row, `groupMember[0].id`);
+      let id2 = lodash.get(row, `groupMember[1].id`);
+      let teamName1 = lodash.get(T.dictEnroolTeam, `[${id1}].name`);
+      let teamName2 = lodash.get(T.dictEnroolTeam, `[${id2}].name`);
       return [
-        { id: teamId1, name: teamName1, ...row.groupMember[0] },
-        { id: teamId2, name: teamName2, ...row.groupMember[1] }
+        { id: id1, name: teamName1, ...row.groupMember[0] },
+        { id: id2, name: teamName2, ...row.groupMember[1] }
       ];
-      // return [{ id: 19, name: "AA11" }, { id: 20, name: "BB队" }]
     },
+    //函数：{获取小组对阵个人数组}
+    getArrConfrontPerson(row) {
+      let arrResult = [];
+      let n = lodash.get(row, `groupMember.length`, 0); //小组成员数量
+      for (var i = 0; i < n; i++) {
+        let id = lodash.get(row, `groupMember[${i}].id`);
+        let name = lodash.get(T.dictMember, `[${id}].name`);
+        let achDoc = T.listAchievement.find(doc => doc.participantsId == id);
+        var dictScore;
+        //如果对应的成绩数据存在，拼装数据字典
+        if (achDoc && achDoc.scoreList) {
+          dictScore = lodash.keyBy(achDoc.scoreList, "holeNum");
+        }
+        arrResult.push({ id: id, name: name, dictScore });
+      }
+
+      return arrResult;
+    },
+
     //函数：{获取当前分组的对阵文本说明函数}
     getConfrontText(row) {
-      let teamId1 = lodash.get(row, `groupMember[0].id`);
-      let teamId2 = lodash.get(row, `groupMember[1].id`);
-      let teamName1 = lodash.get(T.dictEnroolTeam, `[${teamId1}].name`);
-      let teamName2 = lodash.get(T.dictEnroolTeam, `[${teamId2}].name`);
-      return `${teamName1} VS ${teamName2}`;
-    },
-    //函数：{获取当前分组的总杆数结果函数}
-    getMatchPolesResult(row) {
-     
+      let id1 = lodash.get(row, `groupMember[0].id`);
+      let id2 = lodash.get(row, `groupMember[1].id`);
+      //Q1：团体赛
+      if (T.matchInfo.matchForm == "2") {
+        let teamName1 = lodash.get(T.dictEnroolTeam, `[${id1}].name`);
+        let teamName2 = lodash.get(T.dictEnroolTeam, `[${id2}].name`);
+        return `${teamName1} VS ${teamName2}`;
+        //Q2：个人赛
+      } else {
+        let arrPerson = [];
+        let str;
+        if (row.groupMember && row.groupMember.length) {
+          row.groupMember.forEach(gMEach => {
+            let name = lodash.get(T.dictMember, `[${gMEach.id}].name`);
+            arrPerson.push(name);
+          });
+          str = arrPerson.join(",");
+        } else {
+          str = "无成员";
+        }
 
+        return str;
+      }
+    },
+
+    //函数：{获取总杆数结果函数}
+    getMatchPolesResult(row) {
+      //Q1：团体赛-配置
+      if (T.matchInfo.matchForm == "2") {
+        return T.getMatchPolesResultForTeam(row);
+        //Q2：个人赛-配置
+      } else {
+        return T.getMatchPolesResultForPerson(row);
+      }
+    },
+    //函数：{获取当前分组的团体赛总杆数结果函数}
+    getMatchPolesResultForTeam(row) {
       let teamId1 = lodash.get(row, `groupMember[0].id`);
       let teamId2 = lodash.get(row, `groupMember[1].id`);
       //第1队的个人成绩列表
@@ -445,7 +200,6 @@ export default {
       let arrAchievement2 = T.listAchievement.filter(
         doc => doc.teamId == teamId2 && doc.groupNum == row.groupNum
       );
-  
 
       //总杆数reduce求和，指定初始n值为0
 
@@ -459,16 +213,27 @@ export default {
       );
 
       return `${matchScoreTeam1} : ${matchScoreTeam2}`;
-
-      // return `${matchScoreTeam1} : ${matchScoreTeam2}`;
+    },
+    //函数：{获取当前分组的个人赛总杆数结果函数}
+    getMatchPolesResultForPerson(row) {
+      let arrPolesTotal = [];
+      let n = lodash.get(row, `groupMember.length`, 0); //小组成员数量
+      row.groupMember.forEach(gMEach => {
+        //匹配的成绩
+        let achDoc = T.listAchievement.find(
+          doc => doc.participantsId == gMEach.id
+        );
+        let score=achDoc?achDoc.matchScore:0
+        arrPolesTotal.push(score);
+      });
+      let str = arrPolesTotal.join(" : ");
+      return str;
     },
     //函数：{获取当前分组的比赛结果函数}
     getMatchResult(row) {
-     
       let key = "teamHoleScoreTotal";
-
-      let score1 = lodash.get(row, `groupMember[0].${key}`);
-      let score2 = lodash.get(row, `groupMember[1].${key}`);
+      let score1 = lodash.get(row, `groupMember[0].${key}`, 0);
+      let score2 = lodash.get(row, `groupMember[1].${key}`, 0);
       return `${score1} : ${score2} `;
 
       // return `${matchScoreTeam1} : ${matchScoreTeam2}`;
@@ -479,12 +244,91 @@ export default {
     T = this;
     //合并对象
 
-    Object.assign(T.cfListMatchGroup, {
+    /**
+          formItems.find(groupMember)
+      .collectionCfForm.formItems.find(id)
+         */
+
+    let ajaxSelectCF; //小组成员的下拉框ajax配置
+    //Q1：团体赛-配置
+    if (T.matchInfo.matchForm == "2") {
+      ajaxSelectCF = {
+        label: "球队",
+        prop: "id",
+        type: "select",
+        ajax: {
+          url: "/crossListRelation",
+          keyLabel: "name",
+          keyValue: "P1",
+          param: {
+            needRelation: "1",
+            columnItem: "orderId",
+            columnTarget: "orderId",
+            sheetRelation: {
+              page: "tangball_enroll",
+              findJson: {
+                //这两个参数在实际使用时需要改造
+                matchId: T.matchId
+              }
+            },
+            sheetTarget: {
+              page: "tangball_team",
+              pageSize: "2000",
+              findJson: {}
+            }
+          }
+        }
+      };
+
+      //Q2：个人赛-配置
+    } else {
+      ajaxSelectCF = {
+        label: "球员",
+        prop: "id",
+        type: "select",
+        ajax: {
+          url: "/crossListRelation",
+          keyLabel: "name",
+          keyValue: "P1",
+          param: {
+            needRelation: "1",
+            columnItem: "memberId",
+            columnTarget: "P1",
+            sheetRelation: {
+              page: "tangball_enroll",
+              findJson: {
+                //这两个参数在实际使用时需要改造
+                matchId: T.matchId
+              }
+            },
+            sheetTarget: {
+              page: "tangball_member",
+              pageSize: "2000",
+              findJson: {}
+            }
+          }
+        }
+      };
+    }
+
+    let cfListFinal = {
       focusMenu: false,
       isShowSearchForm: false, //隐藏查询表单
       isShowBreadcrumb: false, //隐藏面包屑导航
       isShowPageLink: false, //隐藏分页
       expand: true, //展开行
+      //单项操作按钮的配置
+      singleBtns: {
+        detail: false
+        // modify:false,
+        //delete: false, //配置基础按钮隐藏（默认显示）
+      },
+      //批量操作按钮的配置
+      bactchBtns: {
+        //add: false, //配置基础按钮隐藏（默认显示）
+        delete: false, //配置基础按钮隐藏（默认显示）
+        addon: [{ text: "批量更新分数", eventType: "bacthUpdateScore" }]
+      },
       sortJsonDefault: {
         groupNum: 1
       },
@@ -523,7 +367,7 @@ export default {
         },
         {
           label: "积分结果",
-          prop: "matchResult",
+          prop: "matchResultForScore",
           slot: "slot_column_matchResult",
           width: 180
         },
@@ -549,22 +393,22 @@ export default {
           collectionlistType: "form",
           collectionCfForm: {
             col_span: 12,
-            formItems: [
-              {
-                label: "球队id",
-                prop: "id",
-                type: "select",
-                ajax: {
-                  url: "/crossList?page=tangball_team",
-                  keyLabel: "name",
-                  keyValue: "P1"
-                }
-              }
-            ]
+            formItems: [ajaxSelectCF] //个人赛和团体赛不同
           }
         }
       ]
-    });
+    };
+
+    //如果是个人赛
+    if (T.matchInfo.matchForm != "2") {
+      let index = cfListFinal.columns.findIndex(
+        item => item.prop == "matchResultForScore"
+      );
+      console.log("index:####", index);
+      cfListFinal.columns.splice(index, 1); //删除掉
+    }
+    console.log("cfListFinal:####", cfListFinal);
+    Object.assign(T.cfListMatchGroup, cfListFinal);
   }
 };
 </script>

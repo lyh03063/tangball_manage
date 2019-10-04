@@ -63,10 +63,10 @@ export default {
         label: "组号",
         prop: "groupNum",
       },
-      {
-        label: "小组成员",
-        prop: "groupMember",
-      },
+      // {
+      //   label: "小组成员",
+      //   prop: "groupMember",
+      // },
       {	
         label: "所属赛事",
         prop: "matchId",
@@ -119,7 +119,7 @@ export default {
           formItems: [
           
             {
-              label: "球队id",
+              label: "球队",
               prop: "id",
               type: "select",
               ajax: {

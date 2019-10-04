@@ -59,7 +59,7 @@
 <script>
 let T;
 export default {
-  name: "match_team",
+  name: "match_ranking_team",
   components: {},
   props: ["matchId", "matchInfo", "progressIndex", "roundNum"], //（需要确定赛事，赛段，第几轮）
 
