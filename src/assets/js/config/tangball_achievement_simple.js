@@ -65,28 +65,29 @@ export default {
             prop: "groupNum",
             width: 75
           },
-          {
-            label: "打位",
-            prop: "tee",
-            width: 75
-          },
+          // {
+          //   label: "打位",
+          //   prop: "tee",
+          //   width: 75
+          // },
 
 
           {
             label: "杆数",
             prop: "matchScore",
-            width: 90
+            requireProp: ["scoreList"], //依赖成绩列表
+            "min-width": 90
           },
           // {
           //   label: "成绩记分",
           //   prop: "scoreList",
           //   width: 90
           // },
-          {
-            label: "名次",
-            prop: "ranking",
-            "min-width": 70
-          },
+          // {
+          //   label: "名次",
+          //   prop: "ranking",
+          //   "min-width": 70
+          // },
 
         ],
         //-------新增、修改表单字段数组-------
@@ -119,16 +120,16 @@ export default {
           },
 
 
-          {
-            label: "开始时间",
-            prop: "timeStart",
-            type: "dateTime"
-          },
-          {
-            label: "结束",
-            prop: "timeEnd",
-            type: "dateTime"
-          },
+          // {
+          //   label: "开始时间",
+          //   prop: "timeStart",
+          //   type: "dateTime"
+          // },
+          // {
+          //   label: "结束时间",
+          //   prop: "timeEnd",
+          //   type: "dateTime"
+          // },
 
 
           {
@@ -146,11 +147,11 @@ export default {
             prop: "remark",
             type: "input"
           },
-          {
-            label: "名次",
-            prop: "ranking",
-            type: "number"
-          },
+          // {
+          //   label: "名次",
+          //   prop: "ranking",
+          //   type: "number"
+          // },
           {
             label: "成绩记分",
             prop: "scoreList",
