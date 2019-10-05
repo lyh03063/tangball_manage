@@ -44,9 +44,14 @@ Object.assign(objConfig,{
     },
     {
       label: "队长",
-      prop: "memberId",
-      slot: "slot_detail_item_memberId",
-      width: 130
+      prop: "orderId",
+            // slot: "slot_detail_item_memberId",
+            width: 130,
+            formatter: function(rowData) {
+              if (rowData.teamDoc) {
+                return rowData.teamDoc.member[0].name||"无"
+              }
+            }
     },
     {
       label: "总分",

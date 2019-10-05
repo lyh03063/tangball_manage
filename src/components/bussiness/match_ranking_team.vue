@@ -44,7 +44,7 @@
                 class
                 v-for="(item,i) in row.teamDoc.member"
                 :key="i"
-              >{{item.name }} ({{item.sex}}|{{item.phone}})</div>
+              >{{item.name }} ({{item.sex==1?"男":'女'}}|{{item.phone}})</div>
             </div>
             <el-link
               type="primary"

@@ -72,7 +72,7 @@
             <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
               <div>
                 <div class="" v-for="(item,i) in row.teamDoc.member" :key="i" >{{item.name?item.name:'无' }}
-                   ({{item.sex}}|{{item.phone?item.phone:'无'}})
+                   ({{item.sex==1?'男':'女'}}|{{item.phone?item.phone:'无'}})
                    <span v-if="member[i]">
                   <span v-if="member.length>0">{{member[i].status?member[i].status:'球员未录入'}}&nbsp;&nbsp;</span>
                   <el-link type="primary" v-if="member.length>0&&!member[i].flag" @click="addMerber(item,i)">录入</el-link>
