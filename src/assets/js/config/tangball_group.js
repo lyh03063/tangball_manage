@@ -117,7 +117,7 @@ export default {
         collectionCfForm: {
           col_span: 12,
           formItems: [
-          
+           
             {
               label: "球队",
               prop: "id",
