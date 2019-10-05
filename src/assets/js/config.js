@@ -25,6 +25,9 @@ import tangball_admin from "@/assets/js/config/tangball_admin.js";
 import tangball_achievement from "@/assets/js/config/tangball_achievement.js";
 import tangball_achievement_simple from "@/assets/js/config/tangball_achievement_simple.js";
 import tangball_group from "@/assets/js/config/tangball_group.js";
+import tangball_match_enroll from "@/assets/js/config/tangball_match_enroll.js";
+import tangball_match_enroll_team from "@/assets/js/config/tangball_match_enroll_team.js";
+import tangball_match_enroll_single from "@/assets/js/config/tangball_match_enroll_single.js";
 
 
 //#region PUB.objDictArr/PUB.dict公共字典对象
@@ -124,6 +127,10 @@ PUB.listCF.tangball_achievement =tangball_achievement
 
 PUB.listCF.tangball_achievement_simple =tangball_achievement_simple
 PUB.listCF.tangball_group =tangball_group
+
+PUB.listCF.tangball_match_enroll = tangball_match_enroll
+PUB.listCF.tangball_match_enroll_single = tangball_match_enroll_single
+PUB.listCF.tangball_match_enroll_team = tangball_match_enroll_team
 
 
 

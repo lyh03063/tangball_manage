@@ -13,14 +13,16 @@
     <div class="panel">
       <div class="OFH MB10">
         <div class="FL FWB FS16 LH30">{{title}}</div>
-
         <div class="FR">
           <el-button plain @click="isEdit=false" size="mini" v-if="isEdit">取消编辑</el-button>
           <el-button type="primary" size="mini" @click="isEdit=true" v-if="!isEdit">编辑</el-button>
         </div>
+        
       </div>
-
-      <dm_list_data :cf="cfList" ref="listForEnroll" @after-modify="modifyEnroll"  @after-add='addEnroll'>
+      <div v-if="matchInfo.matchForm == 2" class="annotation-box">(ps:球员未入库无法库入成绩)</div>
+      <dm_list_data :cf="cfList" ref="listForEnroll" @after-modify="modifyEnroll"  @after-add='addEnroll'
+      @after-search='queryPlayer'>
+        <!--  -->
         <template v-slot:slot_detail_item_album="{row}">
           <div class v-if="row.album && row.album.length">
             <img
@@ -83,7 +85,11 @@
               <el-link
                 type="primary"
                 slot="reference"
-              @click="showProgress(row.teamDoc.member)">{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)</el-link>
+              @click="showProgress(row.teamDoc.member)">{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)
+              <font color="red" v-if="row.teamDoc.member">
+                {{isEntering(row.teamDoc.member)==0?'':'有'+isEntering(row.teamDoc.member)+'个球员未入库'}}
+                </font>
+                </el-link>
             </el-popover>
           </div>
         </template>
@@ -133,9 +139,9 @@ export default {
     matchId: [String, Number]
   },
   mixins: [PUB.listCF.tangball_enroll],
-
   data() {
     return {
+      playerPhoneList:[],
       showModifyDialog:false,//显示修改弹窗的key
       memberModiy:{},//保存修改数据
       cfMemberModiy: {//修改列表的配置
@@ -161,212 +167,7 @@ export default {
       isEdit: false, //是否为可编辑状态
       matchInfo: null, //赛事信息
       ready: false, //赛事信息是否加载完毕
-      cfList: {
-        isShowSearchForm: false, //隐藏查询表单
-        listIndex: "list_enroll_for_match", //vuex对应的字段
-        focusMenu: false,
-        isShowBreadcrumb: false, //隐藏面包屑导航
-        isShowOperateColumn: false, //隐藏操作列
-        isShowToolBar: false, //隐藏工具栏
-        flag: true, //显示新增按钮
-        findJsonDefault: {
-          matchId: this.matchId
-        },
-        //新增表单初始赋值
-        formDataAddInit: {
-          matchId: this.matchId
-        },
-
-        //-------列配置数组-------
-        columns: [
-          {
-            label: "报名会员",
-            prop: "memberId",
-            width: 130,
-            formatter: function(rowData) {
-              if (rowData.memberName) {
-                return rowData.memberName.name;
-              } 
-            }
-          },
-
-          {
-            label: "手机号",
-            prop: "phone",
-            width: 100
-          },
-          {
-            label: "性别",
-            prop: "sex",
-            width: 65,
-            formatter: function(rowData) {
-              if (rowData.sex == 1) {
-                return "男";
-              } else {
-                return "女";
-              }
-            }
-          },
-          {
-            label: "年龄",
-            prop: "age",
-            width: 65
-          },
-
-          {
-            label: "报名时间",
-            prop: "time",
-            width: 180,
-            formatter:function (rowData){
-              if (rowData.time) {
-                var dt=new Date(rowData.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
-              
-            }
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            width: 70,
-            formatter: function(rowData) {
-              if (rowData.payStatus == 2) {
-                return "已支付";
-              } else {
-                return "未支付";
-              }
-            }
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            "min-width": "100",
-            formatter: function(rowData) {
-              if (rowData.auditStatus == 1) {
-                return "未审核";
-              } else if (rowData.auditStatus == 2) {
-                return "审核不通过";
-              } else {
-                return "审核通过";
-              }
-            }
-          }
-        ],
-        detailItems: [
-          {
-            label: "报名会员id",
-            prop: "memberId",
-            slot: "slot_detail_item_memberId"
-          },
-          {
-            label: "赛事id",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId"
-          },
-          {
-            label: "手机号",
-            prop: "phone",
-            width: 100
-          },
-          {
-            label: "性别",
-            prop: "sex",
-            width: 50,
-            formatter: function (rowData) {
-              if (rowData.sex == 1) {
-                return "男";
-              } else {
-                return "女";
-              }
-            }
-          },
-          {
-            label: "年龄",
-            prop: "age",
-            width: 50
-          },
-          {
-            label: "职业",
-            prop: "career",
-            width: 50
-          },
-          {
-            label: "球龄",
-            prop: "ballAge",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.ballAge == 1) {
-                return "一年以下";
-              } else if (rowData.ballAge == 2) {
-                return "一到三年";
-              } else if (rowData.ballAge == 3) {
-                return "三到五年";
-              } else if (rowData.ballAge == 4) {
-                return "五到十年";
-              } else {
-                return "十年以上";
-              }
-            }
-          },
-          {
-            label: "身份证号",
-            prop: "idCard"
-          },
-
-          {
-            label: "报名时间",
-            prop: "time",
-            width:180,
-            formatter:function (rowData){
-              if (rowData.time) {
-                var dt=new Date(rowData.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
-              
-            }
-          },
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot:'slot_detail_item_matchInfo'
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.payStatus == 2) {
-                return "已支付";
-              } else {
-                return "未支付";
-              }
-            }
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.auditStatus == 1) {
-                return "未审核";
-              } else if (rowData.auditStatus == 2) {
-                return "审核不通过";
-              } else {
-                return "审核通过";
-              }
-            }
-          }
-        ],
-
-        //-------新增、修改表单字段数组-------
-        formItems: [
-          
-        ]
-      }
+      cfList: PUB.listCF.tangball_match_enroll
     };
   },
   watch: {
@@ -398,6 +199,55 @@ export default {
     }
   },
   methods: {
+    // 获取列表中所有会员的手机号
+    async queryPlayer(tableData){
+      let phones = []
+      tableData.forEach(item=>{
+        if (item.teamDoc) {
+          if (item.teamDoc.member) {
+            item.teamDoc.member.forEach(player=>{
+          if (player.phone) {
+            phones.push(player.phone)
+          }
+          })
+          }
+        }
+        
+      })
+      let { data } = await axios({
+          method: "post",
+          url: PUB.domain + '/crossList?page=tangball_member',
+          data: {
+            findJson: {
+              phone:phones
+            }
+          }
+        }).catch(() => {});
+        data.list.forEach(item=>{
+          if (item.phone) {
+            this.playerPhoneList.push(item.phone)
+          }
+        })
+        console.log('aaaa',this.playerPhoneList);
+    },
+    // 判断球员是否已经录入的方法
+    isEntering(member){
+      if (member) {
+        let num = 0
+      this.playerPhoneList.forEach(phone=>{
+        member.forEach(item=>{
+          if (item.phone == phone) {
+            num++
+          }
+        })
+      })
+      // console.log('num',num);
+      
+      return member.length-num
+      }
+      
+
+    },
     async addEnroll(newData,oldData){
       let { data } = await axios({
           method: "post",
@@ -513,166 +363,12 @@ export default {
             idColumn2: "P1"
           }
         ];
-        this.cfList.formItems=[{
-            label: "报名会员id",
-            prop: "memberId",
-
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
-            },
-            rules: [{ required: true, message: "报名会员id" }]
-          },
-          // {
-          //   label: "赛事id",
-          //   prop: "matchId",
-
-          //   type: "select",
-          //   ajax: {
-          //     url: "/crossList?page=tangball_match",
-          //     keyLabel: "matchName",
-          //     keyValue: "P1"
-          //   },
-          //   rules: [{ required: true, message: "赛事id" }],
-          //   hide: true
-          // },
-
-          {
-            label: "手机号",
-            prop: "phone",
-            type: "input"
-          },
-          {
-            label: "性别",
-            prop: "sex",
-            type: "select",
-            options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]
-          },
-          {
-            label: "年龄",
-            prop: "age",
-            type: "input"
-          },
-          {
-            label: "职业",
-            prop: "career",
-            type: "input"
-          },
-          {
-            label: "球龄",
-            prop: "ballAge",
-            type: "select",
-            options: [
-              { label: "一年以下", value: 1 },
-              { label: "一到三年", value: 2 },
-              { label: "三到五年", value: 3 },
-              { label: "五到十年", value: 4 },
-              { label: "十年以上", value: 5 }
-            ]
-          },
-          {
-            label: "身份证号",
-            prop: "idCard"
-          },
-          {
-            label: "报名时间",
-            prop: "time",
-
-            type: "date"
-          },
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo"
-          },
-          // {
-          //   label: "报名订单id",
-          //   prop: "orderId",
-          //   slot:"slot_form_item_orderId"
-          // },
-
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            type: "select",
-            options: [
-              { label: "已支付", value: 2 },
-              { label: "未支付", value: 1 }
-            ]
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            type: "select",
-            options: [
-              { label: "未审核", value: 1 },
-              { label: "审核不通过", value: 2 },
-              { label: "审核通过", value: 3 }
-            ]
-          }]
+        this.cfList.formItems=PUB.listCF.tangball_match_enroll_single.formItems
       }
       if (this.matchInfo.matchForm == 2) {
         this.title="报名球队信息"
         //动态数据字典，获取队伍信息
-        this.cfList.detailItems =[
-          {
-            label: "报名会员id",
-            prop: "memberId",
-            slot: "slot_detail_item_memberId"
-          },
-          
-          {
-            label: "队伍信息",
-            prop: "orderId",
-            slot:'slot_detail_item_groups'
-          },
-          {
-            label: "报名时间",
-            prop: "time",
-            formatter:function (rowData){
-              if (rowData.time) {
-                var dt=new Date(rowData.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
-              
-            }
-          },
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot:'slot_detail_item_matchInfo'
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.payStatus == 2) {
-                return "已支付";
-              } else {
-                return "未支付";
-              }
-            }
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            width: 100,
-            formatter: function (rowData) {
-              if (rowData.auditStatus == 1) {
-                return "未审核";
-              } else if (rowData.auditStatus == 2) {
-                return "审核不通过";
-              } else {
-                return "审核通过";
-              }
-            }
-          }
-        ],
+        this.cfList.detailItems =PUB.listCF.tangball_match_enroll_team.detailItems
 
         this.cfList.dynamicDict = [
           {
@@ -684,70 +380,7 @@ export default {
         ];
 
         //如果是团体赛
-        this.cfList.columns = [
-          {
-            label: "球队名称",
-            prop: "team",
-            slot: "slot_detail_item_teamName",
-            width: 150
-          },
-          {
-            label: "队长",
-            prop: "orderId",
-            // slot: "slot_detail_item_memberId",
-            width: 130,
-            formatter: function(rowData) {
-              if (rowData.teamDoc) {
-                return rowData.teamDoc.member[0].name||"无"
-              }
-            }
-          },
-
-          // {
-          //   label: "订单号",
-          //   prop: "orderId",
-          //   width: 145
-          // },
-          {
-            label: "报名时间",
-            prop: "time",
-            width: 180,formatter:function (rowData){
-              if (rowData.time) {
-                var dt=new Date(rowData.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
-              
-            }
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            width: 100,
-            formatter: function(rowData) {
-              if (rowData.payStatus == 2) {
-                return "已支付";
-              } else {
-                return "未支付";
-              }
-            }
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            "min-width": "100",
-            formatter: function(rowData) {
-              if (rowData.auditStatus == 1) {
-                return "未审核";
-              } else if (rowData.auditStatus == 2) {
-                return "审核不通过";
-              } else {
-                return "审核通过";
-              }
-            }
-          }
-        ];
+        this.cfList.columns = PUB.listCF.tangball_match_enroll_team.columns
         this.cfList.cfForm = {
             watch:{
               groups:{
@@ -762,59 +395,7 @@ export default {
               }
             },
           },
-        this.cfList.formItems.push(
-          {
-            label: "报名会员id",
-            prop: "memberId",
-
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
-            },
-            rules: [{ required: true, message: "报名会员id" }]
-          },{
-          label: "队伍信息",
-          prop: "groups",
-          slot:'slot_form_item_groups'
-        },
-        {
-            label: "报名时间",
-            prop: "time",
-
-            type: "date"
-          },
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo"
-          },
-          // {
-          //   label: "报名订单id",
-          //   prop: "orderId",
-          //   slot:"slot_form_item_orderId"
-          // },
-
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            type: "select",
-            options: [
-              { label: "已支付", value: 2 },
-              { label: "未支付", value: 1 }
-            ]
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            type: "select",
-            options: [
-              { label: "未审核", value: 1 },
-              { label: "审核不通过", value: 2 },
-              { label: "审核通过", value: 3 }
-            ]
-          })
+        this.cfList.formItems=PUB.listCF.tangball_match_enroll_team.formItems
       }
     },
     async getMatchData() {
@@ -833,6 +414,15 @@ export default {
       this.handleCFlist(); //调用：{处理报名表函数（团体赛和个人赛的区别）}
       this.ready = true;
     }
+  },
+  mounted(){
+        this.cfList.findJsonDefault = {
+          matchId: this.matchId
+        }
+        //新增表单初始赋值
+        this.cfList.formDataAddInit= {
+          matchId: this.matchId
+        }
   }
 };
 </script>
@@ -843,5 +433,12 @@ export default {
   border: 1px #ddd solid;
   border-radius: 5px;
   padding: 15px;
+}
+.annotation-box{
+  color: gray;
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 </style>
