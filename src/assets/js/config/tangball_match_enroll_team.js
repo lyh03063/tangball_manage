@@ -123,7 +123,7 @@ export default {
       ],
       formItems:[
         {
-          label: "报名会员id",
+          label: "报名会员",
           prop: "memberId",
 
           type: "select",
