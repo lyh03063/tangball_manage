@@ -9,6 +9,7 @@ export default {
       list: "/crossList?page=tangball_member", //列表接口
       add: "/crossAdd?page=tangball_member", //新增接口
       modify: "/crossModify?page=tangball_member", //修改接口
+      detail: "/crossDetail?page=tangball_member", //详情接口
       delete: "/crossDelete?page=tangball_member" //删除接口
     },
     //-------列配置数组-------
@@ -34,8 +35,8 @@ export default {
         width: 65
       },
       {
-        label: "身份证号",
-        prop: "idCard",
+        label: "手机号",
+        prop: "phone",
         width: 100
       },
       {
@@ -51,11 +52,11 @@ export default {
         width: 65,
         statistics:{listIndex:'list_achievement', targetIdKey:'memberId'}
       },
-      {
-        label: "唐球积分",
-        prop: "integral",
-        width: 65
-      },       
+      // {
+      //   label: "唐球积分",
+      //   prop: "integral",
+      //   width: 65
+      // },       
       {
         label: "备注",
         prop: "remark",
