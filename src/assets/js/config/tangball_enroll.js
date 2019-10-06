@@ -7,7 +7,10 @@ export default {
         focusMenu: true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "报名(订单)",
-        flag: true,
+        bactchBtns: {
+        // add: false
+
+        },
         // expand:true,
         url: {
           list: "/crossList?page=tangball_enroll", //列表接口

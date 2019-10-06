@@ -86,8 +86,8 @@
                 type="primary"
                 slot="reference"
               @click="showProgress(row.teamDoc.member)">{{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)
-              <font color="red" v-if="row.teamDoc.member">
-                {{isEntering(row.teamDoc.member)==0?'':'有'+isEntering(row.teamDoc.member)+'个球员未入库'}}
+              <font color="red" v-if="isEntering(row.teamDoc.member)!=0&&playerPhoneList.length>0">
+                有{{isEntering(row.teamDoc.member)}}球员未入库
                 </font>
                 </el-link>
             </el-popover>
@@ -223,6 +223,7 @@ export default {
             }
           }
         }).catch(() => {});
+        this.playerPhoneList = []
         data.list.forEach(item=>{
           if (item.phone) {
             this.playerPhoneList.push(item.phone)
@@ -242,6 +243,7 @@ export default {
         })
       })
       // console.log('num',num);
+      // console.log(member);
       
       return member.length-num
       }
@@ -278,6 +280,8 @@ export default {
             data:this.memberAdd
           }
         }).catch(() => {});
+        // console.log('data',data.addData.phone);
+        this.playerPhoneList.push(data.addData.phone)
       this.member[this.checkedIndex].status = '球员已录入'
       this.member[this.checkedIndex].flag = true
       this.showAddDialog = false
@@ -294,6 +298,16 @@ export default {
             modifyJson:this.memberModiy
           }
         }).catch(() => {});
+        console.log('data',this.memberModiy.phone);
+        let status = false
+        this.playerPhoneList.forEach(item=>{
+          if (this.memberModiy.phone == item) {
+            status = true
+          }
+        })
+        if (status) {
+          this.playerPhoneList.push(this.memberModiy.phone)
+        }
         this.showModifyDialog = false
     },
     // 打开新增弹窗的方法
