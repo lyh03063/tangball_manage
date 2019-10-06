@@ -33,7 +33,7 @@
     <dm_list_data :cf="cfList">
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_enroll="{row}">
-        <a href="javascript:;" class="link-blue" @click="dialogEnroll(row)">报名表</a>
+        <a href="javascript:;" class="link-blue" @click="dialogEnroll(row)">报名表({{row.registeredPersons||0}})</a>
       </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">

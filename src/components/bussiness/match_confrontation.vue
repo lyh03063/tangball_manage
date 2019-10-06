@@ -378,19 +378,28 @@ export default {
           width: 180
         }
       ],
+      //新增修改弹窗的一些配置
+      cfDialogForm: {
+          tips:{
+            text:"1,同一轮比赛的组号不能重复<br/> 2,团体赛通常是两个球队进行PK",
+            style:{"padding-left":"200px"}
+          }
+          
+        },
       //-------新增、修改表单字段数组-------
       formItems: [
         {
           label: "组号",
           prop: "groupNum",
-          type: "number"
+          type: "number",
+           rules: [{ required: true, message: "不能为空" }]
         },
-
         {
           label: "小组成员",
           prop: "groupMember",
           type: "collection",
           collectionlistType: "form",
+          default:[{__id:1},{__id:2}],
           collectionCfForm: {
             col_span: 12,
             formItems: [ajaxSelectCF] //个人赛和团体赛不同
