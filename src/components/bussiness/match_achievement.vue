@@ -362,6 +362,7 @@ export default {
           newVal,
           oldName
         ) {
+          if(!newVal)return;
           console.log("watch-teamId变化####1111");
           let { member } = T.dictEnroolTeam[newVal];
           let arrPhone = member.map(doc => doc.phone);

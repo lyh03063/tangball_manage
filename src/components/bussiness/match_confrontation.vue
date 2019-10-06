@@ -382,7 +382,7 @@ export default {
       cfDialogForm: {
           tips:{
             text:"1,同一轮比赛的组号不能重复<br/> 2,团体赛通常是两个球队进行PK",
-            style:{"padding-left":"200px"}
+            style:{"padding-left":"120px"}
           }
           
         },

@@ -19,6 +19,11 @@ export default {
             idColumn2: "P1",
           }
         ],
+        //批量操作按钮的配置-覆盖掉完整版的
+        bactchBtns: {
+          add: true, //配置基础按钮隐藏（默认显示）,
+          tips: false
+        },
         //默认排序参数
         sortJsonDefault: {
           matchScore: 1//按比分降序
@@ -30,9 +35,9 @@ export default {
             prop: "participantsId",
             // slot: "slot_detail_c_participantsId",
             width: 120,
-            formatter: function(rowData) {
-               return lodash.get(rowData,"memberDoc.name","")+`(${rowData.participantsId})`
-             }
+            formatter: function (rowData) {
+              return lodash.get(rowData, "memberDoc.name", "") + `(${rowData.participantsId})`
+            }
           },
           {
             label: "所属球队",
@@ -97,7 +102,7 @@ export default {
             prop: "teamId",
             type: "select",
             ajax: {
-              param:{aaa:123},
+              param: { aaa: 123 },
               url: "/crossList?page=tangball_team",
               keyLabel: "name",
               keyValue: "P1"

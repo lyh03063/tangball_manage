@@ -66,7 +66,7 @@
       <template v-slot:slot_detail_item_progress="{row}">
         <div>
           <div v-for="(item,index) in row.progress" :key="index">
-            赛程{{index+1}}：{{item.name}}，参与人数：{{item.joinPerson}}，决出人数：{{item.remainPersom}}，轮数{{item.roundCount}}
+            赛程{{index+1}}：{{item.name}}，参与人/队数：{{item.joinPerson}}，决出人/队数：{{item.remainPersom}}，轮数{{item.roundCount}}
           </div>
           <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in row.progress" :key="index">{{item.name}}{{index==row.progress.length-1?'':'→'}}</span></div>
           <div v-for="item in row.progress" :key="item.remainPersom+item.name">
