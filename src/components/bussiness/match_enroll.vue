@@ -78,7 +78,7 @@
                    <span v-if="member[i]">
                   <span v-if="member.length>0">{{member[i].status?member[i].status:'球员未录入'}}&nbsp;&nbsp;</span>
                   <el-link type="primary" v-if="member.length>0&&!member[i].flag" @click="addMerber(item,i)">录入</el-link>
-                  <el-link type="primary" v-else @click="modifyMerber(item,i)">修改</el-link>
+                  <el-link type="primary" v-else @click="modifyMerber(item,i,row.teamDoc)">修改</el-link>
                    </span>
                   </div>
               </div>
@@ -141,6 +141,7 @@ export default {
   mixins: [PUB.listCF.tangball_enroll],
   data() {
     return {
+      modifydata:{},
       playerPhoneList:[],
       showModifyDialog:false,//显示修改弹窗的key
       memberModiy:{},//保存修改数据
@@ -229,6 +230,7 @@ export default {
             this.playerPhoneList.push(item.phone)
           }
         })
+        this.playerPhoneList =  Array.from(new Set(this.playerPhoneList)) 
         console.log('aaaa',this.playerPhoneList);
     },
     // 判断球员是否已经录入的方法
@@ -282,6 +284,7 @@ export default {
         }).catch(() => {});
         // console.log('data',data.addData.phone);
         this.playerPhoneList.push(data.addData.phone)
+        this.playerPhoneList =  Array.from(new Set(this.playerPhoneList)) 
       this.member[this.checkedIndex].status = '球员已录入'
       this.member[this.checkedIndex].flag = true
       this.showAddDialog = false
@@ -298,20 +301,25 @@ export default {
             modifyJson:this.memberModiy
           }
         }).catch(() => {});
-        console.log('data',this.memberModiy.phone);
-        let status = false
-        this.playerPhoneList.forEach(item=>{
-          if (this.memberModiy.phone == item) {
-            status = true
+        this.modifydata.member[this.checkedIndex] = this.memberModiy
+      let groups = await axios({
+          method: "post",
+          url: PUB.domain + "/crossList?page=tangball_team",
+          data: {
+            findJson: {
+              P1:this.modifydata.P1
+            },
+            modifyJson:this.modifydata
           }
-        })
-        if (status) {
-          this.playerPhoneList.push(this.memberModiy.phone)
-        }
+        }).catch(() => {});
+        // this.playerPhoneList = JSON.parse(JSON.stringify(this.playerPhoneList))
+        this.playerPhoneList.push(this.memberModiy.phone)
+        this.playerPhoneList =  Array.from(new Set(this.playerPhoneList)) 
         this.showModifyDialog = false
     },
     // 打开新增弹窗的方法
     addMerber(item,i){
+      
       if (item.phone) {
         this.memberAdd= item 
       this.showAddDialog = true
@@ -323,7 +331,9 @@ export default {
       
     },
     // 打开修改弹窗的方法
-    modifyMerber(item,i){
+    modifyMerber(item,i,groups){
+      this.modifydata = groups
+      console.log('this.modifydata',this.modifydata);
       this.memberModiy = this.member[i].member
       console.log(this.memberModiy);
       
