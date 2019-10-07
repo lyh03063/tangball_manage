@@ -12,6 +12,13 @@ export default {
       detail: "/crossDetail?page=tangball_group", //查看单条数据详情接口，在修改表单或详情弹窗用到
       delete: "/crossDelete?page=tangball_group" //删除接口
     },
+     //批量操作按钮的配置
+  bactchBtns: {
+    add: false, //配置基础按钮隐藏（默认显示）,
+    tips:{
+      text:"数据来源于小程序或赛事的“成绩单”中添加",
+    }
+  },
     //-------列配置数组-------
     columns: [
       {

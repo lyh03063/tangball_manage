@@ -26,19 +26,22 @@ export default {
       {
         label: "赛事名称",
         prop: "matchName",
-        width: 100
+        width: 240
       },
       {
         label: "赛事时间",
         prop: "matchTime",
-        width: 100
+        width: 100,
+        formatter: function(rowData) {
+          return moment(rowData.matchTime).format("YYYY-MM-DD HH:mm");
+        }
       },
-      {
-        label: "报名人数",
-        prop: "registeredPersons",
-        width: 90,
-        statistics: { listIndex: "list_enroll", targetIdKey: "matchId" }
-      },
+      // {
+      //   label: "报名数",
+      //   prop: "registeredPersons",
+      //   width: 75,
+      //   statistics: { listIndex: "list_enroll", targetIdKey: "matchId" }
+      // },
       {
         label: "报名费",
         prop: "registrationFee",
@@ -56,7 +59,7 @@ export default {
         label: "状态",
         prop: "matchStatus",
         requireProp:["enrollTime",'enrollTimeEnd','matchTime','matchTimeEnd'],
-        width: 150,
+        width: 100,
         formatter: function(rowData) {
           let nowDate=new Date().getTime();
         let enrollTimeDate = new Date(rowData.enrollTime).getTime();
@@ -86,8 +89,9 @@ export default {
       },
       {
         label: "报名表",
+        requireProp:["registeredPersons"],
         // prop: "achievement",
-        width:85,
+        width:105,
         slot: "slot_column_enroll"
       },
       {
@@ -202,7 +206,7 @@ export default {
         slot: "slot_detail_item_album"
       },
       {
-        label: "报名人数",
+        label: "报名数",
         prop: "registeredPersons"
       },
       {

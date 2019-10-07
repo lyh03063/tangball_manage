@@ -3,8 +3,8 @@
         <div v-for="(item,index) in progress" :key="index">
             <div  class="progress-box">
             赛程名称：<el-input v-model="item.name" placeholder="请输入赛程名字" style="width:120px" ></el-input>
-            参与(人/队)数：<el-input v-model="item.joinPerson" placeholder="请输入赛程参与人数" @change="changeJoinPerson(index)" style="width:80px"></el-input>
-            决出(人/队)数：<el-input v-model="item.remainPersom" placeholder="请输入赛程决出人数" @change="changeRemainPersom(index)" style="width:80px"></el-input>
+            参与人/队数：<el-input v-model="item.joinPerson" placeholder="请输入赛程参与人/队数" @change="changeJoinPerson(index)" style="width:80px"></el-input>
+            决出人/队数：<el-input v-model="item.remainPersom" placeholder="请输入赛程决出人/队数" @change="changeRemainPersom(index)" style="width:80px"></el-input>
             轮数：<el-input v-model="item.roundCount" placeholder="请输入比赛轮数" @change="changeRemainPersom(index)" style="width:60px" ></el-input>
             </div>
             <div class="addButton el-icon-circle-plus-outline" @click="addprogress(index)"></div>
@@ -80,13 +80,13 @@ export default {
          this.progress.splice(index+1,0,obj)
          console.log(this.progress);
      },
-    //  修改参与人数的方法
+    //  修改参与人/队数的方法
      changeJoinPerson(index){
          if (index>0) {
             if(/^\d+$/.test(this.progress[index].joinPerson)){
                this.progress[index-1].remainPersom =  this.progress[index].joinPerson 
             }else{
-                alert('参与人数必须是数字')
+                alert('参与人/队数必须是数字')
                 this.progress[index].joinPerson = this.progress[index-1].remainPersom
             }  
          }
