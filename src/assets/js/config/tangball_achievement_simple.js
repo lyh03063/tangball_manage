@@ -34,11 +34,11 @@ export default {
                return lodash.get(rowData,"memberDoc.name","")+`(${rowData.participantsId})`
              }
           },
-          {
-            label: "所属球队",
-            prop: "teamId",
-            width: 90
-          },
+          // {
+          //   label: "所属球队",
+          //   prop: "teamId",
+          //   width: 90
+          // },
           {
             label: "比赛开始时间",
             prop: "timeStart",

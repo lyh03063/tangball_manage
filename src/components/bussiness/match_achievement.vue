@@ -326,6 +326,12 @@ export default {
 
       //Q1：团体赛-修改配置
       if (this.matchInfo.matchForm == "2") {
+        this.cfList.columns.splice(1, 0,{
+            label: "所属球队",
+            prop: "teamId",
+            width: 90
+          })
+          console.log('aaaa',this.cfList);
         //***修改teamId下拉框字段的ajax配置
         let itemIeamId = this.cfList.formItems.find(
           item => item.prop == "teamId"
@@ -486,6 +492,7 @@ export default {
   created() {
     T = this;
     T.changeMatchRound(); //调用：{切换轮数函数}
+    // console.log('aaaa',this.cfList);
   }
 };
 </script>

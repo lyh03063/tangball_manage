@@ -25,43 +25,43 @@ export default {
       //   hide: true
       // },
 
-      {
-        label: "手机号",
-        prop: "phone",
-        type: "input"
-      },
-      {
-        label: "性别",
-        prop: "sex",
-        type: "select",
-        options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]
-      },
-      {
-        label: "年龄",
-        prop: "age",
-        type: "input"
-      },
-      {
-        label: "职业",
-        prop: "career",
-        type: "input"
-      },
-      {
-        label: "球龄",
-        prop: "ballAge",
-        type: "select",
-        options: [
-          { label: "一年以下", value: 1 },
-          { label: "一到三年", value: 2 },
-          { label: "三到五年", value: 3 },
-          { label: "五到十年", value: 4 },
-          { label: "十年以上", value: 5 }
-        ]
-      },
-      {
-        label: "身份证号",
-        prop: "idCard"
-      },
+      // {
+      //   label: "手机号",
+      //   prop: "phone",
+      //   type: "input"
+      // },
+      // {
+      //   label: "性别",
+      //   prop: "sex",
+      //   type: "select",
+      //   options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]
+      // },
+      // {
+      //   label: "年龄",
+      //   prop: "age",
+      //   type: "input"
+      // },
+      // {
+      //   label: "职业",
+      //   prop: "career",
+      //   type: "input"
+      // },
+      // {
+      //   label: "球龄",
+      //   prop: "ballAge",
+      //   type: "select",
+      //   options: [
+      //     { label: "一年以下", value: 1 },
+      //     { label: "一到三年", value: 2 },
+      //     { label: "三到五年", value: 3 },
+      //     { label: "五到十年", value: 4 },
+      //     { label: "十年以上", value: 5 }
+      //   ]
+      // },
+      // {
+      //   label: "身份证号",
+      //   prop: "idCard"
+      // },
       {
         label: "报名时间",
         prop: "time",
