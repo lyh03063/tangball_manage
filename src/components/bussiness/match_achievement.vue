@@ -107,12 +107,12 @@
           <div class v-else-if="listAchPersonRanking&&matchInfo.matchForm=='1'">
             <table class="n-table">
               <tr>
-                <th class="W50">序号</th>
-                <th class="W100">姓名</th>
-                <th class="W100">总杆数</th>
+                <th class="WP10 TAL">序号</th>
+                <th class="WP10 TAL">姓名</th>
+                <th class="WP80 TAL">总杆数</th>
               </tr>
               <tr v-for="(item,i) in listAchPersonRanking" :key="i">
-                <td>{{i}}</td>
+                <td>{{i+1}}</td>
                 <td>{{dictMember[item.participantsId].name}}</td>
                 <td>{{item.matchScore}}</td>
               </tr>
