@@ -25,9 +25,9 @@ export default {
         width: 100
       },
       {
-        label: "微信号",
+        label: "微信openid",
         prop: "openid",
-        width: 100
+        width: 130
       },
        {
         label: "性别",
@@ -89,15 +89,20 @@ export default {
     //-------筛选表单字段数组-------
     searchFormItems: [
       {
-        label: "会员名称",
+        label: "会员姓名",
         prop: "name",
         type: "input_find_vague"
       },
       {
-        label: "身份证号",
-        prop: "idCard",
-        type: "input"
-      }
+        label: "手机号",
+        prop: "phone",
+       
+      },
+      {
+        label: "微信openid",
+        prop: "openid",
+       
+      },
     ],
     //-------详情字段数组-------
     detailItems: [

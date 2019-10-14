@@ -19,7 +19,7 @@
         </div>
         
       </div>
-      <div v-if="matchInfo.matchForm == 2" class="annotation-box">(ps:球员未入库无法库入成绩)</div>
+      <div v-if="matchInfo.matchForm == 2" class="annotation-box C_f60">未入球员库的球员将无法录入成绩</div>
       <dm_list_data :cf="cfList" ref="listForEnroll" @after-modify="modifyEnroll"  @after-add='addEnroll'
       @after-search='queryPlayer'>
         <!--  -->

@@ -1,7 +1,7 @@
 export default {
     detailItems:[
         {
-          label: "报名会员id",
+          label: "报名会员",
           prop: "memberId",
           slot: "slot_detail_item_memberId",
           
@@ -132,7 +132,7 @@ export default {
             keyLabel: "name",
             keyValue: "P1"
           },
-          rules: [{ required: true, message: "报名会员id" }]
+          rules: [{ required: true, message: "报名会员" }]
         },
         {
         label: "队伍信息",

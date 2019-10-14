@@ -66,15 +66,11 @@ export default {
         },
         {
           index: "1",
-          icon: "el-icon-menu",
-          title: "赛事",
+          icon: "el-icon-baseball",
+          title: "赛事中心",
           menuItem: [
-            { index: "list_venue", route: "/list_venue", title: "场馆" },
-            {
-              index: "list_franchisee",
-              route: "/list_franchisee",
-              title: "加盟商"
-            },
+            
+          
             { index: "list_match", route: "/list_match", title: "赛事" },
             {
               index: "list_enroll",route: "/list_enroll",title: "报名(订单)"
@@ -93,19 +89,44 @@ export default {
               route: "/list_achievement",
               title: "比赛成绩"
             },
-            { index: "list_member", route: "/list_member", title: "会员" }
+        
+          ]
+        },
+        
+        {
+          index: "333",
+          icon: "el-icon-user",
+          title: "球员信息库",
+          menuItem: [
+           { index: "list_member", route: "/list_member", title: "球员" }
+           
+          ]
+        },
+        {
+          index: "222",
+          icon: "el-icon-school",
+          title: "唐球馆",
+          menuItem: [
+            { index: "list_venue", route: "/list_venue", title: "唐球场馆" },
+              {
+              index: "list_franchisee",
+              route: "/list_franchisee",
+              title: "加盟商"
+            },
+           {
+              index: "list_area",
+              route: "/list_area",
+              title: "地区管理"
+            },
+           
           ]
         },
         {
           index: "2",
           icon: "el-icon-document",
-          title: "其他数据",
+          title: "资讯中心",
           menuItem: [
-            {
-              index: "list_area",
-              route: "/list_area",
-              title: "地区管理"
-            },
+           
             {
               index: "list_article_category",
               route: "/list_article_category",
@@ -115,17 +136,13 @@ export default {
               index: "list_article",
               route: "/list_article",
               title: "资讯管理"
-            },
-            {
-              index: "list_recommend",
-              route: "/list_recommend",
-              title: "首页轮播图"
             }
           ]
         },
+       
         {
           index: "3",
-          icon: "el-icon-setting",
+          icon: "el-icon-present",
           title: "赛事赞助",
           menuItem: [
             {
@@ -142,7 +159,7 @@ export default {
         },
         {
           index: "4",
-          icon: "el-icon-setting",
+          icon: "el-icon-cold-drink",
           title: "互动",
           menuItem: [
             {
@@ -157,6 +174,19 @@ export default {
             }
           ]
         },
+         {
+          index: "22",
+          icon: "el-icon-cloudy",
+          title: "其他",
+          menuItem: [
+            
+            {
+              index: "list_recommend",
+              route: "/list_recommend",
+              title: "首页轮播图"
+            }
+          ]
+        },
         {
           index: "5",
           icon: "el-icon-setting",
@@ -165,33 +195,33 @@ export default {
             { index: "list_admin", route: "/list_admin", title: "管理员" }
           ]
         },
-        {
-          index: "6",
-          icon: "el-icon-setting",
-          title: "demo页面",
-          menuItem: [
-            {
-              index: "dynamic_form_demo",
-              route: "/dynamic_form_demo",
-              title: "动态表单demo"
-            },
-            {
-              index: "demo_common",
-              route: "/demo_common",
-              title: "普通组件demo"
-            },
-            {
-              index: "listCategory",
-              route: "/listCategory",
-              title: "商品分类"
-            },
-            {
-              index: "listCommodity",
-              route: "/listCommodity",
-              title: "商品列表"
-            }
-          ]
-        }
+        // {
+        //   index: "6",
+        //   icon: "el-icon-setting",
+        //   title: "demo页面",
+        //   menuItem: [
+        //     {
+        //       index: "dynamic_form_demo",
+        //       route: "/dynamic_form_demo",
+        //       title: "动态表单demo"
+        //     },
+        //     {
+        //       index: "demo_common",
+        //       route: "/demo_common",
+        //       title: "普通组件demo"
+        //     },
+        //     {
+        //       index: "listCategory",
+        //       route: "/listCategory",
+        //       title: "商品分类"
+        //     },
+        //     {
+        //       index: "listCommodity",
+        //       route: "/listCommodity",
+        //       title: "商品列表"
+        //     }
+        //   ]
+        // }
       ]
     };
   },

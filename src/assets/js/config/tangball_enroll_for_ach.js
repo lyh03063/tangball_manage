@@ -67,7 +67,7 @@ Object.assign(objConfig,{
   //-------新增、修改表单字段数组-------
   formItems: [
     {
-      label: "报名会员id",
+      label: "报名会员",
       prop: "memberId",
 
       type: "select",
@@ -76,7 +76,7 @@ Object.assign(objConfig,{
         keyLabel: "name",
         keyValue: "P1"
       },
-      rules: [{ required: true, message: "报名会员id" }]
+      rules: [{ required: true, message: "报名会员" }]
     },
     {
       label: "赛事id",

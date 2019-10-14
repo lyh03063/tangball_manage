@@ -88,7 +88,7 @@ export default {
     ],
     detailItems: [
       {
-        label: "报名会员id",
+        label: "报名会员",
         prop: "memberId",
         slot: "slot_detail_item_memberId"
       },

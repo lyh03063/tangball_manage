@@ -104,24 +104,29 @@ export default {
     //-------筛选表单字段数组-------
     searchFormItems: [
       {
-        label: "赛事类型",
-        prop: "matchType",
-        type: "select",
-        options: [
-          { label: "普通赛", value: 1 },
-          { label: "全国赛", value: 2 }
-        ]
+        label: "赛事名称",
+        prop: "matchName",
+        type: "input_find_vague",
       },
       {
-        label: "赛事状态",
-        prop: "matchStatus",
+        label: "赛事类型",
+        prop: "matchForm",
         type: "select",
         options: [
-          { label: "未开始", value: 1 },
-          { label: "进行中", value: 2 },
-          { label: "已结束", value: 3 }
-        ]
+          { label: "个人赛", value: 1 },
+          { label: "团体赛", value: 2 }
+        ],
       },
+      // {
+      //   label: "赛事状态",
+      //   prop: "matchStatus",
+      //   type: "select",
+      //   options: [
+      //     { label: "未开始", value: 1 },
+      //     { label: "进行中", value: 2 },
+      //     { label: "已结束", value: 3 }
+      //   ]
+      // },
       {
         label: "发布状态",
         prop: "publicationStatus",

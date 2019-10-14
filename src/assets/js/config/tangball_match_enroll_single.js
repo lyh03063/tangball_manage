@@ -1,6 +1,6 @@
 export default {
     formItems : [{
-        label: "报名会员id",
+        label: "报名会员",
         prop: "memberId",
 
         type: "select",
@@ -9,7 +9,7 @@ export default {
           keyLabel: "name",
           keyValue: "P1"
         },
-        rules: [{ required: true, message: "报名会员id" }]
+        rules: [{ required: true, message: "报名会员" }]
       },
       // {
       //   label: "赛事id",
