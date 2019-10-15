@@ -14,7 +14,7 @@ export default {
       {
         label: "报名会员",
         prop: "memberId",
-        width: 130,
+        width: 110,
         formatter: function(rowData) {
           if (rowData.memberName) {
             return rowData.memberName.name;
@@ -25,24 +25,39 @@ export default {
       {
         label: "手机号",
         prop: "phone",
-        width: 100
+        width: 130,
+        formatter: function(rowData) {
+          if (rowData.memberName) {
+            return rowData.memberName.phone
+          }
+          
+        }
       },
       {
         label: "性别",
         prop: "sex",
         width: 65,
         formatter: function(rowData) {
-          if (rowData.sex == 1) {
-            return "男";
-          } else {
-            return "女";
+          if (rowData.memberName) {
+            if (rowData.memberName.sex == 1) {
+              return "男";
+            } else {
+              return "女";
+            }
           }
+          
         }
       },
       {
         label: "年龄",
         prop: "age",
-        width: 65
+        width: 65,
+        formatter: function(rowData) {
+          if (rowData.memberName) {
+            return rowData.memberName.age
+          }
+          
+        }
       },
 
       {
@@ -62,7 +77,7 @@ export default {
       {
         label: "支付状态",
         prop: "payStatus",
-        width: 70,
+        width: 120,
         formatter: function(rowData) {
           if (rowData.payStatus == 2) {
             return "已支付";

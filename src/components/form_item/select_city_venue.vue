@@ -10,17 +10,18 @@
       <tr>
         <td>选择场馆</td>
         <td>
-          <div class>
+          <div class='venue-list-box'>
             <!-- <div class>根据地区id,ajax查询场馆列表</div> -->
-
+            <div class="venue-box" v-for="doc in venueOp"
+              :key="doc.P1">
             <el-radio
               v-model="venue"
               :label="doc.P1"
               border
-              v-for="doc in venueOp"
-              :key="doc.P1"
+              class="venue-radio"
               @change="changeVanue(doc)"
             >{{doc.name}}</el-radio>
+            </div>
           </div>
 
           <div class="C_f60" v-if="!(venueOp&&venueOp.length)">该城市还没用合作的唐球场</div>
@@ -102,3 +103,16 @@ export default {
 };
 </script>
 
+<style scoped>
+  .venue-list-box{
+    /* display: flex */
+  }
+  .venue-box{
+    float: left;
+    width: 33.3%;
+    margin-bottom: 10px;
+  }
+  .venue-radio{
+    width: 90%;
+  }
+</style>

@@ -388,6 +388,8 @@ export default {
           }
         ];
         this.cfList.formItems=PUB.listCF.tangball_match_enroll_single.formItems
+        this.cfList.columns = PUB.listCF.tangball_match_enroll_single.columns
+        this.cfList.detailItems =PUB.listCF.tangball_match_enroll_single.detailItems
       }
       if (this.matchInfo.matchForm == 2) {
         this.title="报名球队信息"

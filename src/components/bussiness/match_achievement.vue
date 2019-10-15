@@ -107,12 +107,12 @@
           <div class v-else-if="listAchPersonRanking&&matchInfo.matchForm=='1'">
             <table class="n-table">
               <tr>
-                <th class="W50">序号</th>
-                <th class="W100">姓名</th>
-                <th class="W100">总杆数</th>
+                <th class="WP10 TAL">序号</th>
+                <th class="WP10 TAL">姓名</th>
+                <th class="WP80 TAL">总杆数</th>
               </tr>
               <tr v-for="(item,i) in listAchPersonRanking" :key="i">
-                <td>{{i}}</td>
+                <td>{{i+1}}</td>
                 <td>{{dictMember[item.participantsId].name}}</td>
                 <td>{{item.matchScore}}</td>
               </tr>
@@ -326,6 +326,12 @@ export default {
 
       //Q1：团体赛-修改配置
       if (this.matchInfo.matchForm == "2") {
+        this.cfList.columns.splice(1, 0,{
+            label: "所属球队",
+            prop: "teamId",
+            width: 90
+          })
+          console.log('aaaa',this.cfList);
         //***修改teamId下拉框字段的ajax配置
         let itemIeamId = this.cfList.formItems.find(
           item => item.prop == "teamId"
@@ -487,6 +493,7 @@ export default {
   created() {
     T = this;
     T.changeMatchRound(); //调用：{切换轮数函数}
+    // console.log('aaaa',this.cfList);
   }
 };
 </script>

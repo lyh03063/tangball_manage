@@ -271,6 +271,7 @@ export default {
       {
         label: "每队人数下限",
         prop: "teamMemberMin",
+        type: "number",
         term: { matchForm: 2 },
         rules: [{ required: true, message: "不能为空" }]
       },
@@ -282,6 +283,7 @@ export default {
       },
       {
         label: "每队人数上限",
+        type: "number",
         prop: "teamMemberMax",
         term: { matchForm: 2 },
         rules: [{ required: true, message: "不能为空" }]
@@ -319,6 +321,7 @@ export default {
       {
         label: "报名费用",
         prop: "registrationFee",
+        type: "number",
       },
   
       
