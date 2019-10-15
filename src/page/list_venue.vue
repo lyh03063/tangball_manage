@@ -40,7 +40,7 @@ export default {
     formData: {
       handler: function() {},
       deep: true //深度监听
-    },
+    }
   },
   data() {
     return {
@@ -59,6 +59,21 @@ export default {
           detail: "/crossDetail?page=tangball_venue", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "/crossDelete?page=tangball_venue" //删除接口
         },
+        //dynamicDict动态数据字典配置
+        dynamicDict: [
+          {
+            page: "tangball_franchisee",
+            populateColumn: "franchiseeDoc",
+            idColumn: "franchiseeId",
+            idColumn2: "P1"
+          },
+          {
+            page: "dmagic_area",
+            populateColumn: "areaDoc",
+            idColumn: "area",
+            idColumn2: "P7"
+          }
+        ],
         //-------列配置数组-------
         columns: [
           {
@@ -69,7 +84,11 @@ export default {
           {
             label: "加盟商",
             prop: "franchiseeId",
-            width: 100
+            width: 100,
+            formatter: function(rowData) {
+              return lodash.get(rowData, `franchiseeDoc.name`);
+            
+            }
           },
           {
             label: "场馆名称",
@@ -77,9 +96,13 @@ export default {
             width: 200
           },
           {
-            label: "所属地区",
+            label: "城市",
             prop: "area",
-            width: 100
+            width: 100,
+             formatter: function(rowData) {
+              return lodash.get(rowData, `areaDoc.P2`);
+            
+            }
           },
           {
             label: "详细地址",
@@ -233,10 +256,10 @@ export default {
           //   prop: "extend",
           //   path:"latitude",
           // },
-           {
+          {
             label: "场馆其他信息",
             prop: "extend",
-            default:{},//默认值必须要有，否则新增的时候会出问题
+            default: {}, //默认值必须要有，否则新增的时候会出问题
             cfForm: {
               formItems: [
                 {
@@ -265,7 +288,7 @@ export default {
           {
             label: "地图位置信息",
             prop: "extend",
-            default:{},//默认值必须要有，否则新增的时候会出问题
+            default: {}, //默认值必须要有，否则新增的时候会出问题
             cfForm: {
               formItems: [
                 {
@@ -278,7 +301,7 @@ export default {
                 }
               ]
             }
-          },
+          }
           // {
           //   label: "纬度",
           //   prop: "extend.latitude"

@@ -3,11 +3,11 @@
     <el-container>
       <el-header class="MB10">
         <el-row>
-          <div class="FL MT13 FS24 C_fff">唐球赛事管理后台</div>
+          <div class="FL MT13 FS24 C_fff">唐球赛事运营管理后台</div>
           <div class="FR MT30 C_fff">
             <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
-            <a href="javascript:;" class="MR10" @click="logout">退出登录</a>
-            <a target="_blank" href="javascript:;">官网首页</a>
+            <a href="javascript:;" class="MR10 " @click="logout" style="color:#ddd">退出登录</a>
+        
           </div>
         </el-row>
       </el-header>
@@ -105,9 +105,9 @@ export default {
         {
           index: "222",
           icon: "el-icon-school",
-          title: "唐球馆",
+          title: "唐球场",
           menuItem: [
-            { index: "list_venue", route: "/list_venue", title: "唐球场馆" },
+            { index: "list_venue", route: "/list_venue", title: "唐球场" },
               {
               index: "list_franchisee",
               route: "/list_franchisee",
@@ -136,6 +136,11 @@ export default {
               index: "list_article",
               route: "/list_article",
               title: "资讯管理"
+            },
+             {
+              index: "list_recommend",
+              route: "/list_recommend",
+              title: "首页轮播图"
             }
           ]
         },
@@ -143,7 +148,7 @@ export default {
         {
           index: "3",
           icon: "el-icon-present",
-          title: "赛事赞助",
+          title: "招商管理",
           menuItem: [
             {
               index: "list_sponsor",
@@ -159,8 +164,8 @@ export default {
         },
         {
           index: "4",
-          icon: "el-icon-cold-drink",
-          title: "互动",
+          icon: "el-icon-bell",
+          title: "系统消息",
           menuItem: [
             {
               index: "list_msg",
@@ -174,19 +179,15 @@ export default {
             }
           ]
         },
-         {
-          index: "22",
-          icon: "el-icon-cloudy",
-          title: "其他",
-          menuItem: [
+        //  {
+        //   index: "22",
+        //   icon: "el-icon-cloudy",
+        //   title: "其他",
+        //   menuItem: [
             
-            {
-              index: "list_recommend",
-              route: "/list_recommend",
-              title: "首页轮播图"
-            }
-          ]
-        },
+           
+        //   ]
+        // },
         {
           index: "5",
           icon: "el-icon-setting",

@@ -19,7 +19,7 @@
       </div>
     </el-dialog>
     <div>
-      城市赛阶段的城市场馆列表（已选{{valueNeed.length}}个）
+      场馆列表（{{valueNeed.length}}个）
       <i
         class="el-icon-plus"
         @click="isShowDialogAddCityVanue=true"

@@ -23,7 +23,7 @@
             >{{doc.name}}</el-radio>
           </div>
 
-          <div class="C_f60" v-if="!(venueOp&&venueOp.length)">该城市还没用合作的唐球馆</div>
+          <div class="C_f60" v-if="!(venueOp&&venueOp.length)">该城市还没用合作的唐球场</div>
         </td>
       </tr>
     </table>

@@ -49,7 +49,7 @@
           <dm_debug_item v-model="row.venue" text="场馆列表" />
         </dm_debug_list>
 
-        <city_venue_list v-model="row.cityVenueList" :isEdit="false"></city_venue_list>
+        <city_venue_list v-model="row.venue" :isEdit="false"></city_venue_list>
       </template>
       <template v-slot:slot_detail_item_album="{row}">
         <img :src='img.url' width="150" height="150" v-for="(img,index) in row.album" :key="index"/>
