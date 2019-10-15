@@ -3,7 +3,7 @@ export default {
     listIndex: "list_member", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",
-    threeTitle: "会员列表",
+    threeTitle: "球员列表",
     flag:true,
     url: {
       list: "/crossList?page=tangball_member", //列表接口
@@ -20,7 +20,7 @@ export default {
         width: 80
       },
       {
-        label: "会员名称",
+        label: "球员姓名",
         prop: "name",
         width: 100
       },
@@ -98,7 +98,7 @@ export default {
     //-------筛选表单字段数组-------
     searchFormItems: [
       {
-        label: "会员姓名",
+        label: "球员姓名",
         prop: "name",
         type: "input_find_vague"
       },
@@ -120,7 +120,7 @@ export default {
         prop: "P1",
       },
       {
-        label: "会员名称",
+        label: "球员姓名",
         prop: "name",
       },
       {
@@ -175,7 +175,7 @@ export default {
     //-------新增、修改表单字段数组-------
     formItems: [
      {
-        label: "会员姓名",
+        label: "球员姓名",
         prop: "name",
         width: 100
       },

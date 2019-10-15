@@ -15,7 +15,7 @@ export default {
     //-------列配置数组-------
     columns: [
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
         slot: "slot_detail_item_memberId",
         width: 100
@@ -117,7 +117,7 @@ export default {
         type: "input"
       },
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
         type: "select",
         ajax: {
@@ -159,7 +159,7 @@ export default {
     //-------详情字段数组-------
     detailItems: [
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
         slot: "slot_detail_item_memberId"
       },
@@ -259,7 +259,7 @@ export default {
     //-------新增、修改表单字段数组-------
     formItems: [
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
 
         type: "select",
@@ -268,10 +268,10 @@ export default {
           keyLabel: "name",
           keyValue: "P1"
         },
-        rules: [{ required: true, message: "报名会员" }]
+        rules: [{ required: true, message: "报名球员不能为空" }]
       },
       {
-        label: "赛事id",
+        label: "赛事",
         prop: "matchId",
 
         type: "select",
@@ -280,7 +280,7 @@ export default {
           keyLabel: "matchName",
           keyValue: "P1"
         },
-        rules: [{ required: true, message: "赛事id" }]
+        rules: [{ required: true, message: "赛事不能为空" }]
       },
       {
         label: "赛事信息",

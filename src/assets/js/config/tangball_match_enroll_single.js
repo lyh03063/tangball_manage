@@ -1,7 +1,10 @@
+import tangball_member_for_select from "./tangball_member_for_select.js"
+console.log("tangball_member_for_select:##############", tangball_member_for_select);
+
 export default {
   columns: [
     {
-      label: "报名会员",
+      label: "报名球员",
       prop: "memberId",
       width: 110,
       formatter: function(rowData) {
@@ -92,7 +95,7 @@ export default {
   ],
   detailItems: [
     {
-      label: "报名会员id",
+      label: "报名球员id",
       prop: "memberId",
       slot: "slot_detail_item_memberId"
     },
@@ -197,17 +200,32 @@ export default {
       }
     }
   ],
-    formItems : [{
-        label: "报名会员",
-        prop: "memberId",
+    formItems : [
+      // {
+      //   label: "报名球员11",
+      //   prop: "memberId",
 
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_member",
-          keyLabel: "name",
-          keyValue: "P1"
+      //   type: "select",
+      //   ajax: {
+      //     url: "/crossList?page=tangball_member",
+      //     keyLabel: "name",
+      //     keyValue: "P1"
+      //   },
+      //   rules: [{ required: true, message: "报名球员" }]
+      // },
+      {
+        label: "报名球员",
+        prop: "memberId",
+        type: "select_list_data",
+        cfSelectList: {
+          //选择列表配置
+          dataName: "球员",
+          valueKey: "P1",
+          labelKey: "name",
+          pageName: "tangball_member",
+          cfList: tangball_member_for_select
         },
-        rules: [{ required: true, message: "报名会员" }]
+        rules: [{ required: true, message: "报名球员不能为空" }]
       },
       // {
       //   label: "赛事id",

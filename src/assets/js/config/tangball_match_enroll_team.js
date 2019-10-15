@@ -1,7 +1,7 @@
 export default {
     detailItems:[
         {
-          label: "报名会员",
+          label: "报名球员",
           prop: "memberId",
           slot: "slot_detail_item_memberId",
           
@@ -123,7 +123,7 @@ export default {
       ],
       formItems:[
         {
-          label: "报名会员",
+          label: "报名球员",
           prop: "memberId",
 
           type: "select",
@@ -132,7 +132,7 @@ export default {
             keyLabel: "name",
             keyValue: "P1"
           },
-          rules: [{ required: true, message: "报名会员" }]
+          rules: [{ required: true, message: "报名球员不能为空" }]
         },
         {
         label: "队伍信息",

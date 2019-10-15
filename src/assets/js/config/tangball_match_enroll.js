@@ -12,7 +12,7 @@ export default {
     //-------列配置数组-------
     columns: [
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
         width: 110,
         formatter: function(rowData) {
@@ -103,7 +103,7 @@ export default {
     ],
     detailItems: [
       {
-        label: "报名会员",
+        label: "报名球员",
         prop: "memberId",
         slot: "slot_detail_item_memberId"
       },

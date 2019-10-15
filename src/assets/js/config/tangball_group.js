@@ -3,7 +3,7 @@ export default {
     listIndex: "list_group", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",
-    threeTitle: "会员列表",
+    threeTitle: "球员列表",
     flag:true,
     url: {
       list: "/crossList?page=tangball_group", //列表接口

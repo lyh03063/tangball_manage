@@ -1,4 +1,5 @@
 //#region tangball_enroll
+import tangball_member_for_select from "./tangball_member_for_select.js"
 export default {
   data() {
     return {
@@ -35,7 +36,7 @@ export default {
         // expands:[],
         columns: [
           {
-            label: "报名会员",
+            label: "报名球员",
             prop: "memberId",
             // slot: "slot_detail_item_memberId",
             width: 90,
@@ -172,7 +173,7 @@ export default {
             type: "input"
           },
           {
-            label: "报名会员",
+            label: "报名球员",
             prop: "memberId",
             type: "select",
             ajax: {
@@ -214,7 +215,7 @@ export default {
         //-------详情字段数组-------
         detailItems: [
           {
-            label: "报名会员",
+            label: "报名球员",
             prop: "memberId",
             slot: "slot_detail_item_memberId"
           },
@@ -319,17 +320,31 @@ export default {
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
-          {
-            label: "报名会员",
-            prop: "memberId",
+          // {
+          //   label: "报名球员",
+          //   prop: "memberId",
 
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
+          //   type: "select",
+          //   ajax: {
+          //     url: "/crossList?page=tangball_member",
+          //     keyLabel: "name",
+          //     keyValue: "P1"
+          //   },
+          //   rules: [{ required: true, message: "报名球员不能为空" }]
+          // },
+          {
+            label: "报名球员",
+            prop: "memberId",
+            type: "select_list_data",
+            cfSelectList: {
+              //选择列表配置
+              dataName: "球员",
+              valueKey: "P1",
+              labelKey: "name",
+              pageName: "tangball_member",
+              cfList: tangball_member_for_select
             },
-            rules: [{ required: true, message: "报名会员" }]
+            rules: [{ required: true, message: "报名球员不能为空" }]
           },
           {
             label: "赛事",
@@ -341,7 +356,7 @@ export default {
               keyLabel: "matchName",
               keyValue: "P1"
             },
-            rules: [{ required: true, message: "赛事" }]
+            rules: [{ required: true, message: "赛事不能为空" }]
           },
           {
             label: "赛事信息",
