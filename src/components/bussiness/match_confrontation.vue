@@ -223,7 +223,7 @@ export default {
         let achDoc = T.listAchievement.find(
           doc => doc.participantsId == gMEach.id
         );
-        let score=achDoc?achDoc.matchScore:0
+        let score = achDoc ? achDoc.matchScore : 0;
         arrPolesTotal.push(score);
       });
       let str = arrPolesTotal.join(" : ");
@@ -380,26 +380,35 @@ export default {
       ],
       //新增修改弹窗的一些配置
       cfDialogForm: {
-          tips:{
-            text:"1,同一轮比赛的组号不能重复<br/> 2,团体赛通常是两个球队进行PK",
-            style:{"padding-left":"120px"}
-          }
-          
-        },
+        tips: {
+          text: "1,同一轮比赛的组号不能重复<br/> 2,团体赛通常是两个球队进行PK",
+          style: { "padding-left": "120px" }
+        }
+      },
       //-------新增、修改表单字段数组-------
       formItems: [
         {
           label: "组号",
           prop: "groupNum",
           type: "number",
-           rules: [{ required: true, message: "不能为空" }]
+          rules: [{ required: true, message: "不能为空" }]
+        },
+        {
+          label: "开始时间",
+          prop: "timeStart",
+          type: "dateTime"
+        },
+        {
+          label: "结束时间",
+          prop: "timeEnd",
+          type: "dateTime"
         },
         {
           label: "小组成员",
           prop: "groupMember",
           type: "collection",
           collectionlistType: "form",
-          default:[{__id:1},{__id:2}],
+          default: [{ __id: 1 }, { __id: 2 }],
           collectionCfForm: {
             col_span: 12,
             formItems: [ajaxSelectCF] //个人赛和团体赛不同
