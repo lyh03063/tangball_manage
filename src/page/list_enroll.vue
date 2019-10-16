@@ -12,33 +12,37 @@
         <img :src="urlBigImg" alt />
       </div>
     </el-dialog>
-    <dm_list_data :cf="cfList" 
-    @after-show-Dialog-Add="showAdd" 
-     @after-show-Dialog-Modify='showModify'
-     @after-show-Dialog-Detail='showDetail'
-     @after-modify="modifyEnroll" 
-      @after-add='addEnroll'>
+    <dm_list_data
+      :cf="cfList"
+      @after-show-Dialog-Add="showAdd"
+      @after-show-Dialog-Modify="showModify"
+      @after-show-Dialog-Detail="showDetail"
+      @after-modify="modifyEnroll"
+      @after-add="addEnroll"
+    >
       <!-- 选择赛事和场馆 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
-     
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
       <!-- 赛事场馆详情 -->
       <template v-slot:slot_detail_item_matchInfo="{row}">
-     
-        <match_venue v-model="row.cityVenueId" :matchId="row.matchId" :readOnly='true'></match_venue>
+        <match_venue v-model="row.cityVenueId" :matchId="row.matchId" :readOnly="true"></match_venue>
       </template>
       <!-- 报名订单插槽 -->
       <template v-slot:slot_form_item_orderId="{formData}">
         <enroll_orderId v-model="formData.orderId"></enroll_orderId>
       </template>
-       <!-- 新增修改队伍信息插槽 -->
+      <!-- 新增修改队伍信息插槽 -->
       <template v-slot:slot_form_item_groups="{formData}">
-        <from_groups v-model="formData.groups" :orderId='formData.orderId' :matchId='formData.matchId'></from_groups>
+        <from_groups
+          v-model="formData.groups"
+          :orderId="formData.orderId"
+          :matchId="formData.matchId"
+        ></from_groups>
       </template>
-        <!-- 队伍信息详情插槽 -->
+      <!-- 队伍信息详情插槽 -->
       <template v-slot:slot_detail_item_groups="{row}">
-        <groups_detail v-model="row.orderId" ></groups_detail>
+        <groups_detail v-model="row.orderId"></groups_detail>
       </template>
 
       <template v-slot:slot_detail_item_album="{row}">
@@ -85,38 +89,38 @@
 import match_venue from "@/components/form_item/match_venue.vue";
 import enroll_orderId from "@/components/enroll_orderId";
 import from_groups from "@/components/from_groups";
-import groups_detail from '@/components/groups_detail'
+import groups_detail from "@/components/groups_detail";
 export default {
-  components: {  match_venue ,enroll_orderId,from_groups,groups_detail},
+  components: { match_venue, enroll_orderId, from_groups, groups_detail },
   mixins: [PUB.listCF.tangball_enroll],
   methods: {
-    async addEnroll(newData,oldData){
+    async addEnroll(newData, oldData) {
       let { data } = await axios({
-          method: "post",
-          url: PUB.domain + "/crossAdd?page=tangball_team",
-          data: {
-            data:oldData.groups
-          }
-        }).catch(() => {});
+        method: "post",
+        url: PUB.domain + "/crossAdd?page=tangball_team",
+        data: {
+          data: oldData.groups
+        }
+      }).catch(() => {});
     },
-    async modifyEnroll(newData,oldData){
+    async modifyEnroll(newData, oldData) {
       let { data } = await axios({
-          method: "post",
-          url: PUB.domain + "/crossModify?page=tangball_team",
-          data: {
-            findJson:{
-              P1:newData.groups.P1
-            },
-            modifyJson:newData.groups
-          }
-        }).catch(() => {});
+        method: "post",
+        url: PUB.domain + "/crossModify?page=tangball_team",
+        data: {
+          findJson: {
+            P1: newData.groups.P1
+          },
+          modifyJson: newData.groups
+        }
+      }).catch(() => {});
     },
     showBigImg(url) {
       this.showDialogBigImg = true;
       this.urlBigImg = url;
     },
-    showDetail(row){
-      if (row.matchMsg.matchForm==2) {
+    showDetail(row) {
+      if (row.matchMsg.matchForm == 2) {
         this.cfList.detailItems = [
           {
             label: "报名球员",
@@ -131,22 +135,22 @@ export default {
           {
             label: "赛事信息",
             prop: "cityVenueId",
-            slot:'slot_detail_item_matchInfo'
+            slot: "slot_detail_item_matchInfo"
           },
           {
             label: "队伍信息",
             prop: "groups",
-            slot:'slot_detail_item_groups'
+            slot: "slot_detail_item_groups"
           },
           {
             label: "报名时间",
             prop: "time",
-            formatter: function (row) {
+            formatter: function(row) {
               if (row.time) {
-                var dt=new Date(row.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
+                var dt = new Date(row.time);
+                return dt.toLocaleDateString() + dt.toLocaleTimeString();
+              } else {
+                return "暂无报名时间";
               }
             }
           },
@@ -154,7 +158,7 @@ export default {
             label: "支付状态",
             prop: "payStatus",
             width: 100,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
@@ -166,7 +170,7 @@ export default {
             label: "审核状态",
             prop: "auditStatus",
             width: 100,
-            formatter: function (rowData) {
+            formatter: function(rowData) {
               if (rowData.auditStatus == 1) {
                 return "未审核";
               } else if (rowData.auditStatus == 2) {
@@ -176,43 +180,38 @@ export default {
               }
             }
           }
-        ]
-      }else{
-       this.cfList.detailItems = PUB.listCF.tangball_enroll.data().cfList.detailItems
-        
+        ];
+      } else {
+        this.cfList.detailItems = PUB.listCF.tangball_enroll.data().cfList.detailItems;
       }
-      
     },
-    showAdd(row){
+    showAdd(row) {
+      //还原配置（formItems是共用的，可能被showModify修改）
+      this.cfList.formItems = util.deepCopy(PUB.listCF.tangball_enroll.data().cfList.formItems);
       console.log(row);
     },
-    showModify(row){
-      if (row.matchMsg.matchForm==2) {
+    showModify(row) {
+      //报名球员和赛事不允许修改
+      let cf_item_memberId = {
+        label: "报名球员",
+        prop: "memberId",
+        type: "ajax_populate",
+        cfAjaxPopulate: { populateKey: "name", page: "tangball_member" }
+      };
+
+      let cf_item_matchId = {
+        label: "赛事",
+        prop: "matchId",
+        type: "ajax_populate",
+        cfAjaxPopulate: { populateKey: "matchName", page: "tangball_match" }
+      };
+
+      if (row.matchMsg.matchForm == 2) {
         this.cfList.formItems = [
-           {
-            label: "报名球员",
-            prop: "memberId",
+          cf_item_memberId,
+          cf_item_matchId,
 
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
-            },
-            rules: [{ required: true, message: "报名球员不能为空" }]
-          },
-          {
-            label: "赛事",
-            prop: "matchId",
-
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "P1"
-            },
-            rules: [{ required: true, message: "赛事" }]
-          },
+          
           {
             label: "赛事信息",
             prop: "cityVenueId",
@@ -248,17 +247,23 @@ export default {
               { label: "审核通过", value: 3 }
             ]
           }
-        ]
-      }else{
-       this.cfList.formItems = PUB.listCF.tangball_enroll.data().cfList.formItems
-        
+        ];
+      } else {
+        this.cfList.formItems = util.deepCopy(PUB.listCF.tangball_enroll.data().cfList.formItems);
+        let index_memberId = this.cfList.formItems.findIndex(
+          item => item.prop == "memberId"
+        );
+        this.$set(this.cfList.formItems, index_memberId, cf_item_memberId);
+        let index_matchId = this.cfList.formItems.findIndex(
+          item => item.prop == "matchId"
+        );
+        this.$set(this.cfList.formItems, index_matchId, cf_item_matchId);
       }
     }
   },
   data() {
     return {
-      showDialogBigImg: false,
-     
+      showDialogBigImg: false
     };
   }
 };
