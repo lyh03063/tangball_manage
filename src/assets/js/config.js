@@ -1,7 +1,7 @@
 
 
 // import lodash from 'lodash'//导入lodash方法库
-import  "@/assets/js/config base.js";//注意位置要提前
+import  "@/assets/js/config_base.js";//注意位置要提前
 import  "@/assets/js/mix.js";//注意位置要提前
 
 import tangball_enroll from "@/assets/js/config/tangball_enroll.js";

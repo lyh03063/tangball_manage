@@ -43,6 +43,7 @@ import list_recommend from "@/page/list_recommend";
 import list_team from "@/page/list_team";
 import list_rule from "@/page/list_rule";
 import list_group from "@/page/list_group";
+import home_page_title from "@/page/home_page_title";
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
 // window.util=util;
@@ -79,6 +80,10 @@ const router = new VueRouter({
         {
           path: '/list_member',
           component: list_member
+        },
+        {
+          path: '/home_page_title',
+          component: home_page_title
         },
         {
           path: '/list_sponsor',

@@ -376,6 +376,12 @@ export default {
           prop: "matchResult",
           slot: "slot_column_matchPolesResult",
           width: 180
+        },
+        {
+          label: "比赛开始时间",
+          prop: "timeStart",
+          width: 180
+          // type: "dateTime"
         }
       ],
       //新增修改弹窗的一些配置
