@@ -141,6 +141,11 @@ export default {
               index: "list_recommend",
               route: "/list_recommend",
               title: "首页轮播图"
+            },
+             {
+              index: "home_page_title",
+              route: "/home_page_title",
+              title: "首页标题"
             }
           ]
         },
