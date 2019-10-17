@@ -37,7 +37,7 @@
       </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">
-        <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">成绩单</a>
+        <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
       </template>
       <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">

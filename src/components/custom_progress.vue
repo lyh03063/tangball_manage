@@ -119,7 +119,7 @@ export default {
     //  如果赛程不存在，给他设定初始值
     if (!this.progress) {
         this.progress = [
-            {name:'海选',joinPerson:'500-1000',remainPersom:100,checked:true,roundCount:1}]
+            {name:'决赛',joinPerson:'100-200',remainPersom:2,checked:true,roundCount:1}]
     }
     this.options = this.progress.map((item,index)=>{
         if (item.checked==true) {

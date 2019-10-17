@@ -1,12 +1,7 @@
-window.PUB = {}
-  PUB.domain = "http://localhost:3000"
-//PUB.domain = 'http://test.dmagic.cn'
-//PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-//PUB.domain = "http://120.76.160.41:3000"
-PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
-PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
+
 
 // import lodash from 'lodash'//导入lodash方法库
+import  "@/assets/js/config base.js";//注意位置要提前
 import  "@/assets/js/mix.js";//注意位置要提前
 
 import tangball_enroll from "@/assets/js/config/tangball_enroll.js";

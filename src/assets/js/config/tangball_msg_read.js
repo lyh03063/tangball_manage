@@ -93,16 +93,7 @@ export default {
           keyValue: "P1"
         }
       },
-       {
-        label: "会员id",
-        prop: "memberId",
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_member",
-          keyLabel: "name",
-          keyValue: "P1"
-        }
-      },
+      F_ITEMS.memberId,
       {
         label: "阅读时间",
         prop: "readTime",
