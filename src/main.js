@@ -19,6 +19,7 @@ import config from "@/assets/js/config.js";
 Vue.use(VueRouter)
 import "./mock.js";
 import login from "@/login";
+import modify_password from "@/page/modify_password";
 import manage from "@/manage";
 import listHome from "@/page/listHome";
 import listCategory from "@/page/listCategory";
@@ -52,6 +53,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: login },
+    
     {
       path: '/manage',
       component: manage,
@@ -60,6 +62,9 @@ const router = new VueRouter({
         {
           path: '/list_venue',
           component: list_venue
+        },
+        {
+          path:'/modify_password',component:modify_password
         },
         {
           path: '/list_franchisee',

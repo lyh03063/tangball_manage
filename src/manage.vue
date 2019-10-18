@@ -1,13 +1,17 @@
 <template>
   <div id="app" style>
     <el-container>
-      <el-header class="MB10">
+      <el-header class="home-head-box MB10">
         <el-row>
           <div class="FL MT13 FS24 C_fff">唐球赛事运营管理后台</div>
           <div class="FR MT30 C_fff">
-            <span class="MR10">当前登录用户:{{this. currentUserName}}</span>
-            <a href="javascript:;" class="MR10 " @click="logout" style="color:#ddd">退出登录</a>
-        
+            <i class="el-icon-s-custom MR5 " title="用户名"></i>{{this. currentUserName}}&nbsp;&nbsp;&nbsp;
+            <a href="javascript:;" class="MR10 " @click="logout" style="color:white;">
+              <i class="el-icon-right MR5 middle-box" ></i>退出登录</a>
+              <router-link to="/modify_password">
+            <i class="el-icon-key MR5 middle-box " style="cursor: pointer;color:white;"
+            >修改密码</i>
+              </router-link>
           </div>
         </el-row>
       </el-header>
@@ -145,7 +149,7 @@ export default {
              {
               index: "home_page_title",
               route: "/home_page_title",
-              title: "首页标题"
+              title: "首页推荐内容"
             }
           ]
         },
@@ -262,6 +266,16 @@ body .el-radio-button__orig-radio:checked + .el-radio-button__inner {
   border-color: #e6a23c;
   -webkit-box-shadow: -1px 0 0 0 #e6a23c;
   box-shadow: -1px 0 0 0 #e6a23c;
+}
+.home-head-box{
+  background-color: rgb(84, 92, 100)
+}
+.el-header{
+  background-color: rgb(84, 92, 100)!important
+}
+.middle-box{
+  border-left:1px solid #ddd;
+  padding-left:5px;
 }
 </style>
 

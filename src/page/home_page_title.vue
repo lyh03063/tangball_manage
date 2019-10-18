@@ -3,10 +3,10 @@
      <el-breadcrumb separator-class="el-icon-arrow-right">
   <el-breadcrumb-item >首页</el-breadcrumb-item>
   <el-breadcrumb-item>资讯中心</el-breadcrumb-item>
-  <el-breadcrumb-item>首页标题</el-breadcrumb-item>
+  <el-breadcrumb-item>首页推荐内容</el-breadcrumb-item>
 </el-breadcrumb>
 <div style="margin-top:20px;"></div>
-<h2 style="margin-left:10px;">修改首页标题数据</h2>
+<h2 style="margin-left:10px;">修改首页推荐内容数据</h2>
 <div class="TitleMsg-box">
   <div style="height:10px;"></div>
     <div>
