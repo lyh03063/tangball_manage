@@ -148,7 +148,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style lang="scss" >
 .login-page-box{
   background-color: rgb(147, 222,254);
   height: 100%;
@@ -211,8 +211,8 @@ body, html {
 }
 .login-bgimg-box{
   position: fixed;
-  top:16%;
-  left: 10%;
+  top:28%;
+  left: 15%;
   height: 440px;
   width: 500px;
   // background-color: #ffffff;
