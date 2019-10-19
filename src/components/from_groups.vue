@@ -92,17 +92,17 @@ export default {
 .groups-box{
     height: 50px;
     line-height: 50px;
-    border:1px solid gray;
+    border:1px dashed #ddd;
     padding-left: 20px;
     margin-bottom: 10px;
-    width: 70%;
-    border-radius: 10px;
+    width: 80%;
+    border-radius: 5px;
 }
 .addButton{
     margin-left: 5px;
     margin-top:8px;
     float: left;
-    font-size: 35px;
+    font-size: 28px;
     color:rgb(200,200,200);
     cursor: pointer;
 }

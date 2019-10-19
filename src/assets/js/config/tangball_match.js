@@ -95,7 +95,7 @@ export default {
         slot: "slot_column_enroll"
       },
       {
-        label: "成绩单",
+        label: "对阵分组/成绩",
         // prop: "achievement",
         width: 85,
         slot: "slot_column_achievement"
@@ -236,10 +236,7 @@ export default {
         prop: "matchResult",
         type:'html'
       },
-      {
-        label: "路线地图",
-        prop: "routeMap"
-      }
+      
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
@@ -325,10 +322,10 @@ export default {
       },
   
       
-      {
-        label: "路线地图",
-        prop: "routeMap",
-      },
+      // {
+      //   label: "路线地图",
+      //   prop: "routeMap",
+      // },
       {
         label: "赛事介绍",
         prop: "matchIntroduce",

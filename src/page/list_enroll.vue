@@ -187,77 +187,44 @@ export default {
     },
     showAdd(row) {
       //还原配置（formItems是共用的，可能被showModify修改）
-      this.cfList.formItems = util.deepCopy(PUB.listCF.tangball_enroll.data().cfList.formItems);
+      this.cfList.formItems = util.deepCopy(
+        PUB.listCF.tangball_enroll.data().cfList.formItems
+      );
       console.log(row);
     },
     showModify(row) {
       //报名球员和赛事不允许修改
-      let cf_item_memberId = {
-        label: "报名球员",
-        prop: "memberId",
-        type: "ajax_populate",
-        cfAjaxPopulate: { populateKey: "name", page: "tangball_member" }
-      };
-
-      let cf_item_matchId = {
-        label: "赛事",
-        prop: "matchId",
-        type: "ajax_populate",
-        cfAjaxPopulate: { populateKey: "matchName", page: "tangball_match" }
-      };
 
       if (row.matchMsg.matchForm == 2) {
         this.cfList.formItems = [
-          cf_item_memberId,
-          cf_item_matchId,
-
-          
-          {
-            label: "赛事信息",
-            prop: "cityVenueId",
-            slot: "slot_form_item_matchInfo"
-          },
-          {
-            label: "队伍信息",
-            prop: "groups",
-            slot: "slot_form_item_groups"
-          },
-          {
-            label: "报名时间",
-            prop: "time",
-
-            type: "date"
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            type: "select",
-            options: [
-              { label: "已支付", value: 2 },
-              { label: "未支付", value: 1 }
-            ]
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            type: "select",
-            options: [
-              { label: "未审核", value: 1 },
-              { label: "审核不通过", value: 2 },
-              { label: "审核通过", value: 3 }
-            ]
-          }
+          F_ITEMS.memberId_readonly,
+          F_ITEMS.matchId_readonly,
+          F_ITEMS.matchInfo,
+          F_ITEMS.groups,
+          F_ITEMS.time,
+          F_ITEMS.payStatus,
+          F_ITEMS.auditStatus
         ];
       } else {
-        this.cfList.formItems = util.deepCopy(PUB.listCF.tangball_enroll.data().cfList.formItems);
-        let index_memberId = this.cfList.formItems.findIndex(
-          item => item.prop == "memberId"
+        this.cfList.formItems = util.deepCopy(
+          PUB.listCF.tangball_enroll.data().cfList.formItems
         );
-        this.$set(this.cfList.formItems, index_memberId, cf_item_memberId);
-        let index_matchId = this.cfList.formItems.findIndex(
-          item => item.prop == "matchId"
-        );
-        this.$set(this.cfList.formItems, index_matchId, cf_item_matchId);
+        //调用：{处理字段数组的某个字段配置的函数}
+        this.$handelItem({
+          action: "replace",
+          items: this.cfList.formItems,
+          prop: "memberId",
+          itemNew: F_ITEMS.memberId_readonly
+        });
+        //调用：{处理字段数组的某个字段配置的函数}
+        this.$handelItem({
+          action: "replace",
+          items: this.cfList.formItems,
+          prop: "matchId",
+          itemNew: F_ITEMS.matchId_readonly
+        });
+
+       
       }
     }
   },

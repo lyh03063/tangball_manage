@@ -219,6 +219,24 @@ const store = new Vuex.Store({//定义Vuex的存储对象
   }
 })
 Vue.prototype.$store = store//让vue实例中可访问$store
+
+
+// //处理字段数组的某个字段配置的函数
+// util.handelItem = function (cf) {
+//   let { action, items, prop, itemNew } = cf;
+//   let index = items.findIndex(item => item.prop == prop);
+//   if (action=="replace") {//Q1:replace
+//     this.$set(items, index, itemNew); //修改memberId对应的字段配置
+//   } else { //Q2:
+
+//   }
+
+// }
+
+Vue.prototype.$handelItem = util.handelItem//让vue实例中可访问$handelItem
+
+
+
 // import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 // Vue.use(ElementUI);
