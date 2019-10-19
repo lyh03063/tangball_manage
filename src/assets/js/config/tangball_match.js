@@ -97,7 +97,7 @@ export default {
       {
         label: "对阵分组/成绩",
         // prop: "achievement",
-        width: 85,
+        width: 125,
         slot: "slot_column_achievement"
       }
     ],
