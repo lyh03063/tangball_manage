@@ -380,7 +380,14 @@ export default {
         {
           label: "比赛开始时间",
           prop: "timeStart",
-          width: 180
+          width: 180,
+          formatter: function(rowData) {
+          if (rowData.timeStart) {
+            var dt=new Date(rowData.timeStart);
+          return dt.toLocaleDateString()+dt.toLocaleTimeString()
+          }
+          
+        }
           // type: "dateTime"
         }
       ],
