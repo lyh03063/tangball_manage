@@ -1,5 +1,6 @@
 
 export default {
+  powerPath: "matchCenter.list_rule",//权限路径
     listIndex: "list_rule", //vuex对应的字段
     focusMenu: true, //进行菜单聚焦
     twoTitle: "赛事",

@@ -17,6 +17,7 @@ import tangball_msg from "@/assets/js/config/tangball_msg.js";
 import tangball_msg_read from "@/assets/js/config/tangball_msg_read.js";
 import tangball_area from "@/assets/js/config/tangball_area.js";
 import tangball_admin from "@/assets/js/config/tangball_admin.js";
+import tangball_role from "@/assets/js/config/tangball_role.js";
 import tangball_achievement from "@/assets/js/config/tangball_achievement.js";
 import tangball_achievement_simple from "@/assets/js/config/tangball_achievement_simple.js";
 import tangball_group from "@/assets/js/config/tangball_group.js";
@@ -116,7 +117,7 @@ PUB.listCF.tangball_area = tangball_area
 
 
 PUB.listCF.tangball_admin =tangball_admin
-
+PUB.listCF.tangball_role =tangball_role
 
 PUB.listCF.tangball_achievement =tangball_achievement
 

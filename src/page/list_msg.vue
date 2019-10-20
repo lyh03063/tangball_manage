@@ -19,7 +19,9 @@ export default {
       cfList: PUB.listCF.tangball_msg
     };
   },
-  methods: {}
+  methods: {},created(){
+    util.setListPower(this.cfList);//调用：{根据当前角色权限设置列表配置的函数}
+  }
 };
 </script>
 

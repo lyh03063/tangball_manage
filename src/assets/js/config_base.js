@@ -1,9 +1,9 @@
 
 window.PUB = {}
-//PUB.domain = "http://localhost:3000"
+PUB.domain = "http://localhost:3000"
 //PUB.domain = 'http://test.dmagic.cn'
 //PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-PUB.domain = "http://120.76.160.41:3000"
+//PUB.domain = "http://120.76.160.41:3000"
 PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
 PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
 
@@ -14,13 +14,77 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 // util.handelItem({ action: "replace", items: items, prop: prop, itemNew: {} })
 
 
+//调用：{根据当前角色权限设置列表配置的函数}
+util.setListPower = function (cfList) {
 
+  let { powerPath } = cfList;
+  if (!powerPath) return cfList
+  console.log("powerPath:", powerPath);
 
+  let hasPowerAdd = lodash.get(window.rolePower, `${powerPath}.add`);
+  if (!hasPowerAdd) {
+    //如果没有新增权限
+    lodash.set(cfList, `bactchBtns.add`, false);
+  }
+  let hasPowerDelete = lodash.get(window.rolePower, `${powerPath}.delete`);
+  if (!hasPowerDelete) {
+    //如果没有删除权限
+    lodash.set(cfList, `bactchBtns.delete`, false);
+    lodash.set(cfList, `singleBtns.delete`, false);
+  }
+
+  let hasPowerModify = lodash.get(window.rolePower, `${powerPath}.modify`);
+  if (!hasPowerModify) {
+    //如果没有修改权限
+    lodash.set(cfList, `singleBtns.modify`, false);
+  }
+  return cfList
+};
+
+//设置一个对象到LocalStorage
+util.setLocalStorageObj = function (key, val) {
+
+  if (util.type(val) == "array" || util.type(val) == "object") {//Q1:数据类型是数组活对虾
+    val = JSON.stringify(val);//Json对象转换Json字符串
+  }
+  localStorage[key]=val
+
+}
+
+//从LocalStorage获取一个对象的函数
+util.getLocalStorageObj = function (key) {
+ return JSON.parse(localStorage[key]);//
+
+}
+
+// F_ITEMS基础表单字段
+window.COLUMNS = {
+  Id: {
+    label: "Id",
+    prop: "P1",
+    width: 80
+  },
+  roleName: {
+    label: "角色名",
+    prop: "name",
+    width: 120
+  },
+  rolePower: {
+    label: "权限",
+    prop: "power",
+    width: 200
+  }
+}
 
 
 
 // F_ITEMS基础表单字段
 window.F_ITEMS = {
+  Id: {
+    label: "数据id",
+    prop: "P1",
+    type: "input"
+  },
   memberId: {
     label: "球员",
     prop: "memberId",

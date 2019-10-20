@@ -1,19 +1,15 @@
 <template>
   <div class>
-    <dm_list_data :cf="cfList">
-     
-    </dm_list_data>
+    <dm_list_data :cf="cfList"></dm_list_data>
   </div>
 </template>
 <script>
-
-
-
 export default {
-  components: {  },
+  components: {},
   data() {
     return {
       cfList: {
+        powerPath: "newsCenter.list_article",//权限路径
         listIndex: "list_article", //vuex对应的字段~
         focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
@@ -26,11 +22,18 @@ export default {
           detail: "/crossDetail?page=tangball_article",
           delete: "/crossDelete?page=tangball_article" //删除接口
         },
-        dynamicDict: [{ page: "tangball_article_category",populateColumn: "categoryDoc", idColumn: "articleCategory", idColumn2: "P1" }],
+        dynamicDict: [
+          {
+            page: "tangball_article_category",
+            populateColumn: "categoryDoc",
+            idColumn: "articleCategory",
+            idColumn2: "P1"
+          }
+        ],
 
         //-------列配置数组-------
         columns: [
-       {
+          {
             label: "资讯标题",
             prop: "articleTitle",
             width: 260
@@ -40,16 +43,15 @@ export default {
             prop: "articleCategory",
             width: 150,
             formatter: function(rowData) {
-             let name= lodash.get(rowData,"categoryDoc.name");
-              return name
+              let name = lodash.get(rowData, "categoryDoc.name");
+              return name;
             }
           },
-          
+
           {
             label: "创建时间",
             prop: "CreateTime",
-            width: 145,
-           
+            width: 145
           },
           {
             label: "其他",
@@ -121,12 +123,13 @@ export default {
           {
             label: "公众号资讯地址",
             prop: "extend",
-            path:"wxArticleUrl",
-          },
-         
+            path: "wxArticleUrl"
+          }
         ]
       }
     };
+  },created(){
+    util.setListPower(this.cfList);//调用：{根据当前角色权限设置列表配置的函数}
   }
 };
 </script>

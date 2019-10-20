@@ -33,7 +33,11 @@
     <dm_list_data :cf="cfList">
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_enroll="{row}">
-        <a href="javascript:;" class="link-blue" @click="dialogEnroll(row)">报名表({{row.registeredPersons||0}})</a>
+        <a
+          href="javascript:;"
+          class="link-blue"
+          @click="dialogEnroll(row)"
+        >报名表({{row.registeredPersons||0}})</a>
       </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">
@@ -52,7 +56,7 @@
         <city_venue_list v-model="row.venue" :isEdit="false"></city_venue_list>
       </template>
       <template v-slot:slot_detail_item_album="{row}">
-        <img :src='img.url' width="150" height="150" v-for="(img,index) in row.album" :key="index"/>
+        <img :src="img.url" width="150" height="150" v-for="(img,index) in row.album" :key="index" />
       </template>
       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
@@ -65,14 +69,19 @@
       <!-- 自定义组队详情表单插槽 -->
       <template v-slot:slot_detail_item_progress="{row}">
         <div>
-          <div v-for="(item,index) in row.progress" :key="index">
-            赛程{{index+1}}：{{item.name}}，参与人/队数：{{item.joinPerson}}，决出人/队数：{{item.remainPersom}}，轮数{{item.roundCount}}
+          <div
+            v-for="(item,index) in row.progress"
+            :key="index"
+          >赛程{{index+1}}：{{item.name}}，参与人/队数：{{item.joinPerson}}，决出人/队数：{{item.remainPersom}}，轮数{{item.roundCount}}</div>
+          <div>
+            最终赛程：&nbsp;&nbsp;&nbsp;
+            <span
+              v-for="(item,index) in row.progress"
+              :key="index"
+            >{{item.name}}{{index==row.progress.length-1?'':'→'}}</span>
           </div>
-          <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in row.progress" :key="index">{{item.name}}{{index==row.progress.length-1?'':'→'}}</span></div>
           <div v-for="item in row.progress" :key="item.remainPersom+item.name">
-            <div v-if="item.checked==true">
-              当前赛程：{{item.name}}
-            </div>
+            <div v-if="item.checked==true">当前赛程：{{item.name}}</div>
             <div></div>
           </div>
         </div>
@@ -85,7 +94,7 @@ import city_venue_list from "@/components/form_item/city_venue_list.vue";
 import select_match_progress from "@/components/form_item/select_match_progress.vue";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
-import custom_progress from '../components/custom_progress'
+import custom_progress from "../components/custom_progress";
 export default {
   components: {
     city_venue_list,
@@ -95,14 +104,18 @@ export default {
     custom_progress
   },
   data() {
+   
+
+    let cfList = util.deepCopy(PUB.listCF.tangball_match);//深拷贝
+    util.setListPower(cfList);//调用：{根据当前角色权限设置列表配置的函数}
+
     return {
       matchId: null,
       titleDialogAchievement: "", //成绩弹窗标题
       showDialogAchievement: false, //是否显示成绩弹窗
       titleDialogEnroll: "", //报名弹窗标题
       showDialogEnroll: false, //是否显示报名弹窗
-      cfList: PUB.listCF.tangball_match
-      
+      cfList
     };
   },
 

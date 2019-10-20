@@ -1,5 +1,6 @@
 
 export default {
+  powerPath: "msgCenter.list_msg_read",//权限路径
     listIndex: "list_msg", //vuex对应的字段
     focusMenu: true, //进行菜单聚焦
     twoTitle: "消息",

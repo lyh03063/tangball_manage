@@ -1,5 +1,6 @@
 
 export default {
+  powerPath: "msgCenter.list_team",//权限路径
   listIndex: "list_team", //vuex对应的字段
   focusMenu: true, //进行菜单聚焦
   twoTitle: "赛事",

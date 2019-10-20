@@ -66,7 +66,7 @@ export default {
   
 
     return {
-      userName:localStorage.loginUserName,
+      userName:localStorage.tangball_loginUserName,
       ak47: true,
       ruleForm: {
         //表单数据.

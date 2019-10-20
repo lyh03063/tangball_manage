@@ -4,20 +4,18 @@
   </div>
 </template>
 <script>
-
 export default {
-  components: {  },
+  components: {},
   data() {
     return {
-      cfList:PUB.listCF.tangball_area
+      cfList: PUB.listCF.tangball_role
     };
-  },created(){
-    util.setListPower(this.cfList);//调用：{根据当前角色权限设置列表配置的函数}
+  },
+  created() {
+    util.setListPower(this.cfList); //调用：{根据当前角色权限设置列表配置的函数}
   }
-
 };
 </script>
-
 
 <style>
 </style>
