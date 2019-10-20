@@ -3,7 +3,7 @@
     <el-container>
       <el-header class="home-head-box MB10">
         <el-row>
-          <div class="FL MT13 FS24 C_fff">唐球赛事运营管理后台</div>
+          <div class="FL MT13 FS24 C_fff">唐球体育全国运营管理中心</div>
           <div class="FR MT30 C_fff">
             <i class="el-icon-s-custom MR5 " title="用户名"></i>{{this. currentUserName}}&nbsp;&nbsp;&nbsp;
             <a href="javascript:;" class="MR10 " @click="logout" style="color:white;">
