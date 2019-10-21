@@ -115,7 +115,6 @@ export default {
           }
         ]
       },
-
       {
         index: "memberCenter",
         icon: "el-icon-user",

@@ -47,7 +47,7 @@ export default {
       // showDialogBigImg: false,
       options: option,
       cfList: {
-          powerPath: "venue.list_venue",//权限路径
+       powerPath: "venue.list_venue",//权限路径
         listIndex: "list_venue", //vuex对应的字段
         focusMenu: true, //进行菜单聚焦
         twoTitle: "赛事",

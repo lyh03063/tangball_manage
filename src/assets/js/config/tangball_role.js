@@ -159,6 +159,35 @@ export default {
             }
           },
           {
+            label: "唐球场",
+            prop: "venue",
+            style: styleMenuGPowerItem,
+            default: {},
+            cfForm: {
+              col_span: 12,
+              formItems: [
+                {
+              
+                  prop: "list_venue",
+                  style: styleMenuPowerItem,
+                  cfForm: getFormMenuGPower({menuName:"唐球场"})
+                },
+                {
+                 
+                  prop: "list_franchisee",
+                  style: styleMenuPowerItem,
+                  cfForm: getFormMenuGPower({menuName:"加盟商"})
+                },
+                {
+       
+                  prop: "list_area",
+                  style: styleMenuPowerItem,
+                  cfForm: getFormMenuGPower({menuName:"地区管理"})
+                }
+              ]
+            }
+          },
+          {
             label: "资讯中心",
             prop: "newsCenter",
             style: styleMenuGPowerItem,
@@ -177,6 +206,39 @@ export default {
                   prop: "list_article_category",
                   style: styleMenuPowerItem,
                   cfForm: getFormMenuGPower({menuName:"资讯分类"})
+                },
+                {
+       
+                  prop: "list_recommend",
+                  style: styleMenuPowerItem,
+                  cfForm: getFormMenuGPower({menuName:"首页轮播图"})
+                },
+                {
+       
+                  prop: "home_page_title",
+                  style: styleMenuPowerItem,
+                  cfForm: {
+                    col_span: 4,
+                    labelWidth: "10px",
+                    formItems: [
+                      {
+                        label: "",
+                        prop: "menuName",
+                        default: "首页推荐内容",
+                        col_span: 4,
+                        type: "text"
+                      },
+                      
+                      {
+                        label: "",
+                        prop: "search",
+                        col_span: 3,
+                        type: "checkbox",
+                        default: false,
+                        options: [{ value: "1", label: "操作" }]
+                      }
+                    ]
+                  }
                 }
               ]
             }
