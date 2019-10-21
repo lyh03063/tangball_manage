@@ -1,5 +1,9 @@
 <template>
+
   <div id="app" style>
+    <div class="float-tips" v-if="!isProEnvConfig" >
+非生产
+</div>
     <el-container>
       <el-header class="home-head-box ">
         <el-row>
@@ -56,6 +60,9 @@ export default {
   },
   computed: {
     //计算属性
+    isProEnvConfig(){
+      return (PUB.domain == "http://120.76.160.41:3000")
+    },
 
     activeMenuIndex() {
       //
@@ -289,6 +296,20 @@ body .el-radio-button__orig-radio:checked + .el-radio-button__inner {
 .middle-box {
   border-left: 1px solid #ddd;
   padding-left: 5px;
+}
+
+.float-tips{
+border: 1px #f00 solid;
+width: 80px;
+height: 30px;
+position:fixed;
+top:3px;
+right: 3px;
+background-color: #fff;
+padding: 5px;
+text-align: center;
+z-index: 999;
+
 }
 </style>
 
