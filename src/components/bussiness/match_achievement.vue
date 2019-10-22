@@ -492,6 +492,7 @@ export default {
   },
   created() {
     T = this;
+    T.cfList=util.deepCopy(T.cfList)//深拷贝一遍，不然后续的字段调整会有bug
     T.changeMatchRound(); //调用：{切换轮数函数}
     // console.log('aaaa',this.cfList);
   }
