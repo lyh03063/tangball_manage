@@ -26,6 +26,15 @@ import tangball_match_enroll_team from "@/assets/js/config/tangball_match_enroll
 import tangball_match_enroll_single from "@/assets/js/config/tangball_match_enroll_single.js";
 
 
+import tangball_venue from "@/assets/js/config/tangball_venue.js";
+import tangball_article_category from "@/assets/js/config/tangball_article_category.js";
+import tangball_article from "@/assets/js/config/tangball_article.js";
+import tangball_recommend from "@/assets/js/config/tangball_recommend.js";
+
+
+
+
+
 //#region PUB.objDictArr/PUB.dict公共字典对象
 PUB.objDictArr = {
   taskType: [
@@ -88,6 +97,14 @@ PUB.formatterDict = function (dictName, value) {
 PUB.listCF = {}
 
 //页面对应的集合列表类型
+
+PUB.listCF.tangball_venue =tangball_venue;
+PUB.listCF.tangball_article_category =tangball_article_category;
+PUB.listCF.tangball_article =tangball_article;
+PUB.listCF.tangball_recommend =tangball_recommend;
+
+
+
 PUB.listCF.tangball_enroll = tangball_enroll
 PUB.listCF.tangball_enroll_for_ach = tangball_enroll_for_ach
 PUB.listCF.tangball_team = tangball_team;
