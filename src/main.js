@@ -48,12 +48,46 @@ import list_group from "@/page/list_group";
 import home_page_title from "@/page/home_page_title";
 import dynamic_form_demo from "@/page/dynamic_form_demo";
 import demo_common from "@/demo/common.vue";
+import franchisee_login from "@/franchisee_login.vue";
+import franchisee_home from "@/franchisee_home.vue";
+import franchisee_article from '@/franchise_page/franchisee_article.vue'
+import franchisee_macth from '@/franchise_page/franchisee_macth.vue'
+import franchisee_member from '@/franchise_page/franchisee_member.vue'
+import franchisee_venue from '@/franchise_page/franchisee_venue.vue'
 // window.util=util;
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: login },
+    { path: '/franchisee_login', 
+      component: franchisee_login
+    },
+    { path: '/franchisee_home', 
+      component: franchisee_home,
+      redirect: '/franchisee_macth',
+      children:[
+        {
+          path: '/franchisee_article',
+          component: franchisee_article
+        },
+        {
+          path: '/franchisee_macth',
+          component: franchisee_macth
+        },
+        {
+          path: '/franchisee_member',
+          component: franchisee_member 
+        },
+        {
+          path: '/franchisee_venue',
+          component: franchisee_venue
+        },
+        {
+          path:'/franchisee_modify_password',component:modify_password
+        },
+      ]
+    },
     
     {
       path: '/manage',

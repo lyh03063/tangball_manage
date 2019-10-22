@@ -43,6 +43,11 @@ export default {
         // }
       },
       {
+        label: "密码",
+        prop: "password",
+        width: 150
+      },
+      {
         label: "备注",
         prop: "remark",
         width: 100
@@ -81,6 +86,10 @@ export default {
         label: "企业名称",
         prop: "name",
         type: "input"
+      },
+      {
+        label: "密码",
+        prop: "password",
       },
   
       {
