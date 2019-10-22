@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       cfList: {
+          powerPath: "newsCenter.list_article_category",//权限路径
         listIndex: "list_article_category", //vuex对应的字段
         focusMenu:true,//进行菜单聚焦
         twoTitle: "赛事",
@@ -111,6 +112,8 @@ export default {
         ]
       }
     };
+  },created(){
+    util.setListPower(this.cfList);//调用：{根据当前角色权限设置列表配置的函数}
   }
 };
 

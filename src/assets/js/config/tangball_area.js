@@ -1,10 +1,12 @@
 
 export default {
+  powerPath: "venue.list_area",//权限路径
+    listIndex: "list_area", //vuex对应的字段
     //默认排序参数
     sortJsonDefault: {
       "tangball.countVenue": -1//按场馆数量降序
     },
-    listIndex: "list_area", //vuex对应的字段
+    
     focusMenu: true,//进行菜单聚焦
     flag: true,
     url: {

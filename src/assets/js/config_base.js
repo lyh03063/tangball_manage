@@ -1,9 +1,9 @@
 
 window.PUB = {}
-//PUB.domain = "http://localhost:3000"
+PUB.domain = "http://localhost:3000"
 //PUB.domain = 'http://test.dmagic.cn'
 //PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-PUB.domain = "http://120.76.160.41:3000"
+//PUB.domain = "http://120.76.160.41:3000"
 PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
 PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
 
@@ -15,12 +15,34 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 
 
 
-
+// F_ITEMS基础表单字段
+window.COLUMNS = {
+  Id: {
+    label: "Id",
+    prop: "P1",
+    width: 80
+  },
+  roleName: {
+    label: "角色名",
+    prop: "name",
+    width: 120
+  },
+  rolePower: {
+    label: "权限",
+    prop: "power",
+    width: 200
+  }
+}
 
 
 
 // F_ITEMS基础表单字段
 window.F_ITEMS = {
+  Id: {
+    label: "数据id",
+    prop: "P1",
+    type: "input"
+  },
   memberId: {
     label: "球员",
     prop: "memberId",

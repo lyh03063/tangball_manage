@@ -93,6 +93,11 @@ import groups_detail from "@/components/groups_detail";
 export default {
   components: { match_venue, enroll_orderId, from_groups, groups_detail },
   mixins: [PUB.listCF.tangball_enroll],
+  data() {
+    return {
+      showDialogBigImg: false
+    };
+  },
   methods: {
     async addEnroll(newData, oldData) {
       let { data } = await axios({
@@ -227,12 +232,8 @@ export default {
        
       }
     }
-  },
-  data() {
-    return {
-      showDialogBigImg: false
-    };
   }
+  
 };
 </script>
 

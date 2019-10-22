@@ -1,5 +1,6 @@
 
 export default {
+  powerPath: "systemManage.list_member",//权限路径
     listIndex: "list_member", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",

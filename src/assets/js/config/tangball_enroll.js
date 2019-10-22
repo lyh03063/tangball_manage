@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       cfList: {
+        powerPath: "matchCenter.list_enroll",//权限路径
         listIndex: "list_enroll", //vuex对应的字段
         focusMenu: true,//进行菜单聚焦
         twoTitle: "赛事",

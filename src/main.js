@@ -37,6 +37,7 @@ import list_sponsorship from "@/page/list_sponsorship";
 import list_article_category from "@/page/list_article_category";
 import list_article from "@/page/list_article";
 import list_admin from "@/page/list_admin";
+import list_role from "@/page/list_role";
 import list_area from "@/page/list_area";
 import list_msg from "@/page/list_msg";
 import list_msg_read from "@/page/list_msg_read";
@@ -143,6 +144,10 @@ const router = new VueRouter({
         {
           path: '/list_admin',
           component: list_admin
+        },
+        {
+          path: '/list_role',
+          component: list_role
         },
         {
           path: '/list_msg',

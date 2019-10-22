@@ -82,27 +82,49 @@ export default {
       let response = await axios({
         //请求接口
         method: "post",
-        url: PUB.domain+this.objURL.list,
+        url: PUB.domain + this.objURL.list,
         data: { findJson: this.ruleForm }
       }).catch(function(error) {
         alert("异常:" + error);
       });
 
-
       let { list } = response.data;
-      list.forEach(element => {
-        //把列表的userName循环出来做本地储存
-         this.isUserName=element.userName
-       
-      });
-     
+
+      let userName = lodash.get(list, `[0].userName`);
+      let role = lodash.get(list, `[0].role`);
+      console.log("userName:", userName);
+      console.log("role:", role);
+
       if (list.length > 0) {
-        alert("登录成功");
+        this.$message.success("登录成功");
+
+        localStorage.tangball_isLogin = 1;
+        localStorage.tangball_loginUserName = userName; //存储用户名
+
+        let {
+          data: {
+            Doc: { power, name }
+          }
+        } = await axios({
+          //请求接口
+          method: "post",
+          url: `${PUB.domain}/crossDetail?page=tangball_role`,
+          data: {
+            id: role
+          } //传递参数
+        });
+        console.log("power:", power);
+        localStorage.tangball_roleName = name; //存储用户名
+
+        util.setLocalStorageObj("tangball_power", power); //调用：{设置一个对象到LocalStorage}
+
+        //         util.setLocalStorageObj("key",obj)//调用：{设置一个对象到LocalStorage}
+        // util.getLocalStorageObj("key")//调用：{从LocalStorage获取一个对象的函数}
+
+        await util.timeout(500); //延迟
         this.$router.push({ path: "/listhome" });
-        localStorage.isLogin = 1;
-        localStorage.loginUserName=this.isUserName//存储用户名
       } else {
-        alert("请检查用户名或者密码");
+        this.$message.error("请检查用户名或者密码");
         this.ruleForm = {};
       }
     },
@@ -120,9 +142,8 @@ export default {
     }
   },
   created() {
-
     //------------如果已经登录------------
-    if (localStorage.isLogin == 1) {
+    if (localStorage.tangball_isLogin == 1) {
       this.ak47 = false;
       // this.$message({
       //   message: "您已登录,请勿重新登录",
@@ -137,26 +158,27 @@ export default {
     // } else {
     //   this.$router.push({ path: "/home" });
     // }
-  },beforeMount(){
-    
-    console.log("挂载前$el是未定义的",this.$el)
-  },mounted(){
-        console.log("$el是temlate，渲染出整个div",this.$el)
-    
+  },
+  beforeMount() {
+    console.log("挂载前$el是未定义的", this.$el);
+  },
+  mounted() {
+    console.log("$el是temlate，渲染出整个div", this.$el);
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" >
-.login-page-box{
-  background-color: rgb(147, 222,254);
+.login-page-box {
+  background-color: rgb(147, 222, 254);
   height: 100%;
-  width:100%;
+  width: 100%;
 }
-body, html {
-    height: 100%;
-    // overflow: hidden;
+body,
+html {
+  height: 100%;
+  // overflow: hidden;
 }
 .login-box {
   width: 100%;
@@ -190,16 +212,16 @@ body, html {
   box-shadow: 10px #ffffff;
   border-radius: 10px;
 }
-.login-user-img-box{
+.login-user-img-box {
   margin-left: 33%;
-  width:120px;
+  width: 120px;
   height: 120px;
-  background-color: rgb(147, 222,254);
-  margin-top:-60px;
+  background-color: rgb(147, 222, 254);
+  margin-top: -60px;
   border-radius: 50%;
-  padding: 10px;;
+  padding: 10px;
 }
-.login-user-img{
+.login-user-img {
   height: 100px;
   width: 100px;
   text-align: center;
@@ -207,15 +229,15 @@ body, html {
   border-radius: 50px;
   background-color: #ffffff;
   font-size: 50px;
-  color: rgb(147, 222,254);
+  color: rgb(147, 222, 254);
 }
-.login-bgimg-box{
+.login-bgimg-box {
   position: fixed;
-  top:28%;
+  top: 28%;
   left: 15%;
   height: 440px;
   width: 500px;
   // background-color: #ffffff;
-  background-image: url('http://demo.demohuo.top/modals/40/4065/demo/images/login-img.png')
+  background-image: url("http://demo.demohuo.top/modals/40/4065/demo/images/login-img.png");
 }
 </style>

@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       cfList: {
+          powerPath: "newsCenter.list_recommend",//权限路径
         listIndex: "list_recommend", //vuex对应的字段~
         focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
@@ -115,6 +116,8 @@ export default {
         ]
       }
     };
+  },created(){
+    util.setListPower(this.cfList);//调用：{根据当前角色权限设置列表配置的函数}
   }
 };
 </script>

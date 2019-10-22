@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <el-aside class="ML10" :style="[isCollapse?open:close]">
+  <div :class="['out-box',{'collapse':isCollapse}]"  > 
+    <el-aside class="" :style="[isCollapse?open:close]">
       <div
         class="C_fff TAR PR10 bar"
-        style="background:rgb(84, 92, 100);border-bottom:1px solid #999"
+        style="background:rgb(84, 92, 100);border-top:1px solid #999"
         @click="isCollapseFun"
         :style="[isCollapse?open1:close]"
       >
@@ -18,6 +18,7 @@
         active-text-color="#ffd04b"
         :router="true"
         :collapse="isCollapse"
+        @select="selectItem"
       >
         <template v-for="(menuEach,index) in cf">
           <el-menu-item
@@ -42,6 +43,7 @@
               :route="item.route"
               v-for="item in menuEach.menuItem"
               :key="item.index"
+              
             >{{item.title}}</el-menu-item>
           </el-submenu>
         </template>
@@ -53,11 +55,7 @@
 <script>
 export default {
   props: ["cf"],
-  methods: {
-    isCollapseFun() {
-      this.isCollapse = !this.isCollapse;
-    }
-  },
+ 
   computed: {
     //计算属性
 
@@ -67,17 +65,33 @@ export default {
       return this.$store.state.activeMenuIndex; //从vuex的store里面读取值
     }
   },
+  methods:{
+isCollapseFun() {
+      this.isCollapse = !this.isCollapse;
+    },
+    selectItem(a,b,c){
+      console.log("a:", a);
+      console.log("b:", b);
+      console.log("c:", c);
+      
+    }
+
+
+  },
 
   data() {
     return {
       open: {
-        width: "80px"
+        width: "80px",
+        transition: "0.5s"
       },
       close: {
-        width: "202px"
+        width: "202px",
+        transition: "0.5s"
       },
       open1: {
-        width: "64px"
+        width: "64px",
+        transition: "0.5s"
       },
       isCollapse: false
     };
@@ -85,6 +99,23 @@ export default {
 };
 </script >
 <style scoped>
+.out-box{
+  background:rgb(84, 92, 100);
+  width: 201px;
+  height:100%;
+  transition: 0.5s;
+
+}
+
+.out-box >>> .el-menu{
+  border-right: none
+}
+
+.out-box.collapse{
+
+  width: 60px;
+  
+}
 ul {
   margin: 0;
   padding: 0;
