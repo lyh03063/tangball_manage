@@ -1,6 +1,6 @@
 <template>
-  <div :class="['out-box',{'collapse':isCollapse}]"  > 
-    <el-aside class="" :style="[isCollapse?open:close]">
+  <div :class="['out-box',{'collapse':isCollapse}]">
+    <el-aside class :style="[isCollapse?open:close]">
       <div
         class="C_fff TAR PR10 bar"
         style="background:rgb(84, 92, 100);border-top:1px solid #999"
@@ -43,7 +43,6 @@
               :route="item.route"
               v-for="item in menuEach.menuItem"
               :key="item.index"
-              
             >{{item.title}}</el-menu-item>
           </el-submenu>
         </template>
@@ -55,7 +54,7 @@
 <script>
 export default {
   props: ["cf"],
- 
+
   computed: {
     //计算属性
 
@@ -65,18 +64,18 @@ export default {
       return this.$store.state.activeMenuIndex; //从vuex的store里面读取值
     }
   },
-  methods:{
-isCollapseFun() {
+  mounted(){
+    // console.log('aaaa',this.cf);
+  },
+  methods: {
+    isCollapseFun() {
       this.isCollapse = !this.isCollapse;
     },
-    selectItem(a,b,c){
+    selectItem(a, b, c) {
       console.log("a:", a);
       console.log("b:", b);
       console.log("c:", c);
-      
     }
-
-
   },
 
   data() {
@@ -99,22 +98,19 @@ isCollapseFun() {
 };
 </script >
 <style scoped>
-.out-box{
-  background:rgb(84, 92, 100);
+.out-box {
+  background: rgb(84, 92, 100);
   width: 201px;
-  height:100%;
+  height: 100%;
   transition: 0.5s;
-
 }
 
-.out-box >>> .el-menu{
-  border-right: none
+.out-box >>> .el-menu {
+  border-right: none;
 }
 
-.out-box.collapse{
-
+.out-box.collapse {
   width: 60px;
-  
 }
 ul {
   margin: 0;
@@ -126,7 +122,6 @@ ul {
 .el-aside {
   overflow: hidden;
 }
-
 </style>
 
 

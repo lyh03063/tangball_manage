@@ -3,17 +3,10 @@
     <div class="franch-login-box">
       <div class="franch-login-user-img-box">
         <div class="franch-login-user-img el-icon-s-custom"></div>
-        </div>
-        <div class="franch-login-title">唐球加盟商后台登录</div>
-        <div class="demo-ruleForm">
-        <el-form
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          ref="ruleForm"
-          label-width="0"
-          
-        >
+      </div>
+      <div class="franch-login-title">唐球加盟商后台登录</div>
+      <div class="demo-ruleForm">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0">
           <el-form-item prop="userName">
             <div class>
               <el-input v-model.number="ruleForm.userName" placeholder="赞助商名称">
@@ -28,7 +21,7 @@
             <el-button type="primary" class="WP100" @click="submitForm('ruleForm')">登录</el-button>
           </el-form-item>
         </el-form>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -56,10 +49,6 @@ export default {
     };
 
     return {
-      ak47: true,
-      objURL: {
-        list: "/crossList?page=tangball_admin"
-      },
       ruleForm: {
         //表单数据.
         userName: "",
@@ -72,7 +61,6 @@ export default {
         userName: [{ validator: validateuserName, trigger: "blur" }],
         passWord: [{ validator: validatepassWord, trigger: "blur" }]
       },
-      userLog: {}
     };
   },
   methods: {
@@ -88,13 +76,38 @@ export default {
         }
       });
     },
-    franchiseeLogin(){
-        console.log(this.ruleForm.userName);
-        console.log(this.ruleForm.passWord);
+   async franchiseeLogin(){
+        let {data} = await axios({
+        //请求接口
+        method: "post",
+        url: PUB.domain + "/crossList?page=tangball_franchisee",
+        data: { findJson: {
+            name:this.ruleForm.userName,
+            password:this.ruleForm.passWord
+        }}
+      }).catch(function(error) {
+        alert("异常:" + error);
+      });
+      if (data.list.length>0) {
+          this.$message.success("登录成功");
+          localStorage.franchisee_isLogin = 1
+          localStorage.franchisee_name = this.ruleForm.userName;
+          this.$router.push({ path: "/franchisee_home" });
+      }else{
+          alert("账号或密码不正确，请重新输入")
+          this.ruleForm.userName = ''
+          this.ruleForm.passWord = ''
+      }
         
     }
   },
-  created() {}
+  created() {
+    // console.log(localStorage.franchisee_isLogin);
+    
+      if (localStorage.franchisee_isLogin == 1) {
+          this.$router.push({ path: "/franchisee_home" });
+      }
+  }
 };
 </script>
 
@@ -136,13 +149,13 @@ html {
   font-size: 50px;
   color: rgb(147, 222, 254);
 }
-.franch-login-title{
-    margin-top:10px;
-    font-size: 20px;
-    line-height: 50px;
-    font-weight: 700;
+.franch-login-title {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: 700;
 }
-.demo-ruleForm{
-    margin: 10px 10px; 
+.demo-ruleForm {
+  margin: 10px 10px;
 }
 </style>

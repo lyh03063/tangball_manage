@@ -66,7 +66,10 @@ export default {
   
 
     return {
+      url:'/crossList?page=tangball_admin',
+      modifyUrl:'/crossModify?page=tangball_admin',
       userName:localStorage.tangball_loginUserName,
+      findJson:{},
       ak47: true,
       ruleForm: {
         //表单数据.
@@ -91,20 +94,24 @@ export default {
      let loadingInstance =  this.$loading({ fullscreen: true })
 	    let { data } = await axios({
           method: "post",
-          url: PUB.domain + '/crossList?page=tangball_admin',
+          url: PUB.domain + this.url,
           data: {
-            findJson: {
-              userName:this.userName
-            }
+            findJson: this.findJson
           }
         }).catch(() => {});
         loadingInstance.close()
        let obj  = data.list[0]
+       if (this.$route.query.flag) {
+        obj.passWord =  obj.password
+       }
       if (obj.passWord == this.ruleForm.oldPassword) {
         obj.passWord = this.ruleForm.newPassWord
+        if (this.$route.query.flag) {
+        obj.password =  this.ruleForm.newPassWord
+       }
         await axios({
           method: "post",
-          url: PUB.domain + '/crossModify?page=tangball_admin',
+          url: PUB.domain + this.modifyUrl,
           data: {
             findJson: {
               P1:obj.P1
@@ -139,6 +146,19 @@ export default {
     }
   },
   created() {
+    console.log(this.$route.query);
+    if (this.$route.query.flag) {
+      this.url = "/crossList?page=tangball_franchisee"
+      this.modifyUrl = "/crossModify?page=tangball_franchisee"
+      this.userName = localStorage.franchisee_name
+      this.findJson = {
+              name:this.userName
+            }
+    }else{
+      this.findJson = {
+              userName:this.userName
+            }
+    }
   }
 };
 </script>
