@@ -7,7 +7,7 @@ export default {
     isShowOperateColumn: false, //隐藏操作列
     isShowToolBar: false, //隐藏工具栏
     flag: true, //显示新增按钮
-
+    
 
     //-------列配置数组-------
     columns: [
