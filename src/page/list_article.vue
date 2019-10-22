@@ -28,7 +28,13 @@ export default {
             populateColumn: "categoryDoc",
             idColumn: "articleCategory",
             idColumn2: "P1"
-          }
+          },
+          {
+            page: "tangball_franchisee",
+            populateColumn: "franchisee",
+            idColumn: "franchiseeId",
+            idColumn2: "P1"
+          },
         ],
 
         //-------列配置数组-------
@@ -48,6 +54,32 @@ export default {
             }
           },
 
+          {
+            label: "所属加盟商",
+            prop: "franchiseeId",
+            width: 130,
+            formatter:function(rowData){
+              if (rowData.franchisee) {
+                return rowData.franchisee.name
+              }
+            }
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            width: 90,
+            formatter:function(rowData){
+                return (rowData.auditStatus ==1?'已审核':'未审核')
+            }
+          },
+          {
+            label: "显示到首页",
+            prop: "recommend",
+            width: 110,
+            formatter:function(rowData){
+                return rowData.recommend ==1?'是':'否'
+            }
+          },
           {
             label: "创建时间",
             prop: "CreateTime",
@@ -96,10 +128,44 @@ export default {
             label: "资讯详情",
             prop: "articleContent",
             type: "html"
-          }
+          },
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            width: 90,
+            formatter:function(rowData){
+                return (rowData.auditStatus ==1?'已审核':'未审核')
+            }
+          },
+          {
+            label: "显示到首页",
+            prop: "recommend",
+            width: 110,
+            formatter:function(rowData){
+                return rowData.recommend ==1?'是':'否'
+            }
+          },
         ],
         //-------新增、修改表单字段数组-------
         formItems: [
+          {
+            label: "审核状态",
+            prop: "auditStatus",
+            type: "select",
+            options:[
+              {value:0,label:"未审核"},
+              {value:1,label:"已审核"},
+            ]
+          },
+          {
+            label: "显示到首页",
+            prop: "recommend",
+            type: "select",
+            options:[
+              {value:0,label:"否"},
+              {value:1,label:"是"},
+            ]
+          },
           {
             label: "资讯分类",
             prop: "articleCategory",

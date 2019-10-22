@@ -92,6 +92,7 @@ export default {
           this.$message.success("登录成功");
           localStorage.franchisee_isLogin = 1
           localStorage.franchisee_name = this.ruleForm.userName;
+          localStorage.franchisee_P1 = data.list[0].P1
           this.$router.push({ path: "/franchisee_home" });
       }else{
           alert("账号或密码不正确，请重新输入")

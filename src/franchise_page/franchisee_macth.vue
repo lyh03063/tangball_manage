@@ -95,11 +95,11 @@ export default {
         text: ""
         // style:{"color":"#3a0"}
       }
-    }
+    };
     cfList.singleBtns = {
-delete:false,
-modify:false
-}
+      delete: false,
+      modify: false
+    };
     return {
       titleDialogAchievement: "", //成绩弹窗标题
       showDialogAchievement: false, //是否显示成绩弹窗

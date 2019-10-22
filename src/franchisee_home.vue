@@ -69,6 +69,7 @@ export default {
       logout(){
           localStorage.franchisee_isLogin = 0
           localStorage.franchisee_name = '';
+          localStorage.franchisee_P1 = ''
           this.$router.push({ path: "/franchisee_login" });
       }
   },
