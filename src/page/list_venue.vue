@@ -22,7 +22,17 @@
       <template v-slot:slot_detail_item_album="{row}">
         <openPhoto v-model="row.album"></openPhoto>
       </template>
+      <template v-slot:slot_detail_item_franchiseeId="{row}">
+        
+          <dm_ajax_populate
+            :id="row.franchiseeId"
+            populateKey="name"
+            page="tangball_franchisee"
+            idKey="P1"
+          ></dm_ajax_populate>
+        </template>
     </dm_list_data>
+    
   </div>
 </template>
 <script>

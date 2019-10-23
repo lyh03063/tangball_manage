@@ -117,7 +117,8 @@ export default {
      },
      {
        label: "加盟商",
-       prop: "franchiseeId"
+       prop: "franchiseeId",
+       slot:'slot_detail_item_franchiseeId'
      },
      {
        label: "场馆名称",

@@ -1,11 +1,25 @@
 
 export default {
-  powerPath: "systemManage.list_member",//权限路径
+  // powerPath: "systemManage.list_member",//权限路径
     listIndex: "list_member", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",
     threeTitle: "球员列表",
     flag:true,
+    dynamicDict: [
+      {
+        page: "tangball_franchisee",
+        populateColumn: "franchisee",
+        idColumn: "franchiseeId",
+        idColumn2: "P1"
+      },
+      {
+        page: "tangball_venue",
+        populateColumn: "venue",
+        idColumn: "venueId",
+        idColumn2: "P1"
+      },
+    ],
     url: {
       list: "/crossList?page=tangball_member", //列表接口
       add: "/crossAdd?page=tangball_member", //新增接口
@@ -46,6 +60,26 @@ export default {
         label: "手机号",
         prop: "phone",
         width: 130
+      },
+      {
+        label: "所属加盟商",
+        prop: "franchiseeId",
+        width: 130,
+        formatter:function (data) {
+          if (data.franchisee) {
+            return data.franchisee.name?data.franchisee.name:'无'
+          }
+        }
+      },
+      {
+        label: "所属球场",
+        prop: "venueId",
+        width: 130,
+        formatter:function (data) {
+          if (data.venue) {
+            return data.venue.name?data.venue.name:"无"
+          }
+        }
       },
       {
         label: "参赛次数",
@@ -129,6 +163,20 @@ export default {
         prop: "openid",
       },
       {
+        label: "手机号",
+        prop: "phone",
+      },
+      {
+        label: "所属加盟商",
+        prop: "franchiseeId",
+        slot:'slot_detail_item_franchiseeId'
+      },
+      {
+        label: "所属球场",
+        prop: "venueId",
+        slot:'slot_detail_item_venueId'
+      },
+      {
         label: "身份证号",
         prop: "idCard",
       },
@@ -189,6 +237,27 @@ export default {
         label: "手机号",
         prop: "phone",
         width: 100
+      },
+     
+      {
+        label: "所属加盟商",
+        prop: "franchiseeId",
+        type: "select",
+        ajax:{
+          url: "/crossList?page=tangball_franchisee",
+          keyLabel: "name",
+          keyValue: "P1"
+        },
+      },
+      {
+        label: "所属球场",
+        prop: "venueId",
+        type: "select",
+        ajax:{
+          url: "/crossList?page=tangball_venue",
+          keyLabel: "name",
+          keyValue: "P1"
+        },
       },
       {
         label: "性别",

@@ -21,7 +21,7 @@
       </el-header>
       <el-container>
         <NavMenu :cf="navMenuList"></NavMenu>
-        <el-main>
+        <el-main style="padding-top:10px;">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -51,7 +51,7 @@ export default {
           route: "/franchisee_article"
         },
         {
-          index: "ranchisee_member",
+          index: "franchisee_member",
           icon: "el-icon-user",
           title: "球员",
           route: "/franchisee_member"
