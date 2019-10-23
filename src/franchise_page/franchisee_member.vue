@@ -53,7 +53,7 @@ export default {
       {
         label: "球员姓名",
         prop: "name",
-        width: 100
+        width: 120
       },
       {
         label: "微信openid",
@@ -65,10 +65,10 @@ export default {
         prop: "sex",
         width: 65,
         formatter:function(data) {
-          if (data.sex==1) {
-            return '男'
-          }else{
+          if (data.sex==2) {
             return '女'
+          }else{
+            return '男'
           }
         }
       },
@@ -90,7 +90,7 @@ export default {
       {
         label: "所属球场",
         prop: "venueId",
-        width: 130,
+        width: 180,
         formatter:function (data) {
           if (data.venue) {
             return data.venue.name?data.venue.name:"无"
@@ -120,11 +120,7 @@ export default {
       //   prop: "remark",
       //   width: 65
       // },
-      {
-        label: "职业",
-        prop: "career",
-        width: 70
-      },
+      
       {
         label: "球龄",
         prop: "ballAge",

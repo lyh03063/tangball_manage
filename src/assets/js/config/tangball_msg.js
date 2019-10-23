@@ -13,6 +13,14 @@ export default {
       detail: "/crossDetail?page=tangball_msg", //查看单条数据详情接口，在修改表单或详情弹窗用到
       delete: "/crossDelete?page=tangball_msg" //删除接口
     },
+    dynamicDict:[
+      {
+      page: "tangball_member",
+      populateColumn: "member",
+      idColumn: "memberIdList",
+      idColumn2: "P1"
+    }
+  ],
     //-------列配置数组-------
     columns: [
       {
@@ -38,9 +46,24 @@ export default {
         }
       },
       {
-        label: "指定会员id数组",
+        label: "指定会员",
         prop: "memberIdList",
-        width: 90
+        width: 200,
+        formatter:function(data){
+          if (data.member) { 
+            let nameList =[]
+            data.member.forEach(item=>{
+              if (item) {
+                if (item.name) {
+                  nameList.push(item.name)
+                }
+              }
+              
+            })
+            return nameList.join(" ")
+            // return data.member.length
+          }
+        }
       },
       {
         label: "发布状态",
@@ -57,7 +80,10 @@ export default {
       {
         label: "发布时间",
         prop: "publishTime",
-        width: 120
+        width: 160,
+        formatter: function(row) {
+          return moment(row.publishTime).format("YYYY-MM-DD HH:DD");
+        }
       }
     ],
     //-------筛选表单字段数组-------
@@ -90,10 +116,6 @@ export default {
       {
         label: "消息范围",
         prop: "range"
-      },
-      {
-        label: "指定会员id数组",
-        prop: "memberIdList"
       },
       {
         label: "	发布状态",

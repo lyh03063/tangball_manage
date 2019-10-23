@@ -40,7 +40,7 @@ export default {
       {
         label: "分类名称",
         prop: "articleCategory",
-        width: 150,
+        width: 120,
         formatter: function(rowData) {
           let name = lodash.get(rowData, "categoryDoc.name");
           return name;
@@ -50,7 +50,7 @@ export default {
       {
         label: "所属加盟商",
         prop: "franchiseeId",
-        width: 130,
+        width: 120,
         formatter:function(rowData){
           if (rowData.franchisee) {
             return rowData.franchisee.name
@@ -76,12 +76,15 @@ export default {
       {
         label: "创建时间",
         prop: "CreateTime",
-        width: 145
+        width: 160,
+        formatter:function(rowData){
+          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+      }
       },
       {
         label: "其他",
         prop: "extend",
-        width: 135,
+        width: 255,
         formatter: function(extend) {
           return JSON.stringify(extend.extend);
         }
@@ -118,9 +121,15 @@ export default {
         width: 200
       },
       {
-        label: "资讯详情",
-        prop: "articleContent",
-        type: "html"
+        label: "分类名称",
+        prop: "articleCategory",
+        width: 120,
+        slot:'slot_detail_item_articleCategory'
+      },
+      {
+        label: "所属加盟商",
+        prop: "franchiseeId",
+        slot:'slot_detail_item_franchiseeId'
       },
       {
         label: "审核状态",
@@ -138,6 +147,27 @@ export default {
             return rowData.recommend ==1?'是':'否'
         }
       },
+      {
+        label: "创建时间",
+        prop: "CreateTime",
+        width: 160,
+        formatter:function(rowData){
+          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+      }
+      },
+      {
+        label: "资讯详情",
+        prop: "articleContent",
+        type: "html"
+      },
+      {
+        label: "其他",
+        prop: "extend",
+        width: 255,
+        formatter: function(extend) {
+          return JSON.stringify(extend.extend);
+        }
+      }
     ],
     //-------新增、修改表单字段数组-------
     formItems: [

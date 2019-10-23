@@ -29,12 +29,12 @@ export default {
     {
       label: "赛事名称",
       prop: "matchName",
-      width: 240
+      width: 300
     },
     {
       label: "赛事时间",
       prop: "matchTime",
-      width: 100,
+      width: 140,
       formatter: function (rowData) {
         return moment(rowData.matchTime).format("YYYY-MM-DD HH:mm");
       }
@@ -62,7 +62,7 @@ export default {
       label: "状态",
       prop: "matchStatus",
       requireProp: ["enrollTime", 'enrollTimeEnd', 'matchTime', 'matchTimeEnd'],
-      width: 100,
+      width: 120,
       formatter: function (rowData) {
         let nowDate = new Date().getTime();
         let enrollTimeDate = new Date(rowData.enrollTime).getTime();

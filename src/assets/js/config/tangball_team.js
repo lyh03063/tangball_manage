@@ -41,7 +41,7 @@ export default {
     {
       label: "创建人",
       prop: "createMemberId",
-      width: 100,
+      width: 120,
       formatter: (data) => {
         if (data.memberName) {
           return data.memberName.name
@@ -51,7 +51,7 @@ export default {
     {
       label: "赛事",
       prop: "matchId",
-      width: 100,
+      width: 300,
       formatter: (data) => {
         if (data.matchName) {
           return data.matchName.matchName
@@ -61,7 +61,7 @@ export default {
     {
       label: "订单id",
       prop: "orderId",
-      width: 100
+      width: 200
     }
   ],
   //-------筛选表单字段数组-------

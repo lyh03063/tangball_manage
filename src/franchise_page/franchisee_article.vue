@@ -1,6 +1,15 @@
 <template>
   <div class>
-    <dm_list_data :cf="cfList"></dm_list_data>
+    <dm_list_data :cf="cfList">
+      <template v-slot:slot_detail_item_articleCategory="{row}">
+          <dm_ajax_populate
+            :id="row.articleCategory"
+            populateKey="name"
+            page="tangball_article_category"
+            idKey="P1"
+          ></dm_ajax_populate>
+        </template>
+    </dm_list_data>
   </div>
 </template>
 
@@ -54,7 +63,7 @@ export default {
           {
             label: "分类名称",
             prop: "articleCategory",
-            width: 150,
+            width: 100,
             formatter: function(rowData) {
               let name = lodash.get(rowData, "categoryDoc.name");
               return name;
@@ -64,16 +73,19 @@ export default {
           {
             label: "创建时间",
             prop: "CreateTime",
-            width: 145
+            width: 160,
+            formatter: function(rowData) {
+              return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+            }
           },
           {
-            label: "其他",
-            prop: "extend",
-            width: 300,
-            formatter: function(extend) {
-              return JSON.stringify(extend.extend);
-            }
-          }
+        label: "其他",
+        prop: "extend",
+        width: 500,
+        formatter: function(extend) {
+          return JSON.stringify(extend.extend);
+        }
+      }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -109,7 +121,30 @@ export default {
             label: "资讯详情",
             prop: "articleContent",
             type: "html"
-          }
+          },
+          {
+            label: "分类名称",
+            prop: "articleCategory",
+            width: 100,
+            slot:'slot_detail_item_articleCategory'
+          },
+
+          {
+            label: "创建时间",
+            prop: "CreateTime",
+            width: 160,
+            formatter: function(rowData) {
+              return moment(rowData.CreateTime).format('YYYY/MM/DD-h:mm:ss');
+            }
+          },
+          {
+        label: "其他",
+        prop: "extend",
+        width: 160,
+        formatter: function(extend) {
+          return JSON.stringify(extend.extend);
+        }
+      }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [

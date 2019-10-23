@@ -14,6 +14,20 @@ export default  {
       delete:
         "/crossDelete?page=tangball_sponsorship" //删除接口
     },
+    dynamicDict:[
+      {
+      page: "tangball_sponsor",
+      populateColumn: "sponsor",
+      idColumn: "sponsorId",
+      idColumn2: "P1"
+    },
+      {
+      page: "tangball_match",
+      populateColumn: "match",
+      idColumn: "matchId",
+      idColumn2: "P1"
+    },
+  ],
     //-------列配置数组-------
     columns: [
       {
@@ -22,16 +36,24 @@ export default  {
         width: 60
       },
       {
-        label: "赞助商id",
+        label: "赞助商",
         prop: "sponsorId",
-        width: 90,
-         slot: "slot_detail_item_sponsorId",
+        width: 130,
+        formatter: function(row) {
+          if (row.sponsor) {
+            return row.sponsor.name?row.sponsor.name:'无'
+          }
+        }
       },
       {
-        label: "赛事id",
+        label: "赛事",
         prop: "matchId",
-        width: 80,
-         slot: "slot_detail_item_matchId",
+        width: 300,
+        formatter: function(row) {
+          if (row.match) {
+            return row.match.matchName?row.match.matchName:'无'
+          }
+        }
   
       },
       //  {
@@ -47,9 +69,9 @@ export default  {
       {
         label: "赞助时间",
         prop: "time",
-        width: 110,
+        width: 160,
          formatter: function(row) {
-          return moment(row.time).format("YYYY-MM-DD ");
+          return moment(row.time).format("YYYY-MM-DD HH:DD");
         }
       },
       {
@@ -61,15 +83,25 @@ export default  {
     //-------筛选表单字段数组-------
     searchFormItems: [
     
-       {
-        label: "赞助商id",
+      {
+        label: "赞助商",
         prop: "sponsorId",
-         type: "input"
+        type: "select",
+        ajax: {
+          url: "/crossList?page=tangball_sponsor",
+          keyLabel: "name",
+          keyValue: "P1"
+        }
       },
       {
-        label: "赛事id",
+        label: "赛事",
         prop: "matchId",
-         type: "input"
+        type: "select",
+        ajax: {
+          url: "/crossList?page=tangball_match",
+          keyLabel: "matchName",
+          keyValue: "P1"
+        }
       },
        {
         label: "赞助时间",
@@ -99,7 +131,10 @@ export default  {
       },
       {
         label: "赞助时间",
-        prop: "time"
+        prop: "time",
+        formatter: function(row) {
+          return moment(row.time).format("YYYY-MM-DD HH:DD");
+        }
       },
       {
         label: "地点",
@@ -110,7 +145,7 @@ export default  {
     formItems: [
      
       {
-        label: "赞助商id",
+        label: "赞助商",
         prop: "sponsorId",
         type: "select",
         ajax: {
@@ -120,7 +155,7 @@ export default  {
         }
       },
       {
-        label: "赛事ID",
+        label: "赛事",
         prop: "matchId",
         type: "select",
         ajax: {

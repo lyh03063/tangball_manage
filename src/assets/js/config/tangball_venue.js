@@ -52,17 +52,17 @@ export default {
      {
        label: "城市",
        prop: "area",
-       width: 100,
+       width: 180,
         formatter: function(rowData) {
          return lodash.get(rowData, `areaDoc.P2`);
        
        }
      },
-     {
-       label: "详细地址",
-       prop: "address",
-       width: 100
-     },
+    //  {
+    //    label: "详细地址",
+    //    prop: "address",
+    //    width: 100
+    //  },
      {
        label: "赛事数量",
        prop: "countMatch",

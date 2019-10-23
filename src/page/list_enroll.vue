@@ -151,12 +151,7 @@ export default {
             label: "报名时间",
             prop: "time",
             formatter: function(row) {
-              if (row.time) {
-                var dt = new Date(row.time);
-                return dt.toLocaleDateString() + dt.toLocaleTimeString();
-              } else {
-                return "暂无报名时间";
-              }
+              return moment(row.time).format('YYYY-MM-DD HH:mm')
             }
           },
           {
@@ -232,8 +227,21 @@ export default {
        
       }
     }
+  },
+  created(){
+    this.cfList.bactchBtns = {
+          delete: false,
+          add: false, //配置基础按钮隐藏（默认显示）,
+          tips: {
+            text: "数据来源于小程序或赛事的“报名表”中添加"
+            // style:{"color":"#3a0"}
+          }
+    }
+    this.cfList.singleBtns = {
+          delete:false,
+          modify:false
+          }
   }
-  
 };
 </script>
 

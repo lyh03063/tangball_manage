@@ -95,7 +95,7 @@ export default {
         padding: 10px 20px;
         border-radius: 10px;
         margin: 20px 10px;
-        width: 40%;
+        width: 60%;
     }
     .TitleMsg-box div{
         line-height: 30px;

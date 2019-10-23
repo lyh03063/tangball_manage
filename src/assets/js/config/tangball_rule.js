@@ -24,11 +24,11 @@ export default {
       {
         label: "规则名",
         prop: "name",
-        width: 100
+        width: 250
       },{
         label: "简介",
         prop: "remark",
-        width: 100
+        width: 400
       },
     ],
     //-------筛选表单字段数组-------

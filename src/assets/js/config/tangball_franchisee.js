@@ -35,22 +35,22 @@ export default {
        {
         label: "加盟时间",
         prop: "joinTime",
-        width: 100,
-        // formatter:function(row){
+        width: 160,
+        formatter:function(row){
           
-        //  return moment(row.joinTime).format("YYYY-MM-DD")
+         return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
   
-        // }
+        }
       },
-      {
-        label: "密码",
-        prop: "password",
-        width: 150
-      },
+      // {
+      //   label: "密码",
+      //   prop: "password",
+      //   width: 150
+      // },
       {
         label: "备注",
         prop: "remark",
-        width: 100
+        width: 300
       }
     ],
     //-------筛选表单字段数组-------
@@ -60,6 +60,16 @@ export default {
         prop: "P1",
         type: "input"
       },{
+        label: "企业名称",
+        prop: "joinTime",
+        type: "select",
+            ajax: {
+              url: "/crossList?page=tangball_franchisee",
+              keyLabel: "name",
+              keyValue: "P1"
+            }
+      },
+      {
         label: "加盟时间",
         prop: "joinTime",
         type: "time_period"
@@ -74,6 +84,28 @@ export default {
       {
         label: "企业名称",
         prop: "name"
+      },
+      {
+        label: "场馆数",
+        prop: "countVenue",
+        width: 75,
+        // slot:"slot_list_column_countVenue"
+        statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
+      },
+       {
+        label: "加盟时间",
+        prop: "joinTime",
+        width: 160,
+        formatter:function(row){
+          
+         return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
+  
+        }
+      },
+      {
+        label: "密码",
+        prop: "password",
+        width: 150
       },
       {
         label: "备注",

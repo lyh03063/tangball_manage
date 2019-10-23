@@ -38,12 +38,15 @@ columns: [
   {
     label: "创建时间",
     prop: "CreateTime",
-    width: 145
+    width: 160,
+    formatter: function(extend) {
+      return moment(extend.CreateTime).format('YYYY-MM-DD HH:mm');
+    }
   },
   {
     label: "其他",
     prop: "extend",
-    width: 135,
+    width: 200,
     formatter: function(extend) {
       return JSON.stringify(extend.extend);
     }

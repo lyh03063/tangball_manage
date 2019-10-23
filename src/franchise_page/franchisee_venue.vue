@@ -67,22 +67,22 @@ export default {
      {
        label: "场馆名称",
        prop: "name",
-       width: 200
+       width: 170
      },
      {
        label: "城市",
        prop: "area",
-       width: 100,
+       width: 160,
         formatter: function(rowData) {
          return lodash.get(rowData, `areaDoc.P2`);
        
        }
      },
-     {
-       label: "详细地址",
-       prop: "address",
-       width: 100
-     },
+    //  {
+    //    label: "详细地址",
+    //    prop: "address",
+    //    width: 100
+    //  },
      {
        label: "赛事数量",
        prop: "countMatch",
@@ -91,9 +91,9 @@ export default {
      {
        label: "加盟时间",
        prop: "time",
-       width: 130,
+       width: 150,
        formatter: function(row) {
-         return moment(row.time).format("YYYY-MM-DD");
+         return moment(row.time).format("YYYY-MM-DD HH:DD");
        }
      },
      {

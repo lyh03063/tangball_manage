@@ -28,7 +28,13 @@ export default {
             populateColumn: "matchDoc",
             idColumn: "matchId",
             idColumn2: "P1",
-          }
+          },
+          {
+            page: "tangball_team",
+            populateColumn: "team",
+            idColumn: "teamId",
+            idColumn2: "P1",
+          },
         ],
         //批量操作按钮的配置
         bactchBtns: {
@@ -56,12 +62,18 @@ export default {
           {
             label: "所属球队",
             prop: "teamId",
+            width: 120,
+            formatter: function (rowData) {
+              if (rowData.team) {
+                return rowData.team.name?rowData.team.name:'无'
+              }
+            }
           },
           {
-            label: "赛事ID",
+            label: "赛事",
             prop: "matchId",
             // slot: "slot_detail_item_matchId",
-            width: 160,
+            width: 250,
             formatter: function (rowData) {
               return lodash.get(rowData, "matchDoc.matchName", "") + `(${rowData.matchId})`
             }

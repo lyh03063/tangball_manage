@@ -21,7 +21,6 @@ export default {
         //   delete:false,
         //   modify:false
         //   },
-        // expand:true,
         url: {
           list: "/crossList?page=tangball_enroll", //列表接口
           add: "/crossAdd?page=tangball_enroll", //新增接口
@@ -48,7 +47,7 @@ export default {
             label: "报名球员",
             prop: "memberId",
             // slot: "slot_detail_item_memberId",
-            width: 90,
+            width: 110,
             formatter: function (rowData) {
               if (rowData.memberMsg) {
               return rowData.memberMsg.name
@@ -59,7 +58,7 @@ export default {
             label: "赛事名称",
             prop: "matchId",
             // slot: "slot_detail_item_matchId",
-            width: 120,
+            width: 300,
             formatter: function (rowData) {
               if (rowData.matchMsg) {
               return rowData.matchMsg.matchName
@@ -136,15 +135,9 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            width: 180,
+            width: 160,
             formatter:function (rowData){
-              if (rowData.time) {
-                var dt=new Date(rowData.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
-              
+              return moment(rowData.time).format('YYYY-MM-DD HH:mm')
             }
           },
           {
@@ -292,12 +285,7 @@ export default {
             label: "报名时间",
             prop: "time",
             formatter: function (row) {
-              if (row.time) {
-                var dt=new Date(row.time);
-              return dt.toLocaleDateString()+dt.toLocaleTimeString()
-              }else{
-                return '暂无报名时间'
-              }
+              return moment(row.time).format('YYYY-MM-DD HH:mm')
             }
           },
           {
