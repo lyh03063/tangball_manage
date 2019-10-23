@@ -1,9 +1,9 @@
 <template>
   <div class>
-      <dm_list_data :cf="cfList">
+      <dm_list_data :cf="cfList" ref="member">
           <template v-slot:slot_form_item_phone="{formData}">
               <!-- {{formData}} -->
-              <verify_phone v-model="formData.phone"></verify_phone>
+              <verify_phone v-model="formData.phone" @getDataList="getDataList" @closeAddDialog="closeAddDialog"></verify_phone>
          </template>
          <template v-slot:slot_detail_item_franchiseeId="{row}">
           <dm_ajax_populate
@@ -223,9 +223,16 @@ export default {
     };
   },
   methods: {
-    
+    getDataList(){
+      this.$refs.member.getDataList()
+    },
+    closeAddDialog(){
+      this.$store.commit('closeDialogAdd',this.cfList.listIndex)
+    }
   },
-  created() {
+  mounted() {
+    console.log('this.$refs.member',this.$refs.member);
+    
   }
 };
 </script>

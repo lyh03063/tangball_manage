@@ -7,6 +7,7 @@ export default {
     twoTitle: "其他数据",
     threeTitle: "资讯管理",
     flag: true,
+    findJsonDefault:{P1:{$ne:38}},
     url: {
       list: "/crossList?page=tangball_article", //列表接口
       add: "/crossAdd?page=tangball_article", //新增接口

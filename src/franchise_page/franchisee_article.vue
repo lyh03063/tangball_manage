@@ -15,6 +15,7 @@ export default {
         threeTitle: "资讯管理",
         flag: true,
         formDataAddInit:{franchiseeId:localStorage.franchisee_P1,auditStatus:0},
+        findJsonDefault:{P1:{$ne:38}},
         bactchBtns: {
           delete: false,
           add: true, //配置基础按钮隐藏（默认显示）,
