@@ -32,9 +32,10 @@ export default {
   data() {
     let cfList =PUB.listCF.tangball_member
     cfList.listIndex = 'franchisee_member'
-    cfList.bactchBtns = {
-          delete: false,
-          add: true, //配置基础按钮隐藏（默认显示）,
+    cfList.batchBtns = {
+       addon: [
+         util.cfList.bBtns.add,
+       ],
           tips: {
             text: ""
             // style:{"color":"#3a0"}
@@ -143,8 +144,13 @@ export default {
       }
     ]
     cfList.singleBtns={
-          delete: false,
-          modify: true
+      addon: [
+          util.cfList.sBtns.detail,
+        util.cfList.sBtns.modify,
+
+
+       ],
+       
         },
     cfList.formItems = [
      {

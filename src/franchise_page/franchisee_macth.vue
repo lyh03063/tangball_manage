@@ -88,17 +88,22 @@ export default {
   data() {
     let cfList = util.deepCopy(PUB.listCF.tangball_match);
     cfList.listIndex = "franchisee_macth";
-    cfList.bactchBtns = {
-      delete: false,
-      add: false, //配置基础按钮隐藏（默认显示）,
+    cfList.batchBtns = {
+       addon: [],//空数组表示没有操作按钮
+      // delete: false,
+      // add: false, //配置基础按钮隐藏（默认显示）,
       tips: {
         text: ""
         // style:{"color":"#3a0"}
       }
     };
     cfList.singleBtns = {
-      delete: false,
-      modify: false
+      //空数组表示没有操作按钮
+      addon: [
+    
+        util.cfList.sBtns.detail,
+      ],
+    
     };
     return {
       titleDialogAchievement: "", //成绩弹窗标题

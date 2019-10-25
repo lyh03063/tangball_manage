@@ -14,8 +14,12 @@ export default {
       delete: "/crossDelete?page=tangball_group" //删除接口
     },
      //批量操作按钮的配置
-  bactchBtns: {
-    add: false, //配置基础按钮隐藏（默认显示）,
+  batchBtns: {
+    addon: [
+             
+                 util.cfList.bBtns.delete,
+             ],
+  
     tips:{
       text:"数据来源于小程序或赛事的“对阵分组/成绩”中添加",
     }
