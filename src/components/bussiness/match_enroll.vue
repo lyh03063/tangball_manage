@@ -80,8 +80,9 @@
         <!--队伍名称列配置-->
         <template v-slot:slot_detail_item_teamName="{row}">
           <div class v-if="row.teamDoc">
-            <el-popover placement="right" width="300" v-model="tipVisibles[row.P1]">
-              <div>
+            
+            <el-popover placement="right" width="300" trigger="click" >
+          
                 <div class v-for="(item,i) in row.teamDoc.member" :key="i">
                   {{item.name?item.name:'无' }}
                   ({{item.sex==1?'男':'女'}}|{{item.phone?item.phone:'无'}})
@@ -99,7 +100,7 @@
                     <el-link type="primary" v-else @click="modifyMerber(item,i,row.teamDoc)">修改</el-link>
                   </span>
                 </div>
-              </div>
+
               <el-link type="primary" slot="reference" @click="showProgress(row.teamDoc.member)">
                 {{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)
                 <font

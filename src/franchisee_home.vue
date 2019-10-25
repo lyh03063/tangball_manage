@@ -73,7 +73,11 @@ export default {
           this.$router.push({ path: "/franchisee_login" });
       }
   },
-  created() {}
+  created() {
+    if (localStorage.franchisee_isLogin != 1) {
+          this.$router.push({ path: "/franchisee_login" });
+      }
+  }
 };
 </script>
 
