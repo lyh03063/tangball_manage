@@ -18,13 +18,14 @@ export default {
   data() {
     return {
       cfList: {
+  
         listIndex: "franchisee_article", //vuex对应的字段~
         focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
         threeTitle: "资讯管理",
         flag: true,
         formDataAddInit:{franchiseeId:localStorage.franchisee_P1,auditStatus:0},
-        findJsonDefault:{P1:{$ne:38}},
+        findJsonDefault:{P1:{$ne:38},franchiseeId:localStorage.franchisee_P1},
         bactchBtns: {
           delete: false,
           add: true, //配置基础按钮隐藏（默认显示）,
