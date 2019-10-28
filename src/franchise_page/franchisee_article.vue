@@ -2,13 +2,13 @@
   <div class>
     <dm_list_data :cf="cfList">
       <template v-slot:slot_detail_item_articleCategory="{row}">
-          <dm_ajax_populate
-            :id="row.articleCategory"
-            populateKey="name"
-            page="tangball_article_category"
-            idKey="P1"
-          ></dm_ajax_populate>
-        </template>
+        <dm_ajax_populate
+          :id="row.articleCategory"
+          populateKey="name"
+          page="tangball_article_category"
+          idKey="P1"
+        ></dm_ajax_populate>
+      </template>
     </dm_list_data>
   </div>
 </template>
@@ -24,19 +24,24 @@ export default {
         twoTitle: "其他数据",
         threeTitle: "资讯管理",
         flag: true,
-        formDataAddInit:{franchiseeId:localStorage.franchisee_P1,auditStatus:0},
-        findJsonDefault:{P1:{$ne:38},franchiseeId:localStorage.franchisee_P1},
-        bactchBtns: {
-          delete: false,
-          add: true, //配置基础按钮隐藏（默认显示）,
+   
+        formDataAddInit: {
+          franchiseeId: localStorage.franchisee_P1,
+          auditStatus: 0
+        },
+        findJsonDefault: { P1: { $ne: 38 },franchiseeId:localStorage.franchisee_P1 },
+        batchBtns: {
+          // addon: [util.cfList.bBtns.add],
+          // delete: false,
+          // add: true, //配置基础按钮隐藏（默认显示）,
           tips: {
             text: ""
             // style:{"color":"#3a0"}
           }
         },
         singleBtns: {
-          delete: false,
-          modify: false
+          //按钮列表
+          // addon: [util.cfList.sBtns.detail]
         },
         url: {
           list: "/crossList?page=tangball_article", //列表接口
@@ -76,17 +81,17 @@ export default {
             prop: "CreateTime",
             width: 160,
             formatter: function(rowData) {
-              return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+              return moment(rowData.CreateTime).format("YYYY-MM-DD HH:mm");
             }
           },
           {
-        label: "其他",
-        prop: "extend",
-        width: 500,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
-        }
-      }
+            label: "其他",
+            prop: "extend",
+            width: 500,
+            formatter: function(extend) {
+              return JSON.stringify(extend.extend);
+            }
+          }
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
@@ -127,7 +132,7 @@ export default {
             label: "分类名称",
             prop: "articleCategory",
             width: 100,
-            slot:'slot_detail_item_articleCategory'
+            slot: "slot_detail_item_articleCategory"
           },
 
           {
@@ -135,17 +140,17 @@ export default {
             prop: "CreateTime",
             width: 160,
             formatter: function(rowData) {
-              return moment(rowData.CreateTime).format('YYYY/MM/DD-h:mm:ss');
+              return moment(rowData.CreateTime).format("YYYY/MM/DD-h:mm:ss");
             }
           },
           {
-        label: "其他",
-        prop: "extend",
-        width: 160,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
-        }
-      }
+            label: "其他",
+            prop: "extend",
+            width: 160,
+            formatter: function(extend) {
+              return JSON.stringify(extend.extend);
+            }
+          }
         ],
         //-------新增、修改表单字段数组-------
         formItems: [

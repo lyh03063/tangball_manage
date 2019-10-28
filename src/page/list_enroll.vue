@@ -151,7 +151,7 @@ export default {
             label: "报名时间",
             prop: "time",
             formatter: function(row) {
-              return moment(row.time).format('YYYY-MM-DD HH:mm')
+              return moment(row.time).format("YYYY-MM-DD HH:mm");
             }
           },
           {
@@ -223,24 +223,23 @@ export default {
           prop: "matchId",
           itemNew: F_ITEMS.matchId_readonly
         });
-
-       
       }
     }
   },
-  created(){
-    this.cfList.bactchBtns = {
-          delete: false,
-          add: false, //配置基础按钮隐藏（默认显示）,
-          tips: {
-            text: "数据来源于小程序或赛事的“报名表”中添加"
-            // style:{"color":"#3a0"}
-          }
-    }
+  created() {
+    this.cfList.batchBtns = {
+      addon: [util.cfList.bBtns.delete], //空数组表示没有操作按钮
+      tips: {
+        text: "数据来源于小程序或赛事的“报名表”中添加"
+        // style:{"color":"#3a0"}
+      }
+    };
     this.cfList.singleBtns = {
-          delete:false,
-          modify:false
-          }
+      //空数组表示没有操作按钮
+      addon: [
+        util.cfList.sBtns.detail,
+      ]
+    };
   }
 };
 </script>

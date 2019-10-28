@@ -319,15 +319,18 @@ export default {
       expand: true, //展开行
       //单项操作按钮的配置
       singleBtns: {
-        detail: false
-        // modify:false,
-        //delete: false, //配置基础按钮隐藏（默认显示）
+        //按钮列表
+        addon: [util.cfList.sBtns.modify, util.cfList.sBtns.delete],
+  
       },
       //批量操作按钮的配置
-      bactchBtns: {
+      batchBtns: {
         //add: false, //配置基础按钮隐藏（默认显示）
-        delete: false, //配置基础按钮隐藏（默认显示）
-        addon: [{ text: "批量更新分数", eventType: "bacthUpdateScore" }]
+        // delete: false, //配置基础按钮隐藏（默认显示）
+        addon: [
+          util.cfList.bBtns.add,
+          { text: "批量更新分数", eventType: "bacthUpdateScore" }
+        ]
       },
       sortJsonDefault: {
         groupNum: 1
@@ -382,12 +385,11 @@ export default {
           prop: "timeStart",
           width: 180,
           formatter: function(rowData) {
-          if (rowData.timeStart) {
-            var dt=new Date(rowData.timeStart);
-          return dt.toLocaleDateString()+dt.toLocaleTimeString()
+            if (rowData.timeStart) {
+              var dt = new Date(rowData.timeStart);
+              return dt.toLocaleDateString() + dt.toLocaleTimeString();
+            }
           }
-          
-        }
           // type: "dateTime"
         }
       ],

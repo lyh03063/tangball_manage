@@ -37,8 +37,12 @@ export default {
           },
         ],
         //批量操作按钮的配置
-        bactchBtns: {
-          add: false, //配置基础按钮隐藏（默认显示）,
+        batchBtns: {
+          addon: [
+
+            util.cfList.bBtns.delete,
+          ],
+
           tips: {
             text: "数据来源于小程序或赛事的“对阵分组/成绩”中添加",
           }
@@ -65,7 +69,7 @@ export default {
             width: 120,
             formatter: function (rowData) {
               if (rowData.team) {
-                return rowData.team.name?rowData.team.name:'无'
+                return rowData.team.name ? rowData.team.name : '无'
               }
             }
           },

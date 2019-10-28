@@ -12,8 +12,11 @@ export default {
     { page: "tangball_match", populateColumn: "matchName", idColumn: "matchId", idColumn2: "P1" }
   ],
   //批量操作按钮的配置
-  bactchBtns: {
-    add: false, //配置基础按钮隐藏（默认显示）,
+  batchBtns: {
+   
+    addon:[
+      util.cfList.bBtns.delete,
+    ],
     tips:{
       text:"数据来源于小程序或赛事的“报名表”中添加",
       // style:{"color":"#3a0"}

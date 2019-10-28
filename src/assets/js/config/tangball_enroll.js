@@ -9,18 +9,7 @@ export default {
         focusMenu: true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "报名(订单)",
-        // bactchBtns : {
-        //   delete: false,
-        //   add: false, //配置基础按钮隐藏（默认显示）,
-        //   tips: {
-        //     text: "数据来源于小程序或赛事的“报名表”中添加"
-        //     // style:{"color":"#3a0"}
-        //   }
-        // },
-        // singleBtns : {
-        //   delete:false,
-        //   modify:false
-        //   },
+        
         url: {
           list: "/crossList?page=tangball_enroll", //列表接口
           add: "/crossAdd?page=tangball_enroll", //新增接口
