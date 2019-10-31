@@ -226,7 +226,7 @@ export default {
         label: "报名时间",
         prop: "time",
         formatter: function (row) {
-          return moment(row.time).format("YYYY-MM-DD");
+          return moment(row.time).format("YYYY-MM-DD HH:mm");
         }
       },
       {

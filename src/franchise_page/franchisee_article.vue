@@ -18,18 +18,20 @@ export default {
   data() {
     return {
       cfList: {
+  
         listIndex: "franchisee_article", //vuex对应的字段~
         focusMenu: true, //进行菜单聚焦
         twoTitle: "其他数据",
         threeTitle: "资讯管理",
         flag: true,
+   
         formDataAddInit: {
           franchiseeId: localStorage.franchisee_P1,
           auditStatus: 0
         },
-        findJsonDefault: { P1: { $ne: 38 } },
+        findJsonDefault: { P1: { $ne: 38 },franchiseeId:localStorage.franchisee_P1 },
         batchBtns: {
-          addon: [util.cfList.bBtns.add],
+          // addon: [util.cfList.bBtns.add],
           // delete: false,
           // add: true, //配置基础按钮隐藏（默认显示）,
           tips: {
@@ -39,7 +41,7 @@ export default {
         },
         singleBtns: {
           //按钮列表
-          addon: [util.cfList.sBtns.detail]
+          // addon: [util.cfList.sBtns.detail]
         },
         url: {
           list: "/crossList?page=tangball_article", //列表接口
