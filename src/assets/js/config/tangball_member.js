@@ -40,6 +40,11 @@ export default {
         width: 120
       },
       {
+        label: "微信昵称",
+        prop: "wxNickName",
+        width: 120
+      },
+      {
         label: "微信openid",
         prop: "openid",
         width: 130
@@ -74,7 +79,7 @@ export default {
       {
         label: "所属球场",
         prop: "venueId",
-        width: 180,
+        width: 130,
         formatter:function (data) {
           if (data.venue) {
             return data.venue.name?data.venue.name:"无"

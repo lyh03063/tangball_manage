@@ -1,6 +1,6 @@
 <template>
   <div class>
-    <dm_list_data :cf="cfList"></dm_list_data>
+    <dm_list_data :cf="cfList" @after-modify="roleDataChange" @after-add="roleDataChange"></dm_list_data>
   </div>
 </template>
 <script>
@@ -11,8 +11,24 @@ export default {
       cfList: PUB.listCF.tangball_role
     };
   },
+  methods: {
+    //角色列表修改时触发的函数
+    async roleDataChange(doc) {
+      //如果修改的是当前的角色，更新当前的权限
+      if (doc.P1 == localStorage.tangball_roleId) {
+        util.setLocalStorageObj("tangball_power", doc.power); //调用：{设置一个对象到LocalStorage}
+        let clickStatus = await this.$confirm(
+          "当前用户的角色被修改，需要刷新页面才能生效，是否刷新？"
+        ).catch(() => {});
+        if (clickStatus == "confirm") {
+          //如果点击了确定
+          window.location.reload(); //函数调用：{重载页面}
+        }
+      }
+    }
+  },
   created() {
-    util.setListPower(this.cfList); //调用：{根据当前角色权限设置列表配置的函数}
+
   }
 };
 </script>

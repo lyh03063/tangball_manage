@@ -103,7 +103,7 @@ export default {
 
         let {
           data: {
-            Doc: { power, name }
+            Doc: { power, name, P1: roleId }
           }
         } = await axios({
           //请求接口
@@ -114,8 +114,8 @@ export default {
           } //传递参数
         });
         console.log("power:", power);
-        localStorage.tangball_roleName = name; //存储用户名
-
+        localStorage.tangball_roleName = name; //存储角色名
+        localStorage.tangball_roleId = roleId; //存储角色Id
         util.setLocalStorageObj("tangball_power", power); //调用：{设置一个对象到LocalStorage}
 
         //         util.setLocalStorageObj("key",obj)//调用：{设置一个对象到LocalStorage}

@@ -104,11 +104,7 @@ export default {
     custom_progress
   },
   data() {
-   
-
     let cfList = util.deepCopy(PUB.listCF.tangball_match);//深拷贝
-    util.setListPower(cfList);//调用：{根据当前角色权限设置列表配置的函数}
-
     return {
       matchId: null,
       titleDialogAchievement: "", //成绩弹窗标题
