@@ -11,8 +11,15 @@
             <div class="addButton el-icon-circle-close" @click="deleteprogress(index)"></div>
             <div style="clear:both"></div>
         </div>
-        <div>最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in progress" :key="index">{{item.name}}{{index==progress.length-1?'':'→'}}</span></div>
-        <div>当前赛程：
+        <div v-if="progress.length>0">最终赛程：&nbsp;&nbsp;&nbsp;<span v-for="(item,index) in progress" :key="index">{{item.name}}{{index==progress.length-1?'':'→'}}</span></div>
+        <div v-else>
+            <div  class="FL ">
+            暂无赛程：</div>
+            <div class="addButton el-icon-circle-plus-outline " style="margin-top:0" @click="addprogress(0)"></div>
+    
+            <div style="clear:both"></div>
+        </div>
+        <div v-if="progress.length>0">当前赛程：
             <el-select
                   v-model="nowProgress"
                   clearable
@@ -69,8 +76,8 @@ export default {
      addprogress(index){
          console.log(index);
          console.log(this.progress);
-         
-         let joinPerson = this.progress[index].remainPersom
+         if (this.progress.length>0) {
+             let joinPerson = this.progress[index].remainPersom
          let remainPersom = ''
          let roundCount = this.progress[index].roundCount
          if (index+1!=this.progress.length) {
@@ -79,6 +86,10 @@ export default {
          let obj = {name:'',joinPerson,remainPersom,checked:false,roundCount}
          this.progress.splice(index+1,0,obj)
          console.log(this.progress);
+         }else{
+             this.progress.push({name:'决赛',joinPerson:'100-200',remainPersom:2,checked:true,roundCount:1})
+         }
+         
      },
     //  修改参与人/队数的方法
      changeJoinPerson(index){

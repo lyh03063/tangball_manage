@@ -385,10 +385,9 @@ export default {
           prop: "timeStart",
           width: 180,
           formatter: function(rowData) {
-            if (rowData.timeStart) {
-              var dt = new Date(rowData.timeStart);
-              return dt.toLocaleDateString() + dt.toLocaleTimeString();
-            }
+          
+              return moment(rowData.timeStart).format("YYYY-MM-DD HH:mm");
+            
           }
           // type: "dateTime"
         }

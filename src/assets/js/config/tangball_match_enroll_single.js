@@ -57,12 +57,7 @@ export default {
       prop: "time",
       width: 180,
       formatter: function (rowData) {
-        if (rowData.time) {
-          var dt = new Date(rowData.time);
-          return dt.toLocaleDateString() + dt.toLocaleTimeString()
-        } else {
-          return '暂无报名时间'
-        }
+        return moment(rowData.time).format("YYYY-MM-DD HH:mm");
 
       }
     },
@@ -159,13 +154,7 @@ export default {
       prop: "time",
       width: 180,
       formatter: function (rowData) {
-        if (rowData.time) {
-          var dt = new Date(rowData.time);
-          return dt.toLocaleDateString() + dt.toLocaleTimeString()
-        } else {
-          return '暂无报名时间'
-        }
-
+        return moment(rowData.time).format("YYYY-MM-DD HH:mm");
       }
     },
     {
