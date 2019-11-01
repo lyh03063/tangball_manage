@@ -208,7 +208,8 @@ cfDialogForm: {
      {
        label: "相册",
        prop: "album",
-       type: "upload"
+       type: "upload",
+       tips:"图片尺寸比例最好保持在1 : 0.8，建议尺寸：宽500px，高400px"
      },
      // {
      //   label: "经度",

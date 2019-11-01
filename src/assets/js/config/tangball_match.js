@@ -249,6 +249,12 @@ export default {
       rules: [{ required: true, message: "赛事名称不能为空" }],
     },
     {
+      label: "发布状态",
+      prop: "publicationStatus",
+      type: "select",
+      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
+    },
+    {
       label: "赛事规则",
       prop: "ruleId",
       type: "select",
@@ -268,28 +274,30 @@ export default {
         { label: "团体赛", value: 2 }
       ],
     },
+   
     {
-      label: "每队人数下限",
-      prop: "teamMemberMin",
-      type: "number",
+      label: "队员人数范围",
+      keyMin: "teamMemberMin",
+      keyMax: "teamMemberMax",
+      type: "numberRange",
       term: { matchForm: 2 },
-      rules: [{ required: true, message: "不能为空" }]
+      // rules: [{ required: true, message: "不能为空" }]
     },
+    
     {
-      label: "发布状态",
-      prop: "publicationStatus",
-      type: "select",
-      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
-    },
-    {
-      label: "每队人数上限",
-      type: "number",
-      prop: "teamMemberMax",
+      label: "男性人数范围",
+      type: "numberRange",
+      prop: "menCount",
       term: { matchForm: 2 },
-      rules: [{ required: true, message: "不能为空" }]
+
     },
-
-
+    {
+      label: "女性人数范围",
+      type: "numberRange",
+      prop: "womenCount",
+      term: { matchForm: 2 },
+    
+    },
 
 
     {
@@ -367,7 +375,8 @@ export default {
       label: "相册",
       prop: "album",
       type: "upload",
-      col_span: 24 //控制显示一行多列
+      col_span: 24, //控制显示一行多列
+      tips:"图片尺寸比例最好保持在1:0.8，建议尺寸：宽500px，高400px"
     },
     {
       label: "决赛场馆",
@@ -391,7 +400,7 @@ export default {
       col_span: 24 //控制显示一行多列
     },
     {
-      label: "赛事结果",
+      label: "赛事结果说明",
       prop: "matchResult",
       type: "editorTM",
       col_span: 24 //控制显示一行多列
