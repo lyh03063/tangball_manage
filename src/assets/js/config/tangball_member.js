@@ -35,6 +35,12 @@ export default {
         width: 80
       },
       {
+        label: "微信昵称",
+        prop: "wxNickName",
+        width: 120
+      },
+
+      {
         label: "球员姓名",
         prop: "name",
         width: 120
