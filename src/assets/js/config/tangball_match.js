@@ -21,390 +21,65 @@ export default {
   },
   //-------列配置数组-------
   columns: [
-    {
-      label: "id",
-      prop: "P1",
-      width: 50
-    },
-    {
-      label: "赛事名称",
-      prop: "matchName",
-      width: 300
-    },
-    {
-      label: "赛事时间",
-      prop: "matchTime",
-      width: 140,
-      formatter: function (rowData) {
-        return moment(rowData.matchTime).format("YYYY-MM-DD HH:mm");
-      }
-    },
-    // {
-    //   label: "报名数",
-    //   prop: "registeredPersons",
-    //   width: 75,
-    //   statistics: { listIndex: "list_enroll", targetIdKey: "matchId" }
-    // },
-    {
-      label: "报名费",
-      prop: "registrationFee",
-      width: 85
-    },
-    {
-      label: "发布",
-      prop: "publicationStatus",
-      width: 75,
-      formatter: function (rowData) {
-        return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
-      }
-    },
-    {
-      label: "状态",
-      prop: "matchStatus",
-      requireProp: ["enrollTime", 'enrollTimeEnd', 'matchTime', 'matchTimeEnd'],
-      width: 120,
-      formatter: function (rowData) {
-        let nowDate = new Date().getTime();
-        let enrollTimeDate = new Date(rowData.enrollTime).getTime();
-        let enrollTimeEnd = new Date(rowData.enrollTimeEnd).getTime();
-        let matchTime = new Date(rowData.matchTime).getTime();
-        let matchTimeEnd = new Date(rowData.matchTimeEnd).getTime();
-        if (nowDate > matchTimeEnd) {
-          return '赛事已结束'
-        } else if (nowDate > matchTime) {
-          return '赛事已开始'
-        } else if (nowDate > enrollTimeEnd) {
-          return '报名时间已结束'
-        } else if (nowDate > enrollTimeDate) {
-          return '火热报名中'
-        } else {
-          return '报名时间未到'
-        }
-      }
-    },
-    {
-      label: "类型",
-      prop: "matchForm",
-      width: 75,
-      formatter: function (rowData) {
-        return rowData.matchForm == 2 ? "团体赛" : "个人赛"; //三元表达式
-      }
-    },
-    {
-      label: "报名表",
-      requireProp: ["registeredPersons"],
-      // prop: "achievement",
-      width: 105,
-      slot: "slot_column_enroll"
-    },
-    {
-      label: "对阵分组/成绩",
-      // prop: "achievement",
-      width: 125,
-      slot: "slot_column_achievement"
-    }
+    COLUMNS.Id,
+    COLUMNS.matchName,
+    COLUMNS.matchTime,
+    COLUMNS.registrationFee,
+    COLUMNS.publicationStatus,
+    COLUMNS.matchStatus,
+    COLUMNS.matchForm,
+    COLUMNS.enroolSheet,
+    COLUMNS.confrontAchievement,
   ],
   //-------筛选表单字段数组-------
   searchFormItems: [
-    {
-      label: "赛事名称",
-      prop: "matchName",
-      type: "input_find_vague",
-    },
-    {
-      label: "赛事类型",
-      prop: "matchForm",
-      type: "select",
-      options: [
-        { label: "个人赛", value: 1 },
-        { label: "团体赛", value: 2 }
-      ],
-    },
-    // {
-    //   label: "赛事状态",
-    //   prop: "matchStatus",
-    //   type: "select",
-    //   options: [
-    //     { label: "未开始", value: 1 },
-    //     { label: "进行中", value: 2 },
-    //     { label: "已结束", value: 3 }
-    //   ]
-    // },
-    {
-      label: "发布状态",
-      prop: "publicationStatus",
-      type: "select",
-      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }]
-    },
-    {
-      label: "赛事时间",
-      prop: "matchTime",
-      type: "time_period"
-    }
+    F_ITEMS.matchName_search,
+    F_ITEMS.matchForm,
+    F_ITEMS.publicationStatus,
+    F_ITEMS.matchTime_search,
   ],
   //-------详情字段数组-------
   detailItems: [
-    {
-      label: "赛事名称",
-      prop: "matchName"
-    },
-    {
-      label: "报名状态",
-      prop: "matchErollStatus",
-      formatter: function (rowData) {
-        let obj = util.getTimeStatus({
-          start: rowData.enrollTime,
-          end: rowData.enrollTimeEnd
-        });
-        let htmlResult = `报名时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：报名${obj.msg}`;
-        return htmlResult;
-      }
-    },
-    {
-      label: "赛事状态",
-      prop: "matchStatus",
-      formatter: function (rowData) {
-        let obj = util.getTimeStatus({
-          start: rowData.matchTime,
-          end: rowData.matchTimeEnd
-        });
-        let htmlResult = `比赛时间：${obj.start}&nbsp;到&nbsp;${obj.end} &nbsp;&nbsp;&nbsp;当前状态：比赛${obj.msg}`;
-        return htmlResult;
-      }
-    },
-    {
-      label: "发布状态",
-      prop: "publicationStatus",
-      formatter: function (rowData) {
-        return rowData.publicationStatus == 1 ? "发布" : "未发布"; //三元表达式
-      }
-    },
-    {
-      label: "报名开始时间",
-      prop: "enrollTime"
-    },
-    {
-      label: "报名结束时间",
-      prop: "enrollTimeEnd"
-    },
+    D_ITEMS.matchName,
+    D_ITEMS.matchErollStatus,
+    D_ITEMS.matchStatus,
+    D_ITEMS.publicationStatus,
+    D_ITEMS.enrollTime,
+    D_ITEMS.enrollTimeEnd,
+    // D_ITEMS.matchType,
+    D_ITEMS.progress,
+    D_ITEMS.venue,
+    D_ITEMS.match_album,
+    D_ITEMS.registeredPersons,
+    D_ITEMS.registrationFee,
+    D_ITEMS.matchIntroduce,
 
-    {
-      label: "赛事类型",
-      prop: "matchType",
-      formatter: function (rowData) {
-        return rowData.matchType == 1 ? "普通赛" : "全国赛"; //三元表达式
-      }
-    },
-    {
-      label: "赛程设置",
-      prop: "progress",
-      slot: 'slot_detail_item_progress'
-    },
-    {
-
-      label: "决赛场馆",
-      prop: "venue",
-      type: "select",
-      slot: "slot_detail_item_cityVenueList"
-    },
-
-    {
-      label: "赛事图片",
-      prop: "album",
-      slot: "slot_detail_item_album"
-    },
-    {
-      label: "报名数",
-      prop: "registeredPersons"
-    },
-    {
-      label: "报名费用",
-      prop: "registrationFee"
-    },
-    {
-      label: "赛事介绍",
-      prop: "matchIntroduce"
-    },
-    {
-      label: "报名要求",
-      prop: "enrollRequirements"
-    },
-    {
-      label: "赛事规程",
-      prop: "matchManual",
-      type: 'html'
-    },
-    {
-      label: "赛事结果",
-      prop: "matchResult",
-      type: 'html'
-    },
+    D_ITEMS.enrollRequirements,
+    D_ITEMS.matchManual,
+    D_ITEMS.matchResult,
 
   ],
   //-------新增、修改表单字段数组-------
   formItems: [
-    {
-      label: "赛事名称",
-      prop: "matchName",
-      rules: [{ required: true, message: "赛事名称不能为空" }],
-    },
-    {
-      label: "发布状态",
-      prop: "publicationStatus",
-      type: "select",
-      options: [{ label: "是", value: 1 }, { label: "否", value: 2 }],
-    },
-    {
-      label: "赛事规则",
-      prop: "ruleId",
-      type: "select",
-      ajax: {
-        url: "/crossList?page=tangball_rule",
-        keyLabel: "name",
-        keyValue: "P1"
-      },
-    },
-
-    {
-      label: "赛事类型",
-      prop: "matchForm",
-      type: "select",
-      options: [
-        { label: "个人赛", value: 1 },
-        { label: "团体赛", value: 2 }
-      ],
-    },
-   
-    {
-      label: "队员人数范围",
-      keyMin: "teamMemberMin",
-      keyMax: "teamMemberMax",
-      type: "numberRange",
-      term: { matchForm: 2 },
-      // rules: [{ required: true, message: "不能为空" }]
-    },
-    
-    {
-      label: "男性人数范围",
-      type: "numberRange",
-      prop: "menCount",
-      term: { matchForm: 2 },
-
-    },
-    {
-      label: "女性人数范围",
-      type: "numberRange",
-      prop: "womenCount",
-      term: { matchForm: 2 },
-    
-    },
-
-
-    {
-      label: "报名开始时间",
-      prop: "enrollTime",
-      type: "dateTime",
-      rules: [{ required: true, message: "不能为空" }],
-    },
-    {
-      label: "赛事开始时间",
-      prop: "matchTime",
-      type: "dateTime",
-      rules: [{ required: true, message: "不能为空" }],
-    },
-    {
-      label: "报名结束时间",
-      prop: "enrollTimeEnd",
-      type: "dateTime",
-      rules: [{ required: true, message: "不能为空" }],
-    },
-
-    {
-      label: "赛事结束时间",
-      prop: "matchTimeEnd",
-      type: "dateTime",
-      rules: [{ required: true, message: "不能为空" }],
-    },
-
-    {
-      label: "报名费用",
-      prop: "registrationFee",
-      type: "number",
-    },
-
-
-    // {
-    //   label: "路线地图",
-    //   prop: "routeMap",
-    // },
-    {
-      label: "赛事介绍",
-      prop: "matchIntroduce",
-      type: "textarea",
-      col_span: 24
-    },
-    {
-      label: "报名要求",
-      prop: "enrollRequirements",
-      type: "textarea",
-      col_span: 24
-    },
-    // {
-    //   label: "赛事类型",
-    //   prop: "matchType",
-    //   type: "select",
-    //   options: [
-    //     { label: "普通赛", value: 1 },
-    //     { label: "全国赛", value: 2 }
-    //   ]
-    // },
-    // {
-    //   label: "全国赛城市场馆",
-    //   prop: "cityVenueList",
-    //   type: "select",
-    //   slot: "slot_form_item_cityVenueList",
-    //   term: { matchType: 2 }
-    // },
-    // {
-    //   label: "赛事阶段",
-    //   prop: "matchProgress",
-    //   type: "select",
-    //   slot: "slot_modify_item_matchProgress",
-    // },
-    {
-      label: "相册",
-      prop: "album",
-      type: "upload",
-      col_span: 24, //控制显示一行多列
-      tips:"图片尺寸比例最好保持在1:0.8，建议尺寸：宽500px，高400px"
-    },
-    {
-      label: "决赛场馆",
-      prop: "venue",
-      type: "select",
-      slot: "slot_form_item_cityVenueList",
-      col_span: 24
-    },
-    {
-      label: "赛程设置",
-      prop: "progress",
-      slot: 'slot_form_item_progress',
-      col_span: 24
-    },
-
-
-    {
-      label: "赛事规程",
-      prop: "matchManual",
-      type: "editorTM",
-      col_span: 24 //控制显示一行多列
-    },
-    {
-      label: "赛事结果说明",
-      prop: "matchResult",
-      type: "editorTM",
-      col_span: 24 //控制显示一行多列
-    },
+    F_ITEMS.matchName,
+    F_ITEMS.publicationStatus,
+    F_ITEMS.ruleId,
+    F_ITEMS.matchForm,
+    F_ITEMS.teamMemberRange,
+    F_ITEMS.menCount,
+    F_ITEMS.womenCount,
+    F_ITEMS.enrollTime,
+    F_ITEMS.matchTime,
+    F_ITEMS.enrollTimeEnd,
+    F_ITEMS.matchTimeEnd,
+    F_ITEMS.registrationFee,
+    F_ITEMS.matchIntroduce,
+    F_ITEMS.enrollRequirements,
+    F_ITEMS.album,
+    F_ITEMS.venue,
+    F_ITEMS.progress,
+    F_ITEMS.matchManual,
+    F_ITEMS.matchResult,
 
   ]
 }

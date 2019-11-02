@@ -6,7 +6,6 @@
             :id="row.franchiseeId"
             populateKey="name"
             page="tangball_franchisee"
-            idKey="P1"
           ></dm_ajax_populate>
         </template>
       <template v-slot:slot_detail_item_venueId="{row}">
@@ -14,7 +13,6 @@
             :id="row.venueId"
             populateKey="name"
             page="tangball_venue"
-            idKey="P1"
           ></dm_ajax_populate>
         </template>
     </dm_list_data>

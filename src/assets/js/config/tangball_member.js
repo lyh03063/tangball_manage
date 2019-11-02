@@ -29,117 +29,17 @@ export default {
     },
     //-------列配置数组-------
     columns: [
-      {
-        label: "会员号",
-        prop: "P1",
-        width: 80
-      },
-      {
-        label: "微信昵称",
-        prop: "wxNickName",
-        width: 120
-      },
-
-      {
-        label: "球员姓名",
-        prop: "name",
-        width: 120
-      },
-      {
-        label: "微信昵称",
-        prop: "wxNickName",
-        width: 120
-      },
-      {
-        label: "微信openid",
-        prop: "openid",
-        width: 130
-      },
-       {
-        label: "性别",
-        prop: "sex",
-        width: 65,
-        formatter:function(data) {
-          if (data.sex==2) {
-            return '女'
-          }else{
-            return '男'
-          }
-        }
-      },
-      {
-        label: "手机号",
-        prop: "phone",
-        width: 130
-      },
-      {
-        label: "所属加盟商",
-        prop: "franchiseeId",
-        width: 130,
-        formatter:function (data) {
-          if (data.franchisee) {
-            return data.franchisee.name?data.franchisee.name:'无'
-          }
-        }
-      },
-      {
-        label: "所属球场",
-        prop: "venueId",
-        width: 130,
-        formatter:function (data) {
-          if (data.venue) {
-            return data.venue.name?data.venue.name:"无"
-          }
-        }
-      },
-      {
-        label: "参赛次数",
-        prop: "entries",
-        width: 100,
-        // slot:"slot_list_column_entries"
-        statistics:{listIndex:'list_enroll', targetIdKey:'memberId'}
-      },
-       {
-        label: "成绩数",
-        prop: "countAchievement",
-        width: 80,
-        statistics:{listIndex:'list_achievement', targetIdKey:'memberId'}
-      },
-      // {
-      //   label: "唐球积分",
-      //   prop: "integral",
-      //   width: 65
-      // },       
-      // {
-      //   label: "备注",
-      //   prop: "remark",
-      //   width: 65
-      // },
-      // {
-      //   label: "职业",
-      //   prop: "career",
-      //   width: 70
-      // },
-      {
-        label: "球龄",
-        prop: "ballAge",
-        width: 100,
-        formatter: function(rowData) {
-          if (rowData.ballAge == 1) {
-            return "一年以下";
-          } else if (rowData.ballAge == 2) {
-            return "一到三年";
-          } else if (rowData.ballAge == 3) {
-            return "三到五年";
-          } else if (rowData.ballAge == 4) {
-            return "五到十年";
-          }else if (rowData.ballAge == 5) {
-            return "十年以上";
-          }else{
-            return "暂无";
-          }
-        }
-      }
+      COLUMNS.Id,
+COLUMNS.wxNickName,
+COLUMNS.member_name,
+COLUMNS.openid,
+COLUMNS.sex,
+COLUMNS.phone,
+COLUMNS.franchiseeId,
+COLUMNS.venueId,
+COLUMNS.entries,
+COLUMNS.countAchievement,
+COLUMNS.ballAge,
     ],
     //-------筛选表单字段数组-------
     searchFormItems: [
@@ -161,88 +61,18 @@ export default {
     ],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "会员编号",
-        prop: "P1",
-      },
-      {
-        label: "球员姓名",
-        prop: "name",
-      },
-      {
-        label: "性别",
-        prop: "sex",
-        width: 65,
-        formatter:function(data) {
-          if (data.sex==2) {
-            return '女'
-          }else{
-            return '男'
-          }
-        }
-      },
-      {
-        label: "微信号",
-        prop: "openid",
-      },
-      {
-        label: "手机号",
-        prop: "phone",
-      },
-      {
-        label: "所属加盟商",
-        prop: "franchiseeId",
-        slot:'slot_detail_item_franchiseeId'
-      },
-      {
-        label: "所属球场",
-        prop: "venueId",
-        slot:'slot_detail_item_venueId'
-      },
-      {
-        label: "身份证号",
-        prop: "idCard",
-      },
-      {
-        label: "参赛次数",
-        prop: "entries",
-      },
-      // {
-      //   label: "唐球积分",
-      //   prop: "integral",
-      //   width: 65
-      // },     
-      
-      {
-        label: "职业",
-        prop: "career",
-        width: 50
-      },
-      {
-        label: "球龄",
-        prop: "ballAge",
-        width: 65,
-        formatter: function(rowData) {
-          if (rowData.ballAge == 1) {
-            return "一年以下";
-          } else if (rowData.ballAge == 2) {
-            return "一到三年";
-          } else if (rowData.ballAge == 3) {
-            return "三到五年";
-          } else if (rowData.ballAge == 4) {
-            return "五到十年";
-          } else if (rowData.ballAge == 5) {
-            return "十年以上";
-          }else{
-            return "暂无";
-          }
-        }
-      },
-      {
-        label: "备注",
-        prop: "remark",
-        width: 150
-      }  
+      D_ITEMS.Id,
+D_ITEMS.member_name,
+D_ITEMS.sex,
+D_ITEMS.openid,
+D_ITEMS.phone,
+D_ITEMS.franchiseeId,
+D_ITEMS.venueId,
+D_ITEMS.idCard,
+D_ITEMS.entries,
+D_ITEMS.career,
+D_ITEMS.ballAge,
+D_ITEMS.remark, 
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
@@ -251,11 +81,7 @@ export default {
         prop: "name",
         width: 100
       },
-      // {
-      //   label: "微信openid",
-      //   prop: "openid",
-      //   width: 100
-      // },
+     
       {
         label: "手机号",
         prop: "phone",

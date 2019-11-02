@@ -9,7 +9,7 @@ export default {
         focusMenu: true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "报名(订单)",
-        
+
         url: {
           list: "/crossList?page=tangball_enroll", //列表接口
           add: "/crossAdd?page=tangball_enroll", //新增接口
@@ -17,7 +17,7 @@ export default {
           detail: "/crossDetail?page=tangball_enroll", //查看单条数据详情接口，在修改表单或详情弹窗用到
           delete: "/crossDelete?page=tangball_enroll" //删除接口
         },
-        dynamicDict:[{
+        dynamicDict: [{
           page: "tangball_match",
           populateColumn: "matchMsg",
           idColumn: "matchId",
@@ -39,9 +39,9 @@ export default {
             width: 110,
             formatter: function (rowData) {
               if (rowData.memberMsg) {
-              return rowData.memberMsg.name
+                return rowData.memberMsg.name
+              }
             }
-          }
           },
           {
             label: "赛事名称",
@@ -50,9 +50,9 @@ export default {
             width: 300,
             formatter: function (rowData) {
               if (rowData.matchMsg) {
-              return rowData.matchMsg.matchName
+                return rowData.matchMsg.matchName
+              }
             }
-          }
           },
           {
             label: "赛事类型",
@@ -63,13 +63,13 @@ export default {
               if (rowData.matchMsg) {
                 if (rowData.matchMsg.matchForm == 1) {
                   return '个人赛'
-                }else{
-              return '团体赛'
+                } else {
+                  return '团体赛'
+                }
+              }
             }
-            }
-          }
           },
-          
+
           // {
           //   label: "手机号",
           //   prop: "phone",
@@ -125,7 +125,7 @@ export default {
             label: "报名时间",
             prop: "time",
             width: 160,
-            formatter:function (rowData){
+            formatter: function (rowData) {
               return moment(rowData.time).format('YYYY-MM-DD HH:mm')
             }
           },
@@ -223,7 +223,7 @@ export default {
           {
             label: "赛事信息",
             prop: "cityVenueId",
-            slot:'slot_detail_item_matchInfo'
+            slot: 'slot_detail_item_matchInfo'
           },
           {
             label: "性别",
