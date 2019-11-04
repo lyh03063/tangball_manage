@@ -235,6 +235,7 @@ COLUMNS.matchTime={
   label: "赛事时间",
   prop: "matchTime",
   width: 140,
+  sortable: "custom",//开启后端排序
   formatter: function (rowData) {
     return moment(rowData.matchTime).format("YYYY-MM-DD HH:mm");
   }
