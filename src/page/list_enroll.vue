@@ -125,7 +125,7 @@ export default {
       this.urlBigImg = url;
     },
     showDetail(row) {
-      if (row.matchMsg.matchForm == 2) {
+      if (row.matchDoc.matchForm == 2) {
         this.cfList.detailItems = [
           {
             label: "报名球员",
@@ -195,7 +195,7 @@ export default {
     showModify(row) {
       //报名球员和赛事不允许修改
 
-      if (row.matchMsg.matchForm == 2) {
+      if (row.matchDoc.matchForm == 2) {
         this.cfList.formItems = [
           F_ITEMS.memberId_readonly,
           F_ITEMS.matchId_readonly,
