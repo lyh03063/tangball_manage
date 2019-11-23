@@ -1,11 +1,11 @@
 
 export default {
-  powerPath: "msgCenter.list_team",//权限路径
+  powerPath: "matchCenter.list_team",//权限路径
   listIndex: "list_team", //vuex对应的字段
   focusMenu: true, //进行菜单聚焦
   twoTitle: "赛事",
   threeTitle: "球队",
-  flag: true,
+
   objParamAddon: {},//附加参数-----这里一定要加上，否则监听不到
   dynamicDict: [
     { page: "tangball_member", populateColumn: "memberName", idColumn: "createMemberId", idColumn2: "P1" },
@@ -13,7 +13,6 @@ export default {
   ],
   //批量操作按钮的配置
   batchBtns: {
-   
     addon:[
       util.cfList.bBtns.delete,
     ],

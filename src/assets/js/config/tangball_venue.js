@@ -28,6 +28,15 @@ export default {
        idColumn2: "P7"
      }
    ],
+   //cfDialogForm新增修改弹窗的配置
+cfDialogForm: {
+  tips:{
+    text:`填写经度和纬度时需要用到：
+    <a  target="_blank" class="link-blue"  href="http://api.map.baidu.com/lbsapi/getpoint/index.html">百度经纬度拾取坐标系统 &gt;&gt;</a>`,
+    style:{color:"#666","padding":"0 0 30px 123px"}
+  }
+  
+},
    //-------列配置数组-------
    columns: [
      {
@@ -199,7 +208,8 @@ export default {
      {
        label: "相册",
        prop: "album",
-       type: "upload"
+       type: "upload",
+       tips:"图片尺寸比例最好保持在1 : 0.8，建议尺寸：宽500px，高400px"
      },
      // {
      //   label: "经度",

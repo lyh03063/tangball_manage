@@ -6,7 +6,17 @@
   <el-breadcrumb-item>首页推荐内容</el-breadcrumb-item>
 </el-breadcrumb>
 <div style="margin-top:20px;"></div>
+
 <h2 style="margin-left:10px;">修改首页推荐内容数据</h2>
+
+<div class="PT10 PL10" >小程序页面链接说明(xxx要替换成对应的数据id)：<br>
+赛事详情地址：/pages/matchDetail/main?id=xxx<br>
+资讯详情地址：/pages/articleDetail/main?dataId=xxx
+</div>
+
+
+
+
 <div class="TitleMsg-box">
   <div style="height:10px;"></div>
     <div>

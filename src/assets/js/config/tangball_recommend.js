@@ -21,7 +21,21 @@ dynamicDict: [
     idColumn2: "P1"
   }
 ],
-
+//cfDialogForm新增修改弹窗的配置
+cfDialogForm: {
+  tips:{
+    text:`
+    关于“小程序页面”字段说明(xxx要替换成对应的数据id)：<br>
+   赛事详情地址：/pages/matchDetail/main?id=xxx，
+    <br>
+    资讯详情地址：/pages/articleDetail/main?dataId=xxx
+    <br> <br>
+    轮播图的尺寸比例最好保持在1:0.42  建议尺寸：宽500px，高210px
+    `,
+    style:{color:"#f90","padding":"0 0 30px 123px"}
+  }
+  
+},
 //-------列配置数组-------
 columns: [
   {

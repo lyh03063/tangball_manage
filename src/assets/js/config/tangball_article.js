@@ -32,6 +32,7 @@ export default {
 
     //-------列配置数组-------
     columns: [
+      COLUMNS.Id,
       {
         label: "资讯标题",
         prop: "articleTitle",
@@ -115,6 +116,7 @@ export default {
     ],
     //-------详情字段数组-------
     detailItems: [
+      COLUMNS.Id,
       {
         label: "标题",
         prop: "articleTitle",
