@@ -45,6 +45,12 @@ export default {
           route: "/franchisee_macth"
         },
         {
+          index: "franchisee_mymacth",
+          icon: "el-icon-baseball",
+          title: "我的赛事",
+          route: "/franchisee_mymacth"
+        },
+        {
           index: "franchisee_article",
           icon: "el-icon-document",
           title: "资讯",

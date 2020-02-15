@@ -52,6 +52,7 @@ import franchisee_login from "@/franchisee_login.vue";
 import franchisee_home from "@/franchisee_home.vue";
 import franchisee_article from '@/franchise_page/franchisee_article.vue'
 import franchisee_macth from '@/franchise_page/franchisee_macth.vue'
+import franchisee_mymacth from '@/franchise_page/franchisee_mymacth.vue'
 import franchisee_member from '@/franchise_page/franchisee_member.vue'
 import franchisee_venue from '@/franchise_page/franchisee_venue.vue'
 // window.util=util;
@@ -74,6 +75,10 @@ const router = new VueRouter({
         {
           path: '/franchisee_macth',
           component: franchisee_macth
+        },
+        {
+          path: '/franchisee_mymacth',
+          component: franchisee_mymacth
         },
         {
           path: '/franchisee_member',
