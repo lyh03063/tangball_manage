@@ -20,7 +20,7 @@
       </template>
 
        <template v-slot:slot_place="{formData}">
-        <select_city v-model="formData.place" valueType="cityId"></select_city>
+        <select_area v-model="formData.place"  value-type="lastId"  level="2"></select_area>
       </template>
 
       </dm_list_data>
@@ -28,9 +28,9 @@
 </template>
 <script>
 
-import select_city from "@/components/form_item/select_city.vue";
+import select_area from "@/components/form_item/select_area.vue";
 export default {
-  components: { select_city},
+  components: { select_area},
   data() {
     return {
       cfList:PUB.listCF.tangball_sponsorship

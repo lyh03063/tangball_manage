@@ -16,7 +16,7 @@
 
     <dm_list_data :cf="cfList">
       <template v-slot:slot_area="{formData}">
-        <select_city v-model="formData.area" value-type="lastId" level="2"></select_city>
+        <select_area v-model="formData.area" value-type="lastId" level="2"></select_area>
       </template>
       <!--弹出图片显示点击事件 -->
       <template v-slot:slot_detail_item_album="{row}">
@@ -36,10 +36,10 @@
   </div>
 </template>
 <script>
-import select_city from "@/components/form_item/select_city.vue";
+import select_area from "@/components/form_item/select_area.vue";
 import openPhoto from "@/components/common/openPhoto/openPhoto.vue";
 export default {
-  components: { select_city, openPhoto },
+  components: { select_area, openPhoto },
   methods: {
     // showBigImg(url) {
     //   this.showDialogBigImg = true;
