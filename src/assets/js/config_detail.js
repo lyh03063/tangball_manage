@@ -228,7 +228,7 @@ D_ITEMS.auditStatus={
   }
 };
 D_ITEMS.playingTime ={
-  label: "出场日期",
+  label: "比赛日期",
   prop: "playingTime",
   formatter: function (row) {
     if (!row.playingTime)return "";
