@@ -39,6 +39,11 @@ export default {
         franchiseeName:localStorage.franchisee_name,
       navMenuList: [
         {
+        index: "matchCenter",
+        icon: "el-icon-baseball",
+        title: "赛事",
+        menuItem: [
+          {
           index: "franchisee_macth",
           icon: "el-icon-baseball",
           title: "赛事中心",
@@ -50,6 +55,14 @@ export default {
           title: "我的赛事",
           route: "/franchisee_mymacth"
         },
+        {
+          index: "franchisee_enroll",
+          icon: "el-icon-baseball",
+          title: "赛事订单",
+          route: "/franchisee_enroll"
+        },
+        ]},
+       
         {
           index: "franchisee_article",
           icon: "el-icon-document",

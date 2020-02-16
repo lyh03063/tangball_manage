@@ -107,7 +107,7 @@ export default {
       titleDialogEnroll: "", //报名弹窗标题
       showDialogEnroll: false, //是否显示报名弹窗
       cfList,
-      show: false
+      show: false//控制列表显示的key
     };
   },
   methods: {
@@ -121,6 +121,7 @@ export default {
       this.titleDialogEnroll = `【${doc.matchName}】报名表`;
       this.showDialogEnroll = true;
     },
+    // 获取该加盟商下的场馆列表，进行筛选
     async getVenueId() {
       let { data } = await axios({
         method: "post",

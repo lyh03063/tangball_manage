@@ -55,6 +55,7 @@ import franchisee_macth from '@/franchise_page/franchisee_macth.vue'
 import franchisee_mymacth from '@/franchise_page/franchisee_mymacth.vue'
 import franchisee_member from '@/franchise_page/franchisee_member.vue'
 import franchisee_venue from '@/franchise_page/franchisee_venue.vue'
+import franchisee_enroll from '@/franchise_page/franchisee_enroll.vue'
 // window.util=util;
 // 3. 创建 router 实例，然后传 `routes` 配置
 const router = new VueRouter({
@@ -87,6 +88,10 @@ const router = new VueRouter({
         {
           path: '/franchisee_venue',
           component: franchisee_venue
+        },
+        {
+          path: '/franchisee_enroll',
+          component: franchisee_enroll
         },
         {
           path:'/franchisee_modify_password',component:modify_password

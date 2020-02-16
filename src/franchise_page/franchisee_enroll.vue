@@ -14,6 +14,7 @@
     </el-dialog>
     <dm_list_data
       :cf="cfList"
+      v-if="show"
       @after-show-Dialog-Add="showAdd"
       @after-show-Dialog-Modify="showModify"
       @after-show-Dialog-Detail="showDetail"
@@ -97,10 +98,53 @@ export default {
     let cfList = util.deepCopy(PUB.listCF.tangball_enroll);
     return {
       cfList,
-      showDialogBigImg: false
+      showDialogBigImg: false,
+      show:false//控制列表显示的key
     };
   },
   methods: {
+    // 获取该加盟商的所有赛事，进行筛选 获取订单列表
+     async getMacthList() {
+       let venueIdList = [];
+       {
+      let { data } = await axios({
+        method: "post",
+        url: PUB.domain + "/crossList?page=tangball_venue",
+        data: {
+          findJson: {
+            franchiseeId: localStorage.franchisee_P1
+          }
+        }
+      }).catch(() => {});
+      
+      data.list.forEach(item => {
+        venueIdList.push(item.P1);
+      });
+      }
+      let { data } = await axios({
+        method: "post",
+        url: PUB.domain + "/crossList?page=tangball_match",
+        data: {
+          findJson: {
+            venue: {
+          $elemMatch: {
+            venueId: { $in: venueIdList }
+          }
+        }
+          }
+        }
+      }).catch(() => {});
+      let matchIdList = [];
+      data.list.forEach(item => {
+        matchIdList.push(item.P1);
+      });
+      // console.log("赛事数据"+matchIdList);
+      
+      this.cfList.findJsonDefault = {
+        $and:[{'matchId':{$in:matchIdList}}]
+      };
+      this.show = true;
+    },
     async addEnroll(newData, oldData) {
       let { data } = await axios({
         method: "post",
@@ -229,6 +273,8 @@ export default {
     }
   },
   created() {
+    console.log("aaaa",PUB.listCF.tangball_enroll);
+    
     this.cfList.batchBtns = {
       addon: [util.cfList.bBtns.delete], //空数组表示没有操作按钮
       tips: {
@@ -242,6 +288,9 @@ export default {
         util.cfList.sBtns.detail,
       ]
     };
+    this.cfList.listIndex = "franchisee_enroll";
+    this.getMacthList()
+    // this.show = true
   }
 };
 </script>
