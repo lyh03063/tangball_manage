@@ -1,9 +1,7 @@
 //#region tangball_enroll
 import tangball_member_for_select from "./tangball_member_for_select.js"
 export default {
-  data() {
-    return {
-      cfList: {
+
         powerPath: "matchCenter.list_enroll",//权限路径
         listIndex: "list_enroll", //vuex对应的字段
         focusMenu: true,//进行菜单聚焦
@@ -124,8 +122,6 @@ export default {
           F_ITEMS.auditStatus
 
         ]
-      }
-    };
-  }
+
 }
 //#endregion
