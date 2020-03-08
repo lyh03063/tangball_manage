@@ -311,6 +311,8 @@ export default {
       };
     }
 
+
+console.log("util.cfList.bBtns.add:####", util.cfList.bBtns.add);
     let cfListFinal = {
       focusMenu: false,
       isShowSearchForm: false, //隐藏查询表单
@@ -320,14 +322,14 @@ export default {
       //单项操作按钮的配置
       singleBtns: {
         //按钮列表
-        addon: [util.cfList.sBtns.modify, util.cfList.sBtns.delete],
-  
+        addon: [util.cfList.sBtns.modify, util.cfList.sBtns.delete]
       },
       //批量操作按钮的配置
       batchBtns: {
         //add: false, //配置基础按钮隐藏（默认显示）
         // delete: false, //配置基础按钮隐藏（默认显示）
         addon: [
+      
           util.cfList.bBtns.add,
           { text: "批量更新分数", eventType: "bacthUpdateScore" }
         ]
@@ -385,9 +387,7 @@ export default {
           prop: "timeStart",
           width: 180,
           formatter: function(rowData) {
-          
-              return moment(rowData.timeStart).format("YYYY-MM-DD HH:mm");
-            
+            return moment(rowData.timeStart).format("YYYY-MM-DD HH:mm");
           }
           // type: "dateTime"
         }

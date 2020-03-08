@@ -7,7 +7,13 @@ export default {
     isShowOperateColumn: false, //隐藏操作列
     isShowToolBar: false, //隐藏工具栏
     flag: true, //显示新增按钮
-    
+    url: {
+      list: "/crossList?page=tangball_enroll", //列表接口
+      add: "/crossAdd?page=tangball_enroll", //新增接口
+      modify: "/crossModify?page=tangball_enroll", //修改接口
+      detail: "/crossDetail?page=tangball_enroll", //查看单条数据详情接口，在修改表单或详情弹窗用到
+      delete: "/crossDelete?page=tangball_enroll" //删除接口
+    },
 
     //-------列配置数组-------
     columns: [

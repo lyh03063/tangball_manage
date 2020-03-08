@@ -137,6 +137,11 @@ export default {
                   prop: "list_team",
                   style: styleMenuPowerItem,
                   cfForm: getFormMenuGPower({menuName:"球队"})
+                },
+                {
+                  prop: "list_group",
+                  style: styleMenuPowerItem,
+                  cfForm: getFormMenuGPower({menuName:"对阵分组"})
                 }
               ]
             }

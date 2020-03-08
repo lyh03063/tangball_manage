@@ -8,6 +8,20 @@ PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
 PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
 
 
+PUB.systemName = "唐球体育全国运营管理中心";
+PUB.KeySys = "tangball";
+// let _systemId = `sys_${PUB.KeySys}`;
+// PUB._systemId = _systemId;
+PUB.keyLoginUser = `${PUB.KeySys}_loginUserName`;
+PUB.keyIsLogin = `${PUB.KeySys}_isLogin`;
+PUB.keyRoleId = `${PUB.KeySys}_roleId`;
+PUB.keyPower = `${PUB.KeySys}_power`;
+PUB.userId = localStorage[PUB.keyLoginUser];
+
+PUB.logoUrl = "";
+
+
+
 import  "@/assets/js/config_column.js"
 import  "@/assets/js/config_form.js"
 

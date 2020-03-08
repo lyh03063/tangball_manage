@@ -1,7 +1,7 @@
 <template>
   <div class="login-page-box">
     <div class="login-bgimg-box"></div>
-    <div class="login-father-box" v-show="ak47">
+    <div class="login-father-box">
       <div class="login-box">
         <div class="login-user-img-box">
           <div class="login-user-img el-icon-s-custom"></div>
@@ -57,7 +57,6 @@ export default {
     };
 
     return {
-      ak47: true,
       objURL: {
         list: "/crossList?page=tangball_admin"
       },
@@ -118,19 +117,25 @@ export default {
         localStorage.tangball_roleId = roleId; //存储角色Id
         util.setLocalStorageObj("tangball_power", power); //调用：{设置一个对象到LocalStorage}
 
-        //         util.setLocalStorageObj("key",obj)//调用：{设置一个对象到LocalStorage}
-        // util.getLocalStorageObj("key")//调用：{从LocalStorage获取一个对象的函数}
+        
 
         await util.timeout(500); //延迟
-        this.$router.push({ path: "/listhome" });
+        // this.$router.push({ path: "/listhome" });
+
+         if (PUB.goUrlAfterLogin) {
+          //Q1:{登录后要跳转的地址}存在
+          this.$router.push({ path: PUB.goUrlAfterLogin });
+        } else {
+          //Q2:{登录后要跳转的地址}不存在
+          this.$router.push({ path: "/listhome" });
+        }
       } else {
         this.$message.error("请检查用户名或者密码");
         this.ruleForm = {};
       }
     },
     submitForm(formName) {
-      this.$refs.ruleForm;
-      this.$refs["ruleForm"];
+     
 
       this.$refs.ruleForm.validate(valid => {
         //表单组件执行validate校验方法
@@ -144,12 +149,7 @@ export default {
   created() {
     //------------如果已经登录------------
     if (localStorage.tangball_isLogin == 1) {
-      this.ak47 = false;
-      // this.$message({
-      //   message: "您已登录,请勿重新登录",
-      //   type: "warning",
-      //   duration: 1200
-      // });
+     
       setTimeout(() => {
         this.$router.push({ path: "/listHome" });
       }, 10);

@@ -1,20 +1,19 @@
 // import Vue from 'vue'
 Vue.config.productionTip = false
 // import lodash from 'lodash'//导入lodash方法库
-window.lodash=lodash
+window.lodash = lodash
 Vue.prototype.$lodash = lodash//让vue实例中可访问$store
 import axios from "axios";
 window.axios = axios;
 import ajax from "@/assets/js/ajax.js";
 window.ajax = ajax;
 import moment from "moment";
-window.moment = moment; 
-// import  "./assets/js/mix.js";//注意位置要提前
-// import util from "@/assets/js/util.js";
+window.moment = moment;
+
 import config from "@/assets/js/config.js";
 
 
- 
+
 // import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import "./mock.js";
@@ -62,13 +61,15 @@ const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: login },
-    { path: '/franchisee_login', 
+    {
+      path: '/franchisee_login',
       component: franchisee_login
     },
-    { path: '/franchisee_home', 
+    {
+      path: '/franchisee_home',
       component: franchisee_home,
       redirect: '/franchisee_macth',
-      children:[
+      children: [
         {
           path: '/franchisee_article',
           component: franchisee_article
@@ -83,7 +84,7 @@ const router = new VueRouter({
         },
         {
           path: '/franchisee_member',
-          component: franchisee_member 
+          component: franchisee_member
         },
         {
           path: '/franchisee_venue',
@@ -94,11 +95,11 @@ const router = new VueRouter({
           component: franchisee_enroll
         },
         {
-          path:'/franchisee_modify_password',component:modify_password
+          path: '/franchisee_modify_password', component: modify_password
         },
       ]
     },
-    
+
     {
       path: '/manage',
       component: manage,
@@ -109,11 +110,11 @@ const router = new VueRouter({
           component: list_venue
         },
         {
-          path:'/modify_password',component:modify_password
+          path: '/modify_password', component: modify_password
         },
         {
           path: '/list_franchisee',
-          component: list_franchisee 
+          component: list_franchisee
         },
         {
           path: '/list_match',
@@ -203,7 +204,7 @@ const router = new VueRouter({
           path: '/list_lyh',
           component: list_lyh
         },
-        
+
         {
           path: '/dynamic_form_demo',
           component: dynamic_form_demo
@@ -216,21 +217,45 @@ const router = new VueRouter({
     },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  //to.fullPath == "/franchisee_login"
+  if (to.fullPath.includes("/franchisee_")) {//Q1：加盟商相关页，不使用守卫
+    next();
+  } else {//Q2：其他页面使用守卫
+    // 如果用户未登录，跳转登录页面
+    if (localStorage[PUB.keyIsLogin] != 1) {
+      if (to.path == '/login') {
+        next();
+      } else {
+        PUB.goUrlAfterLogin = to.fullPath//变量赋值：{登录后要跳转的地址}
+        next('/login');
+      }
+    } else {
+      PUB.goUrlAfterLogin = null//变量赋值：{登录后要跳转的地址}
+      next();
+    }
+  }
+
+
+
+
+})
 // import Vuex from 'vuex'//导入vuex模块
 // Vue.use(Vuex)//应用组件
 const store = new Vuex.Store({//定义Vuex的存储对象
   state: {
-    debug:false,
+    debug: false,
     activeMenuIndex: "",//当前激活的菜单index
     listState: {//存放列表的共享状态，
-    }, 
+    },
     defultFindJson: {//存放列表的默认查询参数，
       // list_article:{articleCategory:3  }
-    },   
+    },
   },
   mutations: {//变更事件
     setDebug(state, param) {//设置debug模式
-      state.debug= param;
+      state.debug = param;
     },
 
     setListFindJson(state, param) {//设置列表的初始筛选参数值

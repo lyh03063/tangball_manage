@@ -113,7 +113,10 @@
               </tr>
               <tr v-for="(item,i) in listAchPersonRanking" :key="i">
                 <td>{{i+1}}</td>
-                <td>{{dictMember[item.participantsId].name}}</td>
+                <td>
+                  <!-- {{dictMember[item.participantsId].name}} -->
+                  {{$lodash.get(dictMember, `[${item.participantsId}].name`)}}
+                </td>
                 <td>{{item.matchScore}}</td>
               </tr>
             </table>
