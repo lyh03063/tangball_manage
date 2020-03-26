@@ -91,8 +91,6 @@ export default {
 
       let userName = lodash.get(list, `[0].userName`);
       let role = lodash.get(list, `[0].role`);
-      console.log("userName:", userName);
-      console.log("role:", role);
 
       if (list.length > 0) {
         this.$message.success("登录成功");
@@ -120,7 +118,6 @@ export default {
         
 
         await util.timeout(500); //延迟
-        // this.$router.push({ path: "/listhome" });
 
          if (PUB.goUrlAfterLogin) {
           //Q1:{登录后要跳转的地址}存在
