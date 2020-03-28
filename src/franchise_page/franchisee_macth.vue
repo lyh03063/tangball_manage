@@ -62,6 +62,18 @@
           </div>
         </div>
       </template>
+      <!--详情弹窗的 主办发字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_sponsorId="{row}">
+        <dm_ajax_populate :id="row.sponsorId" populateKey="name" page="tangball_franchisee">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <!-- {{doc.P1}}
+              ( -->
+              {{doc.name}}
+            </div>
+          </template>
+        </dm_ajax_populate>
+      </template>
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
           <dm_debug_item v-model="row.venue" text="场馆列表" />
@@ -75,6 +87,7 @@
       <template v-slot:slot_detail_item_album="{row}">
         <img :src="img.url" width="150" height="150" v-for="(img,index) in row.album" :key="index" />
       </template>
+       
     </dm_list_data>
   </div>
 </template>
@@ -86,25 +99,28 @@ import match_enroll from "@/components/bussiness/match_enroll.vue";
 export default {
   components: { city_venue_list, match_achievement, match_enroll },
   data() {
-    let cfList = util.deepCopy(PUB.listCF.tangball_match);
+    let cfList = util.deepCopy(PUB.listCF.tangball_match)
     cfList.listIndex = "franchisee_macth";
+    // let addon = [util.cfList.bBtns.add]
+    cfList.formDataAddInit = { sponsorId :localStorage.franchisee_P1}
     cfList.batchBtns = {
-       addon: [],//空数组表示没有操作按钮
-      // delete: false,
-      // add: false, //配置基础按钮隐藏（默认显示）,
-      tips: {
-        text: ""
-        // style:{"color":"#3a0"}
-      }
-    };
+       addon: [
+          util.cfList.bBtns.add
+       ],
+          tips: {
+            text: ""
+            // style:{"color":"#3a0"}
+          }
+    },
     cfList.singleBtns = {
       //空数组表示没有操作按钮
       addon: [
-    
-        util.cfList.sBtns.detail,
+            util.cfList.sBtns.detail
       ],
     
     };
+    // console.log('cfList',addon)
+
     return {
       titleDialogAchievement: "", //成绩弹窗标题
       showDialogAchievement: false, //是否显示成绩弹窗
@@ -125,7 +141,14 @@ export default {
       this.showDialogEnroll = true;
     }
   },
-  created() {}
+  created() {
+    // this.cfList.batchBtns = {
+    //   addon : [util.cfList.bBtns.add]
+    // }
+    // let obj = { addon : [util.cfList.bBtns.add] }
+    // console.log('batchBtns',this.cfList.batchBtns.addon )
+    // console.log('obj',obj  )
+  }
 };
 </script>
 

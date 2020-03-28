@@ -7,6 +7,11 @@ D_ITEMS.Id={
   prop: "P1"
 };
 //赛事
+D_ITEMS.sponsorId ={
+  label: "主办发",
+  prop: "sponsorId",
+  slot:"slot_detail_item_sponsorId"
+},
 D_ITEMS.matchName={
   label: "赛事名称",
   prop: "matchName"

@@ -62,6 +62,18 @@
           </div>
         </div>
       </template>
+      <!--详情弹窗的 主办发字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_sponsorId="{row}">
+        <dm_ajax_populate :id="row.sponsorId" populateKey="name" page="tangball_franchisee">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <!-- {{doc.P1}}
+              ( -->
+              {{doc.name}}
+            </div>
+          </template>
+        </dm_ajax_populate>
+      </template>
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
           <dm_debug_item v-model="row.venue" text="场馆列表" />
@@ -75,21 +87,36 @@
       <template v-slot:slot_detail_item_album="{row}">
         <img :src="img.url" width="150" height="150" v-for="(img,index) in row.album" :key="index" />
       </template>
+      <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
+      <template v-slot:slot_form_item_cityVenueList="{formData}">
+        <city_venue_list v-model="formData.venue"></city_venue_list>
+      </template>
+       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
+      <template v-slot:slot_modify_item_matchProgress="{formData}">
+        <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
+      </template>
+      <!-- 自定义组队修改表单插槽 -->
+      <template v-slot:slot_form_item_progress="{formData}">
+        <custom_progress v-model="formData.progress"></custom_progress>
+      </template>
     </dm_list_data>
   </div>
 </template>
 
 <script>
 import city_venue_list from "@/components/form_item/city_venue_list.vue";
+import select_match_progress from "@/components/form_item/select_match_progress.vue";
+import custom_progress from "../components/custom_progress";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
 export default {
-  components: { city_venue_list, match_achievement, match_enroll },
+  components: { city_venue_list, match_achievement, match_enroll,select_match_progress,custom_progress},
   data() {
     let cfList = util.deepCopy(PUB.listCF.tangball_match);
     cfList.listIndex = "franchisee_mymacth";
+    cfList.formDataAddInit = { sponsorId :localStorage.franchisee_P1}
     cfList.batchBtns = {
-      addon: [], //空数组表示没有操作按钮
+      addon: [util.cfList.bBtns.add], //空数组表示没有操作按钮
       // delete: false,
       // add: false, //配置基础按钮隐藏（默认显示）,
       tips: {
@@ -99,7 +126,9 @@ export default {
     };
     cfList.singleBtns = {
       //空数组表示没有操作按钮
-      addon: [util.cfList.sBtns.detail]
+      addon: [util.cfList.sBtns.detail,
+      util.cfList.sBtns.modify,
+            util.cfList.sBtns.delete,]
     };
     return {
       titleDialogAchievement: "", //成绩弹窗标题
@@ -122,32 +151,36 @@ export default {
       this.showDialogEnroll = true;
     },
     // 获取该加盟商下的场馆列表，进行筛选
-    async getVenueId() {
-      let { data } = await axios({
-        method: "post",
-        url: PUB.domain + "/crossList?page=tangball_venue",
-        data: {
-          findJson: {
-            franchiseeId: localStorage.franchisee_P1
-          }
-        }
-      }).catch(() => {});
-      let arr = [];
-      data.list.forEach(item => {
-        arr.push(item.P1);
-      });
-      this.cfList.findJsonDefault = {
-        venue: {
-          $elemMatch: {
-            venueId: { $in: arr }
-          }
-        }
-      };
-      this.show = true;
-    }
+    // async getVenueId() {
+    //   let { data } = await axios({
+    //     method: "post",
+    //     url: PUB.domain + "/crossList?page=tangball_venue",
+    //     data: {
+    //       findJson: {
+    //         franchiseeId: localStorage.franchisee_P1
+    //       }
+    //     }
+    //   }).catch(() => {});
+    //   let arr = [];
+    //   data.list.forEach(item => {
+    //     arr.push(item.P1);
+    //   });
+    //   this.cfList.findJsonDefault = {
+    //     venue: {
+    //       $elemMatch: {
+    //         venueId: { $in: arr }
+    //       }
+    //     }
+    //   };
+    //   this.show = true;
+    // }
   },
   created() {
-    this.getVenueId();
+    // this.getVenueId();
+    this.cfList.findJsonDefault = {
+      sponsorId: localStorage.franchisee_P1
+    }
+     this.show = true;
   }
 };
 </script>

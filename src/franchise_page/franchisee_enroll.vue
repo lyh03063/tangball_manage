@@ -105,32 +105,28 @@ export default {
   methods: {
     // 获取该加盟商的所有赛事，进行筛选 获取订单列表
      async getMacthList() {
-       let venueIdList = [];
-       {
-      let { data } = await axios({
-        method: "post",
-        url: PUB.domain + "/crossList?page=tangball_venue",
-        data: {
-          findJson: {
-            franchiseeId: localStorage.franchisee_P1
-          }
-        }
-      }).catch(() => {});
+      //  let venueIdList = [];
+      //  {
+      // let { data } = await axios({
+      //   method: "post",
+      //   url: PUB.domain + "/crossList?page=tangball_venue",
+      //   data: {
+      //     findJson: {
+      //       franchiseeId: localStorage.franchisee_P1
+      //     }
+      //   }
+      // }).catch(() => {});
       
-      data.list.forEach(item => {
-        venueIdList.push(item.P1);
-      });
-      }
+      // data.list.forEach(item => {
+      //   venueIdList.push(item.P1);
+      // });
+      // }
       let { data } = await axios({
         method: "post",
         url: PUB.domain + "/crossList?page=tangball_match",
         data: {
           findJson: {
-            venue: {
-          $elemMatch: {
-            venueId: { $in: venueIdList }
-          }
-        }
+            sponsorId: localStorage.franchisee_P1
           }
         }
       }).catch(() => {});

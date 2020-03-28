@@ -39,6 +39,18 @@
           @click="dialogEnroll(row)"
         >报名表({{row.registeredPersons||0}})</a>
       </template>
+      <!--详情弹窗的 主办发字段组件，注意插槽命名-->
+      <template v-slot:slot_detail_item_sponsorId="{row}">
+        <dm_ajax_populate :id="row.sponsorId" populateKey="name" page="tangball_franchisee">
+          <template v-slot:default="{doc}">
+            <div class v-if="doc && doc.P1">
+              <!-- {{doc.P1}}
+              ( -->
+              {{doc.name}}
+            </div>
+          </template>
+        </dm_ajax_populate>
+      </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">
         <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
@@ -105,6 +117,16 @@ export default {
   },
   data() {
     let cfList = util.deepCopy(PUB.listCF.tangball_match);//深拷贝
+    cfList. formItems.splice(1, 0,{
+      label: "主办方",
+      prop: "sponsorId",
+      type: "select",
+      ajax: {
+        url: "/crossList?page=tangball_franchisee",
+        keyLabel: "name",
+        keyValue: "P1"
+      }
+    },)
     return {
       matchId: null,
       titleDialogAchievement: "", //成绩弹窗标题

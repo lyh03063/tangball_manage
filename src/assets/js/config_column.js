@@ -21,7 +21,16 @@ COLUMNS.rolePower = {
   width: 200
 };
 //赛事
-
+COLUMNS.sponsorId = {
+  label: "主办发",
+      prop: "sponsorId",
+      width: 100,
+      formatter: function (rowData) {
+        if (rowData.sponsorDoc) {
+          return rowData.sponsorDoc.name
+        }
+      }
+}
 
 COLUMNS.matchName = {
   label: "赛事名称",

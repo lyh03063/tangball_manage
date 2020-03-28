@@ -19,9 +19,16 @@ export default {
 
     delete: "/crossDelete?page=tangball_match" //删除接口
   },
+  dynamicDict: [{
+    page: "tangball_franchisee",
+    populateColumn: "sponsorDoc",
+    idColumn: "sponsorId",
+    idColumn2: "P1"
+  }],
   //-------列配置数组-------
   columns: [
     COLUMNS.Id,
+    COLUMNS.sponsorId,
     COLUMNS.matchName,
     COLUMNS.matchTime,
     COLUMNS.registrationFee,
@@ -41,6 +48,8 @@ export default {
   //-------详情字段数组-------
   detailItems: [
     D_ITEMS.matchName,
+    
+    D_ITEMS.sponsorId,
     D_ITEMS.matchErollStatus,
     D_ITEMS.matchStatus,
     D_ITEMS.publicationStatus,
@@ -62,6 +71,7 @@ export default {
   //-------新增、修改表单字段数组-------
   formItems: [
     F_ITEMS.matchName,
+    
     F_ITEMS.publicationStatus,
     F_ITEMS.ruleId,
     F_ITEMS.matchForm,
