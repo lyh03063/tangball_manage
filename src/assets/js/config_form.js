@@ -1,7 +1,7 @@
 import tangball_member_for_select from "@/assets/js/config/tangball_member_for_select.js"
 //#region F_ITEMS:表单字段管理
 
-window.F_ITEMS = {};
+window.F_ITEMS =  window.F_ITEMS||{};
 F_ITEMS.Id={
   label: "数据id",
   prop: "P1",

@@ -3,7 +3,7 @@ import "@/assets/js/config_detail.js"
 //#region COLUMNS:列字段管理
 
 
-window.COLUMNS = {}
+window.COLUMNS =window.COLUMNS|| {}
 window.AAA = 123
 COLUMNS.Id = {
   label: "Id",
