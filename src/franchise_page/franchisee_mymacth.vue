@@ -68,7 +68,7 @@
           <template v-slot:default="{doc}">
             <div class v-if="doc && doc.P1">
               <!-- {{doc.P1}}
-              ( -->
+              (-->
               {{doc.name}}
             </div>
           </template>
@@ -91,7 +91,7 @@
       <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.venue"></city_venue_list>
       </template>
-       <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
+      <!-- 赛程联动下拉框 ,通过matchType进行初始化(新增修改表单)-->
       <template v-slot:slot_modify_item_matchProgress="{formData}">
         <select_match_progress v-model="formData.matchProgress" :matchType="formData.matchType"></select_match_progress>
       </template>
@@ -110,11 +110,18 @@ import custom_progress from "../components/custom_progress";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
 export default {
-  components: { city_venue_list, match_achievement, match_enroll,select_match_progress,custom_progress},
+  components: {
+    city_venue_list,
+    match_achievement,
+    match_enroll,
+    select_match_progress,
+    custom_progress
+  },
   data() {
     let cfList = util.deepCopy(PUB.listCF.tangball_match);
+    cfList.powerPath = null; //清除权限路径
     cfList.listIndex = "franchisee_mymacth";
-    cfList.formDataAddInit = { sponsorId :localStorage.franchisee_P1}
+    cfList.formDataAddInit = { sponsorId: localStorage.franchisee_P1 };
     cfList.batchBtns = {
       addon: [util.cfList.bBtns.add], //空数组表示没有操作按钮
       // delete: false,
@@ -126,9 +133,11 @@ export default {
     };
     cfList.singleBtns = {
       //空数组表示没有操作按钮
-      addon: [util.cfList.sBtns.detail,
-      util.cfList.sBtns.modify,
-            util.cfList.sBtns.delete,]
+      addon: [
+        util.cfList.sBtns.detail,
+        util.cfList.sBtns.modify,
+        util.cfList.sBtns.delete
+      ]
     };
     return {
       titleDialogAchievement: "", //成绩弹窗标题
@@ -136,7 +145,7 @@ export default {
       titleDialogEnroll: "", //报名弹窗标题
       showDialogEnroll: false, //是否显示报名弹窗
       cfList,
-      show: false//控制列表显示的key
+      show: false //控制列表显示的key
     };
   },
   methods: {
@@ -149,7 +158,7 @@ export default {
       this.matchId = doc.P1;
       this.titleDialogEnroll = `【${doc.matchName}】报名表`;
       this.showDialogEnroll = true;
-    },
+    }
     // 获取该加盟商下的场馆列表，进行筛选
     // async getVenueId() {
     //   let { data } = await axios({
@@ -179,8 +188,8 @@ export default {
     // this.getVenueId();
     this.cfList.findJsonDefault = {
       sponsorId: localStorage.franchisee_P1
-    }
-     this.show = true;
+    };
+    this.show = true;
   }
 };
 </script>

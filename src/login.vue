@@ -30,6 +30,9 @@
             <el-button type="primary" class="WP100" @click="submitForm('ruleForm')">登录</el-button>
           </el-form-item>
         </el-form>
+        <div class="TAC" >
+          <a  target="_blank" class="n-a"  href="#/franchisee_login">加盟商登录</a>
+        </div>
       </div>
     </div>
   </div>
@@ -198,7 +201,7 @@ html {
 .login-father-box {
   /*弹窗绝对居中*/
   width: 400px;
-  height: 350px;
+  height: 380px;
   // border: 1px solid #000;
   background: #ffffff;
   margin-left: -250px;
