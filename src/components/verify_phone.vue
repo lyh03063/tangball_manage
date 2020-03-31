@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  name: "verify_phone",
   props: ["value"],
   data() {
     return {
@@ -68,20 +69,20 @@ export default {
     async modifyMember() {
       let { data } = await axios({
         method: "post",
-        url: PUB.domain +"/crossModify?page=tangball_member",
+        url: PUB.domain + "/crossModify?page=tangball_member",
         data: {
           findJson: {
-            P1:this.modifyMemberMsg.P1
+            P1: this.modifyMemberMsg.P1
           },
-          modifyJson:this.modifyMemberMsg
+          modifyJson: this.modifyMemberMsg
         }
       }).catch(() => {});
       this.$message.success("修改成功");
       this.showModifyMember = false;
       //对应的文件列表更新数据
-      this.$emit('closeAddDialog')
-      this.$emit('getDataList')
-      
+      this.$emit("closeAddDialog");
+      this.$emit("getDataList");
+
       // this.$refs.member.getDataList()
     },
     async verigyPhone() {
@@ -121,7 +122,6 @@ export default {
               }
             )
               .then(() => {
-                
                 this.modifyMemberMsg = data.list[0];
                 this.showModifyMember = true;
               })

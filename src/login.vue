@@ -39,6 +39,7 @@
 </template>
 <script>
 export default {
+    name: "login",
   data() {
     var validateuserName = (rule, value, callback) => {
       if (value === "") {

@@ -36,6 +36,7 @@ export default {
     COLUMNS.matchStatus,
     COLUMNS.matchForm,
     COLUMNS.enroolSheet,
+    COLUMNS.matchIncome,
     COLUMNS.confrontAchievement,
   ],
   //-------筛选表单字段数组-------

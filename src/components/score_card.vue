@@ -119,6 +119,7 @@
 
 <script>
 export default {
+    name: "score_card",
   props: ["value",'readOnly' ],//readOnly  为是否是只读模式
   computed: {
     // 左九杆总数

@@ -80,26 +80,24 @@
         <!--队伍名称列配置-->
         <template v-slot:slot_detail_item_teamName="{row}">
           <div class v-if="row.teamDoc">
-            
-            <el-popover placement="right" width="300" trigger="click" >
-          
-                <div class v-for="(item,i) in row.teamDoc.member" :key="i">
-                  {{item.name?item.name:'无' }}
-                  ({{item.sex==1?'男':'女'}}|{{item.phone?item.phone:'无'}})
+            <el-popover placement="right" width="300" trigger="click">
+              <div class v-for="(item,i) in row.teamDoc.member" :key="i">
+                {{item.name?item.name:'无' }}
+                ({{item.sex==1?'男':'女'}}|{{item.phone?item.phone:'无'}})
+                <span
+                  v-if="member[i]"
+                >
                   <span
-                    v-if="member[i]"
-                  >
-                    <span
-                      v-if="member.length>0"
-                    >{{member[i].status?member[i].status:'球员未录入'}}&nbsp;&nbsp;</span>
-                    <el-link
-                      type="primary"
-                      v-if="member.length>0&&!member[i].flag"
-                      @click="addMerber(item,i)"
-                    >录入</el-link>
-                    <el-link type="primary" v-else @click="modifyMerber(item,i,row.teamDoc)">修改</el-link>
-                  </span>
-                </div>
+                    v-if="member.length>0"
+                  >{{member[i].status?member[i].status:'球员未录入'}}&nbsp;&nbsp;</span>
+                  <el-link
+                    type="primary"
+                    v-if="member.length>0&&!member[i].flag"
+                    @click="addMerber(item,i)"
+                  >录入</el-link>
+                  <el-link type="primary" v-else @click="modifyMerber(item,i,row.teamDoc)">修改</el-link>
+                </span>
+              </div>
 
               <el-link type="primary" slot="reference" @click="showProgress(row.teamDoc.member)">
                 {{row.teamDoc.name}} ({{$lodash.get(row, `teamDoc.member.length`)}}人)
@@ -152,6 +150,7 @@ import from_groups from "@/components/from_groups";
 import groups_detail from "@/components/groups_detail";
 import match_venue from "@/components/form_item/match_venue.vue";
 export default {
+  name: "match_enroll",
   components: { from_groups, groups_detail, match_venue },
   props: {
     matchId: [String, Number]
@@ -159,8 +158,7 @@ export default {
   mixins: [PUB.listCF.tangball_enroll],
   data() {
     return {
-      modifydata: {},
-      playerPhoneList: [],
+      modifydata: {}, playerPhoneList: [],
       showModifyDialog: false, //显示修改弹窗的key
       memberModiy: {}, //保存修改数据
       cfMemberModiy: {
@@ -194,15 +192,15 @@ export default {
   watch: {
     isEdit: {
       handler(newVal, oldVal) {
-        if (this.isEdit) {
-          //如果{000}000
+        if (this.isEdit) {//如果处于编辑状态
           this.cfList.isShowToolBar = true;
           this.cfList.isShowOperateColumn = true;
         } else {
           this.cfList.isShowToolBar = false;
           this.cfList.isShowOperateColumn = false;
         }
-      }
+      },
+      immediate: true //组件初始化时立即执行一次变动
     },
     valueNeed: {
       handler(newVal, oldVal) {
@@ -221,7 +219,7 @@ export default {
   },
   methods: {
     showAdd(row) {
-    //将会员字段设置为可编辑
+      //将会员字段设置为可编辑
       this.$handelItem({
         action: "replace",
         items: this.cfList.formItems,
@@ -261,7 +259,7 @@ export default {
             phone: phones
           }
         }
-      }).catch(() => {});
+      }).catch(() => { });
       this.playerPhoneList = [];
       data.list.forEach(item => {
         if (item.phone) {
@@ -295,7 +293,7 @@ export default {
         data: {
           data: oldData.groups
         }
-      }).catch(() => {});
+      }).catch(() => { });
     },
     async modifyEnroll(newData, oldData) {
       let { data } = await axios({
@@ -307,7 +305,7 @@ export default {
           },
           modifyJson: newData.groups
         }
-      }).catch(() => {});
+      }).catch(() => { });
     },
     // 录入球员的方法
     async addMember() {
@@ -317,7 +315,7 @@ export default {
         data: {
           data: this.memberAdd
         }
-      }).catch(() => {});
+      }).catch(() => { });
       // console.log('data',data.addData.phone);
       this.playerPhoneList.push(data.addData.phone);
       this.playerPhoneList = Array.from(new Set(this.playerPhoneList));
@@ -336,7 +334,7 @@ export default {
           },
           modifyJson: this.memberModiy
         }
-      }).catch(() => {});
+      }).catch(() => { });
       this.modifydata.member[this.checkedIndex] = this.memberModiy;
       let groups = await axios({
         method: "post",
@@ -347,7 +345,7 @@ export default {
           },
           modifyJson: this.modifydata
         }
-      }).catch(() => {});
+      }).catch(() => { });
       // this.playerPhoneList = JSON.parse(JSON.stringify(this.playerPhoneList))
       this.playerPhoneList.push(this.memberModiy.phone);
       this.playerPhoneList = Array.from(new Set(this.playerPhoneList));
@@ -386,7 +384,7 @@ export default {
             phone: phones
           }
         }
-      }).catch(() => {});
+      }).catch(() => { });
       console.log(members);
       this.member = [];
       this.member = members.map(item => {
@@ -408,7 +406,7 @@ export default {
     /**
      * @name 处理报名表函数（团体赛和个人赛的区别）
      */
-    handleCFlist: async function() {
+    handleCFlist: async function () {
       if (this.matchInfo.matchForm == 1) {
         this.cfList.dynamicDict = [
           {

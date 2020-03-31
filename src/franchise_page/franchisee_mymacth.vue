@@ -62,7 +62,7 @@
           </div>
         </div>
       </template>
-      <!--详情弹窗的 主办发字段组件，注意插槽命名-->
+      <!--详情弹窗的 主办方字段组件，注意插槽命名-->
       <template v-slot:slot_detail_item_sponsorId="{row}">
         <dm_ajax_populate :id="row.sponsorId" populateKey="name" page="tangball_franchisee">
           <template v-slot:default="{doc}">

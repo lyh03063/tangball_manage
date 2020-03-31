@@ -1,5 +1,5 @@
 //#region tangball_enroll
-import tangball_member_for_select from "./tangball_member_for_select.js"
+
 export default {
 
         powerPath: "matchCenter.list_enroll",//权限路径
@@ -43,50 +43,11 @@ export default {
         ],
         //-------筛选表单字段数组-------
         searchFormItems: [
-          {
-            label: "身份证号",
-            prop: "idCard",
-            type: "input"
-          },
-          {
-            label: "报名球员",
-            prop: "memberId",
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
-            }
-          },
-          {
-            label: "赛事",
-            prop: "matchId",
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "P1"
-            }
-          },
-          {
-            label: "支付状态",
-            prop: "payStatus",
-            type: "select",
-            options: [
-              { label: "已支付", value: 2 },
-              { label: "未支付", value: 1 }
-            ]
-          },
-          {
-            label: "审核状态",
-            prop: "auditStatus",
-            type: "select",
-            options: [
-              { label: "未审核", value: 1 },
-              { label: "审核不通过", value: 2 },
-              { label: "审核通过", value: 3 }
-            ]
-          }
+          F_ITEMS.idCard,
+          F_ITEMS.memberId_select,
+          F_ITEMS.matchId_select,
+          F_ITEMS.payStatus,
+          F_ITEMS.auditStatus
         ],
         //-------详情字段数组-------
         detailItems: [
@@ -107,8 +68,8 @@ export default {
         //-------新增、修改表单字段数组-------
         formItems: [
 
-          Object.assign({}, F_ITEMS.memberId, { label: "报名球员1" }),
-          F_ITEMS.matchId_select,
+          F_ITEMS.memberId,
+          F_ITEMS.matchId_select_required,
           F_ITEMS.matchInfo,
           F_ITEMS.phone,
           F_ITEMS.sex,

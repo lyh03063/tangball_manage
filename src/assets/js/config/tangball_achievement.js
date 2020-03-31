@@ -47,144 +47,6 @@ export default {
             text: "数据来源于小程序或赛事的“对阵分组/成绩”中添加",
           }
         },
-        //-------列配置数组-------
-        columns: [
-          // {
-          //   label: "参赛人Id",
-          //   prop: "participantsId",
-          //   slot: "slot_detail_item_participantsId",
-          //   width: 120
-          // },
-          {
-            label: "参赛人",
-            prop: "participantsId",
-            width: 120,
-            formatter: function (rowData) {
-              return lodash.get(rowData, "memberDoc.name", "") + `(${rowData.participantsId})`
-            }
-          },
-          {
-            label: "所属球队",
-            prop: "teamId",
-            width: 120,
-            formatter: function (rowData) {
-              if (rowData.team) {
-                return rowData.team.name ? rowData.team.name : '无'
-              }
-            }
-          },
-          {
-            label: "赛事",
-            prop: "matchId",
-            // slot: "slot_detail_item_matchId",
-            width: 250,
-            formatter: function (rowData) {
-              return lodash.get(rowData, "matchDoc.matchName", "") + `(${rowData.matchId})`
-            }
-          },
-          {
-            label: "赛段",
-            prop: "progressIndex",
-            width: 75
-          },
-          {
-            label: "轮数",
-            prop: "roundNum",
-            width: 75
-          },
-          {
-            label: "组数",
-            prop: "groupNum",
-            width: 75
-          },
-          {
-            label: "打位",
-            prop: "tee",
-            width: 75
-          },
-
-
-          {
-            label: "杆数",
-            prop: "matchScore",
-            width: 90
-          },
-          {
-            label: "名次",
-            prop: "ranking",
-            width: 70
-          },
-          {
-            label: "总杆数",
-            prop: "matchScore",
-            width: 100,
-
-          },
-        ],
-        //-------筛选表单字段数组-------
-        searchFormItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId"
-          },
-
-          {
-            label: "赛事ID",
-            prop: "matchId"
-          }
-        ],
-        //-------详情字段数组-------
-        detailItems: [
-          {
-            label: "参赛人Id",
-            prop: "participantsId",
-            slot: "slot_detail_item_participantsId"
-          },
-          {
-            label: "所属球队",
-            prop: "teamId",
-          },
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            slot: "slot_detail_item_matchId"
-          },
-          // {
-          //   label: "赛事阶段",
-          //   prop: "matchProgress",
-          //   slot: "slot_detail_item_matchProgress"
-          // },
-          // ,
-          {
-            label: "赛段",
-            prop: "progressIndex",
-          },
-          {
-            label: "轮数",
-            prop: "roundNum",
-          },
-          {
-            label: "组数",
-            prop: "groupNum",
-          },
-          {
-            label: "打位",
-            prop: "tee",
-          },
-          {
-            label: "杆数",
-            prop: "matchScore"
-          },
-          {
-            label: "名次",
-            prop: "ranking"
-          },
-          {
-            label: "成绩",
-            prop: "scoreList",
-            slot: 'slot_detail_item_scoreList'
-          }
-        ],
         cfForm: {
           col_span: 12, //控制显示一行多列
           watch: {
@@ -203,88 +65,59 @@ export default {
             }
           },
         },
+        //-------列配置数组-------
+        columns: [
+
+          COLUMNS.participantsId,
+          COLUMNS.teamId,
+          COLUMNS.matchId,
+          COLUMNS.progressIndex,
+          COLUMNS.roundNum,
+          COLUMNS.groupNum,
+          COLUMNS.tee,
+
+
+          COLUMNS.matchScore2,
+          COLUMNS.ranking,
+          COLUMNS.matchScoreTotal,
+        ],
+        //-------筛选表单字段数组-------
+        searchFormItems: [
+          F_ITEMS.participantsId_search,
+
+          F_ITEMS.matchId
+        ],
+        //-------详情字段数组-------
+        detailItems: [
+          D_ITEMS.participantsId,
+          D_ITEMS.teamId,
+          D_ITEMS.matchId_slot,
+
+          D_ITEMS.progressIndex,
+          D_ITEMS.roundNum,
+          D_ITEMS.groupNum,
+          D_ITEMS.tee,
+          D_ITEMS.matchScore,
+          D_ITEMS.ranking,
+          D_ITEMS.matchScore
+        ],
+
         //-------新增、修改表单字段数组-------
         formItems: [
-          {
-            label: "所属球队",
-            prop: "teamId",
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_team",
-              keyLabel: "name",
-              keyValue: "P1"
-            }
-          },
-          {
-            label: "参赛人Id",
-            prop: "participantsId",
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_member",
-              keyLabel: "name",
-              keyValue: "P1"
-            }
-          },
+          F_ITEMS.teamId,
+          F_ITEMS.participantsId,
 
-          {
-            label: "赛事ID",
-            prop: "matchId",
-            type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_match",
-              keyLabel: "matchName",
-              keyValue: "P1"
-            }
-          },
+          F_ITEMS.matchId_select,
 
-          {
-            label: "开始时间",
-            prop: "timeStart",
-            type: "dateTime"
-          },
-          {
-            label: "结束",
-            prop: "timeEnd",
-            type: "dateTime"
-          },
-          {
-            label: "赛段",
-            prop: "progressIndex",
-            type: "input"
-          },
-          {
-            label: "轮数",
-            prop: "roundNum",
-            type: "input"
-          },
-          {
-            label: "组数",
-            prop: "groupNum",
-            type: "input"
-          },
-          {
-            label: "打位",
-            prop: "tee",
-            type: "input"
-          },
-          {
-            label: "总杆数",
-            prop: "matchScore",
-            type: "input"
-          },
-          {
-            label: "备注",
-            prop: "remark",
-            type: "input"
-          },
-
-          {
-            label: "成绩记分",
-            prop: "scoreList",
-            type: "input",
-            slot: 'slot_form_item_scoreList',
-            col_span: 24
-          },
+          F_ITEMS.timeStart,
+          F_ITEMS.timeEnd,
+          F_ITEMS.progressIndex,
+          F_ITEMS.roundNum,
+          F_ITEMS.groupNum,
+          F_ITEMS.tee,
+          F_ITEMS.matchScoreTotal,
+          F_ITEMS.remark,
+          F_ITEMS.scoreList,
         ]
       }
     };

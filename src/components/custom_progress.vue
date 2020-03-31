@@ -40,6 +40,7 @@
 <script>
 
 export default {
+      name: "custom_progress",
  props:['value'],
  
  watch:{

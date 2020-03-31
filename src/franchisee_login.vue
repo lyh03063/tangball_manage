@@ -28,6 +28,7 @@
 
 <script>
 export default {
+    name: "franchisee_login",
   data() {
     var validateuserName = (rule, value, callback) => {
       if (value === "") {

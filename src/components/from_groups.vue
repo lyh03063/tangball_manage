@@ -25,6 +25,7 @@
 
 <script>
 export default {
+    name: "from_groups",
   props: ['value','orderId','matchId'],
   watch:{
     groups:{

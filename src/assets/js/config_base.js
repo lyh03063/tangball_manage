@@ -24,7 +24,7 @@ PUB.logoUrl = "";
 
 import  "@/assets/js/config_column.js"
 import  "@/assets/js/config_form.js"
-
+import  "@/assets/js/config_item.js"
 // window.F_ITEMS = {};
 
 // //调用：{处理字段数组的某个字段配置的函数}

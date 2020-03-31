@@ -1,23 +1,23 @@
 <template>
   <div class>
     <el-container>
-      <el-header class="home-head-box ">
-          <div class="FL MT13 FS24 C_fff">唐球加盟商管理中心</div>
-          <div class="FR MT30 C_fff">
-            <i class="el-icon-s-custom MR5" title="用户名"></i>
-            {{franchiseeName}}&nbsp;&nbsp;&nbsp;
-            <a
-              href="javascript:;"
-              class="MR10"
-              @click="logout"
-              style="color:white;"
-            >
-              <i class="el-icon-right MR5 middle-box"></i>退出登录
-            </a>
-            <router-link to="/franchisee_modify_password?flag=true">
-              <i class="el-icon-key MR5 middle-box" style="cursor: pointer;color:white;">修改密码</i>
-            </router-link>
-          </div>
+      <el-header class="home-head-box">
+        <div class="FL MT13 FS24 C_fff">唐球加盟商管理中心</div>
+        <div class="FR MT30 C_fff">
+          <i class="el-icon-s-custom MR5" title="用户名"></i>
+          {{franchiseeName}}&nbsp;&nbsp;&nbsp;
+          <a
+            href="javascript:;"
+            class="MR10"
+            @click="logout"
+            style="color:white;"
+          >
+            <i class="el-icon-right MR5 middle-box"></i>退出登录
+          </a>
+          <router-link to="/franchisee_modify_password?flag=true">
+            <i class="el-icon-key MR5 middle-box" style="cursor: pointer;color:white;">修改密码</i>
+          </router-link>
+        </div>
       </el-header>
       <el-container>
         <NavMenu :cf="navMenuList"></NavMenu>
@@ -33,36 +33,38 @@
 <script>
 import NavMenu from "@/components/NavMenu/NavMenu";
 export default {
-    components:{NavMenu},
+  name: "franchisee_home",
+  components: { NavMenu },
   data() {
     return {
-        franchiseeName:localStorage.franchisee_name,
+      franchiseeName: localStorage.franchisee_name,
       navMenuList: [
         {
-        index: "matchCenter",
-        icon: "el-icon-baseball",
-        title: "赛事",
-        menuItem: [
-          {
-          index: "franchisee_macth",
+          index: "matchCenter",
           icon: "el-icon-baseball",
-          title: "赛事中心",
-          route: "/franchisee_macth"
+          title: "赛事",
+          menuItem: [
+            {
+              index: "franchisee_macth",
+              icon: "el-icon-baseball",
+              title: "赛事中心",
+              route: "/franchisee_macth"
+            },
+            {
+              index: "franchisee_mymacth",
+              icon: "el-icon-baseball",
+              title: "我的赛事",
+              route: "/franchisee_mymacth"
+            },
+            {
+              index: "franchisee_enroll",
+              icon: "el-icon-baseball",
+              title: "赛事订单",
+              route: "/franchisee_enroll"
+            }
+          ]
         },
-        {
-          index: "franchisee_mymacth",
-          icon: "el-icon-baseball",
-          title: "我的赛事",
-          route: "/franchisee_mymacth"
-        },
-        {
-          index: "franchisee_enroll",
-          icon: "el-icon-baseball",
-          title: "赛事订单",
-          route: "/franchisee_enroll"
-        },
-        ]},
-       
+
         {
           index: "franchisee_article",
           icon: "el-icon-document",
@@ -85,17 +87,17 @@ export default {
     };
   },
   methods: {
-      logout(){
-          localStorage.franchisee_isLogin = 0
-          localStorage.franchisee_name = '';
-          localStorage.franchisee_P1 = ''
-          this.$router.push({ path: "/franchisee_login" });
-      }
+    logout() {
+      localStorage.franchisee_isLogin = 0;
+      localStorage.franchisee_name = "";
+      localStorage.franchisee_P1 = "";
+      this.$router.push({ path: "/franchisee_login" });
+    }
   },
   created() {
     if (localStorage.franchisee_isLogin != 1) {
-          this.$router.push({ path: "/franchisee_login" });
-      }
+      this.$router.push({ path: "/franchisee_login" });
+    }
   }
 };
 </script>

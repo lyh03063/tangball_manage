@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    name: "groups_detail",
   props: ['value'],
 
   data() {

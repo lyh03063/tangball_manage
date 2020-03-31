@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "enroll_orderId",
   props: ['value'],
   watch:{
     orderId:function () {
