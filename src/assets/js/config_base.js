@@ -41,12 +41,9 @@ import  "@/assets/js/config_item.js"
 
 
 //#region DYDICT:公共数据字典对象管理
-window.DYDICT = {}//公共数据字典对象
+window.DYDICT = window.DYDICT||{}//公共数据字典对象
 
-DYDICT.aaa=1111;
-DYDICT.aaa=1111;
-DYDICT.aaa=1111;
-DYDICT.aaa=1111;
+
 
 //#endregion
 

@@ -864,7 +864,11 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         }
     };
     COLUMNS.publicationStatus = { ...D_ITEMS.publicationStatus, width: 70, };
-    F_ITEMS.publicationStatus = { ...objBase, type: "input" };
+    F_ITEMS.publicationStatus = {
+        ...objBase,
+        type: "select",
+        options: [{ label: "是", value: 1 }, { label: "否", value: 2 }]
+    };
 }
 
 //#endregion
@@ -1388,7 +1392,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
     D_ITEMS.venue_city = {
         ...objBase,
     };
- 
+
     COLUMNS.venue_city = {
         label: "城市",
         prop: "area",
@@ -1401,17 +1405,21 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 }
 
 
-//#region 0000
+//#region 可多次报名
 {
     let objBase = {
-        label: "0000",
-        prop: "aaaa",
+        label: "可多次报名",
+        prop: "mutiEnrool",
     }
-    D_ITEMS.aaaa = {
+    D_ITEMS.mutiEnrool = {
         ...objBase,
+        formatter: function (row) { return lodash.get(DYDICT.boolean, `${row.mutiEnrool}.label`); },
     };
-    COLUMNS.aaaa = { ...objBase, width: 70, };
-    F_ITEMS.aaaa = { ...objBase, type: "input" };
+    COLUMNS.mutiEnrool = {
+        ...objBase, width: 70,
+        formatter: function (row) { return lodash.get(DYDICT.boolean, `${row.mutiEnrool}.label`); },
+    };
+    F_ITEMS.mutiEnrool = { ...objBase, type: "select", default: 0, options: DYDICT.arr_boolean };
 }
 
 

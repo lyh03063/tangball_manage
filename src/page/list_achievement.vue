@@ -61,13 +61,11 @@ import achievement_matchProgress from "@/components/form_item/achievement_matchP
 import score_card from "@/components/score_card";
 export default {
   components: { select_match_progress, member_enroll,achievement_matchProgress,score_card },
-  mixins: [PUB.listCF.tangball_achievement],
+  mixins: [],
   data() {
     
     return {
-      // cfList: {
-       
-      // }
+      cfList:lodash.cloneDeep(PUB.listCF.tangball_achievement)
     };
   },
  
