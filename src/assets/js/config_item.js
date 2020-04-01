@@ -955,7 +955,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
     };
 
     F_ITEMS.menCount = {
-
+        ...objBase,
         type: "numberRange",
         term: { matchForm: 2 },
 
