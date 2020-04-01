@@ -54,6 +54,7 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
 export default {
   powerPath: "systemManage.list_role",//权限路径
   listIndex: "list_role", //vuex对应的字段
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
   focusMenu: true,//进行菜单聚焦
   twoTitle: "系统管理",
   threeTitle: "角色",

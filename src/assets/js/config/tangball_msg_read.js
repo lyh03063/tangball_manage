@@ -2,6 +2,7 @@
 export default {
   powerPath: "msgCenter.list_msg_read",//权限路径
     listIndex: "list_msg_read", //vuex对应的字段
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     focusMenu:true,//进行菜单聚焦
     twoTitle: "消息",
     threeTitle: "消息已读记录列表",

@@ -1,6 +1,7 @@
 
 export default  {
   powerPath: "sponsorCenter.list_sponsorship",//权限路径
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     listIndex: "list_sponsorship", //vuex对应的字段
     focusMenu:true,//进行菜单聚焦
     twoTitle: "赛事赞助",

@@ -139,8 +139,8 @@ export default {
     matchId: [String, Number]
   },
   mixins: [
-    PUB.listCF.tangball_achievement,
-    PUB.listCF.tangball_achievement_simple
+    // PUB.listCF.tangball_achievement,
+    // PUB.listCF.tangball_achievement_simple
   ],
   data() {
     return {
@@ -157,23 +157,29 @@ export default {
       progressIndex: 1, //赛段索引
       roundNum: 1, //轮数
       matchInfo: null, //赛事信息
-      cfList: {
-        powerPath:null,//先临时清除权限路径
-        isRefreshAfterCUD: false, //增删改操作后是否自动刷新
-        sortJsonDefault: {
-          groupNum: 1,
-          timeStart: 1
-        },
-        //默认查询参数
-        findJsonDefault: {
-          matchId: this.matchId
-        },
-        //新增表单初始赋值
-        formDataAddInit: {
-          matchId: this.matchId
-        },
-        listIndex: "match_achievement1111111111111111" //vuex对应的字段
-      }
+      // PUB.listCF.tangball_achievement,
+      // PUB.listCF.tangball_achievement_simple
+      // Object.assign(json1,json2);//合并对象
+
+
+      cfList: Object.assign({}, PUB.listCF.tangball_achievement, PUB.listCF.tangball_achievement_simple,
+        {
+          powerPath: null,//先临时清除权限路径
+          isRefreshAfterCUD: false, //增删改操作后是否自动刷新
+          sortJsonDefault: {
+            groupNum: 1,
+            timeStart: 1
+          },
+          //默认查询参数
+          findJsonDefault: {
+            matchId: this.matchId
+          },
+          //新增表单初始赋值
+          formDataAddInit: {
+            matchId: this.matchId
+          },
+          listIndex: "match_achievement1111111111111111" //vuex对应的字段
+        })
     };
   },
   computed: {
@@ -236,7 +242,7 @@ export default {
 
       let listAchPersonRanking = util.deepCopy(this.listAchievement);
       //数字数组（由大到小）
-      this.listAchPersonRanking = listAchPersonRanking.sort(function(a, b) {
+      this.listAchPersonRanking = listAchPersonRanking.sort(function (a, b) {
         return a.matchScore - b.matchScore;
       });
     },
@@ -267,7 +273,7 @@ export default {
     /**
      * @name ajax更新小组成绩名次函数
      */
-    ajaxUpdateCGScore: function(groupNum) {
+    ajaxUpdateCGScore: function (groupNum) {
       return axios({
         //请求接口
         method: "post",
@@ -284,7 +290,7 @@ export default {
     /**
      * @name 进行一次视图更新的函数
      */
-    goNextTick: async function() {
+    goNextTick: async function () {
       this.readyEnroolTeam = false;
       await this.$nextTick(); //延迟到视图更新
       this.readyEnroolTeam = true;
@@ -292,7 +298,7 @@ export default {
     /**
      * @name 切换赛段函数
      */
-    changeMatchProgress: async function() {
+    changeMatchProgress: async function () {
       this.roundNum = 1;
       this.changeMatchRound(); //调用：{切换轮数函数}
       this.goNextTick(); //调用：{进行一次视图更新的函数}
@@ -332,11 +338,11 @@ export default {
 
       //Q1：团体赛-修改配置
       if (this.matchInfo.matchForm == "2") {
-        this.cfList.columns.splice(1, 0,{
-            label: "所属球队",
-            prop: "teamId",
-            width: 90
-          })
+        this.cfList.columns.splice(1, 0, {
+          label: "所属球队",
+          prop: "teamId",
+          width: 90
+        })
         //***修改teamId下拉框字段的ajax配置
         let itemIeamId = this.cfList.formItems.find(
           item => item.prop == "teamId"
@@ -369,11 +375,11 @@ export default {
           item => item.prop == "participantsId"
         );
         //添加监听器
-        lodash.set(this.cfList.cfForm, `watch.teamId`, function(
+        lodash.set(this.cfList.cfForm, `watch.teamId`, function (
           newVal,
           oldName
         ) {
-          if(!newVal)return;
+          if (!newVal) return;
           console.log("watch-teamId变化####1111");
           let { member } = T.dictEnroolTeam[newVal];
           let arrPhone = member.map(doc => doc.phone);
@@ -406,7 +412,7 @@ export default {
     /**
      * @name 获取报名的球员并拼装数据字典函数-个人赛的
      */
-    ajaxGetEnrollMember: async function() {
+    ajaxGetEnrollMember: async function () {
       let {
         data: { list: memberList }
       } = await axios({
@@ -441,7 +447,7 @@ export default {
     /**
      * @name 获取报名的球队并拼装球队和球员数据字典函数-团体赛的
      */
-    ajaxGetEnrollTeamAndMember: async function() {
+    ajaxGetEnrollTeamAndMember: async function () {
       let { data: dataTeam } = await axios({
         //请求接口
         method: "post",
@@ -497,7 +503,7 @@ export default {
   },
   created() {
     T = this;
-    T.cfList=util.deepCopy(T.cfList)//深拷贝一遍，不然后续的字段调整会有bug
+    T.cfList = util.deepCopy(T.cfList)//深拷贝一遍，不然后续的字段调整会有bug
     T.changeMatchRound(); //调用：{切换轮数函数}
     // console.log('aaaa',this.cfList);
   }

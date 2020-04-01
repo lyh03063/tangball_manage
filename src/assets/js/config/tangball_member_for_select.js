@@ -1,5 +1,6 @@
 
 export default {
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
 
     pageSize: 10,
     focusMenu: false, //进行菜单聚焦

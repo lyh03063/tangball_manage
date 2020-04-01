@@ -1,5 +1,6 @@
 
 export default {
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
   focusMenu: false,
   isShowSearchForm: false, //隐藏查询表单
   isShowBreadcrumb: false, //隐藏面包屑导航

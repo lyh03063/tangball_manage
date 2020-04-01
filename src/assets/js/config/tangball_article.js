@@ -3,6 +3,7 @@ export default {
 
     powerPath: "newsCenter.list_article",//权限路径
     listIndex: "list_article", //vuex对应的字段~
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     focusMenu: true, //进行菜单聚焦
     twoTitle: "其他数据",
     threeTitle: "资讯管理",

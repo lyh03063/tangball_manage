@@ -41,14 +41,8 @@ import score_card_confront from "@/components/bussiness/score_card_confront";
 export default {
   components: { score_card_confront },
   props: [
-    "matchId",
-    "matchInfo",
-    "progressIndex",
-    "roundNum",
-    "dictEnroolTeam",
-    "dictAchievement",
-    "listAchievement",
-    "dictMember"
+    "matchId","matchInfo","progressIndex","roundNum","dictEnroolTeam","dictAchievement",
+    "listAchievement","dictMember"
   ], //（需要确定赛事，赛段，第几轮）
 
   data() {
@@ -63,14 +57,14 @@ export default {
     /**
      * @name 自定义批量操作按钮点击函数
      */
-    bacthBtnClick: async function(eventType, selection) {
+    bacthBtnClick: async function (eventType, selection) {
       console.log("bacthBtnClick-eventType:", eventType);
-      if (eventType == "bacthUpdateScore") {
-        //如果{000}000
+      if (eventType == "bacthUpdateScore") { //如果{事件类型}是批量更新分数
+
 
         let clickStatus = await T.$confirm(
           "该操作用于切换了计分规则时的分数更新，确认操作？"
-        ).catch(() => {});
+        ).catch(() => { });
 
         if (clickStatus == "confirm") {
           let tableData = T.$refs.listConfront.tableData;
@@ -312,7 +306,7 @@ export default {
     }
 
 
-console.log("util.cfList.bBtns.add:####", util.cfList.bBtns.add);
+    console.log("util.cfList.bBtns.add:####", util.cfList.bBtns.add);
     let cfListFinal = {
       focusMenu: false,
       isShowSearchForm: false, //隐藏查询表单
@@ -329,7 +323,7 @@ console.log("util.cfList.bBtns.add:####", util.cfList.bBtns.add);
         //add: false, //配置基础按钮隐藏（默认显示）
         // delete: false, //配置基础按钮隐藏（默认显示）
         addon: [
-      
+
           util.cfList.bBtns.add,
           { text: "批量更新分数", eventType: "bacthUpdateScore" }
         ]
@@ -386,7 +380,7 @@ console.log("util.cfList.bBtns.add:####", util.cfList.bBtns.add);
           label: "比赛开始时间",
           prop: "timeStart",
           width: 180,
-          formatter: function(rowData) {
+          formatter: function (rowData) {
             return moment(rowData.timeStart).format("YYYY-MM-DD HH:mm");
           }
           // type: "dateTime"

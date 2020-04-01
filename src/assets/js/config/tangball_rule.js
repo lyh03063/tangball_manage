@@ -2,6 +2,7 @@
 export default {
   powerPath: "matchCenter.list_rule",//权限路径
     listIndex: "list_rule", //vuex对应的字段
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     focusMenu: true, //进行菜单聚焦
     twoTitle: "赛事",
     threeTitle: "规则库",

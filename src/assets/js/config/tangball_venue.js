@@ -4,6 +4,7 @@
 let obj={
   powerPath: "venue.list_venue",//权限路径
    listIndex: "list_venue", //vuex对应的字段
+   isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
    focusMenu: true, //进行菜单聚焦
    twoTitle: "赛事",
    threeTitle: "场馆",
@@ -41,7 +42,7 @@ cfDialogForm: {
 },
    //-------列配置数组-------
    columns: [
-   "Id","franchiseeId","venueName","area", "countMatch","joinTime","phoneNumber",
+   "Id","franchiseeName","venueName","venue_city", "countMatch","joinTime","phoneNumber",
   
    ],
    //-------筛选表单字段数组-------

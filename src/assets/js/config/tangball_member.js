@@ -2,6 +2,7 @@
 export default {
   // powerPath: "systemManage.list_member",//权限路径
     listIndex: "list_member", //vuex对应的字段
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     focusMenu:true,//进行菜单聚焦
     twoTitle: "会员中心",
     threeTitle: "球员列表",

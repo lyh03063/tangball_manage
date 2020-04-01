@@ -10,6 +10,7 @@ let objConfig= util.deepCopy(tangball_enroll_default)
 Object.assign(objConfig,{
   isShowSearchForm: false, //隐藏查询表单
   listIndex: "list_enroll_for_match", //vuex对应的字段
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
   focusMenu: false,
   isShowBreadcrumb: false, //隐藏面包屑导航
   isShowOperateColumn: false, //隐藏操作列

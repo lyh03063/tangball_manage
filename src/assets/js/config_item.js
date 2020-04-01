@@ -29,7 +29,7 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
     };
 
     F_ITEMS.sponsorId = {
-        ...objBase, 
+        ...objBase,
         type: "select",
         ajax: {
             url: "/crossList?page=tangball_franchisee",
@@ -324,7 +324,7 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 //#endregion
 
 
-//#region 0000
+//#region 所属球场
 {
     let objBase = {
         label: "所属球场",
@@ -362,15 +362,36 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
     };
 
     COLUMNS.franchiseeId = {
-        ...objBase,
+        ...D_ITEMS.franchiseeId,
+        prop: "franchiseeId",
         width: 90,
-        formatter: function (data) {
-            if (data.franchisee) {
-                return data.franchisee.name ? data.franchisee.name : '无'
-            }
+        // formatter: function (row) {
+        //     return franchiseeDoc
+        //     if (row.franchisee) {
+        //         return row.franchisee.name ? row.franchisee.name : '无'
+        //     }
+        // }
+    };
+
+    COLUMNS.franchiseeName = {
+        ...objBase,
+        prop: "franchiseeName",
+        requireProp: ["franchiseeId"],
+        width: 120,
+        formatter: function (row) {
+            return lodash.get(row, `franchiseeDoc.name`, '');
+
         }
     };
-    F_ITEMS.franchiseeId = { ...objBase, type: "input" };
+    F_ITEMS.franchiseeId = {
+        ...objBase,
+        type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_franchisee",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    };
 }
 
 //#endregion
@@ -1358,17 +1379,25 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#endregion
 
 
-//#region 0000
+//#region 场馆所在城市
 {
     let objBase = {
-        label: "0000",
-        prop: "aaaa",
+        label: "城市",
+        prop: "venue_city",
     }
-    D_ITEMS.aaaa = {
+    D_ITEMS.venue_city = {
         ...objBase,
     };
-    COLUMNS.aaaa = { ...objBase, width: 70, };
-    F_ITEMS.aaaa = { ...objBase, type: "input" };
+ 
+    COLUMNS.venue_city = {
+        label: "城市",
+        prop: "area",
+        width: 70,
+        formatter: function (rowData) {
+            return lodash.get(rowData, `areaDoc.P2`);
+
+        }
+    };
 }
 
 

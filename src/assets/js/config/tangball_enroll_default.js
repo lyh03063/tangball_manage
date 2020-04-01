@@ -1,6 +1,7 @@
 //#region tangball_enroll
 export default {
     listIndex: "list_enroll", //vuex对应的字段
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     focusMenu: true,//进行菜单聚焦
     twoTitle: "赛事",
     threeTitle: "报名(订单)",

@@ -2,6 +2,7 @@
 export default  {
   powerPath: "newsCenter.list_recommend",//权限路径
 listIndex: "list_recommend", //vuex对应的字段~
+isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
 focusMenu: true, //进行菜单聚焦
 twoTitle: "其他数据",
 threeTitle: "首页轮播图",

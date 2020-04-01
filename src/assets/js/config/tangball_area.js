@@ -2,6 +2,7 @@
 export default {
   powerPath: "venue.list_area",//权限路径
     listIndex: "list_area", //vuex对应的字段
+    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     //默认排序参数
     sortJsonDefault: {
       "tangball.countVenue": -1//按场馆数量降序
