@@ -1,9 +1,9 @@
 
 window.PUB = {}
-//  PUB.domain = "http://localhost:3000"
-PUB.domain = 'http://test.dmagic.cn'
+ // PUB.domain = "http://localhost:3000"
+//PUB.domain = 'http://test.dmagic.cn'
 //PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
-// PUB.domain = "https://www.dmagic.cn"
+ PUB.domain = "https://www.dmagic.cn"
 PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
 PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
 

@@ -99,12 +99,12 @@ export default {
     return {
       cfList,
       showDialogBigImg: false,
-      show:false//控制列表显示的key
+      show: false //控制列表显示的key
     };
   },
   methods: {
     // 获取该加盟商的所有赛事，进行筛选 获取订单列表
-     async getMacthList() {
+    async getMacthList() {
       //  let venueIdList = [];
       //  {
       // let { data } = await axios({
@@ -116,7 +116,7 @@ export default {
       //     }
       //   }
       // }).catch(() => {});
-      
+
       // data.list.forEach(item => {
       //   venueIdList.push(item.P1);
       // });
@@ -129,15 +129,15 @@ export default {
             sponsorId: localStorage.franchisee_P1
           }
         }
-      }).catch(() => {});
+      }).catch(() => { });
       let matchIdList = [];
       data.list.forEach(item => {
         matchIdList.push(item.P1);
       });
       // console.log("赛事数据"+matchIdList);
-      
+
       this.cfList.findJsonDefault = {
-        $and:[{'matchId':{$in:matchIdList}}]
+        $and: [{ matchId: { $in: matchIdList } }]
       };
       this.show = true;
     },
@@ -148,7 +148,7 @@ export default {
         data: {
           data: oldData.groups
         }
-      }).catch(() => {});
+      }).catch(() => { });
     },
     async modifyEnroll(newData, oldData) {
       let { data } = await axios({
@@ -160,7 +160,7 @@ export default {
           },
           modifyJson: newData.groups
         }
-      }).catch(() => {});
+      }).catch(() => { });
     },
     showBigImg(url) {
       this.showDialogBigImg = true;
@@ -192,7 +192,7 @@ export default {
           {
             label: "报名时间",
             prop: "time",
-            formatter: function(row) {
+            formatter: function (row) {
               return moment(row.time).format("YYYY-MM-DD HH:mm");
             }
           },
@@ -200,7 +200,7 @@ export default {
             label: "支付状态",
             prop: "payStatus",
             width: 100,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               if (rowData.payStatus == 2) {
                 return "已支付";
               } else {
@@ -212,7 +212,7 @@ export default {
             label: "审核状态",
             prop: "auditStatus",
             width: 100,
-            formatter: function(rowData) {
+            formatter: function (rowData) {
               if (rowData.auditStatus == 1) {
                 return "未审核";
               } else if (rowData.auditStatus == 2) {
@@ -269,8 +269,13 @@ export default {
     }
   },
   created() {
-    console.log("aaaa",PUB.listCF.tangball_enroll);
+    let flag = true;
+    if (flag) {//如果flag为真
+
+    } else {//否则
     
+    }
+
     this.cfList.batchBtns = {
       addon: [util.cfList.bBtns.delete], //空数组表示没有操作按钮
       tips: {
@@ -280,12 +285,10 @@ export default {
     };
     this.cfList.singleBtns = {
       //空数组表示没有操作按钮
-      addon: [
-        util.cfList.sBtns.detail,
-      ]
+      addon: [util.cfList.sBtns.detail]
     };
     this.cfList.listIndex = "franchisee_enroll";
-    this.getMacthList()
+    this.getMacthList();
     // this.show = true
   }
 };

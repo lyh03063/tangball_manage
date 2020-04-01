@@ -34,7 +34,7 @@ let obj={
 cfDialogForm: {
   tips:{
     text:`填写经度和纬度时需要用到：
-    <a  target="_blank" class="link-blue"  href="http://api.map.baidu.com/lbsapi/getpoint/index.html">百度经纬度拾取坐标系统 &gt;&gt;</a>`,
+    <a  target="_blank" class="n-a-blue"  href="http://api.map.baidu.com/lbsapi/getpoint/index.html">百度经纬度拾取坐标系统 &gt;&gt;</a>`,
     style:{color:"#666","padding":"0 0 30px 123px"}
   }
   

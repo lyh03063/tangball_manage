@@ -69,7 +69,7 @@ export default {
         //如果{000}000
 
         let clickStatus = await T.$confirm(
-          "该操作用于切换了计分规则时的分数更新，耗费较大性能，确认操作？"
+          "该操作用于切换了计分规则时的分数更新，确认操作？"
         ).catch(() => {});
 
         if (clickStatus == "confirm") {

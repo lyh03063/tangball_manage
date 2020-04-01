@@ -158,6 +158,7 @@ export default {
       roundNum: 1, //轮数
       matchInfo: null, //赛事信息
       cfList: {
+        powerPath:null,//先临时清除权限路径
         isRefreshAfterCUD: false, //增删改操作后是否自动刷新
         sortJsonDefault: {
           groupNum: 1,
@@ -171,7 +172,7 @@ export default {
         formDataAddInit: {
           matchId: this.matchId
         },
-        listIndex: "match_achievement" //vuex对应的字段
+        listIndex: "match_achievement1111111111111111" //vuex对应的字段
       }
     };
   },
@@ -180,7 +181,9 @@ export default {
     scoreRuleName() {
       let dict = {
         1: "比洞积分赛（最佳成绩法）",
-        2: "比洞积分赛（成绩加和法）"
+        2: "比洞积分赛（成绩加和法）",
+        3: "比杆赛（最佳成绩法）",
+        4: "比杆赛（成绩加和法）"
       };
       return dict[T.matchInfo.ruleId];
     },
@@ -334,7 +337,6 @@ export default {
             prop: "teamId",
             width: 90
           })
-          console.log('aaaa',this.cfList);
         //***修改teamId下拉框字段的ajax配置
         let itemIeamId = this.cfList.formItems.find(
           item => item.prop == "teamId"

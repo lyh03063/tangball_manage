@@ -1,47 +1,21 @@
 <template>
   <div class>
-    <!--成绩单弹窗-->
-    <el-dialog
-      custom-class="n-el-dialog"
-      width="95%"
-      :title="titleDialogAchievement"
-      :close-on-press-escape="false"
-      :close-on-click-modal="false"
-      :append-to-body="true"
-      v-bind:visible.sync="showDialogAchievement"
-      v-if="showDialogAchievement"
-    >
-      <div class>
-        <match_achievement :matchId="matchId" :debug111="true"></match_achievement>
-      </div>
-    </el-dialog>
-    <!--报名表弹窗-->
-    <el-dialog
-      custom-class="n-el-dialog"
-      width="95%"
-      :title="titleDialogEnroll"
-      :close-on-press-escape="false"
-      :close-on-click-modal="false"
-      :append-to-body="true"
-      v-bind:visible.sync="showDialogEnroll"
-      v-if="showDialogEnroll"
-    >
-      <div class>
-        <match_enroll :matchId="matchId" :debug111="true"></match_enroll>
-      </div>
-    </el-dialog>
     <dm_list_data :cf="cfList" v-if="show">
+      <!-- 赛事收入插槽 (列表)-->
+      <template v-slot:slot_column_matchIncome="{row}">
+        <a href="javascript:;" class="n-a-blue" @click="dialogIncome(row)" :key="row.P1">查看收入</a>
+      </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_enroll="{row}">
         <a
           href="javascript:;"
-          class="link-blue"
+          class="n-a-blue"
           @click="dialogEnroll(row)"
         >报名表({{row.registeredPersons||0}})</a>
       </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">
-        <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
+        <a href="javascript:;" class="n-a-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
       </template>
       <template v-slot:slot_detail_item_progress="{row}">
         <div>
@@ -100,6 +74,51 @@
         <custom_progress v-model="formData.progress"></custom_progress>
       </template>
     </dm_list_data>
+    <!--成绩单弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="95%"
+      :title="titleDialogAchievement"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialogAchievement"
+      v-if="showDialogAchievement"
+    >
+      <div class>
+        <match_achievement :matchId="matchId" :debug111="true"></match_achievement>
+      </div>
+    </el-dialog>
+    <!--报名表弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="95%"
+      :title="titleDialogEnroll"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialogEnroll"
+      v-if="showDialogEnroll"
+    >
+      <div class>
+        <match_enroll :matchId="matchId" :debug111="true"></match_enroll>
+      </div>
+    </el-dialog>
+    <!--赛事收入弹窗-->
+    <el-dialog
+      custom-class="n-el-dialog"
+      width="85%"
+      :title="titleDialogIncome"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      v-bind:visible.sync="showDialogIncome"
+      v-if="showDialogIncome"
+    >
+      <div class>
+        <match_income :matchId="matchId" :debug111="true"></match_income>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -109,13 +128,11 @@ import select_match_progress from "@/components/form_item/select_match_progress.
 import custom_progress from "../components/custom_progress";
 import match_achievement from "@/components/bussiness/match_achievement.vue";
 import match_enroll from "@/components/bussiness/match_enroll.vue";
+import match_income from "@/components/bussiness/match_income.vue";
 export default {
   components: {
-    city_venue_list,
-    match_achievement,
-    match_enroll,
-    select_match_progress,
-    custom_progress
+    city_venue_list, match_achievement, match_enroll, select_match_progress,
+    custom_progress, match_income
   },
   data() {
     let cfList = util.deepCopy(PUB.listCF.tangball_match);
@@ -144,6 +161,8 @@ export default {
       showDialogAchievement: false, //是否显示成绩弹窗
       titleDialogEnroll: "", //报名弹窗标题
       showDialogEnroll: false, //是否显示报名弹窗
+      titleDialogIncome: "", //赛事收入弹窗标题
+      showDialogIncome: false, //是否显示赛事收入弹窗
       cfList,
       show: false //控制列表显示的key
     };
@@ -158,6 +177,11 @@ export default {
       this.matchId = doc.P1;
       this.titleDialogEnroll = `【${doc.matchName}】报名表`;
       this.showDialogEnroll = true;
+    },
+    dialogIncome(doc) {
+      this.matchId = doc.P1;
+      this.titleDialogIncome = `【${doc.matchName}】赛事收入`;
+      this.showDialogIncome = true;
     }
     // 获取该加盟商下的场馆列表，进行筛选
     // async getVenueId() {
@@ -190,6 +214,8 @@ export default {
       sponsorId: localStorage.franchisee_P1
     };
     this.show = true;
+
+
   }
 };
 </script>

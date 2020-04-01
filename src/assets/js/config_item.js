@@ -27,7 +27,16 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
             }
         }
     };
-    F_ITEMS.aaaa = { ...D_ITEMS.aaaa, type: "input" };
+
+    F_ITEMS.sponsorId = {
+        ...objBase, 
+        type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_franchisee",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    };
 }
 
 //#endregion
@@ -410,7 +419,7 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
     };
 
 
-    COLUMNS.payStatus = { ...objBase, width: 80, };
+    COLUMNS.payStatus = { ...D_ITEMS.payStatus, width: 80, };
     F_ITEMS.payStatus = {
         label: "支付状态",
         prop: "payStatus",
@@ -1312,11 +1321,11 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         ...objBase,
         type: "select",
         ajax: {
-          url: "/crossList?page=tangball_role",
-          keyLabel: "name",
-          keyValue: "P1"
+            url: "/crossList?page=tangball_role",
+            keyLabel: "name",
+            keyValue: "P1"
         }
-      };
+    };
 }
 
 
@@ -1329,22 +1338,22 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
     D_ITEMS.matchIncome = {
         ...objBase,
     };
-    COLUMNS.matchIncome = { ...objBase, width: 90,slot:"slot_column_matchIncome" };
+    COLUMNS.matchIncome = { ...objBase, width: 75, slot: "slot_column_matchIncome" };
     F_ITEMS.matchIncome = { ...objBase, type: "input" };
 }
 
 
-//#region 0000
+//#region 订单金额
 {
     let objBase = {
-        label: "0000",
-        prop: "aaaa",
+        label: "订单金额",
+        prop: "orderMoney",
     }
-    D_ITEMS.aaaa = {
+    D_ITEMS.orderMoney = {
         ...objBase,
     };
-    COLUMNS.aaaa = { ...objBase, width: 70, };
-    F_ITEMS.aaaa = { ...objBase, type: "input" };
+    COLUMNS.orderMoney = { ...objBase, width: 70, };
+    F_ITEMS.orderMoney = { ...objBase, type: "input" };
 }
 //#endregion
 

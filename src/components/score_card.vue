@@ -276,6 +276,11 @@ table tr td {
     font-size: 24px;
     font-weight: 700
 }
+.score div{
+    height: 100%;
+    line-height: 100px;
+    
+}
 .allScore{
   background-color:rgb(202, 230, 206);
   color:red;

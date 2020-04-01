@@ -68,7 +68,7 @@ const router = new VueRouter({
     {
       path: '/franchisee_home',
       component: franchisee_home,
-      redirect: '/franchisee_macth',
+      redirect: '/franchisee_mymacth',
       children: [
         {
           path: '/franchisee_article',

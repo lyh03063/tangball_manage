@@ -19,7 +19,7 @@
     
             <div style="clear:both"></div>
         </div>
-        <div v-if="progress.length>0">当前赛程：
+        <div class="MT8" v-if="progress.length>0">当前赛程：
             <el-select
                   v-model="nowProgress"
                   clearable
@@ -166,7 +166,7 @@ export default {
     margin-left: 5px;
     margin-top:8px;
     float: left;
-    font-size: 30px;
+    font-size: 20px;
     color:rgb(200,200,200);
     cursor: pointer;
 }

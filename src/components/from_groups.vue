@@ -3,7 +3,7 @@
       <div >队名：<el-input v-model="groups.name" placeholder="请输入队名" class="groups-name"></el-input></div>
       <div v-for="(item,index) in groups.member" :key="index">
       <div  class="groups-box FL">
-          <div class="FL " style="width:50px;">{{index==0?'队长：':'队员'+index+':'}}</div>
+          <div class="FL MT6" style="width:50px;">{{index==0?'队长：':'队员'+index+':'}}</div>
           <div class="FL">
           姓名：<el-input v-model="item.name" placeholder="请输入姓名" class="groups-input MR10"></el-input>
           性别：<el-radio-group v-model="item.sex" class="MR10">
@@ -94,16 +94,16 @@ export default {
     height: 50px;
     line-height: 50px;
     border:1px dashed #ddd;
-    padding-left: 20px;
+    padding: 8px 0 0 20px;
     margin-bottom: 10px;
     width: 80%;
     border-radius: 5px;
 }
 .addButton{
     margin-left: 5px;
-    margin-top:8px;
+    margin-top:10px;
     float: left;
-    font-size: 28px;
+    font-size: 22px;
     color:rgb(200,200,200);
     cursor: pointer;
 }

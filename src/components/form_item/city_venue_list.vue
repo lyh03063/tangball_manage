@@ -18,7 +18,7 @@
         <el-button type="primary" @click="addCityVanue">添加</el-button>
       </div>
     </el-dialog>
-    <div>
+    <div class="PB8">
       场馆列表（{{valueNeed.length}}个）
       <i
         class="el-icon-plus"

@@ -35,13 +35,13 @@
       <template v-slot:slot_column_enroll="{row}">
         <a
           href="javascript:;"
-          class="link-blue"
+          class="n-a-blue"
           @click="dialogEnroll(row)"
         >报名表({{row.registeredPersons||0}})</a>
       </template>
       <!-- 成绩列插槽 (列表)-->
       <template v-slot:slot_column_achievement="{row}">
-        <a href="javascript:;" class="link-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
+        <a href="javascript:;" class="n-a-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
       </template>
       <template v-slot:slot_detail_item_progress="{row}">
         <div>
@@ -142,6 +142,8 @@ export default {
     }
   },
   created() {
+ 
+    
     // this.cfList.batchBtns = {
     //   addon : [util.cfList.bBtns.add]
     // }

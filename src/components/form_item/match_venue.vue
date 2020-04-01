@@ -9,7 +9,7 @@
       >{{matchInfo.matchForm==2?"团队赛":"个人赛"}}</span>，
 <span  v-if="matchInfo&&!readOnly">选择场馆:</span>
     </div>
-    <div class v-if="matchInfo&&!readOnly">
+    <div class="MT8" v-if="matchInfo&&!readOnly">
   <el-radio
       class="MB10"
         v-model="valueNeed"

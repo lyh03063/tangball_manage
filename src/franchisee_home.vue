@@ -44,22 +44,22 @@ export default {
           icon: "el-icon-baseball",
           title: "赛事",
           menuItem: [
-            {
-              index: "franchisee_macth",
-              icon: "el-icon-baseball",
-              title: "赛事中心",
-              route: "/franchisee_macth"
-            },
+            // {
+            //   index: "franchisee_macth",
+            //   icon: "el-icon-baseball",
+            //   title: "赛事中心",
+            //   route: "/franchisee_macth"
+            // },
             {
               index: "franchisee_mymacth",
               icon: "el-icon-baseball",
-              title: "我的赛事",
+              title: "赛事列表",
               route: "/franchisee_mymacth"
             },
             {
               index: "franchisee_enroll",
               icon: "el-icon-baseball",
-              title: "赛事订单",
+              title: "报名订单",
               route: "/franchisee_enroll"
             }
           ]
@@ -98,6 +98,22 @@ export default {
     if (localStorage.franchisee_isLogin != 1) {
       this.$router.push({ path: "/franchisee_login" });
     }
+
+    /****************************清除一些列表的权限路径-START****************************/
+    // PUB.listCF.tangball_group.powerPath = null; //清除对阵分组权限路径
+
+    for (var prop in PUB.listCF) {
+      if (PUB.listCF[prop].powerPath) {//如果{000}000
+        PUB.listCF[prop].powerPath = null;
+
+      }
+
+    }
+
+
+    /****************************清除一些列表的权限路径-END****************************/
+
+
   }
 };
 </script>

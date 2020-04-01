@@ -7,7 +7,6 @@ export default {
         focusMenu: true,//进行菜单聚焦
         twoTitle: "赛事",
         threeTitle: "报名(订单)",
-
         url: {
           list: "/crossList?page=tangball_enroll", //列表接口
           add: "/crossAdd?page=tangball_enroll", //新增接口
@@ -33,6 +32,7 @@ export default {
           COLUMNS.enrool_memberId,
           COLUMNS.enrool_matchId,
           COLUMNS.orderId,
+          COLUMNS.orderMoney,
           COLUMNS.enrool_time,
           COLUMNS.playingTime,
           COLUMNS.enrool_matchForm,
@@ -51,6 +51,8 @@ export default {
         ],
         //-------详情字段数组-------
         detailItems: [
+          D_ITEMS.orderId,
+          D_ITEMS.orderMoney,
           D_ITEMS.memberId_slot,
           D_ITEMS.matchId_slot,
           D_ITEMS.phone,
