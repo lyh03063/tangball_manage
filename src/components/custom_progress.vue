@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <div v-for="(item,index) in progress" :key="index">
             <div  class="progress-box">
             赛程名称：<el-input v-model="item.name" placeholder="请输入赛程名字" style="width:120px" ></el-input>
@@ -127,7 +127,7 @@ export default {
          
      }
  },
- mounted(){
+ created(){
     //  如果赛程不存在，给他设定初始值
     if (!this.progress) {
         this.progress = [
