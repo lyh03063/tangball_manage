@@ -85,11 +85,11 @@ export default {
     //    prop: "address",
     //    width: 100
     //  },
-     {
-       label: "赛事数量",
-       prop: "countMatch",
-       width: 100
-     },
+    //  {
+    //    label: "赛事数量",
+    //    prop: "countMatch",
+    //    width: 100
+    //  },
      {
        label: "加盟时间",
        prop: "time",

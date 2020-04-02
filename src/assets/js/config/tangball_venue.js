@@ -42,7 +42,7 @@ cfDialogForm: {
 },
    //-------列配置数组-------
    columns: [
-   "Id","franchiseeName","venueName","venue_city", "countMatch","joinTime","phoneNumber",
+   "Id","franchiseeName","venueName","venue_city", "joinTime","phoneNumber",
   
    ],
    //-------筛选表单字段数组-------
@@ -52,7 +52,7 @@ cfDialogForm: {
    ],
    //-------详情字段数组-------
    detailItems: [
-     "Id","franchiseeId","venueName","area","address","countMatch","joinTime","phoneNumber","albumVenue"
+     "Id","franchiseeId","venueName","area","address","joinTime","phoneNumber","albumVenue"
      
    ],
    //-------新增、修改表单字段数组-------
