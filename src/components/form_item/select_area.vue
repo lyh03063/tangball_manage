@@ -96,7 +96,7 @@ export default {
         data: {
           findJson: { P8: pid },
           sortJson: {
-            "tangball.countVenue": -1 //按场馆数量降序
+            "tangball.countVenue": -1 //按球场数量降序
           }
         }
       });

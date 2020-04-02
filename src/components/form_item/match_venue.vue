@@ -7,7 +7,7 @@
         class="C_f30"
         v-if="matchInfo&&matchInfo.matchForm"
       >{{matchInfo.matchForm==2?"团队赛":"个人赛"}}</span>，
-<span  v-if="matchInfo&&!readOnly">选择场馆:</span>
+<span  v-if="matchInfo&&!readOnly">选择球场:</span>
     </div>
     <div class="MT8" v-if="matchInfo&&!readOnly">
   <el-radio
@@ -19,10 +19,10 @@
         :key="index"
         @change="$emit('input', doc.venueId)"
       >{{doc.cityName}}--{{doc.venueName}}</el-radio>
-      <div v-if="matchInfo.venue.length<=0">当前赛事暂无指定场馆</div>
+      <div v-if="matchInfo.venue.length<=0">当前赛事暂无指定球场</div>
     </div>
     <div v-else-if="matchInfo">
-      参赛场馆：{{nowVenue.cityName?nowVenue.cityName+'--':'暂未选择场馆'}}{{nowVenue.venueName?nowVenue.venueName:''}}
+      参赛球场：{{nowVenue.cityName?nowVenue.cityName+'--':'暂未选择球场'}}{{nowVenue.venueName?nowVenue.venueName:''}}
     </div>
   </div>
 </template>

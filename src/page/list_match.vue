@@ -30,14 +30,14 @@
       <template v-slot:slot_column_achievement="{row}">
         <a href="javascript:;" class="n-a-blue" @click="dialogAchievement(row)">对阵分组/成绩</a>
       </template>
-      <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
+      <!-- 全国性赛事-城市球场列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.venue"></city_venue_list>
       </template>
-      <!-- 全国性赛事-城市场馆列表-(详情弹窗)-->
+      <!-- 全国性赛事-城市球场列表-(详情弹窗)-->
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
-          <dm_debug_item v-model="row.venue" text="场馆列表" />
+          <dm_debug_item v-model="row.venue" text="球场列表" />
         </dm_debug_list>
 
         <city_venue_list v-model="row.venue" :isEdit="false"></city_venue_list>

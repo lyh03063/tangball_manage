@@ -50,7 +50,7 @@
       </template>
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
-          <dm_debug_item v-model="row.venue" text="场馆列表" />
+          <dm_debug_item v-model="row.venue" text="球场列表" />
         </dm_debug_list>
 
         <city_venue_list v-model="row.venue" :isEdit="false"></city_venue_list>
@@ -61,7 +61,7 @@
       <template v-slot:slot_detail_item_album="{row}">
         <img :src="img.url" width="150" height="150" v-for="(img,index) in row.album" :key="index" />
       </template>
-      <!-- 全国性赛事-城市场馆列表 (新增修改表单)-->
+      <!-- 全国性赛事-城市球场列表 (新增修改表单)-->
       <template v-slot:slot_form_item_cityVenueList="{formData}">
         <city_venue_list v-model="formData.venue"></city_venue_list>
       </template>
@@ -183,7 +183,7 @@ export default {
       this.titleDialogIncome = `【${doc.matchName}】赛事收入`;
       this.showDialogIncome = true;
     }
-    // 获取该加盟商下的场馆列表，进行筛选
+    // 获取该加盟商下的球场列表，进行筛选
     // async getVenueId() {
     //   let { data } = await axios({
     //     method: "post",

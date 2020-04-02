@@ -27,7 +27,7 @@ export default {
         width: 200
       },
       {
-        label: "场馆数",
+        label: "球场数",
         prop: "countVenue",
         width: 75,
         // slot:"slot_list_column_countVenue"
@@ -87,7 +87,7 @@ export default {
         prop: "name"
       },
       {
-        label: "场馆数",
+        label: "球场数",
         prop: "countVenue",
         width: 75,
         // slot:"slot_list_column_countVenue"

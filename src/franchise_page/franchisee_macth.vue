@@ -76,7 +76,7 @@
       </template>
       <template v-slot:slot_detail_item_cityVenueList="{row}">
         <dm_debug_list level-up="2">
-          <dm_debug_item v-model="row.venue" text="场馆列表" />
+          <dm_debug_item v-model="row.venue" text="球场列表" />
         </dm_debug_list>
 
         <city_venue_list v-model="row.venue" :isEdit="false"></city_venue_list>

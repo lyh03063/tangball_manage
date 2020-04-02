@@ -1,10 +1,10 @@
 <template>
   <div class>
-    <!--添加城市场馆弹窗-->
+    <!--添加城市球场弹窗-->
     <el-dialog
       custom-class="n-el-dialog"
       width="55%"
-      title="添加城市/场馆"
+      title="添加城市/球场"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :append-to-body="true"
@@ -19,7 +19,7 @@
       </div>
     </el-dialog>
     <div class="PB8">
-      场馆列表（{{valueNeed.length}}个）
+      球场列表（{{valueNeed.length}}个）
       <i
         class="el-icon-plus"
         @click="isShowDialogAddCityVanue=true"
@@ -60,12 +60,12 @@ export default {
   data() {
     return {
       valueNeed: this.value || [],
-      isShowDialogAddCityVanue: false, //是否显示添加城市场馆的弹窗
+      isShowDialogAddCityVanue: false, //是否显示添加城市球场的弹窗
       objCityVanue: {
         cityId: "4401",
         cityName: "广州",
         venueId: 15,
-        venueName: "场馆名称"
+        venueName: "球场名称"
       },
       newsmallmatchProcess: []
     };
@@ -75,7 +75,7 @@ export default {
       this.valueNeed.splice(key, 1);
     },
     addCityVanue() {
-      //函数：{添加一个城市场馆函数}
+      //函数：{添加一个城市球场函数}
       this.isShowDialogAddCityVanue = false;
       this.valueNeed.unshift(util.deepCopy(this.objCityVanue));
     }

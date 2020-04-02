@@ -730,10 +730,10 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#endregion
 
 
-//#region 决赛场馆
+//#region 比赛球场
 {
     let objBase = {
-        label: "决赛场馆",
+        label: "比赛球场",
         prop: "venue",
     }
     D_ITEMS.aaaa = {
@@ -1383,7 +1383,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#endregion
 
 
-//#region 场馆所在城市
+//#region 球场所在城市
 {
     let objBase = {
         label: "城市",

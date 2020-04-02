@@ -5,7 +5,7 @@ export default {
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
     //默认排序参数
     sortJsonDefault: {
-      "tangball.countVenue": -1//按场馆数量降序
+      "tangball.countVenue": -1//按球场数量降序
     },
     
     focusMenu: true,//进行菜单聚焦
@@ -34,7 +34,7 @@ export default {
         width: 150
       },
       {
-        label: "场馆数",
+        label: "球场数",
         prop: "tangball",
         width: 100,
         formatter: function (rowData) {

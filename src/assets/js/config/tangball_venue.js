@@ -7,7 +7,7 @@ let obj={
    isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
    focusMenu: true, //进行菜单聚焦
    twoTitle: "赛事",
-   threeTitle: "场馆",
+   threeTitle: "球场",
    flag: true,
    url: {
      list: "/crossList?page=tangball_venue", //列表接口

@@ -98,7 +98,7 @@ export default {
       arrCrossCityMatchAchievement: [], //城际赛成绩列表
       arrCrossCityMatchPersonAchievement: [], //城际赛成绩明细总列表
       crossCityMatchSmallProgress: 21, //城际赛赛段id聚焦值
-      cityMatchVenuId: null, //城市赛场馆选项卡的聚焦值
+      cityMatchVenuId: null, //城市赛球场选项卡的聚焦值
       cityMatchProgress: 11, //城市赛阶段选项卡的聚焦值
       matchInfo: null, //赛事信息
       cfList: {
@@ -229,7 +229,7 @@ export default {
           }
         };
 
-        //修改人员下拉框的ajax参数，不同场馆对应着不同的报名人员
+        //修改人员下拉框的ajax参数，不同球场对应着不同的报名人员
         this.cfList.formItems[0].ajax.param.sheetRelation.findJson.cityVenueId = this.findJsonDefault.cityVenueId;
         this.cfList.formItems[0].ajax.param.sheetRelation.findJson.matchId = this.findJsonDefault.matchId;
       },

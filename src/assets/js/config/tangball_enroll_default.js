@@ -175,7 +175,7 @@ export default {
         width: 100
       },
       {
-        label: "城市场馆id",
+        label: "城市球场id",
         prop: "cityVenueId"
       },
       {

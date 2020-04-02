@@ -20,11 +20,11 @@
       @after-modify="modifyEnroll"
       @after-add="addEnroll"
     >
-      <!-- 选择赛事和场馆 -->
+      <!-- 选择赛事和球场 -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
         <match_venue v-model="formData.cityVenueId" :matchId="formData.matchId"></match_venue>
       </template>
-      <!-- 赛事场馆详情 -->
+      <!-- 赛事球场详情 -->
       <template v-slot:slot_detail_item_matchInfo="{row}">
         <match_venue v-model="row.cityVenueId" :matchId="row.matchId" :readOnly="true"></match_venue>
       </template>

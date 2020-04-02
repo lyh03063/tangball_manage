@@ -1,7 +1,7 @@
 <template>
   <div class>
     <dm_list_data :cf="cfList">
-      <!-- 城市赛场馆(新增/修改表单) -->
+      <!-- 城市赛球场(新增/修改表单) -->
       <template v-slot:slot_form_item_matchInfo="{formData}">
         <member_enroll
           v-model="formData.cityVenueId"

@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class v-if="enrollInfo">
-      城市赛场馆Id:
+      城市赛球场Id:
       <span class="C_f30">
         <dm_ajax_populate :id="enrollInfo.cityVenueId" page="tangball_venue">
           <template v-slot:default="{doc}">
@@ -12,7 +12,7 @@
         </dm_ajax_populate>
       </span>
     </div>
-    <div class v-else>没有对应的城市赛场馆</div>
+    <div class v-else>没有对应的城市赛球场</div>
   </div>
 </template>
 

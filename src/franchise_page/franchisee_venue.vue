@@ -67,7 +67,7 @@ export default {
        width: 70
      },
      {
-       label: "场馆名称",
+       label: "球场名称",
        prop: "name",
        width: 170
      },
@@ -106,7 +106,7 @@ export default {
     ]
     cfList.searchFormItems = [
       {
-       label: "场馆编号",
+       label: "球场编号",
        prop: "P1",
        type: "input"
      },
@@ -121,7 +121,7 @@ export default {
      }
     ]
     cfList.formItems = [{
-       label: "场馆名称",
+       label: "球场名称",
        prop: "name",
        rules: [{ required: true, message: "不能为空" }]
      },
@@ -166,17 +166,17 @@ export default {
      //   path:"latitude",
      // },
      {
-       label: "场馆其他信息",
+       label: "球场其他信息",
        prop: "extend",
        default: {}, //默认值必须要有，否则新增的时候会出问题
        cfForm: {
          formItems: [
            {
-             label: "场馆长宽",
+             label: "球场长宽",
              prop: "venueSize"
            },
            {
-             label: "场馆层数",
+             label: "球场层数",
              prop: "floorCount"
            },
            {
