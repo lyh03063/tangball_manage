@@ -2,7 +2,7 @@
   <div class>
     <el-container>
       <el-header class="home-head-box">
-        <div class="FL MT13 FS24 C_fff">唐球加盟商管理中心</div>
+        <div class="FL MT13 FS24 C_fff">唐球各加盟球场管理中心</div>
         <div class="FR MT30 C_fff">
           <i class="el-icon-s-custom MR5" title="用户名"></i>
           {{franchiseeName}}&nbsp;&nbsp;&nbsp;
