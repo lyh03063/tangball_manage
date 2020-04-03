@@ -273,11 +273,12 @@ export default {
     if (flag) {//如果flag为真
 
     } else {//否则
-    
+
     }
 
     this.cfList.batchBtns = {
-      addon: [util.cfList.bBtns.delete], //空数组表示没有操作按钮
+      addon: [util.cfList.bBtns.delete, util.cfList.bBtns.refresh,
+      util.cfList.bBtns.exportExcel,], //空数组表示没有操作按钮
       tips: {
         text: "数据来源于小程序或赛事的“报名表”中添加"
         // style:{"color":"#3a0"}
