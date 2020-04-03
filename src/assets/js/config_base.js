@@ -8,7 +8,7 @@ PUB.urlUpload = `https://up-z2.qiniup.com`//七牛云上传地址（域名）
 PUB.urlGetQiniuToken = `${PUB.domain}/api_third_part/get_qiniu_token?scope=tangball`
 
 
-PUB.systemName = "唐球体育全国运营管理中心";
+PUB.systemName = "全国唐球体育赛事运营管理系统";
 PUB.KeySys = "tangball";
 // let _systemId = `sys_${PUB.KeySys}`;
 // PUB._systemId = _systemId;

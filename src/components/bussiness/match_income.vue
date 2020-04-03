@@ -34,7 +34,8 @@
           <dm_space height="100"></dm_space>
         </el-tab-pane>
         <el-tab-pane label="订单明细" name="list_order">
-          <dm_list_data :cf="cfListEnrool"></dm_list_data>
+          <!--懒加载-节省性能，同时解决关闭弹窗时控制台莫名报错问题-->
+          <dm_list_data :cf="cfListEnrool" v-if="activeName=='list_order'"></dm_list_data>
         </el-tab-pane>
       </el-tabs>
     </div>

@@ -118,7 +118,7 @@
     >
       <div class>
         
-        <match_income :matchId="matchId" :debug111="true"></match_income>
+        <match_income :matchId="matchId" ></match_income>
       </div>
     </el-dialog>
   </div>
