@@ -64,7 +64,6 @@ export default  {
   },
   //-------列配置数组-------
   columns: [
-
     COLUMNS.participantsId,
     COLUMNS.teamId,
     COLUMNS.matchId,
@@ -72,8 +71,6 @@ export default  {
     COLUMNS.roundNum,
     COLUMNS.groupNum,
     COLUMNS.tee,
-
-
     COLUMNS.matchScore2,
     COLUMNS.ranking,
     COLUMNS.matchScoreTotal,
@@ -81,7 +78,6 @@ export default  {
   //-------筛选表单字段数组-------
   searchFormItems: [
     F_ITEMS.participantsId_search,
-
     F_ITEMS.matchId
   ],
   //-------详情字段数组-------
@@ -89,7 +85,6 @@ export default  {
     D_ITEMS.participantsId,
     D_ITEMS.teamId,
     D_ITEMS.matchId_slot,
-
     D_ITEMS.progressIndex,
     D_ITEMS.roundNum,
     D_ITEMS.groupNum,

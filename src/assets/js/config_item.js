@@ -7,6 +7,65 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 
 
 
+//#region 球员
+{
+    let objBase = {
+        label: "球员",
+        prop: "memberId",
+    }
+    D_ITEMS.memberId = {
+        ...objBase,
+    };
+    D_ITEMS.memberId_slot = {
+        ...objBase,
+        label: "报名球员",
+        slot: "slot_detail_item_memberId"
+    };
+    COLUMNS.memberId = { ...objBase, width: 70, };
+    COLUMNS.enrool_memberId = {
+        ...objBase,
+        label: "报名球员",
+        width: 80,
+        formatter: function (rowData) {
+            if (rowData.memberDoc) {
+                return rowData.memberDoc.name
+            }
+        }
+    };
+    F_ITEMS.memberId = { ...objBase, type: "input" };
+
+    F_ITEMS.memberId_select = {
+        ...objBase,
+        type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_member",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    }
+
+    F_ITEMS.memberId = {
+        ...objBase,
+        type: "select_list_data",
+        cfSelectList: {
+            //选择列表配置
+            dataName: "球员",
+            valueKey: "P1",
+            labelKey: "name",
+            pageName: "tangball_member",
+            cfList: tangball_member_for_select
+        },
+        rules: [{ required: true, message: "球员不能为空" }]
+    };
+    F_ITEMS.memberId_readonly = {
+        label: "球员",
+        prop: "memberId",
+        type: "ajax_populate",
+        cfAjaxPopulate: { populateKey: "name", page: "tangball_member" }
+    };
+}
+
+//#endregion
 
 //#region 主办方
 {
@@ -115,65 +174,6 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 
 
 
-//#region 球员
-{
-    let objBase = {
-        label: "球员",
-        prop: "memberId",
-    }
-    D_ITEMS.memberId = {
-        ...objBase,
-    };
-    D_ITEMS.memberId_slot = {
-        ...objBase,
-        label: "报名球员",
-        slot: "slot_detail_item_memberId"
-    };
-    COLUMNS.memberId = { ...objBase, width: 70, };
-    COLUMNS.enrool_memberId = {
-        ...objBase,
-        label: "报名球员",
-        width: 80,
-        formatter: function (rowData) {
-            if (rowData.memberDoc) {
-                return rowData.memberDoc.name
-            }
-        }
-    };
-    F_ITEMS.memberId = { ...objBase, type: "input" };
-
-    F_ITEMS.memberId_select = {
-        ...objBase,
-        type: "select",
-        ajax: {
-            url: "/crossList?page=tangball_member",
-            keyLabel: "name",
-            keyValue: "P1"
-        }
-    }
-
-    F_ITEMS.memberId = {
-        ...objBase,
-        type: "select_list_data",
-        cfSelectList: {
-            //选择列表配置
-            dataName: "球员",
-            valueKey: "P1",
-            labelKey: "name",
-            pageName: "tangball_member",
-            cfList: tangball_member_for_select
-        },
-        rules: [{ required: true, message: "球员不能为空" }]
-    };
-    F_ITEMS.memberId_readonly = {
-        label: "球员",
-        prop: "memberId",
-        type: "ajax_populate",
-        cfAjaxPopulate: { populateKey: "name", page: "tangball_member" }
-    };
-}
-
-//#endregion
 
 //#region 赛事Id
 {
@@ -1426,14 +1426,15 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#region 0000
 {
     let objBase = {
-        label: "0000",
-        prop: "aaaa",
+        label: "地区名称",
+        prop: "P2",
+     
     }
-    D_ITEMS.aaaa = {
+    D_ITEMS.areaName_P2 = {
         ...objBase,
     };
-    COLUMNS.aaaa = { ...objBase, width: 70, };
-    F_ITEMS.aaaa = { ...objBase, type: "input" };
+    COLUMNS.areaName_P2 = { ...objBase, width: 70, };
+    F_ITEMS.areaName_P2 = { ...objBase, type: "input" };
 }
 //#endregion
 
