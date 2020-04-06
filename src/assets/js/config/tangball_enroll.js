@@ -1,6 +1,6 @@
 //#region tangball_enroll
 
-export default {
+let obj =  {
 
         powerPath: "matchCenter.list_enroll",//权限路径
         listIndex: "list_enroll", //vuex对应的字段
@@ -29,63 +29,16 @@ export default {
         }],
         //-------列配置数组-------
         // expands:[],
-        columns: [
-          COLUMNS.enrool_memberId,
-          COLUMNS.enrool_matchId,
-          COLUMNS.orderId,
-          COLUMNS.orderMoney,
-          COLUMNS.enrool_time,
-          COLUMNS.playingTime,
-          COLUMNS.enrool_matchForm,
-         
-          
-          COLUMNS.payStatus,
-          COLUMNS.auditStatus
-        ],
+        columns: ['enrool_memberId',"enrool_matchId","orderId","orderMoney","enrool_time","playingTime","enrool_matchForm","payStatus","auditStatus"],
         //-------筛选表单字段数组-------
-        searchFormItems: [
-          F_ITEMS.idCard,
-          F_ITEMS.memberId_select,
-          F_ITEMS.matchId_select,
-          F_ITEMS.payStatus,
-          F_ITEMS.auditStatus
-        ],
+        searchFormItems: ["idCard",'memberId_select',"matchId_select","payStatus","auditStatus"],
         //-------详情字段数组-------
         detailItems: [
-          D_ITEMS.orderId,
-          D_ITEMS.orderMoney,
-          D_ITEMS.memberId_slot,
-          D_ITEMS.matchId_slot,
-          D_ITEMS.phone,
-          D_ITEMS.matchInfo,
-          D_ITEMS.sex,
-          D_ITEMS.age,
-          D_ITEMS.career,
-          D_ITEMS.ballAge,
-          D_ITEMS.idCard,
-          D_ITEMS.time_enrool,
-          D_ITEMS.playingTime,
-          D_ITEMS.payStatus,
-          D_ITEMS.auditStatus
-        ],
+          "orderId","orderMoney",'memberId_slot',"matchId_slot","phone","matchInfo","sex","age","career","ballAge","idCard","time_enrool","playingTime","payStatus","auditStatus"],
         //-------新增、修改表单字段数组-------
-        formItems: [
-
-          F_ITEMS.memberId,
-          F_ITEMS.matchId_select_required,
-          F_ITEMS.matchInfo,
-          F_ITEMS.phone,
-          F_ITEMS.sex,
-          F_ITEMS.age,
-          F_ITEMS.career,
-          F_ITEMS.ballAge,
-          F_ITEMS.idCard,
-          F_ITEMS.time,
-          F_ITEMS.playingTime,
-          F_ITEMS.payStatus,
-          F_ITEMS.auditStatus
-
-        ]
+        formItems: ["memberId","matchId_select_required","matchInfo","phone","sex","age","career","ballAge","idCard","time","playingTime","payStatus","auditStatus"]
 
 }
+util.reformCFListItem(obj)
 //#endregion
+export default obj

@@ -1,8 +1,8 @@
 
-export default {
+let obj = {
   powerPath: "newsCenter.list_article_category",//权限路径
   listIndex: "list_article_category", //vuex对应的字段
-  isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
+  isRefreshAfterCUD:true,//是否在增删改操作后刷新列
   focusMenu: true,//进行菜单聚焦
   twoTitle: "赛事",
   threeTitle: "资讯分类",
@@ -14,72 +14,15 @@ export default {
     delete: "/crossDelete?page=tangball_article_category" //删除接口
   },
   //-------列配置数组-------
-  columns: [
-    {
-      label: "分类编号",
-      prop: "P1",
-      width: 100
-    },
-    {
-      label: "分类名称",
-      prop: "name",
-      width: 120
-    },
-    {
-      label: "分类说明",
-      prop: "remark",
-      width: 250,
-    },
-    {
-      label: "资讯数量",
-      prop: "acticleNumber",
-      width: 90,
-      statistics: { listIndex: 'list_article', targetIdKey: 'articleCategory' }
-    },
-  ],
+  columns: ["acticle_category_id","acticle_category_name","acticle_category_remark","acticle_category_acticleNumber"],
   //-------筛选表单字段数组-------
-  searchFormItems: [
-    {
-      label: "分类编号",
-      prop: "P1",
-      type: "input"
-    },
-    {
-      label: "分类编号",
-      prop: "name",
-      type: "input"
-    },
-  ],
+  searchFormItems: ["acticle_category_id","acticle_category_name"],
   //-------详情字段数组-------
-  detailItems: [
-    {
-      label: "分类编号",
-      prop: "P1"
-    },
-    {
-      label: "分类名称",
-      prop: "name"
-    },
-    {
-      label: "分类说明",
-      prop: "remark"
-    },
-    {
-      label: "该分类下的资讯总量",
-      prop: "articleNumber"
-    },
-  ],
+  detailItems: ["acticle_category_id","acticle_category_name","acticle_category_remark","acticle_category_acticleNumber"],
   //-------新增、修改表单字段数组-------
-  formItems: [
-    {
-      label: "分类名称",
-      prop: "name",
-      type: "input"
-    },
-    {
-      label: "分类说明",
-      prop: "remark",
-      type: "textarea"
-    }
-  ]
+  formItems: ["acticle_category_name","acticle_category_remark",]
 }
+
+util.reformCFListItem(obj)
+
+export default obj

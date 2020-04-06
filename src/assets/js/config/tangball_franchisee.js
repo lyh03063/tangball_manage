@@ -1,5 +1,5 @@
 
-export default {
+let obj =  {
   powerPath: "venue.list_franchisee",//权限路径
     listIndex: "list_franchisee", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -16,124 +16,21 @@ export default {
     },
     //-------列配置数组-------
     columns: [
-      {
-        label: "Id",
-        prop: "P1",
-        width: 60
-      },
-      {
-        label: "企业名称",
-        prop: "name",
-        width: 200
-      },
-      {
-        label: "球场数",
-        prop: "countVenue",
-        width: 75,
-        // slot:"slot_list_column_countVenue"
-        statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
-      },
-       {
-        label: "加盟时间",
-        prop: "joinTime",
-        width: 160,
-        formatter:function(row){
-          
-         return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
-  
-        }
-      },
-      // {
-      //   label: "密码",
-      //   prop: "password",
-      //   width: 150
-      // },
-      {
-        label: "备注",
-        prop: "remark",
-        width: 300
-      }
+      "franchisee_P1","franchisee_name","franchisee_countVenue","franchisee_joinTime","franchisee_remark"
     ],
     //-------筛选表单字段数组-------
     searchFormItems: [
-      {
-        label: "Id",
-        prop: "P1",
-        type: "input"
-      },{
-        label: "企业名称",
-        prop: "joinTime",
-        type: "select",
-            ajax: {
-              url: "/crossList?page=tangball_franchisee",
-              keyLabel: "name",
-              keyValue: "P1"
-            }
-      },
-      {
-        label: "加盟时间",
-        prop: "joinTime",
-        type: "time_period"
-      }
+      "franchisee_P1","franchisee_name","franchisee_joinTime"
     ],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "Id",
-        prop: "P1"
-      },
-      {
-        label: "企业名称",
-        prop: "name"
-      },
-      {
-        label: "球场数",
-        prop: "countVenue",
-        width: 75,
-        // slot:"slot_list_column_countVenue"
-        statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
-      },
-       {
-        label: "加盟时间",
-        prop: "joinTime",
-        width: 160,
-        formatter:function(row){
-          
-         return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
-  
-        }
-      },
-      {
-        label: "密码",
-        prop: "password",
-        width: 150
-      },
-      {
-        label: "备注",
-        prop: "remark"
-      }
+      "franchisee_P1","franchisee_name","franchisee_countVenue","franchisee_joinTime","franchisee_password","franchisee_remark"
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      {
-        label: "企业名称",
-        prop: "name",
-        type: "input"
-      },
-      {
-        label: "密码",
-        prop: "password",
-      },
-  
-      {
-        label: "加盟时间",
-        prop: "joinTime",
-        type: "date"
-      },
-      {
-        label: "备注2",
-        prop: "remark",
-        type: "input"
-      }
-    ]
+      "franchisee_name","franchisee_password","franchisee_joinTime","franchisee_remark"]
+
   }
+util.reformCFListItem(obj)
+
+export default obj

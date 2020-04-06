@@ -1,5 +1,5 @@
 
-export default {
+let obj =  {
 
     powerPath: "newsCenter.list_article",//权限路径
     listIndex: "list_article", //vuex对应的字段~
@@ -32,191 +32,18 @@ export default {
     ],
 
     //-------列配置数组-------
-    columns: [
-      COLUMNS.Id,
-      {
-        label: "资讯标题",
-        prop: "articleTitle",
-        width: 260
-      },
-      {
-        label: "分类名称",
-        prop: "articleCategory",
-        width: 120,
-        formatter: function(rowData) {
-          let name = lodash.get(rowData, "categoryDoc.name");
-          return name;
-        }
-      },
-
-      {
-        label: "所属加盟商",
-        prop: "franchiseeId",
-        width: 120,
-        formatter:function(rowData){
-          if (rowData.franchisee) {
-            return rowData.franchisee.name
-          }
-        }
-      },
-      {
-        label: "审核状态",
-        prop: "auditStatus",
-        width: 90,
-        formatter:function(rowData){
-            return (rowData.auditStatus ==1?'已审核':'未审核')
-        }
-      },
-      {
-        label: "显示到首页",
-        prop: "recommend",
-        width: 110,
-        formatter:function(rowData){
-            return rowData.recommend ==1?'是':'否'
-        }
-      },
-      {
-        label: "创建时间",
-        prop: "CreateTime",
-        width: 160,
-        formatter:function(rowData){
-          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
-      }
-      },
-      {
-        label: "其他",
-        prop: "extend",
-        width: 255,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
-        }
-      }
-    ],
+    columns: ["Id","acticle_articleTitle","acticle_articleCategory","acticle_franchiseeId","acticle_auditStatus","acticle_recommend","acticle_CreateTime","acticle_extend",],
     //-------筛选表单字段数组-------
-    searchFormItems: [
-      {
-        label: "资讯分类",
-        prop: "articleCategory",
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_article_category",
-          keyLabel: "name",
-          keyValue: "P1"
-        }
-      },
-      {
-        label: "资讯标题",
-        prop: "articleTitle",
-        type: "input_find_vague"
-      }
-      // {
-      //   label: "资讯标题",
-      //   prop: "articleTitle",
-      //   type: "input"
-      // },
-    ],
+    searchFormItems: ["acticle_articleCategory","acticle_search_articleTitle",],
     //-------详情字段数组-------
     detailItems: [
-      COLUMNS.Id,
-      {
-        label: "标题",
-        prop: "articleTitle",
-        width: 200
-      },
-      {
-        label: "分类名称",
-        prop: "articleCategory",
-        width: 120,
-        slot:'slot_detail_item_articleCategory'
-      },
-      {
-        label: "所属加盟商",
-        prop: "franchiseeId",
-        slot:'slot_detail_item_franchiseeId'
-      },
-      {
-        label: "审核状态",
-        prop: "auditStatus",
-        width: 90,
-        formatter:function(rowData){
-            return (rowData.auditStatus ==1?'已审核':'未审核')
-        }
-      },
-      {
-        label: "显示到首页",
-        prop: "recommend",
-        width: 110,
-        formatter:function(rowData){
-            return rowData.recommend ==1?'是':'否'
-        }
-      },
-      {
-        label: "创建时间",
-        prop: "CreateTime",
-        width: 160,
-        formatter:function(rowData){
-          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
-      }
-      },
-      {
-        label: "资讯详情",
-        prop: "articleContent",
-        type: "html"
-      },
-      {
-        label: "其他",
-        prop: "extend",
-        width: 255,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
-        }
-      }
+      "Id","acticle_articleTitle", "acticle_articleCategory","acticle_franchiseeId","acticle_auditStatus",
+      "acticle_recommend","acticle_CreateTime","acticle_articleContent","acticle_extend",
     ],
     //-------新增、修改表单字段数组-------
-    formItems: [
-      {
-        label: "审核状态",
-        prop: "auditStatus",
-        type: "select",
-        options:[
-          {value:0,label:"未审核"},
-          {value:1,label:"已审核"},
-        ]
-      },
-      {
-        label: "显示到首页",
-        prop: "recommend",
-        type: "select",
-        options:[
-          {value:0,label:"否"},
-          {value:1,label:"是"},
-        ]
-      },
-      {
-        label: "资讯分类",
-        prop: "articleCategory",
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_article_category",
-          keyLabel: "name",
-          keyValue: "P1"
-        }
-      },
-      {
-        label: "资讯标题",
-        prop: "articleTitle",
-        width: 200
-      },
-      {
-        label: "资讯详情",
-        prop: "articleContent",
-        type: "editor"
-      },
-      {
-        label: "公众号资讯地址",
-        prop: "extend",
-        path: "wxArticleUrl"
-      }
-    ]
-  
+    formItems: ["acticle_auditStatus","acticle_recommend","acticle_articleCategory","acticle_articleTitle","acticle_articleContent","acticle_extend"]
+
 }
+util.reformCFListItem(obj)
+
+export default obj

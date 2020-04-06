@@ -1,5 +1,5 @@
 
-export default {
+let obj = {
   powerPath: "msgCenter.list_msg_read",//权限路径
     listIndex: "list_msg_read", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -16,91 +16,22 @@ export default {
     },
     //-------列配置数组-------
     columns: [
-      {
-        label: "Id",
-        prop: "P1",
-        width: 60
-      },
-      {
-        label: "会员id ",
-        prop: "memberId",
-        width: 150,
-        slot:"slot_column_memberId"
-      },
-      
-      {
-        label: "消息id",
-        prop: "msgId",
-        width: 200,
-        slot:"slot_column_msgId"
-      },
-      {
-        label: "阅读时间",
-        prop: "readTime",
-        width: 100
-      },
-      
-  
-  
+      "msg_read_P1","msg_read_memberId","msg_read_msgId","msg_read_readTime",
     ],
     //-------筛选表单字段数组-------
     searchFormItems: [
-      {
-        label: "Id",
-        prop: "P1",
-        type: "input"
-      },
-      {
-        label: "会员id ",
-        prop: "memberId",
-        type: "input"
-      },
-      {
-        label: "消息id",
-        prop: "msgId",
-        type: "input"
-      }
+      "msg_read_P1","msg_read_memberId","msg_read_msgId"
     ],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "Id",
-        prop: "P1"
-      },
-      {
-        label: "会员id ",
-        prop: "memberId",
-        slot:"slot_column_memberId"
-      },
-      {
-        label: "消息id",
-        prop: "msgId",
-        slot:"slot_column_msgId"
-      },
-      {
-        label: "阅读时间",
-        prop: "readTime",
-      },
+      "msg_read_P1","msg_read_memberId","msg_read_msgId","msg_read_readTime",
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      
-      {
-        label: "消息id",
-        prop: "msgId",
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_msg",
-          keyLabel: "name",
-          keyValue: "P1"
-        }
-      },
-      F_ITEMS.memberId,
-      {
-        label: "阅读时间",
-        prop: "readTime",
-        type: "dateTime"
-      },
-     
+      "msg_read_msgId","msg_read_readTime",
     ]
   }
+
+  util.reformCFListItem(obj)
+
+  export default obj

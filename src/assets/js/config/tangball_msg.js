@@ -1,5 +1,5 @@
 
-export default {
+let obj =  {
   powerPath: "msgCenter.list_msg_read",//权限路径
     listIndex: "list_msg", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -24,170 +24,22 @@ export default {
   ],
     //-------列配置数组-------
     columns: [
-      {
-        label: "Id",
-        prop: "P1",
-        width: 60
-      },
-      {
-        label: "消息标题",
-        prop: "name",
-        width: 200
-      },
-      {
-        label: "消息范围",
-        prop: "range",
-        width: 90,
-        formatter: function (rowData) {
-          if (rowData.range == 1) {
-            return "全部会员";
-          } else if (rowData.range == 2)  {
-            return "指定会员";
-          }
-        }
-      },
-      {
-        label: "指定会员",
-        prop: "memberIdList",
-        width: 200,
-        formatter:function(data){
-          if (data.member) { 
-            let nameList =[]
-            data.member.forEach(item=>{
-              if (item) {
-                if (item.name) {
-                  nameList.push(item.name)
-                }
-              }
-              
-            })
-            return nameList.join(" ")
-            // return data.member.length
-          }
-        }
-      },
-      {
-        label: "发布状态",
-        prop: "publish",
-        width: 90,
-        formatter: function (rowData) {
-          if (rowData.range == 0) {
-            return "不发布";
-          } else if (rowData.range == 1)  {
-            return "发布";
-          }
-        }
-      },
-      {
-        label: "发布时间",
-        prop: "publishTime",
-        width: 160,
-        formatter: function(row) {
-          return moment(row.publishTime).format("YYYY-MM-DD HH:DD");
-        }
-      }
+      "msg_P1","msg_name","msg_range","msg_memberIdList","msg_publish","msg_publishTime",
     ],
     //-------筛选表单字段数组-------
     searchFormItems: [
-      {
-        label: "Id",
-        prop: "P1",
-        type: "input"
-      },
-      {
-        label: "消息标题",
-        prop: "name",
-        type: "input_find_vague"
-      }
+      "msg_P1","msg_search_name"
     ],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "Id",
-        prop: "P1"
-      },
-      {
-        label: "消息标题",
-        prop: "name"
-      },
-      {
-        label: "消息内容",
-        prop: "detail"
-      },
-      {
-        label: "消息范围",
-        prop: "range"
-      },
-      {
-        label: "	发布状态",
-        prop: "publish"
-      },
-      {
-        label: "发布时间",
-        prop: "publishTime"
-      },
-      {
-        label: "其他内容",
-        prop: "extend"
-      }
+      "msg_P1","msg_name","msg_detail","msg_range","msg_publish","msg_publishTime","msg_extend"
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      {
-        label: "消息标题 ",
-        prop: "name",
-        type: "input"
-      },
-      {
-        label: "消息内容",
-        prop: "detail",
-        type: "textarea"
-      },
-  
-      {
-        label: "消息范围",
-        prop: "range",
-        type: "select",
-        default: 1,
-        options: [
-          { value: 1, label: "全部会员" },
-          { value: 2, label: "指定会员" }
-        ]
-      },
-  
-      {
-        term:{range:2},
-        label: "指定会员id数组",
-        prop: "memberIdList",
-        type: "jsonEditor",
-        slot:"slot_form_item_memberIdList"
-      },
-  
-      {
-        label: "是否发布",
-        prop: "publish",
-        type: "select",
-        default: 1,
-        options: [
-          { value: 1, label: "发布" },
-          { value: 0, label: "不发布" }
-        ]
-      },
-      {
-        label: "发布时间",
-        prop: "publishTime",
-        type: "dateTime"
-      },
-  
-      {
-        label: "加盟时间",
-        prop: "joinTime",
-        type: "date"
-      },
-      {
-        label: "备注2",
-        prop: "remark",
-        type: "input"
-      }
+      "msg_name","msg_detail","msg_range","msg_memberIdList","msg_publish","msg_publishTime","msg_remark"
     ]
   }
+
+  util.reformCFListItem(obj)
+
+  export default obj

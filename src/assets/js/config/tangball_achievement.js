@@ -1,5 +1,5 @@
 
-export default  {
+  let obj = {
   powerPath: "matchCenter.list_achievement",//权限路径
   listIndex: "list_achievement", //vuex对应的字段
   twoTitle: "赛事",
@@ -62,53 +62,18 @@ export default  {
       }
     },
   },
-  //-------列配置数组-------
-  columns: [
-    COLUMNS.participantsId,
-    COLUMNS.teamId,
-    COLUMNS.matchId,
-    COLUMNS.progressIndex,
-    COLUMNS.roundNum,
-    COLUMNS.groupNum,
-    COLUMNS.tee,
-    COLUMNS.matchScore2,
-    COLUMNS.ranking,
-    COLUMNS.matchScoreTotal,
-  ],
-  //-------筛选表单字段数组-------
-  searchFormItems: [
-    F_ITEMS.participantsId_search,
-    F_ITEMS.matchId
-  ],
   //-------详情字段数组-------
-  detailItems: [
-    D_ITEMS.participantsId,
-    D_ITEMS.teamId,
-    D_ITEMS.matchId_slot,
-    D_ITEMS.progressIndex,
-    D_ITEMS.roundNum,
-    D_ITEMS.groupNum,
-    D_ITEMS.tee,
-    D_ITEMS.matchScore,
-    D_ITEMS.ranking,
-    D_ITEMS.matchScore
-  ],
+detailItems:["participantsId","teamId","matchId_slot","progressIndex","roundNum","groupNum","tee","matchScore","ranking","matchScore"],
+//-------列配置数组-------
+columns:["participantsId","teamId","matchId","progressIndex","roundNum","groupNum","tee","matchScore2","ranking","matchScoreTotal"],
+//-------筛选表单字段数组-------
+searchFormItems:["participantsId_search","matchId"],
+//-------新增、修改表单字段数组-------
+formItems:["teamId","participantsId","matchId_select","timeStart","timeEnd","progressIndex","roundNum","groupNum","tee","matchScoreTotal","remark","scoreList"],
 
-  //-------新增、修改表单字段数组-------
-  formItems: [
-    F_ITEMS.teamId,
-    F_ITEMS.participantsId,
-
-    F_ITEMS.matchId_select,
-
-    F_ITEMS.timeStart,
-    F_ITEMS.timeEnd,
-    F_ITEMS.progressIndex,
-    F_ITEMS.roundNum,
-    F_ITEMS.groupNum,
-    F_ITEMS.tee,
-    F_ITEMS.matchScoreTotal,
-    F_ITEMS.remark,
-    F_ITEMS.scoreList,
-  ]
 }
+
+util.reformCFListItem(obj)
+
+export default obj
+

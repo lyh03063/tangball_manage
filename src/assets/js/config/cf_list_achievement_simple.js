@@ -1,5 +1,5 @@
 
-export default {
+ let obj ={
   isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
   focusMenu: false,
   isShowSearchForm: false, //隐藏查询表单
@@ -29,24 +29,11 @@ export default {
     matchScore: 1//按比分降序
   },
   //-------列配置数组-------
-  columns: [
-    COLUMNS.participantsId,
-    COLUMNS.timeStart,
-    COLUMNS.timeEnd,
-    COLUMNS.roundNum ,
-    COLUMNS.groupNum,
-    COLUMNS.matchScore,
-   
-
-  ],
-  //-------新增、修改表单字段数组-------
-  formItems: [
-    F_ITEMS.teamId,
-    F_ITEMS.participantsId,
-    F_ITEMS.groupNum,
-    F_ITEMS.tee ,
-    F_ITEMS.remark,
-    F_ITEMS.scoreList,
-  ]
-
+columns:["participantsId","timeStart","timeEnd","roundNum","groupNum","matchScore"],
+//-------新增、修改表单字段数组-------
+formItems:["teamId","participantsId","groupNum","tee","remark","scoreList"],
+detailItems: [],
+searchFormItems: []
 }
+util.reformCFListItem(obj)
+export default obj

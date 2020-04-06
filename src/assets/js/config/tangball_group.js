@@ -1,5 +1,5 @@
 
-export default {
+let obj =  {
   powerPath: "matchCenter.list_group",//权限路径
     listIndex: "list_group", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -27,123 +27,20 @@ export default {
   },
     //-------列配置数组-------
     columns: [
-      {
-        label: "id",
-        prop: "P1",
-        width: 80
-      },
-      {	
-        label: "组号",
-        prop: "groupNum",
-        width: 100
-      },
-      // {
-      //   label: "小组成员",
-      //   prop: "groupMember",
-      //   width: 100
-      // },
-      {	
-        label: "所属赛事",
-        prop: "matchId",
-        width: 100
-      },	
-      {
-        label: "所属赛段",
-        prop: "progressIndex",
-        width: 100
-      },
-      {	
-        label: "所属轮数",
-        prop: "roundNum",
-        width: 100
-      }
+      "group_P1","group_groupNum","group_matchId","group_progressIndex","group_roundNum",
     ],
     //-------筛选表单字段数组-------
-    searchFormItems: [
-      {	
-        label: "所属赛事",
-        prop: "matchId",
-     
-      },	
-    ],
+    searchFormItems: ["group_matchId"],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "编号",
-        prop: "P1",
-      },
-      {	
-        label: "组号",
-        prop: "groupNum",
-      },
-      // {
-      //   label: "小组成员",
-      //   prop: "groupMember",
-      // },
-      {	
-        label: "所属赛事",
-        prop: "matchId",
-      },	
-      {
-        label: "所属赛段",
-        prop: "progressIndex",
-      },
-      {	
-        label: "所属轮数",
-        prop: "roundNum",
-      }
+      "group_P1","group_groupNum","group_matchId","group_progressIndex","group_roundNum",
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      {	
-        label: "组号",
-        prop: "groupNum",
-        type:"number"
-      },
-     
-      {
-        label: "赛事id",
-        prop: "matchId",
-        type: "select",
-        ajax: {
-          url: "/crossList?page=tangball_match",
-          keyLabel: "matchName",
-          keyValue: "P1"
-        }
-      },	
-      {
-        label: "所属赛段",
-        prop: "progressIndex",
-        type:"number"
-      },
-      {	
-        label: "所属轮数",
-        prop: "roundNum",
-        type:"number"
-      },
-      
-      {
-        label: "小组成员",
-        prop: "groupMember",
-        type: "collection",
-        collectionlistType: "form",
-        collectionCfForm: {
-          col_span: 12,
-          formItems: [
-           
-            {
-              label: "球队",
-              prop: "id",
-              type: "select",
-              ajax: {
-                url: "/crossList?page=tangball_team",
-                keyLabel: "name",
-                keyValue: "P1"
-              }
-            },
-           
-          ]
-        }
-      },
+      "group_P1","group_groupNum","group_matchId","group_progressIndex","group_roundNum","groupMember"
     ]
   }
+
+  util.reformCFListItem(obj)
+
+  export default obj

@@ -1,5 +1,5 @@
 
-export default {
+let obj =  {
   powerPath: "venue.list_area",//权限路径
     listIndex: "list_area", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -17,79 +17,14 @@ export default {
       delete: "/crossDelete?page=dmagic_area" //删除接口
     },
     //-------列配置数组-------
-    columns: [
-      {
-        label: "地区名称",
-        prop: "P2",
-        width: 200
-      },
-      {
-        label: "地区编号",
-        prop: "P7",
-        width: 200
-      },
-      {
-        label: "父地区编号",
-        prop: "P8",
-        width: 150
-      },
-      {
-        label: "球场数",
-        prop: "tangball",
-        width: 100,
-        formatter: function (rowData) {
-          if (!rowData.tangball) return "";
-          return rowData.tangball.countVenue
-        }
-  
-      }
-    ],
+    columns: ["areaName_P2","areaId_P7","areaFatherId_P8","area_tangball"],
     //-------筛选表单字段数组-------
-    searchFormItems: [
-      {
-        label: "地区名称",
-        prop: "P2",
-        type: "input_find_vague"
-      }, {
-        label: "分类编号",
-        prop: "P7",
-        type: "input"
-      }, {
-        label: "父地区编号",
-        prop: "P8",
-        type: "input"
-      }
-    ],
+    searchFormItems: ["areaName_P2","areaId_P7","areaFatherId_P8"],
     //-------详情字段数组-------
-    detailItems: [
-      {
-        label: "地区名称",
-        prop: "P2",
-      },
-      {
-        label: "地区编号",
-        prop: "P7",
-      },
-      {
-        label: "父地区编号",
-        prop: "P8",
-      }
-    ],
+    detailItems: ["areaName_P2","areaId_P7","areaFatherId_P8"],
     //-------新增、修改表单字段数组-------
-    formItems: [
-      {
-        label: "地区名称",
-        prop: "P2",
-        type: "input"
-      },
-      {
-        label: "地区编号",
-        prop: "P7",
-        type: "input"
-      }, {
-        label: "父地区编号",
-        prop: "P8",
-        type: "input"
-      }
-    ]
+    formItems: ["areaName_P2","areaId_P7","areaFatherId_P8"]
   }
+  util.reformCFListItem(obj)
+
+  export default obj

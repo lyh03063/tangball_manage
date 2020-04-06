@@ -1,5 +1,5 @@
 
-export default  {
+let obj =  {
   powerPath: "msgCenter.list_msg_read",//权限路径
     listIndex: "list_sponsor", //vuex对应的字段
     isRefreshAfterCUD:true,//是否在增删改操作后刷新列表
@@ -15,94 +15,22 @@ export default  {
     },
     //-------列配置数组-------
     columns: [
-      {
-        label: "赞助商编号",
-        prop: "P1",
-        width: 120
-      },
-      {
-        label: "赞助商名称",
-        prop: "name",
-        width: 120
-      },
-      {
-        label: "赞助次数",
-        prop: "count",
-        width: 120
-      },
-      {
-        label: "赞助金额（单位：万元）",
-        prop: "money",
-        width: 200
-      },
-      {
-        label: "赞助商简介",
-        prop: "intro",
-        width: 400
-      }
+      "sponsor_P1","sponsor_name","sponsor_count","sponsor_money","sponsor_intro"
     ],
     //-------筛选表单字段数组-------
     searchFormItems: [
-      {
-        label: "赞助商编号",
-        prop: "P1",
-        type: "input_find_vague"
-      },
-      {
-        label: "赞助商名称",
-        prop: "name",
-        type: "input_find_vague"
-      },
-      {
-        label: "赞助次数",
-        prop: "count",
-        type: "input"
-      }
+      "sponsor_P1","sponsor_search_name","sponsor_count"
     ],
     //-------详情字段数组-------
     detailItems: [
-      {
-        label: "赞助商编号",
-        prop: "P1"
-      },
-      {
-        label: "赞助商名称",
-        prop: "name"
-      },
-      {
-        label: "赞助次数",
-        prop: "count"
-      },
-      {
-        label: "赞助金额（单位：万元）",
-        prop: "money"
-      },
-      {
-        label: "赞助商简介",
-        prop: "intro"
-      }
+      "sponsor_P1","sponsor_name","sponsor_count","sponsor_money","sponsor_intro"
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      {
-        label: "赞助商名称",
-        prop: "name",
-        type: "input",
-        width: 200
-      },
-      {
-        label: "赞助次数",
-        prop: "count"
-      },
-      {
-        label: "赞助金额（单位：万元）",
-        prop: "money"
-      },
-  
-      {
-        label: "赞助商简介",
-        prop: "intro",
-        type: "textarea"
-      }
+      "sponsor_name","sponsor_count","sponsor_money","sponsor_intro"
     ]
   }
+
+  util.reformCFListItem(obj)
+
+  export default obj
