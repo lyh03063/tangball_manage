@@ -21,9 +21,6 @@ import login from "@/login";
 import modify_password from "@/page/modify_password";
 import manage from "@/manage";
 import listHome from "@/page/listHome";
-import listCategory from "@/page/listCategory";
-import listCommodity from "@/page/listCommodity";
-import list_lyh from "@/page/list_lyh";
 
 import list_venue from "@/page/list_venue";
 import list_franchisee from "@/page/list_franchisee";
@@ -176,14 +173,8 @@ const router = new VueRouter({
           path: '/listHome',
           component: listHome
         },
-        {
-          path: '/listCommodity',
-          component: listCommodity
-        },
-        {
-          path: '/listCategory',
-          component: listCategory,
-        },
+      
+      
         {
           path: '/list_recommend',
           component: list_recommend
@@ -200,10 +191,7 @@ const router = new VueRouter({
           path: '/list_group',
           component: list_group
         },
-        {
-          path: '/list_lyh',
-          component: list_lyh
-        },
+     
 
         {
           path: '/dynamic_form_demo',
@@ -272,12 +260,6 @@ const store = new Vuex.Store({//定义Vuex的存储对象
     },
     changeActiveMenu(state, activeMenuIndex) {//改变聚焦菜单
       state.activeMenuIndex = activeMenuIndex
-    },
-    openDialogAdd(state, listIndex) {//打开新增弹窗事件
-      state.listState[listIndex].isShowDialogAdd = true;
-    },
-    closeDialogAdd(state, listIndex) {//关闭新增弹窗事件
-      state.listState[listIndex].isShowDialogAdd = false;
     },
     openDialogDetail(state, param) {//打开详情弹窗事件
       state.listState[param.listIndex].isShowDialogDetail = true;

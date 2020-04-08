@@ -7,6 +7,7 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 
 
 
+
 //#region 球员
 {
     let objBase = {
@@ -115,24 +116,24 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
         requireProp: ["orderId"], //依赖订单号
         slot: "slot_detail_item_teamName",
         width: 150
-      }
-      COLUMNS.enroll_for_ach_captain ={
+    }
+    COLUMNS.enroll_for_ach_captain = {
         label: "队长",
         prop: "orderId",
-              // slot: "slot_detail_item_memberId",
-              width: 130,
-              formatter: function(rowData) {
-                if (rowData.teamDoc) {
-                  return rowData.teamDoc.member[0].name||"无"
-                }
-              }
-      }
-      COLUMNS.enroll_for_ach_score = {
+        // slot: "slot_detail_item_memberId",
+        width: 130,
+        formatter: function (rowData) {
+            if (rowData.teamDoc) {
+                return rowData.teamDoc.member[0].name || "无"
+            }
+        }
+    }
+    COLUMNS.enroll_for_ach_score = {
         label: "总分",
         prop: "score",
-        slot:"slot_column_scoreTotal",
+        slot: "slot_column_scoreTotal",
         "min-width": "100",
-      }
+    }
 
 }
 
@@ -296,58 +297,7 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
 
 //#endregion
 
-//#region 球龄
-{
-    let objBase = {
-        label: "球龄",
-        prop: "ballAge",
-    }
 
-    D_ITEMS.ballAge = {
-        ...objBase,
-        formatter: function (rowData) {
-            if (rowData.ballAge == 1) {
-                return "一年以下";
-            } else if (rowData.ballAge == 2) {
-                return "一到三年";
-            } else if (rowData.ballAge == 3) {
-                return "三到五年";
-            } else if (rowData.ballAge == 4) {
-                return "五到十年";
-            } else if (rowData.ballAge == 5) {
-                return "十年以上";
-            } else {
-                return "暂无";
-            }
-        }
-    }
-    COLUMNS.ballAge = { ...objBase, width: 90,formatter: function (rowData) {
-        if (rowData.ballAge == 1) {
-            return "一年以下";
-        } else if (rowData.ballAge == 2) {
-            return "一到三年";
-        } else if (rowData.ballAge == 3) {
-            return "三到五年";
-        } else if (rowData.ballAge == 4) {
-            return "五到十年";
-        } else if (rowData.ballAge == 5) {
-            return "十年以上";
-        } else {
-            return "";
-        }
-    } };
-    F_ITEMS.ballAge = {
-        ...objBase,
-        type: "select",
-        options: [
-            { label: "一年以下", value: 1 },
-            { label: "一到三年", value: 2 },
-            { label: "三到五年", value: 3 },
-            { label: "五到十年", value: 4 },
-            { label: "十年以上", value: 5 }
-        ]
-    };
-}
 
 //#endregion
 
@@ -364,10 +314,9 @@ import tangball_member_for_select from "@/assets/js/config/tangball_member_for_s
     D_ITEMS.entries = {
         ...objBase,
     };
-    COLUMNS.entries = { ...objBase, width: 70, };
     COLUMNS.entries = {
         ...objBase,
-        width: 60,
+        width: 70,
         statistics: { listIndex: 'list_enroll', targetIdKey: 'memberId' }
     };
     F_ITEMS.entries = { ...objBase, type: "input" };
@@ -526,7 +475,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
             return rowData.matchForm == 2 ? "团体赛" : "个人赛"; //三元表达式
         }
     };
-    
+
 
     COLUMNS.enrool_matchForm = {
         ...objBase,
@@ -627,24 +576,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#endregion
 
 
-//#region 球员姓名
-{
-    let objBase = {
-        label: "球员姓名",
-        prop: "name"
-    }
 
-    D_ITEMS.member_name = {
-        ...objBase,
-    };
-    COLUMNS.member_name = { ...objBase, width: 80, };
-
-    F_ITEMS.member_name = { ...objBase, type: "input" };
-
-    F_ITEMS.search_member_name = { ...objBase, type:"input_find_vague" };
-}
-
-//#endregion
 
 
 //#region 赛事规则
@@ -780,7 +712,16 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         tips: "图片尺寸比例最好保持在1:0.8，建议尺寸：宽500px，高400px"
     };
 }
+F_ITEMS.albumVenue = {
+    ...album,
+    type: "upload",
+    tips: "图片尺寸比例最好保持在1 : 0.8，建议尺寸：宽500px，高400px",
+    uploadConfig: {
+        limit: 5,
+        // preview: true
+    }
 
+};
 //#endregion
 
 
@@ -1562,7 +1503,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 //#region 文章分类说明
 {
     let objBase = {
-        abel: "分类说明",
+        label: "分类说明",
         prop: "remark",
     }
     D_ITEMS.acticle_category_remark = {
@@ -1651,7 +1592,7 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         prop: "auditStatus",
     }
     D_ITEMS.acticle_auditStatus = {
-        ...objBase,formatter: function (rowData) {
+        ...objBase, formatter: function (rowData) {
             return (rowData.auditStatus == 1 ? '已审核' : '未审核')
         }
     };
@@ -1676,22 +1617,22 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         prop: "recommend",
     }
     D_ITEMS.acticle_recommend = {
-        ...objBase,width: 110,
-        formatter:function(rowData){
-            return rowData.recommend ==1?'是':'否'
+        ...objBase, width: 110,
+        formatter: function (rowData) {
+            return rowData.recommend == 1 ? '是' : '否'
         }
     };
     COLUMNS.acticle_recommend = {
         ...objBase, width: 110,
-        formatter:function(rowData){
-            return rowData.recommend ==1?'是':'否'
+        formatter: function (rowData) {
+            return rowData.recommend == 1 ? '是' : '否'
         }
     }
     F_ITEMS.acticle_recommend = {
-        ...objBase,type: "select",
-        options:[
-          {value:0,label:"否"},
-          {value:1,label:"是"},
+        ...objBase, type: "select",
+        options: [
+            { value: 0, label: "否" },
+            { value: 1, label: "是" },
         ]
     };
 }
@@ -1702,22 +1643,22 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         prop: "CreateTime",
     }
     D_ITEMS.acticle_CreateTime = {
-        ...objBase,width: 160,
-        formatter:function(rowData){
-          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
-      }
+        ...objBase, width: 160,
+        formatter: function (rowData) {
+            return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+        }
     };
     COLUMNS.acticle_CreateTime = {
-        ...objBase,width: 160,
-        formatter:function(rowData){
-          return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
-      }
+        ...objBase, width: 160,
+        formatter: function (rowData) {
+            return moment(rowData.CreateTime).format('YYYY-MM-DD HH:mm');
+        }
     }
     F_ITEMS.acticle_CreateTime = {
-        ...objBase,type: "select",
-        options:[
-          {value:0,label:"否"},
-          {value:1,label:"是"},
+        ...objBase, type: "select",
+        options: [
+            { value: 0, label: "否" },
+            { value: 1, label: "是" },
         ]
     };
 }
@@ -1728,18 +1669,18 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         prop: "extend",
     }
     D_ITEMS.acticle_extend = {
-        ...objBase,width: 255,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
+        ...objBase, width: 255,
+        formatter: function (extend) {
+            return JSON.stringify(extend.extend);
         }
     };
     COLUMNS.acticle_extend = {
-        ...objBase,width: 255,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
+        ...objBase, width: 255,
+        formatter: function (extend) {
+            return JSON.stringify(extend.extend);
         }
     }
-    F_ITEMS.acticle_extend = {...objBase,path: "wxArticleUrl",};
+    F_ITEMS.acticle_extend = { ...objBase, path: "wxArticleUrl", };
 }
 //#region 资讯详情
 {
@@ -1747,9 +1688,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "资讯详情",
         prop: "articleContent",
     }
-    D_ITEMS.acticle_articleContent= {...objBase,width: 255,type: "html"};
-    COLUMNS.acticle_articleContent = {...objBase,width: 255,}
-    F_ITEMS.acticle_articleContent = {...objBase,type: "editor",};
+    D_ITEMS.acticle_articleContent = { ...objBase, width: 255, type: "html" };
+    COLUMNS.acticle_articleContent = { ...objBase, width: 255, }
+    F_ITEMS.acticle_articleContent = { ...objBase, type: "editor", };
 }
 //#region 报名表报名球员
 {
@@ -1757,15 +1698,17 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "报名球员",
         prop: "memberId",
     }
-    COLUMNS.enroll_default_memberId = {...objBase,slot: "slot_detail_item_memberId",width: 100}
-    D_ITEMS.enroll_default_memberId= {...objBase,slot: "slot_detail_item_memberId"};
-    F_ITEMS.enroll_default_memberId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_member",
-      keyLabel: "name",
-      keyValue: "P1"
-    },
-    rules: [{ required: true, message: "报名球员不能为空" }]};
+    COLUMNS.enroll_default_memberId = { ...objBase, slot: "slot_detail_item_memberId", width: 100 }
+    D_ITEMS.enroll_default_memberId = { ...objBase, slot: "slot_detail_item_memberId" };
+    F_ITEMS.enroll_default_memberId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_member",
+            keyLabel: "name",
+            keyValue: "P1"
+        },
+        rules: [{ required: true, message: "报名球员不能为空" }]
+    };
 }
 //#region 报名表赛事
 {
@@ -1773,16 +1716,17 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赛事",
         prop: "matchId",
     }
-    COLUMNS.enroll_default_matchId = {...objBase,slot: "slot_detail_item_matchId",width: 120}
-    D_ITEMS.enroll_default_matchId= {...objBase,slot: "slot_detail_item_matchId"};
-    F_ITEMS.enroll_default_matchId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_match",
-      keyLabel: "matchName",
-      keyValue: "P1"
-    },
-    rules: [{ required: true, message: "赛事不能为空" }]
-};
+    COLUMNS.enroll_default_matchId = { ...objBase, slot: "slot_detail_item_matchId", width: 120 }
+    D_ITEMS.enroll_default_matchId = { ...objBase, slot: "slot_detail_item_matchId" };
+    F_ITEMS.enroll_default_matchId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_match",
+            keyLabel: "matchName",
+            keyValue: "P1"
+        },
+        rules: [{ required: true, message: "赛事不能为空" }]
+    };
 }
 //#region 报名表赛事信息
 {
@@ -1790,9 +1734,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赛事信息",
         prop: "cityVenueId",
     }
-    COLUMNS.enroll_default_cityVenueId = {...objBase,width: 80}
-    D_ITEMS.enroll_default_cityVenueId = {...objBase,width: 255};
-    F_ITEMS.enroll_default_cityVenueId = {...objBase,slot: "slot_form_item_matchInfo"};
+    COLUMNS.enroll_default_cityVenueId = { ...objBase, width: 80 }
+    D_ITEMS.enroll_default_cityVenueId = { ...objBase, width: 255 };
+    F_ITEMS.enroll_default_cityVenueId = { ...objBase, slot: "slot_form_item_matchInfo" };
 }
 //#region 报名表手机号
 {
@@ -1800,9 +1744,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "手机号",
         prop: "phone",
     }
-    COLUMNS.enroll_default_phone = {...objBase,width: 80}
-    D_ITEMS.enroll_default_phone = {...objBase,width: 255};
-    F_ITEMS.enroll_default_phone = {...objBase,type: "input"};
+    COLUMNS.enroll_default_phone = { ...objBase, width: 80 }
+    D_ITEMS.enroll_default_phone = { ...objBase, width: 255 };
+    F_ITEMS.enroll_default_phone = { ...objBase, type: "input" };
 }
 //#region 报名表性别
 {
@@ -1810,22 +1754,28 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "性别",
         prop: "sex",
     }
-    COLUMNS.enroll_default_sex = {...objBase,width:40,formatter: function (rowData) {
-        if (rowData.sex == 1) {
-          return "男";
-        } else {
-          return "女";
+    COLUMNS.enroll_default_sex = {
+        ...objBase, width: 40, formatter: function (rowData) {
+            if (rowData.sex == 1) {
+                return "男";
+            } else {
+                return "女";
+            }
         }
-      }}
-    D_ITEMS.enroll_default_sex = {...objBase,formatter: function (rowData) {
-        if (rowData.sex == 1) {
-          return "男";
-        } else {
-          return "女";
+    }
+    D_ITEMS.enroll_default_sex = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.sex == 1) {
+                return "男";
+            } else {
+                return "女";
+            }
         }
-      }};
-    F_ITEMS.enroll_default_sex = {...objBase,type: "select",
-    options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]};
+    };
+    F_ITEMS.enroll_default_sex = {
+        ...objBase, type: "select",
+        options: [{ label: "男", value: 1 }, { label: "女", value: 2 }]
+    };
 }
 //#region 报名表年龄
 {
@@ -1833,19 +1783,19 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "年龄",
         prop: "age",
     }
-    COLUMNS.enroll_default_age = {...objBase,width:40}
-    D_ITEMS.enroll_default_age = {...objBase};
-    F_ITEMS.enroll_default_age = {...objBase,type: "input"};
+    COLUMNS.enroll_default_age = { ...objBase, width: 40 }
+    D_ITEMS.enroll_default_age = { ...objBase };
+    F_ITEMS.enroll_default_age = { ...objBase, type: "input" };
 }
 //#region 报名表职业
 {
     let objBase = {
-        label: "职业", 
+        label: "职业",
         prop: "career",
     }
-    COLUMNS.enroll_default_career = {...objBase,width:40}
-    D_ITEMS.enroll_default_career = {...objBase};
-    F_ITEMS.enroll_default_career = {...objBase,type: "input"};
+    COLUMNS.enroll_default_career = { ...objBase, width: 40 }
+    D_ITEMS.enroll_default_career = { ...objBase };
+    F_ITEMS.enroll_default_career = { ...objBase, type: "input" };
 }
 //#region 报名表球龄
 {
@@ -1853,41 +1803,47 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "球龄",
         prop: "ballAge",
     }
-    COLUMNS.enroll_default_ballAge = {...objBase,width: 80,
+    COLUMNS.enroll_default_ballAge = {
+        ...objBase, width: 80,
         formatter: function (rowData) {
-          if (rowData.ballAge == 1) {
-            return "一年以下";
-          } else if (rowData.ballAge == 2) {
-            return "一到三年";
-          } else if (rowData.ballAge == 3) {
-            return "三到五年";
-          } else if (rowData.ballAge == 4) {
-            return "五到十年";
-          } else {
-            return "十年以上";
-          }
-        }}
-    D_ITEMS.enroll_default_ballAge = {...objBase,formatter: function (rowData) {
-        if (rowData.ballAge == 1) {
-          return "一年以下";
-        } else if (rowData.ballAge == 2) {
-          return "一到三年";
-        } else if (rowData.ballAge == 3) {
-          return "三到五年";
-        } else if (rowData.ballAge == 4) {
-          return "五到十年";
-        } else {
-          return "十年以上";
+            if (rowData.ballAge == 1) {
+                return "一年以下";
+            } else if (rowData.ballAge == 2) {
+                return "一到三年";
+            } else if (rowData.ballAge == 3) {
+                return "三到五年";
+            } else if (rowData.ballAge == 4) {
+                return "五到十年";
+            } else {
+                return "十年以上";
+            }
         }
-      }}
-    F_ITEMS.enroll_default_ballAge = {...objBase,type: "select",
-    options: [
-      { label: "一年以下", value: 1 },
-      { label: "一到三年", value: 2 },
-      { label: "三到五年", value: 3 },
-      { label: "五到十年", value: 4 },
-      { label: "十年以上", value: 5 }
-    ]}
+    }
+    D_ITEMS.enroll_default_ballAge = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.ballAge == 1) {
+                return "一年以下";
+            } else if (rowData.ballAge == 2) {
+                return "一到三年";
+            } else if (rowData.ballAge == 3) {
+                return "三到五年";
+            } else if (rowData.ballAge == 4) {
+                return "五到十年";
+            } else {
+                return "十年以上";
+            }
+        }
+    }
+    F_ITEMS.enroll_default_ballAge = {
+        ...objBase, type: "select",
+        options: [
+            { label: "一年以下", value: 1 },
+            { label: "一到三年", value: 2 },
+            { label: "三到五年", value: 3 },
+            { label: "五到十年", value: 4 },
+            { label: "十年以上", value: 5 }
+        ]
+    }
 };
 //#region 报名表身份证号
 {
@@ -1895,9 +1851,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "身份证号",
         prop: "idCard",
     }
-    COLUMNS.enroll_default_idCard = {...objBase,width:90}
-    D_ITEMS.enroll_default_idCard = {...objBase};
-    F_ITEMS.enroll_default_idCard = {...objBase,type: "input",};
+    COLUMNS.enroll_default_idCard = { ...objBase, width: 90 }
+    D_ITEMS.enroll_default_idCard = { ...objBase };
+    F_ITEMS.enroll_default_idCard = { ...objBase, type: "input", };
 }
 //#region 报名表报名时间
 {
@@ -1905,11 +1861,13 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "报名时间",
         prop: "time",
     }
-    COLUMNS.enroll_default_time = {...objBase,width:75}
-    D_ITEMS.enroll_default_time = {...objBase,formatter: function (row) {
-        return moment(row.time).format("YYYY-MM-DD HH:mm");
-      }};
-    F_ITEMS.enroll_default_time = {...objBase,type: "date"};
+    COLUMNS.enroll_default_time = { ...objBase, width: 75 }
+    D_ITEMS.enroll_default_time = {
+        ...objBase, formatter: function (row) {
+            return moment(row.time).format("YYYY-MM-DD HH:mm");
+        }
+    };
+    F_ITEMS.enroll_default_time = { ...objBase, type: "date" };
 }
 //#region 报名表支付状态
 {
@@ -1917,26 +1875,32 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "支付状态",
         prop: "payStatus",
     }
-    COLUMNS.enroll_default_payStatus = {...objBase,width: 70,
+    COLUMNS.enroll_default_payStatus = {
+        ...objBase, width: 70,
         formatter: function (rowData) {
-          if (rowData.payStatus == 2) {
-            return "已支付";
-          } else {
-            return "未支付";
-          }
-        }}
-    D_ITEMS.enroll_default_payStatus = {...objBase,formatter: function (rowData) {
-        if (rowData.payStatus == 2) {
-          return "已支付";
-        } else {
-          return "未支付";
+            if (rowData.payStatus == 2) {
+                return "已支付";
+            } else {
+                return "未支付";
+            }
         }
-      }};
-    F_ITEMS.enroll_default_payStatus = {...objBase,type: "select",
-    options: [
-      { label: "已支付", value: 2 },
-      { label: "未支付", value: 1 }
-    ]};
+    }
+    D_ITEMS.enroll_default_payStatus = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.payStatus == 2) {
+                return "已支付";
+            } else {
+                return "未支付";
+            }
+        }
+    };
+    F_ITEMS.enroll_default_payStatus = {
+        ...objBase, type: "select",
+        options: [
+            { label: "已支付", value: 2 },
+            { label: "未支付", value: 1 }
+        ]
+    };
 }
 //#region 报名表职业
 {
@@ -1944,31 +1908,37 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "审核状态",
         prop: "auditStatus",
     }
-    COLUMNS.enroll_default_auditStatus = {...objBase,width: 70,
+    COLUMNS.enroll_default_auditStatus = {
+        ...objBase, width: 70,
         formatter: function (rowData) {
-          if (rowData.auditStatus == 1) {
-            return "未审核";
-          } else if (rowData.auditStatus == 2) {
-            return "审核不通过";
-          } else {
-            return "审核通过";
-          }
-        }}
-    D_ITEMS.enroll_default_auditStatus = {...objBase,formatter: function (rowData) {
-        if (rowData.auditStatus == 1) {
-          return "未审核";
-        } else if (rowData.auditStatus == 2) {
-          return "审核不通过";
-        } else {
-          return "审核通过";
+            if (rowData.auditStatus == 1) {
+                return "未审核";
+            } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+            } else {
+                return "审核通过";
+            }
         }
-      }};
-    F_ITEMS.enroll_default_auditStatus = {...objBase,type: "select",
-    options: [
-      { label: "未审核", value: 1 },
-      { label: "审核不通过", value: 2 },
-      { label: "审核通过", value: 3 }
-    ]};
+    }
+    D_ITEMS.enroll_default_auditStatus = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.auditStatus == 1) {
+                return "未审核";
+            } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+            } else {
+                return "审核通过";
+            }
+        }
+    };
+    F_ITEMS.enroll_default_auditStatus = {
+        ...objBase, type: "select",
+        options: [
+            { label: "未审核", value: 1 },
+            { label: "审核不通过", value: 2 },
+            { label: "审核通过", value: 3 }
+        ]
+    };
 }
 
 //#region 加盟商ID
@@ -1977,9 +1947,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "Id",
         prop: "P1"
     }
-    COLUMNS.franchisee_P1 = {...objBase,width: 60}
-    D_ITEMS.franchisee_P1 = {...objBase};
-    F_ITEMS.franchisee_P1 = {...objBase,type: "input",};
+    COLUMNS.franchisee_P1 = { ...objBase, width: 60 }
+    D_ITEMS.franchisee_P1 = { ...objBase };
+    F_ITEMS.franchisee_P1 = { ...objBase, type: "input", };
 }
 //#region 加盟商企业名称
 {
@@ -1987,25 +1957,29 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "企业名称",
         prop: "name",
     }
-    COLUMNS.franchisee_name = {...objBase,width: 200}
-    D_ITEMS.franchisee_name  = {...objBase};
-    F_ITEMS.franchisee_name = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_franchisee",
-      keyLabel: "name",
-      keyValue: "P1"
-    }};
+    COLUMNS.franchisee_name = { ...objBase, width: 200 }
+    D_ITEMS.franchisee_name = { ...objBase };
+    F_ITEMS.franchisee_name = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_franchisee",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    };
 }
 //#region 加盟商球场数
 {
     let objBase = {
-        abel: "球场数",
+        label: "球场数",
         prop: "countVenue",
     }
-    COLUMNS.franchisee_countVenue = { ...objBase, width: 75,
-        statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'} };
+    COLUMNS.franchisee_countVenue = {
+        ...objBase, width: 75,
+        statistics: { listIndex: 'list_venue', targetIdKey: 'franchiseeId' }
+    };
     D_ITEMS.franchisee_countVenue = {
-        ...objBase,statistics:{listIndex:'list_venue', targetIdKey:'franchiseeId'}
+        ...objBase, statistics: { listIndex: 'list_venue', targetIdKey: 'franchiseeId' }
     };
     F_ITEMS.franchisee_countVenue = { ...objBase, type: "input" };
 }
@@ -2015,17 +1989,21 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "加盟时间",
         prop: "joinTime",
     }
-    COLUMNS.franchisee_joinTime = {...objBase,width: 160,
-        formatter:function(row){
-         return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
-        }}
-    D_ITEMS.franchisee_joinTime  = {...objBase,formatter:function(row){
-          
-        return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
- 
-       }};
-    F_ITEMS.franchisee_search_joinTime = {...objBase,type: "time_period"};
-    F_ITEMS.franchisee_joinTime = {...objBase,type: "date"};
+    COLUMNS.franchisee_joinTime = {
+        ...objBase, width: 160,
+        formatter: function (row) {
+            return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
+        }
+    }
+    D_ITEMS.franchisee_joinTime = {
+        ...objBase, formatter: function (row) {
+
+            return moment(row.joinTime).format("YYYY-MM-DD HH:DD")
+
+        }
+    };
+    F_ITEMS.franchisee_search_joinTime = { ...objBase, type: "time_period" };
+    F_ITEMS.franchisee_joinTime = { ...objBase, type: "date" };
 }
 //#region 加盟商备注
 {
@@ -2033,9 +2011,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "备注",
         prop: "remark",
     }
-    COLUMNS.franchisee_remark  = {...objBase,width: 300 }
-    D_ITEMS.franchisee_remark  = {...objBase};
-    F_ITEMS.franchisee_remark = {...objBase,type: "input",};
+    COLUMNS.franchisee_remark = { ...objBase, width: 300 }
+    D_ITEMS.franchisee_remark = { ...objBase };
+    F_ITEMS.franchisee_remark = { ...objBase, type: "input", };
 }
 //#region 加盟商密码
 {
@@ -2043,9 +2021,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "密码",
         prop: "password",
     }
-    COLUMNS.franchisee_password  = {...objBase,width: 150 }
-    D_ITEMS.franchisee_password  = {...objBase};
-    F_ITEMS.franchisee_password = {...objBase,type: "input",};
+    COLUMNS.franchisee_password = { ...objBase, width: 150 }
+    D_ITEMS.franchisee_password = { ...objBase };
+    F_ITEMS.franchisee_password = { ...objBase, type: "input", };
 }
 //#region 球员id
 {
@@ -2053,9 +2031,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "id",
         prop: "P1",
     }
-    COLUMNS.group_P1  = {...objBase,width: 80 }
-    D_ITEMS.group_P1  = {...objBase};
-    F_ITEMS.group_P1 = {...objBase,type: "input",};
+    COLUMNS.group_P1 = { ...objBase, width: 80 }
+    D_ITEMS.group_P1 = { ...objBase };
+    F_ITEMS.group_P1 = { ...objBase, type: "input", };
 }
 //#region 球员组号
 {
@@ -2063,9 +2041,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "组号",
         prop: "groupNum",
     }
-    COLUMNS.group_groupNum  = {...objBase,width: 100 }
-    D_ITEMS.group_groupNum  = {...objBase};
-    F_ITEMS.group_groupNum = {...objBase,type:"number"};
+    COLUMNS.group_groupNum = { ...objBase, width: 100 }
+    D_ITEMS.group_groupNum = { ...objBase };
+    F_ITEMS.group_groupNum = { ...objBase, type: "number" };
 }
 //#region 球员所属赛事
 {
@@ -2073,14 +2051,16 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "所属赛事",
         prop: "matchId",
     }
-    COLUMNS.group_matchId  = {...objBase,width:100 }
-    D_ITEMS.group_matchId  = {...objBase};
-    F_ITEMS.group_matchId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_match",
-      keyLabel: "matchName",
-      keyValue: "P1"
-    }};
+    COLUMNS.group_matchId = { ...objBase, width: 100 }
+    D_ITEMS.group_matchId = { ...objBase };
+    F_ITEMS.group_matchId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_match",
+            keyLabel: "matchName",
+            keyValue: "P1"
+        }
+    };
 }
 //#region 球员所属赛段"
 {
@@ -2088,9 +2068,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "所属赛段",
         prop: "progressIndex",
     }
-    COLUMNS.group_progressIndex  = {...objBase,width: 100 }
-    D_ITEMS.group_progressIndex  = {...objBase};
-    F_ITEMS.group_progressIndex = {...objBase,type:"number"};
+    COLUMNS.group_progressIndex = { ...objBase, width: 100 }
+    D_ITEMS.group_progressIndex = { ...objBase };
+    F_ITEMS.group_progressIndex = { ...objBase, type: "number" };
 }
 //#region 球员所属轮数
 {
@@ -2098,9 +2078,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "所属轮数",
         prop: "roundNum",
     }
-    COLUMNS.group_roundNum = {...objBase,width: 100 }
-    D_ITEMS.group_roundNum  = {...objBase};
-    F_ITEMS.group_roundNum = {...objBase,type:"number"};
+    COLUMNS.group_roundNum = { ...objBase, width: 100 }
+    D_ITEMS.group_roundNum = { ...objBase };
+    F_ITEMS.group_roundNum = { ...objBase, type: "number" };
 }
 //#region 球员小组成员
 {
@@ -2108,27 +2088,29 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "小组成员",
         prop: "groupMember",
     }
-    COLUMNS.group_groupMember = {...objBase,width: 100 }
-    D_ITEMS.group_groupMember  = {...objBase};
-    F_ITEMS.group_groupMember = {...objBase,type: "collection",
-    collectionlistType: "form",
-    collectionCfForm: {
-      col_span: 12,
-      formItems: [
-       
-        {
-          label: "球队",
-          prop: "id",
-          type: "select",
-          ajax: {
-            url: "/crossList?page=tangball_team",
-            keyLabel: "name",
-            keyValue: "P1"
-          }
-        },
-       
-      ]
-    }};
+    COLUMNS.group_groupMember = { ...objBase, width: 100 }
+    D_ITEMS.group_groupMember = { ...objBase };
+    F_ITEMS.group_groupMember = {
+        ...objBase, type: "collection",
+        collectionlistType: "form",
+        collectionCfForm: {
+            col_span: 12,
+            formItems: [
+
+                {
+                    label: "球队",
+                    prop: "id",
+                    type: "select",
+                    ajax: {
+                        url: "/crossList?page=tangball_team",
+                        keyLabel: "name",
+                        keyValue: "P1"
+                    }
+                },
+
+            ]
+        }
+    };
 }
 //#region 球队id
 {
@@ -2136,19 +2118,19 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "编号",
         prop: "P1",
     }
-    COLUMNS.team_P1 = {...objBase,width: 70 }
-    D_ITEMS.team_P1  = {...objBase};
-    F_ITEMS.team_P1= {...objBase,type:"input"};
+    COLUMNS.team_P1 = { ...objBase, width: 70 }
+    D_ITEMS.team_P1 = { ...objBase };
+    F_ITEMS.team_P1 = { ...objBase, type: "input" };
 }
 //#region 球队队名
 {
     let objBase = {
         label: "队名",
-      prop: "name",
+        prop: "name",
     }
-    COLUMNS.team_name = {...objBase,width: 100 }
-    D_ITEMS.team_name = {...objBase};
-    F_ITEMS.team_name = {...objBase,type:"input"};
+    COLUMNS.team_name = { ...objBase, width: 100 }
+    D_ITEMS.team_name = { ...objBase };
+    F_ITEMS.team_name = { ...objBase, type: "input" };
 }
 //#region 球队创建人
 {
@@ -2156,19 +2138,23 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "创建人",
         prop: "createMemberId",
     }
-    COLUMNS.team_createMemberId = {...objBase,width: 120,
+    COLUMNS.team_createMemberId = {
+        ...objBase, width: 120,
         formatter: (data) => {
-          if (data.memberName) {
-            return data.memberName.name
-          }
-        } }
-    D_ITEMS.team_createMemberId = {...objBase,slot: 'slot_detail_item_memberName'};
-    F_ITEMS.team_createMemberId = {...objBase,type: 'select',
-    ajax: {
-      url: "/crossList?page=tangball_member",
-      keyLabel: "name",
-      keyValue: "P1"
-    },};
+            if (data.memberName) {
+                return data.memberName.name
+            }
+        }
+    }
+    D_ITEMS.team_createMemberId = { ...objBase, slot: 'slot_detail_item_memberName' };
+    F_ITEMS.team_createMemberId = {
+        ...objBase, type: 'select',
+        ajax: {
+            url: "/crossList?page=tangball_member",
+            keyLabel: "name",
+            keyValue: "P1"
+        },
+    };
 }
 //#region 球队赛事
 {
@@ -2176,19 +2162,23 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赛事",
         prop: "matchId",
     }
-    COLUMNS.team_matchId = {...objBase,width: 300,
+    COLUMNS.team_matchId = {
+        ...objBase, width: 300,
         formatter: (data) => {
-          if (data.matchName) {
-            return data.matchName.matchName
-          }
-        } }
-    D_ITEMS.team_matchId = {...objBase,slot: 'slot_detail_item_matchName'};
-    F_ITEMS.team_matchId = {...objBase,type: 'select',
-    ajax: {
-      url: "/crossList?page=tangball_match",
-      keyLabel: "matchName",
-      keyValue: "P1"
-    },};
+            if (data.matchName) {
+                return data.matchName.matchName
+            }
+        }
+    }
+    D_ITEMS.team_matchId = { ...objBase, slot: 'slot_detail_item_matchName' };
+    F_ITEMS.team_matchId = {
+        ...objBase, type: 'select',
+        ajax: {
+            url: "/crossList?page=tangball_match",
+            keyLabel: "matchName",
+            keyValue: "P1"
+        },
+    };
 }
 //#region 球队订单id
 {
@@ -2196,9 +2186,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "订单id",
         prop: "orderId",
     }
-    COLUMNS.team_orderId = {...objBase,width: 200 }
-    D_ITEMS.team_orderId = {...objBase};
-    F_ITEMS.team_orderId = {...objBase,type:"input"};
+    COLUMNS.team_orderId = { ...objBase, width: 200 }
+    D_ITEMS.team_orderId = { ...objBase };
+    F_ITEMS.team_orderId = { ...objBase, type: "input" };
 }
 //#region 球队成员列表
 {
@@ -2206,31 +2196,33 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "成员列表",
         prop: "member",
     }
-    COLUMNS.team_member = {...objBase,width: 200 }
-    D_ITEMS.team_member = {...objBase,slot: 'slot_detail_item_memberList'};
-    F_ITEMS.team_member = {...objBase,type: "collection",
-    collectionlistType: "form",
-    collectionCfForm: {
-      col_span: 12,
-      formItems: [
-        {
-          label: "姓名",
-          prop: "name",
+    COLUMNS.team_member = { ...objBase, width: 200 }
+    D_ITEMS.team_member = { ...objBase, slot: 'slot_detail_item_memberList' };
+    F_ITEMS.team_member = {
+        ...objBase, type: "collection",
+        collectionlistType: "form",
+        collectionCfForm: {
+            col_span: 12,
+            formItems: [
+                {
+                    label: "姓名",
+                    prop: "name",
 
-        },
-        {
-          label: "性别",
-          prop: "sex",
-          type: 'radio',
-          options: [{ value: 1, label: '男' },
-          { value: 2, label: '女' }]
-        },
-        {
-          label: "手机号码",
-          prop: "phone"
+                },
+                {
+                    label: "性别",
+                    prop: "sex",
+                    type: 'radio',
+                    options: [{ value: 1, label: '男' },
+                    { value: 2, label: '女' }]
+                },
+                {
+                    label: "手机号码",
+                    prop: "phone"
+                }
+            ]
         }
-      ]
-    }};
+    };
 }
 //#region 赛事赞助id
 {
@@ -2238,9 +2230,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "id",
         prop: "P1",
     }
-    COLUMNS.sponsorship_P1 = {...objBase,width: 60 }
-    D_ITEMS.sponsorship_P1 = {...objBase};
-    F_ITEMS.sponsorship_P1 = {...objBase,type:"input"};
+    COLUMNS.sponsorship_P1 = { ...objBase, width: 60 }
+    D_ITEMS.sponsorship_P1 = { ...objBase };
+    F_ITEMS.sponsorship_P1 = { ...objBase, type: "input" };
 }
 //#region 赛事赞助赞助商
 {
@@ -2248,19 +2240,23 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助商",
         prop: "sponsorId",
     }
-    COLUMNS.sponsorship_sponsorId = {...objBase,width: 130,
-        formatter: function(row) {
-          if (row.sponsor) {
-            return row.sponsor.name?row.sponsor.name:'无'
-          }
-        } }
-    D_ITEMS.sponsorship_sponsorId = {...objBase,slot:"slot_detail_item_sponsorId"};
-    F_ITEMS.sponsorship_sponsorId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_sponsor",
-      keyLabel: "name",
-      keyValue: "P1"
-    }};
+    COLUMNS.sponsorship_sponsorId = {
+        ...objBase, width: 130,
+        formatter: function (row) {
+            if (row.sponsor) {
+                return row.sponsor.name ? row.sponsor.name : '无'
+            }
+        }
+    }
+    D_ITEMS.sponsorship_sponsorId = { ...objBase, slot: "slot_detail_item_sponsorId" };
+    F_ITEMS.sponsorship_sponsorId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_sponsor",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    };
 }
 //#region 赛事赞助赛事
 {
@@ -2268,19 +2264,23 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赛事",
         prop: "matchId",
     }
-    COLUMNS.sponsorship_matchId = {...objBase,width: 300,
-        formatter: function(row) {
-          if (row.match) {
-            return row.match.matchName?row.match.matchName:'无'
-          }
-        } }
-    D_ITEMS.sponsorship_matchId = {...objBase,slot:"slot_detail_item_matchId"};
-    F_ITEMS.sponsorship_matchId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_match",
-      keyLabel: "matchName",
-      keyValue: "P1"
-    }};
+    COLUMNS.sponsorship_matchId = {
+        ...objBase, width: 300,
+        formatter: function (row) {
+            if (row.match) {
+                return row.match.matchName ? row.match.matchName : '无'
+            }
+        }
+    }
+    D_ITEMS.sponsorship_matchId = { ...objBase, slot: "slot_detail_item_matchId" };
+    F_ITEMS.sponsorship_matchId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_match",
+            keyLabel: "matchName",
+            keyValue: "P1"
+        }
+    };
 }
 //#region 赛事赞助赞助金额
 {
@@ -2288,9 +2288,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助金额",
         prop: "amount",
     }
-    COLUMNS.sponsorship_amount = {...objBase,width: 100 }
-    D_ITEMS.sponsorship_amount = {...objBase};
-    F_ITEMS.sponsorship_amount = {...objBase,type:"input"};
+    COLUMNS.sponsorship_amount = { ...objBase, width: 100 }
+    D_ITEMS.sponsorship_amount = { ...objBase };
+    F_ITEMS.sponsorship_amount = { ...objBase, type: "input" };
 }
 //#region 赛事赞助赞助时间
 {
@@ -2298,14 +2298,18 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助时间",
         prop: "time",
     }
-    COLUMNS.sponsorship_time = {...objBase,width: 160,
-        formatter: function(row) {
-         return moment(row.time).format("YYYY-MM-DD HH:DD");
-       } }
-    D_ITEMS.sponsorship_time = {...objBase,formatter: function(row) {
-        return moment(row.time).format("YYYY-MM-DD HH:DD");
-      }};
-    F_ITEMS.sponsorship_time = {...objBase,type: "date"};
+    COLUMNS.sponsorship_time = {
+        ...objBase, width: 160,
+        formatter: function (row) {
+            return moment(row.time).format("YYYY-MM-DD HH:DD");
+        }
+    }
+    D_ITEMS.sponsorship_time = {
+        ...objBase, formatter: function (row) {
+            return moment(row.time).format("YYYY-MM-DD HH:DD");
+        }
+    };
+    F_ITEMS.sponsorship_time = { ...objBase, type: "date" };
 }
 //#region 赛事赞助赞助时间
 {
@@ -2313,9 +2317,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "地点",
         prop: "place",
     }
-    COLUMNS.sponsorship_place = {...objBase,width: 110 }
-    D_ITEMS.sponsorship_place = {...objBase};
-    F_ITEMS.sponsorship_place = {...objBase, slot: "slot_place"};
+    COLUMNS.sponsorship_place = { ...objBase, width: 110 }
+    D_ITEMS.sponsorship_place = { ...objBase };
+    F_ITEMS.sponsorship_place = { ...objBase, slot: "slot_place" };
 }
 //#region 赞助商编号
 {
@@ -2323,9 +2327,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助商编号",
         prop: "P1",
     }
-    COLUMNS.sponsor_P1 = {...objBase,width: 120 }
-    D_ITEMS.sponsor_P1 = {...objBase};
-    F_ITEMS.sponsor_P1 = {...objBase, type:"input"};
+    COLUMNS.sponsor_P1 = { ...objBase, width: 120 }
+    D_ITEMS.sponsor_P1 = { ...objBase };
+    F_ITEMS.sponsor_P1 = { ...objBase, type: "input" };
 }
 //#region 赞助商名称
 {
@@ -2333,10 +2337,10 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助商名称",
         prop: "name",
     }
-    COLUMNS.sponsor_name = {...objBase,width: 120 }
-    D_ITEMS.sponsor_name = {...objBase};
-    F_ITEMS.sponsor_name = {...objBase, type:"input"};
-    F_ITEMS.sponsor_search_name = {...objBase, type: "input_find_vague"};
+    COLUMNS.sponsor_name = { ...objBase, width: 120 }
+    D_ITEMS.sponsor_name = { ...objBase };
+    F_ITEMS.sponsor_name = { ...objBase, type: "input" };
+    F_ITEMS.sponsor_search_name = { ...objBase, type: "input_find_vague" };
 }
 //#region 赞助商赞助次数
 {
@@ -2344,9 +2348,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助次数",
         prop: "count",
     }
-    COLUMNS.sponsor_count = {...objBase,width: 120 }
-    D_ITEMS.sponsor_count = {...objBase};
-    F_ITEMS.sponsor_count = {...objBase, type:"input"};
+    COLUMNS.sponsor_count = { ...objBase, width: 120 }
+    D_ITEMS.sponsor_count = { ...objBase };
+    F_ITEMS.sponsor_count = { ...objBase, type: "input" };
 }
 //#region 赞助商赞助金额
 {
@@ -2354,9 +2358,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助金额（单位：万元）",
         prop: "money",
     }
-    COLUMNS.sponsor_money = {...objBase,width: 200 }
-    D_ITEMS.sponsor_money = {...objBase};
-    F_ITEMS.sponsor_money = {...objBase, type:"input"};
+    COLUMNS.sponsor_money = { ...objBase, width: 200 }
+    D_ITEMS.sponsor_money = { ...objBase };
+    F_ITEMS.sponsor_money = { ...objBase, type: "input" };
 }
 //#region 赞助商简介
 {
@@ -2364,9 +2368,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "赞助商简介",
         prop: "intro",
     }
-    COLUMNS.sponsor_intro = {...objBase,width: 400 }
-    D_ITEMS.sponsor_intro = {...objBase};
-    F_ITEMS.sponsor_intro = {...objBase, type: "textarea"};
+    COLUMNS.sponsor_intro = { ...objBase, width: 400 }
+    D_ITEMS.sponsor_intro = { ...objBase };
+    F_ITEMS.sponsor_intro = { ...objBase, type: "textarea" };
 }
 //#region 规则库id
 {
@@ -2374,9 +2378,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "编号",
         prop: "P1",
     }
-    COLUMNS.rule_P1 = {...objBase,width: 70 }
-    D_ITEMS.rule_P1 = {...objBase};
-    F_ITEMS.rule_P1 = {...objBase, type:"input"};
+    COLUMNS.rule_P1 = { ...objBase, width: 70 }
+    D_ITEMS.rule_P1 = { ...objBase };
+    F_ITEMS.rule_P1 = { ...objBase, type: "input" };
 }
 //#region 规则库规则名
 {
@@ -2384,9 +2388,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "规则名",
         prop: "name",
     }
-    COLUMNS.rule_name = {...objBase,width: 250 }
-    D_ITEMS.rule_name = {...objBase};
-    F_ITEMS.rule_name = {...objBase, type:"input"};
+    COLUMNS.rule_name = { ...objBase, width: 250 }
+    D_ITEMS.rule_name = { ...objBase };
+    F_ITEMS.rule_name = { ...objBase, type: "input" };
 }
 //#region 规则库简介
 {
@@ -2394,9 +2398,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "简介",
         prop: "remark",
     }
-    COLUMNS.rule_remark = {...objBase,width: 400}
-    D_ITEMS.rule_remark = {...objBase};
-    F_ITEMS.rule_remark = {...objBase, type: "textarea"};
+    COLUMNS.rule_remark = { ...objBase, width: 400 }
+    D_ITEMS.rule_remark = { ...objBase };
+    F_ITEMS.rule_remark = { ...objBase, type: "textarea" };
 }
 //#region 消息已读记录id
 {
@@ -2404,9 +2408,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "Id",
         prop: "P1",
     }
-    COLUMNS.msg_read_P1 = {...objBase,width: 60}
-    D_ITEMS.msg_read_P1 = {...objBase};
-    F_ITEMS.msg_read_P1 = {...objBase,type:"input"};
+    COLUMNS.msg_read_P1 = { ...objBase, width: 60 }
+    D_ITEMS.msg_read_P1 = { ...objBase };
+    F_ITEMS.msg_read_P1 = { ...objBase, type: "input" };
 }
 //#region 消息已读记录id
 {
@@ -2414,10 +2418,12 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "会员id ",
         prop: "memberId",
     }
-    COLUMNS.msg_read_memberId = {...objBase,width: 150,
-        slot:"slot_column_memberId"}
-    D_ITEMS.msg_read_memberId = {...objBase, slot:"slot_column_memberId"};
-    F_ITEMS.msg_read_memberId = {...objBase,type:"input"};
+    COLUMNS.msg_read_memberId = {
+        ...objBase, width: 150,
+        slot: "slot_column_memberId"
+    }
+    D_ITEMS.msg_read_memberId = { ...objBase, slot: "slot_column_memberId" };
+    F_ITEMS.msg_read_memberId = { ...objBase, type: "input" };
 }
 //#region 消息已读记录对应消息id
 {
@@ -2425,15 +2431,19 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "消息id",
         prop: "msgId",
     }
-    COLUMNS.msg_read_msgId = {...objBase,wiwidth: 200,
-        slot:"slot_column_msgId"}
-    D_ITEMS.msg_read_msgId = {...objBase,slot:"slot_column_msgId"};
-    F_ITEMS.msg_read_msgId = {...objBase,type: "select",
-    ajax: {
-      url: "/crossList?page=tangball_msg",
-      keyLabel: "name",
-      keyValue: "P1"
-    }};
+    COLUMNS.msg_read_msgId = {
+        ...objBase, wiwidth: 200,
+        slot: "slot_column_msgId"
+    }
+    D_ITEMS.msg_read_msgId = { ...objBase, slot: "slot_column_msgId" };
+    F_ITEMS.msg_read_msgId = {
+        ...objBase, type: "select",
+        ajax: {
+            url: "/crossList?page=tangball_msg",
+            keyLabel: "name",
+            keyValue: "P1"
+        }
+    };
 }
 //#region 消息已阅读时间
 {
@@ -2441,9 +2451,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "阅读时间",
         prop: "readTime",
     }
-    COLUMNS.msg_read_readTime = {...objBase,width: 100}
-    D_ITEMS.msg_read_readTime = {...objBase};
-    F_ITEMS.msg_read_readTime= {...objBase,type:"input"};
+    COLUMNS.msg_read_readTime = { ...objBase, width: 100 }
+    D_ITEMS.msg_read_readTime = { ...objBase };
+    F_ITEMS.msg_read_readTime = { ...objBase, type: "input" };
 }
 //#region 轮播图标题
 {
@@ -2451,10 +2461,10 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "标题",
         prop: "name",
     }
-    COLUMNS.recommend_name = {...objBase,width: 260}
-    D_ITEMS.recommend_name = {...objBase};
-    F_ITEMS.recommend_name = {...objBase,type:"input"};
-    F_ITEMS.recommend_search_name = {...objBase,type: "input_find_vague"};
+    COLUMNS.recommend_name = { ...objBase, width: 260 }
+    D_ITEMS.recommend_name = { ...objBase };
+    F_ITEMS.recommend_name = { ...objBase, type: "input" };
+    F_ITEMS.recommend_search_name = { ...objBase, type: "input_find_vague" };
 }
 //#region 轮播图链接页面
 {
@@ -2462,9 +2472,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "链接页面",
         prop: "link",
     }
-    COLUMNS.recommend_link = {...objBase,width: 250}
-    D_ITEMS.recommend_link = {...objBase};
-    F_ITEMS.recommend_link = {...objBase,type:"input"};
+    COLUMNS.recommend_link = { ...objBase, width: 250 }
+    D_ITEMS.recommend_link = { ...objBase };
+    F_ITEMS.recommend_link = { ...objBase, type: "input" };
 }
 //#region 轮播图创建时间
 {
@@ -2472,22 +2482,24 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "创建时间",
         prop: "CreateTime",
     }
-    COLUMNS.recommend_CreateTime = {...objBase,width: 160,
-        formatter: function(extend) {
-          return moment(extend.CreateTime).format('YYYY-MM-DD HH:mm');
-        }}
-    D_ITEMS.recommend_CreateTime = {...objBase};
-    F_ITEMS.recommend_CreateTime = {...objBase,type:"input"};
+    COLUMNS.recommend_CreateTime = {
+        ...objBase, width: 160,
+        formatter: function (extend) {
+            return moment(extend.CreateTime).format('YYYY-MM-DD HH:mm');
+        }
+    }
+    D_ITEMS.recommend_CreateTime = { ...objBase };
+    F_ITEMS.recommend_CreateTime = { ...objBase, type: "input" };
 }
 //#region 轮播图相册
 {
     let objBase = {
-        abel: "相册",
+        label: "相册",
         prop: "album",
     }
-    COLUMNS.recommend_album = {...objBase,width: 160}
-    D_ITEMS.recommend_album = {...objBase,slot: "slot_detail_item_album"};
-    F_ITEMS.recommend_album = {...objBase,type: "upload"};
+    COLUMNS.recommend_album = { ...objBase, width: 160 }
+    D_ITEMS.recommend_album = { ...objBase, slot: "slot_detail_item_album" };
+    F_ITEMS.recommend_album = { ...objBase, type: "upload" };
 }
 
 //#region 轮播图其他数据
@@ -2496,12 +2508,14 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "其他",
         prop: "extend",
     }
-    COLUMNS.recommend_extend = {...objBase,width: 200,
-        formatter: function(extend) {
-          return JSON.stringify(extend.extend);
-        }}
-    D_ITEMS.recommend_extend = {...objBase};
-    F_ITEMS.recommend_extend= {...objBase,type:"input"};
+    COLUMNS.recommend_extend = {
+        ...objBase, width: 200,
+        formatter: function (extend) {
+            return JSON.stringify(extend.extend);
+        }
+    }
+    D_ITEMS.recommend_extend = { ...objBase };
+    F_ITEMS.recommend_extend = { ...objBase, type: "input" };
 }
 //#region 消息id
 {
@@ -2509,9 +2523,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "Id",
         prop: "P1",
     }
-    COLUMNS.msg_P1 = {...objBase,width: 60}
-    D_ITEMS.msg_P1 = {...objBase};
-    F_ITEMS.msg_P1 = {...objBase,type:"input"};
+    COLUMNS.msg_P1 = { ...objBase, width: 60 }
+    D_ITEMS.msg_P1 = { ...objBase };
+    F_ITEMS.msg_P1 = { ...objBase, type: "input" };
 }
 //#region 消息标题
 {
@@ -2519,10 +2533,10 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "消息标题",
         prop: "name",
     }
-    COLUMNS.msg_name = {...objBase,width: 200}
-    D_ITEMS.msg_name = {...objBase};
-    F_ITEMS.msg_name = {...objBase,type:"input"};
-    F_ITEMS.msg_search_name = {...objBase,type: "input_find_vague"};
+    COLUMNS.msg_name = { ...objBase, width: 200 }
+    D_ITEMS.msg_name = { ...objBase };
+    F_ITEMS.msg_name = { ...objBase, type: "input" };
+    F_ITEMS.msg_search_name = { ...objBase, type: "input_find_vague" };
 }
 //#region 消息内容
 {
@@ -2530,9 +2544,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "消息内容",
         prop: "detail"
     }
-    COLUMNS.msg_detail = {...objBase,width: 60}
-    D_ITEMS.msg_detail = {...objBase};
-    F_ITEMS.msg_detail = {...objBase,type: "textarea"};
+    COLUMNS.msg_detail = { ...objBase, width: 60 }
+    D_ITEMS.msg_detail = { ...objBase };
+    F_ITEMS.msg_detail = { ...objBase, type: "textarea" };
 }
 //#region 消息范围
 {
@@ -2540,27 +2554,33 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "消息范围",
         prop: "range",
     }
-    COLUMNS.msg_range = {...objBase,width: 90,
+    COLUMNS.msg_range = {
+        ...objBase, width: 90,
         formatter: function (rowData) {
-          if (rowData.range == 1) {
-            return "全部会员";
-          } else if (rowData.range == 2)  {
-            return "指定会员";
-          }
-        }}
-    D_ITEMS.msg_range = {...objBase,formatter: function (rowData) {
-        if (rowData.range == 1) {
-          return "全部会员";
-        } else if (rowData.range == 2)  {
-          return "指定会员";
+            if (rowData.range == 1) {
+                return "全部会员";
+            } else if (rowData.range == 2) {
+                return "指定会员";
+            }
         }
-      }};
-    F_ITEMS.msg_range = {...objBase,type: "select",
-    default: 1,
-    options: [
-      { value: 1, label: "全部会员" },
-      { value: 2, label: "指定会员" }
-    ]};
+    }
+    D_ITEMS.msg_range = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.range == 1) {
+                return "全部会员";
+            } else if (rowData.range == 2) {
+                return "指定会员";
+            }
+        }
+    };
+    F_ITEMS.msg_range = {
+        ...objBase, type: "select",
+        default: 1,
+        options: [
+            { value: 1, label: "全部会员" },
+            { value: 2, label: "指定会员" }
+        ]
+    };
 }
 //#region 消息指定会员
 {
@@ -2568,25 +2588,29 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "指定会员",
         prop: "memberIdList",
     }
-    COLUMNS.msg_memberIdList = {...objBase,width: 200,
-        formatter:function(data){
-          if (data.member) { 
-            let nameList =[]
-            data.member.forEach(item=>{
-              if (item) {
-                if (item.name) {
-                  nameList.push(item.name)
-                }
-              }
-              
-            })
-            return nameList.join(" ")
-            // return data.member.length
-          }
-        }}
-    D_ITEMS.msg_memberIdList = {...objBase};
-    F_ITEMS.msg_memberIdList = {...objBase,type: "jsonEditor",
-    slot:"slot_form_item_memberIdList",term:{range:2},};
+    COLUMNS.msg_memberIdList = {
+        ...objBase, width: 200,
+        formatter: function (data) {
+            if (data.member) {
+                let nameList = []
+                data.member.forEach(item => {
+                    if (item) {
+                        if (item.name) {
+                            nameList.push(item.name)
+                        }
+                    }
+
+                })
+                return nameList.join(" ")
+                // return data.member.length
+            }
+        }
+    }
+    D_ITEMS.msg_memberIdList = { ...objBase };
+    F_ITEMS.msg_memberIdList = {
+        ...objBase, type: "jsonEditor",
+        slot: "slot_form_item_memberIdList", term: { range: 2 },
+    };
 }
 //#region 消息发布状态
 {
@@ -2594,27 +2618,33 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "发布状态",
         prop: "publish",
     }
-    COLUMNS.msg_publish = {...objBase,width: 90,
+    COLUMNS.msg_publish = {
+        ...objBase, width: 90,
         formatter: function (rowData) {
-          if (rowData.range == 0) {
-            return "不发布";
-          } else if (rowData.range == 1)  {
-            return "发布";
-          }
-        }}
-    D_ITEMS.msg_publish = {...objBase,formatter: function (rowData) {
-        if (rowData.range == 0) {
-          return "不发布";
-        } else if (rowData.range == 1)  {
-          return "发布";
+            if (rowData.range == 0) {
+                return "不发布";
+            } else if (rowData.range == 1) {
+                return "发布";
+            }
         }
-      }};
-    F_ITEMS.msg_publish = {...objBase,type: "select",
-    default: 1,
-    options: [
-      { value: 1, label: "发布" },
-      { value: 0, label: "不发布" }
-    ]};
+    }
+    D_ITEMS.msg_publish = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.range == 0) {
+                return "不发布";
+            } else if (rowData.range == 1) {
+                return "发布";
+            }
+        }
+    };
+    F_ITEMS.msg_publish = {
+        ...objBase, type: "select",
+        default: 1,
+        options: [
+            { value: 1, label: "发布" },
+            { value: 0, label: "不发布" }
+        ]
+    };
 }
 //#region 消息发布时间
 {
@@ -2622,12 +2652,14 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "发布时间",
         prop: "publishTime",
     }
-    COLUMNS.msg_publishTime = {...objBase,width: 160,
-        formatter: function(row) {
-          return moment(row.publishTime).format("YYYY-MM-DD HH:DD");
-        }}
-    D_ITEMS.msg_publishTime = {...objBase};
-    F_ITEMS.msg_publishTime = {...objBase,type: "dateTime"};
+    COLUMNS.msg_publishTime = {
+        ...objBase, width: 160,
+        formatter: function (row) {
+            return moment(row.publishTime).format("YYYY-MM-DD HH:DD");
+        }
+    }
+    D_ITEMS.msg_publishTime = { ...objBase };
+    F_ITEMS.msg_publishTime = { ...objBase, type: "dateTime" };
 }
 //#region 消息其他内容
 {
@@ -2635,9 +2667,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "其他内容",
         prop: "extend",
     }
-    COLUMNS.msg_extend = {...objBase,width: 60}
-    D_ITEMS.msg_extend = {...objBase};
-    F_ITEMS.msg_extend = {...objBase,type:"input"};
+    COLUMNS.msg_extend = { ...objBase, width: 60 }
+    D_ITEMS.msg_extend = { ...objBase };
+    F_ITEMS.msg_extend = { ...objBase, type: "input" };
 }
 //#region 消息其他内容
 {
@@ -2645,9 +2677,9 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
         label: "其他内容",
         prop: "extend",
     }
-    COLUMNS.msg_extend = {...objBase,width: 60}
-    D_ITEMS.msg_extend = {...objBase};
-    F_ITEMS.msg_extend = {...objBase,type:"input"};
+    COLUMNS.msg_extend = { ...objBase, width: 60 }
+    D_ITEMS.msg_extend = { ...objBase };
+    F_ITEMS.msg_extend = { ...objBase, type: "input" };
 }
 //#region 消息备注2
 {
@@ -2663,291 +2695,291 @@ COLUMNS.auditStatus = Object.assign({}, D_ITEMS.auditStatus, { width: 80 })
 }
 //#权限数据方法
 function getFormMenuGPower({ menuName = "XXX" }) {
-  
+
 
     return {
-      col_span: 4,
-      labelWidth: "10px",
-      formItems: [
-        {
-          label: "",
-          prop: "menuName",
-          default: menuName,
-          col_span: 4,
-          type: "text"
-        },
-        {
-          label: "",
-          prop: "add",
-          col_span: 3,
-          type: "checkbox",
-          default: false,
-          options: [{ value: "1", label: "添加" }]
-        },
-        {
-          label: "",
-          prop: "modify",
-          col_span: 3,
-          type: "checkbox",
-          default: false,
-          options: [{ value: "1", label: "修改" }]
-        },
-        {
-          label: "",
-          prop: "search",
-          col_span: 3,
-          type: "checkbox",
-          default: false,
-          options: [{ value: "1", label: "查询" }]
-        },
-        {
-          label: "",
-          prop: "delete",
-          col_span: 3,
-          type: "checkbox",
-          default: false,
-          options: [{ value: "1", label: "删除" }]
-        }
-      ]
+        col_span: 4,
+        labelWidth: "10px",
+        formItems: [
+            {
+                label: "",
+                prop: "menuName",
+                default: menuName,
+                col_span: 4,
+                type: "text"
+            },
+            {
+                label: "",
+                prop: "add",
+                col_span: 3,
+                type: "checkbox",
+                default: false,
+                options: [{ value: "1", label: "添加" }]
+            },
+            {
+                label: "",
+                prop: "modify",
+                col_span: 3,
+                type: "checkbox",
+                default: false,
+                options: [{ value: "1", label: "修改" }]
+            },
+            {
+                label: "",
+                prop: "search",
+                col_span: 3,
+                type: "checkbox",
+                default: false,
+                options: [{ value: "1", label: "查询" }]
+            },
+            {
+                label: "",
+                prop: "delete",
+                col_span: 3,
+                type: "checkbox",
+                default: false,
+                options: [{ value: "1", label: "删除" }]
+            }
+        ]
     };
-  }
+}
 
 let styleMenuPowerItem = `margin-bottom:10px;padding:0 5px`;
 let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
 //   权限角色名
-  F_ITEMS.role_name = {
+F_ITEMS.role_name = {
     label: "角色名",
     prop: "name",
     type: "input"
-  }
-  //   权限
-  F_ITEMS.role_power = {
+}
+//   权限
+F_ITEMS.role_power = {
     label: "权限",
 
     prop: "power",
     default: {},
     cfForm: {
-      labelWidth: "150px",
-      formItems: [
-        {
-          label: "赛事中心",
-          prop: "matchCenter",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                // label: "赛事列表",
-                prop: "list_match",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"赛事列表"})
-              },
-              {
-                // label: "成绩列表",
-                prop: "list_achievement",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"成绩列表"})
-              },
-              {
-                prop: "list_enroll",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"报名列表"})
-              },
-              {
-                prop: "list_rule",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"规则库"})
-              },
-              {
-                prop: "list_team",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"球队"})
-              },
-              {
-                prop: "list_group",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"对阵分组"})
-              }
-            ]
-          }
-        },
-        {
-          label: "球员信息库",
-          prop: "memberCenter",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                // label: "资讯列表",
-                prop: "list_member",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"球员"})
-              }
-            ]
-          }
-        },
-        {
-          label: "唐球场",
-          prop: "venue",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-            
-                prop: "list_venue",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"唐球场"})
-              },
-              {
-               
-                prop: "list_franchisee",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"加盟商"})
-              },
-              {
-     
-                prop: "list_area",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"地区管理"})
-              }
-            ]
-          }
-        },
-        {
-          label: "资讯中心",
-          prop: "newsCenter",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                // label: "资讯列表",
-                prop: "list_article",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"资讯列表"})
-              },
-              {
-                // label: "资讯分类",
-                prop: "list_article_category",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"资讯分类"})
-              },
-              {
-     
-                prop: "list_recommend",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"首页轮播图"})
-              },
-              {
-     
-                prop: "home_page_title",
-                style: styleMenuPowerItem,
+        labelWidth: "150px",
+        formItems: [
+            {
+                label: "赛事中心",
+                prop: "matchCenter",
+                style: styleMenuGPowerItem,
+                default: {},
                 cfForm: {
-                  col_span: 4,
-                  labelWidth: "10px",
-                  formItems: [
-                    {
-                      label: "",
-                      prop: "menuName",
-                      default: "首页推荐内容",
-                      col_span: 4,
-                      type: "text"
-                    },
-                    
-                    {
-                      label: "",
-                      prop: "search",
-                      col_span: 3,
-                      type: "checkbox",
-                      default: false,
-                      options: [{ value: "1", label: "操作" }]
-                    }
-                  ]
+                    col_span: 12,
+                    formItems: [
+                        {
+                            // label: "赛事列表",
+                            prop: "list_match",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "赛事列表" })
+                        },
+                        {
+                            // label: "成绩列表",
+                            prop: "list_achievement",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "成绩列表" })
+                        },
+                        {
+                            prop: "list_enroll",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "报名列表" })
+                        },
+                        {
+                            prop: "list_rule",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "规则库" })
+                        },
+                        {
+                            prop: "list_team",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "球队" })
+                        },
+                        {
+                            prop: "list_group",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "对阵分组" })
+                        }
+                    ]
                 }
-              }
-            ]
-          }
-        },
-        {
-          label: "招商管理",
-          prop: "sponsorCenter",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                prop: "list_sponsor",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"赞助商"})
-              },
-              {
-                prop: "list_sponsorship",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"赛事赞助"})
-              }
-            ]
-          }
-        },
-        {
-          label: "系统消息",
-          prop: "msgCenter",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                prop: "list_msg",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"消息列表"})
-              },
-              {
-                prop: "list_msg_read",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"消息已读记录"})
-              }
-            ]
-          }
-        },
-        {
-          label: "系统管理",
-          prop: "systemManage",
-          style: styleMenuGPowerItem,
-          default: {},
-          cfForm: {
-            col_span: 12,
-            formItems: [
-              {
-                prop: "list_admin",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"管理员"})
-              },
-              {
-                prop: "list_role",
-                style: styleMenuPowerItem,
-                cfForm: getFormMenuGPower({menuName:"角色"})
-              }
-            ]
-          }
-        }
-      ]
+            },
+            {
+                label: "球员信息库",
+                prop: "memberCenter",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+                            // label: "资讯列表",
+                            prop: "list_member",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "球员" })
+                        }
+                    ]
+                }
+            },
+            {
+                label: "唐球场",
+                prop: "venue",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+
+                            prop: "list_venue",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "唐球场" })
+                        },
+                        {
+
+                            prop: "list_franchisee",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "加盟商" })
+                        },
+                        {
+
+                            prop: "list_area",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "地区管理" })
+                        }
+                    ]
+                }
+            },
+            {
+                label: "资讯中心",
+                prop: "newsCenter",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+                            // label: "资讯列表",
+                            prop: "list_article",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "资讯列表" })
+                        },
+                        {
+                            // label: "资讯分类",
+                            prop: "list_article_category",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "资讯分类" })
+                        },
+                        {
+
+                            prop: "list_recommend",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "首页轮播图" })
+                        },
+                        {
+
+                            prop: "home_page_title",
+                            style: styleMenuPowerItem,
+                            cfForm: {
+                                col_span: 4,
+                                labelWidth: "10px",
+                                formItems: [
+                                    {
+                                        label: "",
+                                        prop: "menuName",
+                                        default: "首页推荐内容",
+                                        col_span: 4,
+                                        type: "text"
+                                    },
+
+                                    {
+                                        label: "",
+                                        prop: "search",
+                                        col_span: 3,
+                                        type: "checkbox",
+                                        default: false,
+                                        options: [{ value: "1", label: "操作" }]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                label: "招商管理",
+                prop: "sponsorCenter",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+                            prop: "list_sponsor",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "赞助商" })
+                        },
+                        {
+                            prop: "list_sponsorship",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "赛事赞助" })
+                        }
+                    ]
+                }
+            },
+            {
+                label: "系统消息",
+                prop: "msgCenter",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+                            prop: "list_msg",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "消息列表" })
+                        },
+                        {
+                            prop: "list_msg_read",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "消息已读记录" })
+                        }
+                    ]
+                }
+            },
+            {
+                label: "系统管理",
+                prop: "systemManage",
+                style: styleMenuGPowerItem,
+                default: {},
+                cfForm: {
+                    col_span: 12,
+                    formItems: [
+                        {
+                            prop: "list_admin",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "管理员" })
+                        },
+                        {
+                            prop: "list_role",
+                            style: styleMenuPowerItem,
+                            cfForm: getFormMenuGPower({ menuName: "角色" })
+                        }
+                    ]
+                }
+            }
+        ]
     }
-  }
-  D_ITEMS.roleName = {
+}
+D_ITEMS.roleName = {
     label: "角色名",
     prop: "name"
-  }
-  D_ITEMS.rolePower = {
+}
+D_ITEMS.rolePower = {
     label: "权限",
     prop: "power"
-  }
+}
 //#region 赛事报名表配置
 {
     let objBase = {
@@ -2959,11 +2991,11 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         width: 80,
         formatter: function (rowData) {
             if (rowData.memberName) {
-              return rowData.memberName.name;
+                return rowData.memberName.name;
             }
-          }
+        }
     };
-    D_ITEMS.macth_enrool_memberId = { ...objBase, width: 70,slot: "slot_detail_item_memberId" };
+    D_ITEMS.macth_enrool_memberId = { ...objBase, width: 70, slot: "slot_detail_item_memberId" };
     F_ITEMS.macth_enrool_memberId = { ...objBase, type: "input" };
 }
 //#region 赛事报名表赛事id
@@ -2972,12 +3004,12 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "赛事id",
         prop: "matchId",
     }
-    COLUMNS.macth_enrool_matchId= {
+    COLUMNS.macth_enrool_matchId = {
         ...objBase,
         width: 80,
     };
     D_ITEMS.macth_enrool_matchId = { ...objBase, slot: "slot_detail_item_matchId" };
-    F_ITEMS.macth_enrool_matchId= { ...objBase, type: "input" };
+    F_ITEMS.macth_enrool_matchId = { ...objBase, type: "input" };
 }
 //#region 赛事报名表队伍信息
 {
@@ -2985,13 +3017,13 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "球队名称",
         prop: "team",
     }
-    COLUMNS.macth_enrool_team= {
+    COLUMNS.macth_enrool_team = {
         label: "队长",
         prop: "orderId",
         slot: "slot_detail_item_teamName",
         width: 250
     };
-    D_ITEMS.macth_enrool_team = { ...objBase,  slot: 'slot_detail_item_groups'};
+    D_ITEMS.macth_enrool_team = { ...objBase, slot: 'slot_detail_item_groups' };
     F_ITEMS.macth_enrool_team = { ...objBase, type: "input" };
 }
 //#region 赛事报名表队伍信息
@@ -3000,17 +3032,17 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "队伍信息",
         prop: "orderId",
     }
-    COLUMNS.macth_enrool_groups_orderId= {
+    COLUMNS.macth_enrool_groups_orderId = {
         label: "队长",
         prop: "orderId",
         width: 130,
-      formatter: function (rowData) {
-        if (rowData.teamDoc) {
-          return rowData.teamDoc.member[0].name || "无"
+        formatter: function (rowData) {
+            if (rowData.teamDoc) {
+                return rowData.teamDoc.member[0].name || "无"
+            }
         }
-      }
     };
-    D_ITEMS.macth_enrool_groups_orderId = { ...objBase,  slot: 'slot_detail_item_groups'};
+    D_ITEMS.macth_enrool_groups_orderId = { ...objBase, slot: 'slot_detail_item_groups' };
     F_ITEMS.macth_enrool_groups_orderId = { ...objBase, type: "input" };
 }
 //#region 赛事报名表手机号
@@ -3019,14 +3051,14 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "手机号",
         prop: "phone",
     }
-    COLUMNS.macth_enrool_phone= {
+    COLUMNS.macth_enrool_phone = {
         ...objBase,
         width: 130,
-      formatter: function (rowData) {
-        if (rowData.memberName) {
-          return rowData.memberName.phone
+        formatter: function (rowData) {
+            if (rowData.memberName) {
+                return rowData.memberName.phone
+            }
         }
-      }
     };
     D_ITEMS.macth_enrool_phone = { ...objBase, width: 70, };
     F_ITEMS.macth_enrool_phone = { ...objBase, type: "input" };
@@ -3037,26 +3069,28 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "性别",
         prop: "sex",
     }
-    COLUMNS.macth_enrool_sex= {
+    COLUMNS.macth_enrool_sex = {
         ...objBase,
         width: 65,
-      formatter: function (rowData) {
-        if (rowData.memberName) {
-          if (rowData.memberName.sex == 1) {
-            return "男";
-          } else {
-            return "女";
-          }
+        formatter: function (rowData) {
+            if (rowData.memberName) {
+                if (rowData.memberName.sex == 1) {
+                    return "男";
+                } else {
+                    return "女";
+                }
+            }
         }
-      }
     };
-    D_ITEMS.macth_enrool_sex = { ...objBase, width: 70,formatter: function (rowData) {
-        if (rowData.sex == 1) {
-          return "男";
-        } else {
-          return "女";
+    D_ITEMS.macth_enrool_sex = {
+        ...objBase, width: 70, formatter: function (rowData) {
+            if (rowData.sex == 1) {
+                return "男";
+            } else {
+                return "女";
+            }
         }
-      } };
+    };
     F_ITEMS.macth_enrool_sex = { ...objBase, type: "input" };
 }
 //#region 赛事报名表年龄
@@ -3065,14 +3099,14 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "年龄",
         prop: "age",
     }
-    COLUMNS.macth_enrool_age= {
+    COLUMNS.macth_enrool_age = {
         ...objBase,
         width: 65,
-      formatter: function (rowData) {
-        if (rowData.memberName) {
-          return rowData.memberName.age
+        formatter: function (rowData) {
+            if (rowData.memberName) {
+                return rowData.memberName.age
+            }
         }
-      }
     };
     D_ITEMS.macth_enrool_age = { ...objBase, width: 70, };
     F_ITEMS.macth_enrool_age = { ...objBase, type: "input" };
@@ -3083,11 +3117,11 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "职业",
         prop: "career",
     }
-    COLUMNS.macth_enrool_career= {
+    COLUMNS.macth_enrool_career = {
         ...objBase,
         width: 65
     };
-    D_ITEMS.macth_enrool_career = { ...objBase};
+    D_ITEMS.macth_enrool_career = { ...objBase };
     F_ITEMS.macth_enrool_career = { ...objBase, type: "input" };
 }
 //#region 赛事报名表球龄
@@ -3096,23 +3130,25 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "球龄",
         prop: "ballAge",
     }
-    COLUMNS.macth_enrool_ballAge= {
+    COLUMNS.macth_enrool_ballAge = {
         ...objBase,
         width: 65
     };
-    D_ITEMS.macth_enrool_ballAge = { ...objBase,formatter: function (rowData) {
-        if (rowData.ballAge == 1) {
-          return "一年以下";
-        } else if (rowData.ballAge == 2) {
-          return "一到三年";
-        } else if (rowData.ballAge == 3) {
-          return "三到五年";
-        } else if (rowData.ballAge == 4) {
-          return "五到十年";
-        } else {
-          return "十年以上";
+    D_ITEMS.macth_enrool_ballAge = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.ballAge == 1) {
+                return "一年以下";
+            } else if (rowData.ballAge == 2) {
+                return "一到三年";
+            } else if (rowData.ballAge == 3) {
+                return "三到五年";
+            } else if (rowData.ballAge == 4) {
+                return "五到十年";
+            } else {
+                return "十年以上";
+            }
         }
-      }};
+    };
     F_ITEMS.macth_enrool_ballAge = { ...objBase, type: "input" };
 }
 //#region 赛事报名表身份证号
@@ -3121,25 +3157,25 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         label: "身份证号",
         prop: "idCard"
     }
-    COLUMNS.macth_enrool_idCard= {
+    COLUMNS.macth_enrool_idCard = {
         ...objBase,
         width: 65
     };
-    D_ITEMS.macth_enrool_idCard = { ...objBase};
+    D_ITEMS.macth_enrool_idCard = { ...objBase };
     F_ITEMS.macth_enrool_idCard = { ...objBase, type: "input" };
 }
 //#region 赛事报名表报名时间
 {
     let objBase = {
         label: "报名时间",
-         prop: "time",
+        prop: "time",
     }
     COLUMNS.macth_enrool_time = {
         ...objBase,
         width: 180,
-      formatter: function (rowData) {
-        return moment(rowData.time).format("YYYY-MM-DD HH:mm");
-      }
+        formatter: function (rowData) {
+            return moment(rowData.time).format("YYYY-MM-DD HH:mm");
+        }
     };
     D_ITEMS.macth_enrool_time = { ...objBase, width: 70, };
     F_ITEMS.macth_enrool_time = { ...objBase, type: "input" };
@@ -3166,20 +3202,22 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
         ...objBase,
         width: 120,
         formatter: function (rowData) {
-          if (rowData.payStatus == 2) {
-            return "已支付";
-          } else {
-            return "未支付";
-          }
+            if (rowData.payStatus == 2) {
+                return "已支付";
+            } else {
+                return "未支付";
+            }
         }
     };
-    D_ITEMS.macth_enrool_payStatus = { ...objBase, formatter: function (rowData) {
-        if (rowData.payStatus == 2) {
-          return "已支付";
-        } else {
-          return "未支付";
+    D_ITEMS.macth_enrool_payStatus = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.payStatus == 2) {
+                return "已支付";
+            } else {
+                return "未支付";
+            }
         }
-      } };
+    };
     F_ITEMS.macth_enrool_payStatus = { ...objBase, type: "input" };
 }
 //#region 赛事报名表审核状态
@@ -3191,25 +3229,27 @@ let styleMenuGPowerItem = `margin-bottom:0;border:none;padding:0`;
     COLUMNS.macth_enrool_auditStatus = {
         ...objBase,
         "min-width": "100",
-      formatter: function (rowData) {
-        if (rowData.auditStatus == 1) {
-          return "未审核";
-        } else if (rowData.auditStatus == 2) {
-          return "审核不通过";
-        } else {
-          return "审核通过";
+        formatter: function (rowData) {
+            if (rowData.auditStatus == 1) {
+                return "未审核";
+            } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+            } else {
+                return "审核通过";
+            }
         }
-      }
     };
-    D_ITEMS.macth_enrool_auditStatus = { ...objBase, formatter: function (rowData) {
-        if (rowData.auditStatus == 1) {
-          return "未审核";
-        } else if (rowData.auditStatus == 2) {
-          return "审核不通过";
-        } else {
-          return "审核通过";
+    D_ITEMS.macth_enrool_auditStatus = {
+        ...objBase, formatter: function (rowData) {
+            if (rowData.auditStatus == 1) {
+                return "未审核";
+            } else if (rowData.auditStatus == 2) {
+                return "审核不通过";
+            } else {
+                return "审核通过";
+            }
         }
-      } };
+    };
     F_ITEMS.macth_enrool_auditStatus = { ...objBase, type: "input" };
 }
 
