@@ -5,7 +5,7 @@
     </div>
     <div class="rules-box">
       <div v-if="showPhoneError">手机号格式不正确,请重新输入</div>
-      <div v-if="showPhoneExist">该手机号球员已经属于其他加盟商,无法录入</div>
+      <div v-if="showPhoneExist">改手机号已经隶属于某个加盟商，无法再录入</div>
     </div>
     <el-dialog
       title="修改球员信息"
@@ -145,7 +145,7 @@ export default {
   display: flex;
 }
 .input-box {
-  flex: 0 0 15s%;
+  flex: 0 0 15%;
 }
 .rules-box {
   flex: 0 0 50%;
