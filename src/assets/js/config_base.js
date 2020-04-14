@@ -1,6 +1,6 @@
 
 window.PUB = {}
-  //PUB.domain = "http://localhost:3000"
+ // PUB.domain = "http://localhost:3000"
 //PUB.domain = 'http://test.dmagic.cn'
 //PUB.domain="http://e6234kn.hn3.mofasuidao.cn"//魔法隧道地址
  PUB.domain = "https://www.dmagic.cn"

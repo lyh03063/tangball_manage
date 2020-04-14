@@ -1,6 +1,7 @@
 // import Vue from 'vue'
 Vue.config.productionTip = false
 // import lodash from 'lodash'//导入lodash方法库
+import "@/components/registComponents.js";//引入注册全局组件
 window.lodash = lodash
 Vue.prototype.$lodash = lodash//让vue实例中可访问$store
 import axios from "axios";

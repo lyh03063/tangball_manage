@@ -1497,7 +1497,7 @@ F_ITEMS.albumVenue = {
     D_ITEMS.acticle_category_name = {
         ...objBase,
     };
-    COLUMNS.acticle_category_name = { ...objBase, width: 120 };
+    COLUMNS.acticle_category_name = { ...objBase, width: 70 };
     F_ITEMS.acticle_category_name = { ...objBase, type: "input" };
 }
 //#region 文章分类说明
@@ -1550,7 +1550,7 @@ F_ITEMS.albumVenue = {
         ...objBase, slot: 'slot_detail_item_articleCategory'
     };
     COLUMNS.acticle_articleCategory = {
-        ...objBase, width: 120,
+        ...objBase, width: 70,
         formatter: function (rowData) {
             let name = lodash.get(rowData, "categoryDoc.name");
             return name;
@@ -1565,6 +1565,18 @@ F_ITEMS.albumVenue = {
         }
     };
 }
+
+//#region 是否置顶
+{
+    let prop = "topSort", objBase = { label: "置顶", prop, }
+    D_ITEMS[prop] = { ...objBase, };
+    COLUMNS[prop] = { ...objBase, width: 90,component: "com_column_topSort", };
+    F_ITEMS[prop] = { ...objBase, type: "number" };
+    // F_ITEMS[`${prop}_search`] = { ...objBase, type: "input_find_vague" };
+}
+//#endregion
+
+
 
 //#region 资讯所属加盟商
 {
@@ -1613,7 +1625,7 @@ F_ITEMS.albumVenue = {
 //#region 资讯是否显示在首页
 {
     let objBase = {
-        label: "显示到首页",
+        label: "首页显示",
         prop: "recommend",
     }
     D_ITEMS.acticle_recommend = {
@@ -1623,7 +1635,7 @@ F_ITEMS.albumVenue = {
         }
     };
     COLUMNS.acticle_recommend = {
-        ...objBase, width: 110,
+        ...objBase, width: 80,
         formatter: function (rowData) {
             return rowData.recommend == 1 ? '是' : '否'
         }
