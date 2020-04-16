@@ -1979,6 +1979,10 @@ F_ITEMS.albumVenue = {
             keyValue: "P1"
         }
     };
+
+    F_ITEMS.franchisee_companyName = {
+        ...objBase
+    };
 }
 //#region 加盟商球场数
 {

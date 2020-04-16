@@ -28,7 +28,7 @@ let obj =  {
     ],
     //-------新增、修改表单字段数组-------
     formItems: [
-      "franchisee_name","franchisee_password","franchisee_joinTime","franchisee_remark"]
+      "franchisee_companyName","franchisee_password","franchisee_joinTime","franchisee_remark"]
 
   }
 util.reformCFListItem(obj)
